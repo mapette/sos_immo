@@ -1,0 +1,123 @@
+/* général */
+.centrer {
+  text-align: center;
+}
+
+.bt-exit
+{
+  float :right;
+  margin-left: 500px; /*ça va dépendre de la taille de l'écran*/
+  }
+
+.arr-img{
+  border-radius: 16px;
+ }
+
+.cadre-15{
+  margin: 15px;
+}
+.cadre-3{
+  margin: 3px;
+}
+.sans-marge{
+  margin: 0px;
+}
+.gras{
+  font-weight: bold;
+}
+
+.decal{
+  margin-left: 100px
+}
+
+.fontsize-12{
+  font-size: 12px;
+}
+.fontsize-20{
+  font-size: 20px;
+}
+
+.smenu{
+  height: 65px;
+}
+
+.menu{
+  height: 100px;
+  width: 200px;
+}
+
+.margin-top-15{
+  margin-top: 15px;
+}
+
+.gauche{
+  text-align: left;
+}
+.droite{
+  text-align: right;
+}
+
+.largeur-50{
+  width: 50px;
+}
+.largeur-200{
+  width: 200px;
+}
+.largeur-110{
+  width: 110px;
+}
+
+.en-ligne {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+}
+
+.App-header {
+  background-color: #7f4d80;
+  min-height: 10vh;   
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.titre{
+  color: rgb(44, 102, 209);
+  border: 2px solid rgb(44, 102, 209);
+  padding: 0px;
+  border-radius: 60px;
+}
+
+.rouge{
+  color: red;
+}
+
+.alerteRouge{
+  font-size:xx-large;
+  margin: 15px;
+  color: red;
+}
+.alerteSimple{
+  font-weight: bold;
+  font-size:medium;
+}
+
+label{
+   margin-right: 5px;
+  }
+
+/* bandeau */
+.ut-titre{
+  color: darkkhaki;
+}
+.ut-id{
+  color: #61dafb;
+  color: #53cf6b;
+}
+
+/* bouton retour */
+.bouton-retour{
+  margin-right: 75px;
+}
+/* gestion utilisateur  font-size :larger*/
