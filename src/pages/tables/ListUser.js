@@ -4,7 +4,7 @@ const lib = require('./../../lib/lib_divers')
 function ListUser(props) {
 
   return (
-    <div className="container sans-marge">
+    <div className="container no-gutter">
       <table className="table row cadre-15" key='titre'>
         <thead>
           <tr>

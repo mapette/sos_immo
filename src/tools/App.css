@@ -19,8 +19,11 @@
 .cadre-3{
   margin: 3px;
 }
-.sans-marge{
+.no-gutter{
   margin: 0px;
+}
+.no-padding{
+  padding: 0px;
 }
 .gras{
   font-weight: bold;
@@ -93,6 +96,10 @@
   color: red;
 }
 
+.vert{
+  color: green;
+}
+
 .alerteRouge{
   font-size:xx-large;
   margin: 15px;
@@ -120,4 +127,40 @@ label{
 .bouton-retour{
   margin-right: 75px;
 }
-/* gestion utilisateur  font-size :larger*/
+
+/* incidents*/
+.fiche-commun{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: smaller;
+  border: 2px solid rebeccapurple;
+  padding: 15px;
+  margin: 5px;
+  text-align: center;
+}
+.postItInc {
+  border-radius: 12px;
+  width: 180px;
+  height: 145px;
+}
+.detailsInc {
+  vertical-align: top;
+  border-radius: 12px;
+  width: 300px;
+  height: 250px;
+}
+.hauteur-fiche-en-attente{
+  height: 2700px;
+}
+.hauteur-fiche-en-cours{
+  height: 320px;
+}
+.enAttente{
+  background-color: #61dafb;
+}
+.enCours{
+  background-color: greenyellow;
+}
+.termine{
+  background-color: orange;
+}
+

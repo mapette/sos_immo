@@ -8,7 +8,7 @@ app.use(express.json())
 const session = require('express-session')
 app.use(session({
     secret: 'keyboard cat',
-    cookie: { maxAge: 6000000 } // 100 minutes
+    cookie: { maxAge: 60000000 } // 1000 minutes
     // cookie: { maxAge: 3000 } // 3 secondes
 }))
 
@@ -21,43 +21,15 @@ app.use(cors({
 
 const db = require('./src/db_manager')
 const lib = require('./src/lib_serveur')
+//const msg = require('../src/message')
 
 const port = 3001
 app.listen(port)
 
-////// en attente de librairie //////
-
 const MD5 = require('sha1')
-const uuid = require('uuidv4');
-
-function genUuid() {
-    return uuid.uuid()
-}
-function genMdp() {
-    let mdp = ''
-    let longMdp = 8
-    /* charAlpha : chaîne de caractères alphanumérique */
-    let charAlpha = 'abcdefghijknopqrstuvwxyzAcDEFGHJKLMNPQRSTUVWXYZ12345679'
-    /* charSpe : chaîne de caractères spéciaux */
-    let charSpe = '!@#$+-*&_'
-    /* posCharSpe : position du caractère spécial dans le mdp */
-    let posCharSpe = Math.floor(Math.random() * (longMdp - 1))
-    for (var i = 0; i < longMdp; ++i) {
-        if (posCharSpe == i) {
-            /* on insère à la position donnée un caractère spécial aléatoire */
-            mdp += charSpe.charAt(Math.floor(Math.random() * charSpe.length));
-        } else {
-            /* on insère un caractère alphanumérique aléatoire */
-            mdp += charAlpha.charAt(Math.floor(Math.random() * charAlpha.length));
-        }
-    }
-    return mdp;
-}
-
 
 //////      api     //////
 app.get('/get_accueil', (request, response) => {
-    console.log('cookie accueil', request.session)
     if (request.session.uuid !== undefined) {
         console.log('cookie', request.session.ut)
         db.getUserNameByUuid(request.session.uuid, (error, results) => {
@@ -68,6 +40,10 @@ app.get('/get_accueil', (request, response) => {
             // db.traitementApReq(results, response)        // réponse déjà envoyée
         })
     }
+})
+app.get('/get_userBySession', (request, response) => {
+    console.log(request.session.ut)
+    response.send({ id: request.session.ut })
 })
 
 app.post('/loggin', (request, response) => {
@@ -82,6 +58,24 @@ app.post('/loggin', (request, response) => {
     })
 })
 
+app.post('/change_mdp', (request, response) => {
+    let data = {
+        ut_id: request.session.ut,
+        ut_mdp: request.body.mdp,
+        ut_newmdp: request.body.newmdp
+    }
+    db.userLogin(data, (error, results) => {
+        if (results[0] === undefined) {     // devrait pas arriver
+            response.send({ status: false })
+        }
+        else {
+            db.change_mdp(data, (error, results) => {
+                response.send({ status: true })
+            })
+        }
+        //  db.traitementApReq(results, response)    // réponse déjà envoyée
+    })
+})
 // app.get('/exit', (req, res) => {
 //     console.log('je sors')
 //     res.redirect('get_accueil')
@@ -91,27 +85,26 @@ app.post('/loggin', (request, response) => {
 app.post('/crea_user', (request, response) => {
     console.log('cookie av création ', request.session)
     if (request.session.isId == true & request.session.profil == 0) {
-        let mdp = genMdp()
+        let mdp = lib.genMdp()
         console.log('mot de passe à changer à la prochaine connexion => ', mdp)
-        let paramReq = {
-            uuid: genUuid(),
+        let data = {
+            uuid: lib.genUuid(),
             username: request.body.username, nom: request.body.nom, prenom: request.body.prenom,
             tel: request.body.tel, mail: request.body.mail,
             presta: request.body.presta,
             mdp: MD5(request.body.username + mdp),
             adm: request.session.ut,
         }
-        db.creationUtilisateur(paramReq, (error, results) => {
-            console.log('results', results)
-            response.send(results)
+        db.creationUtilisateur(data, (error, results) => {
+            // response.send(results)
         })
-        paramReq = {
-            uuid: genUuid(),
+        data = {
+            uuid: lib.genUuid(),
             username: request.body.username,
             profil: request.body.profil,
         }
-        db.creationHabilitation(paramReq, (error, results) => {
-            //  console.log(results)
+        db.creationHabilitation(data, (error, results) => {
+            // response.send(results) - ici, reponse = plantage du serveur !
         })
     }
 })
@@ -132,126 +125,110 @@ app.get('/get_users', (request, response) => {
     }
 })
 
-//////////// incidents ////////////
-app.get('/get_empl', (request, response) => {
+//////////// incidents usagers ////////////
+app.get('/get_emp', (request, response) => {
     if (request.session.isId == true) {
-        db.getEmplList((error, results) => {
+        db.getEmpList((error, results) => {
             response.send(results)
         })
     }
 })
 
-/*
-app.get('/get_products', (request, response) => {
-    db.dbGetItems((error, results, fields) => {
-        response.send(results)
-    })
-})
-
-//// données clients - alimentés par les cookies paniers
-//// remis à zéro quand le panier est validé 
-//// cookie généré depuis le front avec la valeur 'panierVide'
-let paniers = {}
-
-app.post('/new_product', (request, response) => {
-    db.new_product(request.body, (error, results) => {
-        response.send(results)
-    })
-})
-
-app.get('/validPanier', (request, response) => {
-    // maj stocks
-    let userId = request.cookies.userId
-    console.log(paniers[userId])
-    let panier = paniers[userId]['panier']
-    db.validBasket(panier, (error, results) => {
-        console.log('fait')
-    })
-    // réinit du panier
-    paniers[userId]['panier'] = []
-    paniers[userId]['amount'] = 0
-})
-
-app.get('/cptPanier/:prix/:id', (request, response) => {
-    let userId = request.cookies.userId
-    let productId = request.params.id
-    let prix = request.params.prix
-    paniers[userId].panier.push(productId)
-    paniers[userId].amount = parseFloat(paniers[userId].amount) + parseFloat(prix)
-    console.log(paniers)
-    console.log(paniers[userId].panier.length, ' articles')
-})
-
-app.get('/get_panier', (request, response) => {
-    if (typeof request.cookies.userId === 'undefined') {
-        userId = Math.floor(Math.random() * 1000)
-        response.cookie('userId', userId, { maxAge: 20000000000, htppOnly: true })
-        paniers[userId] = {
-            'panier': [],
-            'amount': 0.0,     //calculable mais plus pratique ici
-        }
+app.get('/get_incByUser', (request, response) => {
+    if (request.session.isId == true) {
+        db.getIncListByUser(request.session.ut, (error, results) => {
+            response.send(results)
+        })
     }
-    console.log(paniers)
-    results = [{
-        'nb': paniers[userId].panier.length,
-        'amount': paniers[userId].amount,
-    }]
-    console.log('results : ', results)
-    response.send(results)
 })
 
-app.get('/get_products', (request, response) => {
-    db.dbGetItems((error, results, fields) => {
-        response.send(results)
+app.post('/crea_signalement', (request, response) => {
+    let data = {        // toutes les données nécessaires à toutes les req
+        id_presta: request.body.inc,
+        infoUsager: request.body.info,
+        emp: request.body.emp,
+        tinc: request.body.inc,
+        ut: request.session.uuid,
+    }
+    // coordonnées de l'usager
+    db.getUserNameByUuid(request.session.uuid, (error, results) => {
+        data.coordonneesUsager = results[0].ut_prenom +
+            ' ' + results[0].ut_nom +
+            ' (tél ' + results[0].ut_tel + ')'
+
+        // nom du presta
+        db.getPrestaLibelleByTinc(data.id_presta, (error, results) => {
+            data.presta = results[0].presta_nom
+        })
+        if (request.session.isId == true) {
+            // création incident
+            db.creationSignalement(data, (error, results) => {
+                data.jrn_inc = results.insertId
+                data.jrn_conf = false
+                
+                // jrn 1 - création signalement
+                data.jrn_msg = 'signalement ' + data.coordonneesUsager
+                db.ligneJournal(data, (error, results) => {
+                    //  response.send({ status: true })
+                })
+                // jrn 2 - info usager - le cas échéant
+                if (data.infoUsager !== '') {
+                    data.jrn_msg = data.infoUsager
+                    db.ligneJournal(data, (error, results) => {
+                        //  response.send({ status: true })
+                    })
+                }
+                // jrn 3 - attribution presta
+                data.jrn_msg = 'attribution ' + data.presta
+                data.jrn_conf = true
+                db.ligneJournal(data, (error, results) => {
+                    //  response.send({ status: true })
+                })
+                response.send({ status: true })
+            })
+
+        }
     })
 })
 
-app.get('/get_details/:productId', (request, response) => {
-    db.dbGetDetails(request.params.productId, (error, results, fields) => {
-        response.send(results[0])
-    })
+//////////// incidents presta ////////////
+app.get('/get_incByPresta', (request, response) => {
+    if (request.session.isId == true &&
+        (request.session.profil == 2 | request.session.profil == 3 | request.session.profil == 4)) {
+        db.getIncListByPresta(request.session.uuid, (error, results) => {
+            response.send(results)
+        })
+    }
 })
 
-app.post('/maj_product', (request, response) => {
-    db.dbUpdateProduct(request.body, (error, results) => {
-        response.send(results)
-    })
+app.get('/charge:id', (request, response) => {
+    console.log('cookie', request.session)
+    let data = {
+        inc_id: request.params.id,
+        ut_uuid: request.session.uuid,
+    }
+    if (request.session.isId == true &&
+        (request.session.profil == 2 | request.session.profil == 3 | request.session.profil == 4)) {
+        db.affectation(data, (error, results) => {
+            response.send({ status: true })
+        })
+    }
 })
 
-app.post('/del_product', (request, response) => {
-    db.delProduct(request.body, (error, results) => {
-        response.send(results)
-    })
+app.post('/update_comm_presta', (request, response) => {
+    if (request.session.isId == true &&
+        (request.session.profil == 2 | request.session.profil == 3 | request.session.profil == 4)) {
+        let data = {
+            id: request.body.id,
+            comm: request.body.comm,
+        }
+        db.update_comm_presta(data, (error, results) => {
+            response.send({ status: true })
+        })
+    }
 })
 
- //test cookies
-*/app.get('/get_products', (request, response) => {
-    // db.dbGetItems((error, results, fields) => {
-    //     response.send(results)
-    // })
-    response.cookie(
-        'cookie_sophie',
-        'mon cookie',
-        { maxAge: 10000, htppOnly: true }
-    )
-    response.cookie(
-        'autre_cookie',
-        'mon autre cookie',
-        { maxAge: 10000, htppOnly: true }
-    )
-})
 /*
-app.get('/cookie', (request, response) => {
-    console.log(request.cookies['cookie_sophie'])
-    console.log(request.cookies.autre_cookie)
-    response.send(`
-    test cookies
-    </br>
-    ${request.cookies.cookie_sophie}
-    </br>
-    ${request.cookies.autre_cookie}
-    `)
-})
 
 */
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import './../tools/App.css';
+import Bouton from './../tools/Bouton'
 
 function Accueil(props) {
   return (
@@ -33,10 +34,15 @@ function Accueil(props) {
       {props.varGlob.ecran !== 'accueil' &&
         <div>
           <div className='bt-exit'>
-          <a href='' className='cadre-3'>
-              <img className='arr-img' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLhebUSApSBT0k2djGywo6tA9kUhheCR0kew&usqp=CAU"
-                width="70" height="70"></img>
-            </a>
+            <button type="image"
+              className='cadre-3'
+              onClick={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'changemdp'
+              })} ><img className='arr-img' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLhebUSApSBT0k2djGywo6tA9kUhheCR0kew&usqp=CAU"
+                width="70" height="70" />
+            </button>
+
             <a href='' className='cadre-3'>
               <img className='arr-img' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6RcYRF_8ZcI6b0C9GqsR4AkzKsnSfdN1Jfg&usqp=CAU"
                 width="70" height="70"></img>

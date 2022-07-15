@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 //import './../App.css';
-import Bouton from './../tools/Bouton'
+import BoutonSubmit from './../tools/BoutonSubmit'
 import Alerte from './../tools/Alerte'
+
 const MD5 = require('sha1')
+const lib = require('./../lib/lib_divers')
 
 function Accueil(props) {
   let [warning, setWarning] = useState(false)
@@ -13,55 +15,13 @@ function Accueil(props) {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     })
-      .then(response => {    // résultat brut
-        console.log('response1', response)
-        return response.json()  // récupère que les données résultat
-      })
+      .then(response => response.json())
       .then(response => {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
         document.getElementById('id').value = response.id['ut_id']
       })
   }, [])
-
-  function determineProfil(respProfil) {
-    if (respProfil === 0) {
-      return {
-        profil: 'administrateur',
-        ecran: 'gestionUtilisateurs'
-      }
-    }
-    else if (respProfil === 1) {
-      return {
-        profil: 'usager',
-        ecran: 'gestionUtilisateurs'
-      }
-    }
-    else if (respProfil === 2) {
-      return {
-        profil: 'technicien',
-        ecran: 'gestionUtilisateurs',
-      }
-    }
-    else if (respProfil === 3) {
-      return {
-        profil: 'valideur',
-        ecran: 'gestionUtilisateurs',
-      }
-    }
-    else if (respProfil === 4) {
-      return {
-        profil: 'imm',
-        ecran: 'gestionUtilisateurs',
-      }
-    }
-    else {
-      return {
-        profil: 'profil plus que surprenant !',
-        ecran: 'gestionUtilisateurs',
-      }
-    }
-  }
-
+  
   function sub_form(event) {
     event.preventDefault()
     let data = {
@@ -87,7 +47,7 @@ function Accueil(props) {
           console.log('rien')
         }
         else {
-          let profil = determineProfil(response[0].hab_profil)
+          let profil = lib.determineProfil(response[0].hab_profil)
           props.setVarGlob({
             ...props.varGlob,
             nom: response[0].ut_prenom + ' ' + response[0].ut_nom,
@@ -119,25 +79,25 @@ function Accueil(props) {
           </div>
         </div>
         <div className='cadre-15 decal'>
-          <Bouton
+          <BoutonSubmit
             txt={'Validation'}
-            typeBt={'submit'}
+
             couleur={'gris'}
           />
         </div>
         <div className='cadre-15'>
           {warning &&
-                  <Alerte
-                  msg={'identifiant ou mot de passe erroné'}
-                  niveau={'alerteSimple'}
-                />
-        
+            <Alerte
+              msg={'identifiant ou mot de passe erroné'}
+              niveau={'alerteSimple'}
+            />
+
           }
         </div>
       </form>
       <a href=''>mot de passe oublié</a>
     </div>
   );
-} 
+}
 
 export default Accueil;

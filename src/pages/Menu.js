@@ -29,21 +29,26 @@ function Menu(props) {
             ...props.varGlob,
             ecran: 'newInc'
           })}
-          couleur={'menu-vert'}
+          couleur={'vert'}
+          menu={'menu'}
         />
-         <Bouton
+        <Bouton
           txt={'mes demandes'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'menu'
+            profil_ecran: 'usager',
+            ecran: 'demandes',
+
           })}
-          couleur={'menu-vert'}
+          couleur={'vert'}
+          menu={'menu'}
         />
         {props.varGlob.profil === 'administrateur' &&
           <Bouton
             txt={'gestion tables'}
             actionToDo={() => setSMenu('tables')}
-            couleur={'menu-bleu'}
+            couleur={'bleu'}
+            menu={'menu'}
           />
         }
         {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' || props.varGlob.profil === 'imm') &&
@@ -52,9 +57,12 @@ function Menu(props) {
               txt={'suivi incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu'
+                profil_ecran: 'techno',
+                ecran: 'demandes',
+
               })}
-              couleur={'menu-orange'}
+              couleur={'orange'}
+              menu={'menu'}
             />
           </span>
         }
@@ -64,9 +72,10 @@ function Menu(props) {
               txt={'KPI'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu'
+                ecran: 'menu',
               })}
-              couleur={'menu-rouge'}
+              couleur={'rouge'}
+              menu={'menu'}
             />
           </span>
         }
@@ -80,7 +89,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'gestionUtilisateurs'
               })}
-              couleur={'smenu-orange'}
+              couleur={'orange'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'habilitations'}
@@ -88,7 +98,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-orange'}
+              couleur={'orange'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'presta'}
@@ -96,7 +107,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-orange'}
+              couleur={'orange'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'emplacements'}
@@ -104,7 +116,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-bleu'}
+              couleur={'bleu'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'type d\'emplacement'}
@@ -112,7 +125,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-bleu'}
+              couleur={'bleu'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'mapping incident/presta'}
@@ -120,7 +134,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-bleu'}
+              couleur={'bleu'}
+              menu={'smenu'}
             />
             <Bouton
               txt={'types d\'incidents'}
@@ -128,7 +143,8 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'menu'
               })}
-              couleur={'smenu-bleu'}
+              couleur={'bleu'}
+              menu={'smenu'}
             />
           </div>
         </div>

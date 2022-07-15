@@ -1,9 +1,9 @@
 //import './../App.css';
 
-function Alerte(props) {
+function Alerte(props) {  //alerteRouge, alerteSimple
 
   return (
-    <div className={props.niveau}>
+    <div className={props.niveau}>  
       <p>
         {props.msg}
       </p>

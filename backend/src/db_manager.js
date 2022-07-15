@@ -21,12 +21,13 @@ function traitementApReq(results, response) {
     response.json(results)
 }
 
-
 ////// requêtes //////
 function userLogin(reqBody, nomBidon) {
     let params = [reqBody.ut_id, reqBody.ut_mdp]
     let connection = connectToMySQL()
-    let query = `SELECT ut_nom, ut_prenom, ut_id, hab_profil, ut_uuid, hab_uuid, ut_mdp_exp 
+    let query = `SELECT ut_nom, ut_prenom, 
+                    ut_id, hab_profil, ut_uuid, 
+                    hab_uuid, ut_mdp_exp 
      FROM habilitations, utilisateurs
               where ut_id = ? and ut_mdp = ?
               and hab_ut = ut_uuid`
@@ -34,21 +35,21 @@ function userLogin(reqBody, nomBidon) {
     connection.end();
 }
 
-function getUserNameByUuid(ut_uuid, nomBidon) {
-    let params = [ut_uuid]
+
+function change_mdp(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    let query = `SELECT ut_id  FROM utilisateurs
-                    where ut_uuid = ?`
-    connection.query(query, params, nomBidon)
+    let params = [val['ut_newmdp'], val['ut_id'],]
+    let query = "UPDATE utilisateurs SET ut_mdp = ? WHERE (ut_id = ?)"
+    connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
-//    console.log('params',params)
 
-//////////// gestion utilisateurs ////////////
-function getPrestaList(fonction_traitement_resultat_bdd) {
+//////////// utilisateurs ////////////
+function getUserNameByUuid(ut_uuid, nomBidon) {     // pour le bandeau et info pour le journal
+    let params = [ut_uuid]
     let connection = connectToMySQL()
-    let query = `SELECT * FROM presta`
-    connection.query(query, fonction_traitement_resultat_bdd)
+    let query = `SELECT ut_id, ut_nom,ut_prenom,ut_tel FROM utilisateurs where ut_uuid = ?`
+    connection.query(query, params, nomBidon)
     connection.end();
 }
 
@@ -64,14 +65,12 @@ function getUserList(fonction_traitement_resultat_bdd) {
 
 function creationUtilisateur(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    //    console.log(val)
     let params = [val['uuid'], val['username'], val['nom'], val['prenom'], val['tel'], val['mail'], val['presta'], val['mdp'], val['adm'],]
-    // console.log('params', params)
     let query = "INSERT INTO utilisateurs " +
         "(ut_uuid, ut_id, ut_nom, ut_prenom, ut_tel, ut_mail, ut_presta, ut_mdp, ut_admin_deb) " +
         "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?)"
     connection.query(query, params, fonction_traitement_resultat_bdd)
-    connection.end();
+    connection.end()
 }
 function creationHabilitation(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
@@ -82,52 +81,123 @@ function creationHabilitation(val, fonction_traitement_resultat_bdd) {
     connection.end();
 }
 
+//////////// presta ////////////
+function getPrestaLibelleByTinc(id, nomBidon) {     // pour le bandeau et info pour le journal
+    let params = [id]
+    let connection = connectToMySQL()
+    let query = `SELECT presta_nom FROM presta, types_inc 
+                    WHERE tinc_presta = presta_id
+                        AND tinc_id = ?`
+    connection.query(query, params, nomBidon)
+    connection.end();
+}
+
+function getPrestaList(fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let query = `SELECT * FROM presta`
+    connection.query(query, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
 //////////// incidents ////////////
-function getEmplList(fonction_traitement_resultat_bdd) {
+function getEmpList(fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let query = `SELECT emp_id, emp_etage, emp_nom, tinc_id, tinc_nom, presta_libelle
-                    FROM emplacements emp,types_emp,mapping_inc_emp,types_inc, presta
+                    FROM emplacements, types_emp, mapping_inc_emp, types_inc, presta
                     WHERE temp_id = emp_temp
-                    AND mapping_inc = tinc_id
-                    AND mapping_emp = temp_id
+                    AND mapping_tinc = tinc_id
+                    AND mapping_temp = temp_id
                     AND presta_id = tinc_presta
                     ORDER BY emp_etage, emp_nom, presta_libelle`
     connection.query(query, fonction_traitement_resultat_bdd)
     connection.end();
 }
-/*
-SELECT emp_id, emp_etage, emp_nom, tinc_id, tinc_nom
-FROM emplacements emp,types_emp,mapping_inc_emp,types_inc
-WHERE temp_id = emp_temp
-AND mapping_inc = tinc_id
-AND mapping_emp = temp_id
-;
-*/
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-function dbGetDetails(id, fonction_traitement_resultat_bdd) {
+
+function getIncListByUser(val, fonction_traitement_resultat_bdd) {
+    let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT * FROM items WHERE id = ${id}`
-    connection.query(query, fonction_traitement_resultat_bdd)
+    let query = `SELECT inc_uuid, emp_nom, emp_etage, tinc_nom, inc_signal_comm, inc_jrn_interv,
+                        inc_signal_date, inc_affect_date, inc_fin_date
+                    FROM incidents, emplacements, presta, utilisateurs, types_inc
+                    WHERE inc_emp = emp_id 
+                        AND inc_presta = presta_id
+                        AND inc_signal_ut = ut_uuid
+                        AND inc_tinc = tinc_id
+                        AND ut_id = ?
+                        order by inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
-function new_product(val, fonction_traitement_resultat_bdd) {
+function getIncListByPresta(val, fonction_traitement_resultat_bdd) {
+    let params = [val]
     let connection = connectToMySQL()
-    let valuesToInsert = [val['name'], val['origine'], val['description'], val['id_cat'], val['image'], val['prix'], val['qte']]
-    let query = "INSERT INTO items (name, origine, description, id_cat, image, prix, qte) VALUES (?, ?, ?, ?, ?, ? ,?)"
-    connection.query(query, valuesToInsert, fonction_traitement_resultat_bdd)
+    let query = `SELECT inc_uuid, emp_nom, emp_etage, tinc_nom, presta_nom, inc_signal_comm, inc_jrn_interv,
+                        ut_nom, ut_prenom, ut_tel,
+                        inc_signal_date, inc_affect_date, inc_fin_date
+                    FROM incidents, emplacements, presta, utilisateurs, types_inc           
+                    WHERE presta_id = (SELECT ut_presta FROM presta, utilisateurs 
+                                            WHERE ut_uuid = ?
+                                            AND ut_presta = presta_id )
+                        AND inc_emp = emp_id 
+                        AND inc_presta = presta_id
+                        AND inc_signal_ut = ut_uuid
+                        AND inc_tinc = tinc_id
+                    order by inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
-function dbUpdateProduct(val, fonction_traitement_resultat_bdd) {
+function creationSignalement(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    let valuesToUpdate = [val['name'], val['description'], val['origine'], val['prix'], val['image'], val['qte'], val['id_cat'], val['id']]
-    let query = "UPDATE items SET name = ?, description = ?,  origine = ?, prix = ?, image = ?, qte = ?, id_cat = ? WHERE (id = ?)"
-    connection.query(query, valuesToUpdate, fonction_traitement_resultat_bdd)
+    let params = [val['emp'], val['tinc'], val['tinc'], val['ut'],]
+    let query = `INSERT INTO incidents (inc_emp, inc_tinc, inc_presta, inc_signal_ut)
+                    VALUES (?, ?,  
+                        (SELECT tinc_presta FROM types_inc WHERE tinc_id = ?),
+                    ?)`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
+
+function ligneJournal(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['jrn_inc'], val['jrn_msg'], val['jrn_conf']]
+    console.log('param lignes',params)
+    let query = `INSERT INTO journaux (jrn_inc, jrn_msg, jrn_conf)
+                    VALUES (?, ?, ?)`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+function affectation(val, fonction_traitement_resultat_bdd) {
+    console.log('params1', val)
+    let connection = connectToMySQL()
+    let params = [val['ut_uuid'], val['inc_id'],]
+    console.log('params2', params)
+    let query = `UPDATE incidents 
+                    SET inc_affect_ut = ?, inc_affect_date = now()
+                    WHERE inc_uuid = ?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+function update_comm_presta(val, fonction_traitement_resultat_bdd) {
+    console.log('params1', val)
+    let connection = connectToMySQL()
+    let params = [val['comm'], val['id'],]
+    console.log('params2', params)
+    let query = `UPDATE incidents 
+                    SET inc_jrn_interv = ?
+                    WHERE inc_uuid = ?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+
 
 function delProduct(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
@@ -139,12 +209,19 @@ function delProduct(val, fonction_traitement_resultat_bdd) {
 
 module.exports = {
     userLogin,
+    change_mdp,
     traitementApReq,
     getPrestaList,
     getUserList,
     getUserNameByUuid,
     creationUtilisateur,
     creationHabilitation,
-    getEmplList,
-
+    getEmpList,
+    creationSignalement,
+    getIncListByUser,
+    getIncListByPresta,
+    affectation,
+    update_comm_presta,
+    ligneJournal,
+    getPrestaLibelleByTinc,
 }

@@ -6,8 +6,9 @@ cmd : node -v : v16.14.0
 npm install --save 
 * create-react-app
 * express 
-* cookie-parser
+* session-express
 * cors
 * react
 * mysql
+* react-select      RETIRE
 

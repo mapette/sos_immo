@@ -1,8 +1,5 @@
-
-const MD5 = require('sha1')
-
-
 const uuid = require('uuidv4');
+
 function genUuid() {
     return uuid.uuid()
 }
@@ -28,8 +25,11 @@ function genMdp() {
     return mdp;
 }
 
-module.export = {
+function retourneMsg(msg){
+    return msg
+}
+module.exports = {
     genUuid,
     genMdp,
-
+    retourneMsg
 }

@@ -17,10 +17,10 @@ function TestBtClick() {
   );
 }
 
-let msg1 = 'jlaurent' + 'aaa'
+let msg1 = 'sjoffre' + 'aaa'
 let msg2 = 'blaurent' + 'aaa'
 let msg3 = 'ocain' + 'aaa'
-let msg4 = 'hwilliam' + 'aaa'
+let msg4 = 'nduval' + 'y4AGd1!a'
 let code = uuidv4()
 let msg = code
 function Test() {

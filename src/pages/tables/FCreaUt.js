@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Bouton from './../../tools/Bouton'
+import BoutonSubmit from './../../tools/BoutonSubmit'
 import Alerte from './../../tools/Alerte'
 
 const lib = require('./../../lib/lib_divers')
@@ -15,10 +16,7 @@ function FCreaUt(props) {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
     })
-      .then(response => {    // résultat brut
-        // console.log('response1', response)
-        return response.json()  // récupère que les données résultat
-      })
+      .then(response => response.json())
       .then(response => {
         console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
         if (response.length !== 0) {
@@ -36,34 +34,21 @@ function FCreaUt(props) {
         username: document.getElementById("username").value,
         nom: document.getElementById("nom").value,
         prenom: document.getElementById("prenom").value,
-        tel: lib.clean(document.getElementById("tel").value),
+        tel: lib.cleanNull(document.getElementById("tel").value),
         mail: document.getElementById("email").value,
-        presta: lib.clean(document.getElementById("presta").value),
+        presta: lib.cleanNull(document.getElementById("presta").value),
         profil: document.getElementById("profil").value,
       }
-      // let data = {
-      //   username: 'nduval',
-      //   nom: 'duval',
-      //   prenom: 'nono',
-      //   tel: '0011223355',
-      //   mail: 'rien@sg.com',
-      //   presta: lib.clean('rien'),
-      //   profil: 1,
-      // }
-      console.log('data', data)
       if (alertMsg === '') {
-        // console.log('data', data)
         fetch('http://localhost:3001/crea_user', {
           method: 'post',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         })
-          .then(response => {    // résultat brut
-            //console.log('res status', response)
-            return response.json()  // récupère que les données résultat
-          })
+          .then(response => response.json())
           .then(response => {
+            console.log(response)
             props.setMode('neutre')
           })
       }
@@ -73,7 +58,7 @@ function FCreaUt(props) {
   function contrInput(username, profil, presta,) {
     console.log(username, profil, presta)
     profil = parseInt(profil)
-    presta = lib.clean(presta)
+    presta = lib.cleanNull(presta)
     if (props.userNameList.includes(username)) {
       setAlertMsg('Username déjà utilisé')
     }
@@ -174,8 +159,7 @@ function FCreaUt(props) {
           actionToDo={() => props.setMode('neutre')}
           couleur={'gris'}
         />
-        <Bouton
-          typeBt={'submit'}
+        <BoutonSubmit
           txt={'Validation création'}
           // actionToDo={() => setMode('création')}
           couleur={'vert'}
