@@ -61,7 +61,7 @@ function DetailsInc(props) {
 
   // console.log('incident sélectionné', incident)
   return (
-    <div className={diplay.ficheDisplay(true, status, props.profil_ecran)}>
+    <div className={diplay.ficheUsagerDisplay(true, status, props.profilEcran)}>
       <div>
         {time.FormatDate(incident.inc_signal_date)} à {time.FormatHeure(incident.inc_signal_date)}
       </div>
@@ -75,7 +75,7 @@ function DetailsInc(props) {
       <div>
         info signalement : {incident.inc_signal_comm}
       </div>
-      {props.profil_ecran != 'usager' &&
+      {props.profilEcran != 'usager' &&
         <div>
           <br />
           <div>
@@ -94,7 +94,7 @@ function DetailsInc(props) {
         info intervention : <br/> {incident.inc_jrn_interv}
       </div>
       <br/>
-      {(props.profil_ecran != 'usager') &&
+      {(props.profilEcran != 'usager') &&
         <form id="commentaire_techno"
           type="POST"
           encType="application/x-www-form-urlencoded"
@@ -115,7 +115,7 @@ function DetailsInc(props) {
         </form>
       }
       <br />
-      {(props.profil_ecran != 'usager' && status === 'enAttente') &&
+      {(props.profilEcran != 'usager' && status === 'enAttente') &&
         <BoutonSubmit
           submitToDo={affectation}
           couleur={'rouge'}
@@ -125,7 +125,7 @@ function DetailsInc(props) {
           setFocus={props.setFocus}
         />
       }
-      {(props.profil_ecran != 'usager' && status === 'enCours') &&
+      {(props.profilEcran != 'usager' && status === 'enCours') &&
         <BoutonSubmit
           submitToDo={affectation}
           couleur={'rouge'}

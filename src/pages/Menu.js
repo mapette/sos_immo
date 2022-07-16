@@ -36,7 +36,7 @@ function Menu(props) {
           txt={'mes demandes'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            profil_ecran: 'usager',
+            profilEcran: 'usager',
             ecran: 'demandes',
 
           })}
@@ -57,7 +57,7 @@ function Menu(props) {
               txt={'suivi incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                profil_ecran: 'techno',
+                profilEcran: 'techno',
                 ecran: 'demandes',
 
               })}

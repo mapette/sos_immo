@@ -37,41 +37,70 @@ function boutonDisplay(couleur, menu, plein) {
 }
 
 // fiches incident
-function ficheDisplay(detail, status, profil_ecran) {  // ecran uniquement pour detailsInc du suivi
-//console.log('params ', detail, status, profil_ecran)
-  let ficheInc = 'fiche-commun'
-  let classDetail;
-  if (detail) {
-    classDetail = ' detailsInc'
-  }
-  else {
-    classDetail = ' postItInc'
-  }
+function fichePostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
+  //console.log('params ', detail, status, profil_ecran)
+  let ficheInc = 'fiche-commun postItUsager en-ligne'
   let classStatus;
-  let hauteurFiche = '';
   if (status === 'enAttente') {
-    classStatus = ' en-ligne enAttente'
-    if (profil_ecran === 'techno') {
-      hauteurFiche = ' hauteur-fiche-en-attente'
-    }
+    classStatus = ' enAttente'
   }
   else if (status === 'enCours') {
-    classStatus = ' en-ligne enCours'
-    if (profil_ecran === 'techno') {
-      hauteurFiche = ' hauteur-fiche-en-cours'
-    }
   }
   else if (status === 'termine') {
-    classStatus = ' en-ligne termine'
+    classStatus = ' termine'
   }
-  let totalClass = ficheInc + classDetail + classStatus + hauteurFiche
-//console.log('display fiche : ', totalClass)
+  let totalClass = ficheInc + classStatus
+  return totalClass
+  //retour fiche-commun + detail + en-ligne + status
+}
+
+function textAlign(critere) {
+  if (critere === 'usager') {
+    return 'centre '
+  }
+  else if (critere === 'techno') {
+    return 'gauche '
+  }
+  
+}
+function alignement(critere) {
+  if (critere === 'usager') {
+    return 'en-ligne '
+  }
+  else if (critere === 'techno') {
+    return ' '
+  }
+}
+
+function rubanPostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
+  //console.log('params ', detail, status, profil_ecran)
+  let ficheInc = 'fiche-commun rubanTechno'
+  let classStatus;
+  if (status === 'enAttente') {
+    classStatus = ' enAttente'
+    // if (profilEcran === 'techno') {
+    //   hauteurFiche = ' hauteur-fiche-en-attente'
+    // }
+  }
+  else if (status === 'enCours') {
+    // classStatus = ' enCours'
+    // if (profilEcran === 'techno') {
+    //   //hauteurFiche = ' hauteur-fiche-en-cours'
+    // }
+  }
+  else if (status === 'termine') {
+    classStatus = ' termine'
+  }
+  let totalClass = ficheInc + classStatus
   return totalClass
   //retour fiche-commun + detail + en-ligne + status
 }
 
 module.exports = {
-  ficheDisplay,
+  fichePostItDisplay,
+  rubanPostItDisplay,
   boutonDisplay,
+  alignement,
+  textAlign,
 
 }

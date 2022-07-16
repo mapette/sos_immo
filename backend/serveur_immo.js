@@ -137,6 +137,7 @@ app.get('/get_emp', (request, response) => {
 app.get('/get_incByUser', (request, response) => {
     if (request.session.isId == true) {
         db.getIncListByUser(request.session.ut, (error, results) => {
+            console.log(results)
             response.send(results)
         })
     }

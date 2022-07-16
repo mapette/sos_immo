@@ -116,8 +116,8 @@ function getEmpList(fonction_traitement_resultat_bdd) {
 function getIncListByUser(val, fonction_traitement_resultat_bdd) {
     let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT inc_uuid, emp_nom, emp_etage, tinc_nom, inc_signal_comm, inc_jrn_interv,
-                        inc_signal_date, inc_affect_date, inc_fin_date
+    let query = `SELECT inc_id, emp_nom, emp_etage, tinc_nom, 
+                        inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
                     FROM incidents, emplacements, presta, utilisateurs, types_inc
                     WHERE inc_emp = emp_id 
                         AND inc_presta = presta_id
@@ -132,9 +132,8 @@ function getIncListByUser(val, fonction_traitement_resultat_bdd) {
 function getIncListByPresta(val, fonction_traitement_resultat_bdd) {
     let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT inc_uuid, emp_nom, emp_etage, tinc_nom, presta_nom, inc_signal_comm, inc_jrn_interv,
-                        ut_nom, ut_prenom, ut_tel,
-                        inc_signal_date, inc_affect_date, inc_fin_date
+    let query = `SELECT inc_id, emp_nom, emp_etage, tinc_nom, presta_nom,
+                        inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
                     FROM incidents, emplacements, presta, utilisateurs, types_inc           
                     WHERE presta_id = (SELECT ut_presta FROM presta, utilisateurs 
                                             WHERE ut_uuid = ?

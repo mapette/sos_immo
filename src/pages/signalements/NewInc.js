@@ -4,8 +4,6 @@ import Bouton from './../../tools/Bouton'
 import BoutonSubmit from './../../tools/BoutonSubmit'
 import Alerte from './../../tools/Alerte'
 
-const lib = require('./../../lib/lib_divers')
-
 function NewInc(props) {
   let [etape, setEtape] = useState(0)
   //  0-étage 1-emplacement 2-type 3-commentaire+submit
@@ -22,7 +20,7 @@ function NewInc(props) {
       inc: document.getElementById("inc").value,
       info: document.getElementById("info").value,
     }
-    console.log('data ',data)
+    //console.log('data ',data)
     if (data.emp === '' | data.inc === '') {
       setAlertMsg('Veuillez préciser le type de problème.')
     }
@@ -38,7 +36,7 @@ function NewInc(props) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'demandes',
-            profil_ecran: 'usager',
+            profilEcran: 'usager',
           })
         }
         )
@@ -83,7 +81,7 @@ function NewInc(props) {
   }, [])
 
   function stypeInput(etapeEnCours) {
-    if (etapeEnCours == etape) {
+    if (etapeEnCours === etape) {
       return 'alerteSimple rouge'
     }
   }
@@ -145,9 +143,6 @@ function NewInc(props) {
                   <option value='' > </option>
                   {
                     lEmpl.map(elem => 
-                      // console.log('elem',elem.etage, 'input', document.getElementById("etage").value)
-                      // console.log(elem.etage== document.getElementById("etage").value)
-                      // console.log(elem.nom)
                       elem.etage == document.getElementById("etage").value &&
                         <option
                           value={elem.id}
@@ -178,7 +173,6 @@ function NewInc(props) {
                   <option value=''> </option>
                   {
                     lInc.map(elem => 
-
                       elem.emp_id == document.getElementById("empl").value &&
                         <option
                           value={elem.tinc_id}

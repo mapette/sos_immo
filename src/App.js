@@ -17,7 +17,8 @@ function App() {
     ecran: 'accueil',
     nom: '',
     profil: '',
-    profil_ecran: '',  //'Demandes : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
+    profilEcran: '', //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
+    focus: '',        // incident pour lequel on veut le détail
   })
 
   if (varGlob.ecran === 'test') {

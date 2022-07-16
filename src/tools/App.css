@@ -59,6 +59,9 @@
 .droite{
   text-align: right;
 }
+.centre{
+  text-align: center;
+}
 
 .largeur-50{
   width: 50px;
@@ -135,25 +138,21 @@ label{
   border: 2px solid rebeccapurple;
   padding: 15px;
   margin: 5px;
-  text-align: center;
-}
-.postItInc {
+
   border-radius: 12px;
+}
+.postItUsager {
+  text-align: center;
   width: 180px;
   height: 145px;
 }
-.detailsInc {
-  vertical-align: top;
-  border-radius: 12px;
-  width: 300px;
-  height: 250px;
+.rubanTechno {
+  height: 50px;
 }
-.hauteur-fiche-en-attente{
-  height: 2700px;
-}
-.hauteur-fiche-en-cours{
-  height: 320px;
-}
+/*
+  width: 180px;
+  height: 145px;
+*/
 .enAttente{
   background-color: #61dafb;
 }
@@ -163,4 +162,17 @@ label{
 .termine{
   background-color: orange;
 }
+/* 
+.detailsInc {
+  vertical-align: top;
+  width: 300px;
+  height: 250px;
+}
+.hauteur-fiche-en-attente{
+  height: 2700px;
+}
+.hauteur-fiche-en-cours{
+  height: 320px;
+} */
+
 
