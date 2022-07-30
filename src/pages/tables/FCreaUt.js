@@ -152,7 +152,6 @@ function FCreaUt(props) {
         />
         <BoutonSubmit
           txt={'Validation création'}
-          // actionToDo={() => setMode('création')}
           couleur={'vert'}
         />
       </form>

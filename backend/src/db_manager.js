@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const classes = require('./lib_classes')
 
 function connectToMySQL() {
     let connection = mysql.createConnection({
@@ -12,13 +13,37 @@ function connectToMySQL() {
     return connection
 }
 
-////// en attente de librairie //////
-
-
 ////// traitements requêtes //////
 function traitementApReq(results, response) {
     // console.log('results traitementApReq', results)
     response.json(results)
+}
+function getUserListByCatAndPresta(results, cat, presta_id) {
+    let ut_liste = new classes.Ut_manager()
+    results.forEach(element => {
+        ut_liste.liste.push(new classes.Utilisateur(element))
+    });
+    ut_liste.byProfil(cat)
+    ut_liste.byPresta(presta_id)
+    return (ut_liste.liste)
+}
+
+function jnrApresAffectation(results, response, data) {
+    console.log('data', data)
+    // jrn 1 - prise en charge
+    data.jrn_imm = false
+    data.jrn_msg = 'prise en charge par notre technicien'
+    creaLigneJournal(data, (error, results) => {
+        //  response.send({ status: true })
+    })
+    getUserNameByUuid(data.ut_uuid, (error, results) => {
+        // jrn 2 - affectation
+        data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
+        data.jrn_imm = true
+        creaLigneJournal(data, (error, results) => {
+           // response.send({ status: true })
+        })
+    })
 }
 
 ////// requêtes //////
@@ -28,13 +53,12 @@ function userLogin(reqBody, nomBidon) {
     let query = `SELECT ut_nom, ut_prenom, 
                     ut_id, hab_profil, ut_uuid, 
                     hab_uuid, ut_mdp_exp 
-     FROM habilitations, utilisateurs
-              where ut_id = ? and ut_mdp = ?
-              and hab_ut = ut_uuid`
+                FROM habilitations, utilisateurs
+                WHERE ut_id = ? and ut_mdp = ?
+                    AND hab_ut = ut_uuid`
     connection.query(query, params, nomBidon)
     connection.end();
 }
-
 
 function change_mdp(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
@@ -53,22 +77,12 @@ function getUserNameByUuid(ut_uuid, nomBidon) {     // pour le bandeau et info p
     connection.end();
 }
 
-function getUserListByCat(val, fonction_traitement_resultat_bdd) {
-    let params = []
-    let queryCat = ''
-    if (val !== null) {
-        queryCat = `AND hab_profil = ? `
-        params.push(val['cat'])  
-        if (val['presta_id'] !== null){
-            queryCat += `AND ut_presta = ? `
-            params.push(val['presta_id'])   
-        } 
-    }
+function getUserList(fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let query = `SELECT ut.*, presta_nom, presta_libelle, hab_profil, hab_date_exp
             FROM utilisateurs ut LEFT JOIN presta ON (ut_presta = presta_id), habilitations  
-            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL ` + queryCat     
-    connection.query(query, params, fonction_traitement_resultat_bdd)
+            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL `
+    connection.query(query, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
@@ -218,9 +232,11 @@ module.exports = {
     userLogin,
     change_mdp,
     traitementApReq,
+    getUserListByCatAndPresta,
+    jnrApresAffectation,
     getPrestaList,
     getUserNameByUuid,
-    getUserListByCat,
+    getUserList,
     creationUtilisateur,
     creationHabilitation,
     getEmpList,

@@ -21,7 +21,7 @@ app.use(cors({
 
 const db = require('./src/db_manager')
 const lib = require('./src/lib_serveur')
-const cl_ut = require('./src/utilisateur')
+const classes = require('./src/lib_classes')
 
 const port = 3001
 app.listen(port)
@@ -42,7 +42,7 @@ app.get('/get_accueil', (request, response) => {
     }
 })
 app.get('/get_userBySession', (request, response) => {
-    console.log(request.session.ut)
+    //    console.log(request.session.ut)
     response.send({ id: request.session.ut })
 })
 
@@ -118,23 +118,16 @@ app.get('/get_presta', (request, response) => {
 })
 
 app.get('/get_users', (request, response) => {
-    console.log("là")
     if (request.session.isId == true & request.session.profil == 4) {
-        db.getUserListByCat(null, (error, results) => {
+        db.getUserList((error, results) => {
             response.send(results)
         })
     }
 })
 app.get('/get_usersByCatAndPresta/:cat/:presta_id', (request, response) => {
-    //  console.log('request.params.cat ',request.params.cat)
-    //  console.log('request.params.presta ',request.params.presta_id)
-    let data = {
-        cat: request.params.cat,
-        presta_id: request.params.presta_id,
-    }
     if (request.session.isId == true & (request.session.profil == 3 | request.session.profil == 4)) {
-        db.getUserListByCat(data, (error, results) => {
-                    response.send(results)
+        db.getUserList((error, results) => {
+            response.send(db.getUserListByCatAndPresta(results, request.params.cat, request.params.presta_id))
         })
     }
 })
@@ -193,7 +186,7 @@ app.post('/crea_signalement', (request, response) => {
                 data.jrn_imm = false
 
                 // jrn 1 - création signalement
-                data.jrn_msg = 'signalement ' + data.coordonneesUsager
+                data.jrn_msg = 'signalement de ' + data.coordonneesUsager
                 db.creaLigneJournal(data, (error, results) => {
                     //  response.send({ status: true })
                 })
@@ -253,67 +246,50 @@ app.get('/get_inc', (request, response) => {
     }
 })
 
-app.get('/affectation:id', (request, response) => {
+app.get('/affectation:inc_id', (request, response) => {
     let data = {
-        inc_id: request.params.id,
+        inc_id: request.params.inc_id,
+        jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
         ut_uuid: request.session.uuid,
     }
     if (request.session.isId == true &&
         request.session.profil == 2) {
         db.affectationInc(data, (error, results) => {
-            data.jrn_inc = request.params.id
-            data.jrn_imm = false
-
-            // jrn 1 - prise en charge
-            data.jrn_msg = 'prise en charge'
-            db.creaLigneJournal(data, (error, results) => {
-                //  response.send({ status: true })
-            })
-            db.getUserNameByUuid(data.ut_uuid, (error, results) => {
-                //data.ut_id =  results[0].ut_id
-                //  response.send({ status: true })
-                // jrn 3 - affectation
-                data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
-                data.jrn_imm = true
-                db.creaLigneJournal(data, (error, results) => {
-                    response.send({ status: true })
-                })
-            })
-            // response.send({ status: true })
+            db.jnrApresAffectation(results, response, data)
+            response.send({ status: true })
         })
     }
 })
-app.get('/affectation/:id/:techno_id', (request, response) => {
-    let data = {
-        inc_id: request.params.id,
-        ut_uuid: request.session.uuid,
-    }
-    if (request.session.isId == true &&
-        request.session.profil == 2) {
-        db.affectationInc(data, (error, results) => {
-            data.jrn_inc = request.params.id
-            data.jrn_imm = false
+// app.get('/affectation/:id/:techno_id', (request, response) => {
+//     let data = {
+//         inc_id: request.params.id,
+//         ut_uuid: request.session.uuid,
+//     }
+//     if (request.session.isId == true &&
+//         request.session.profil == 2) {
+//         db.affectationInc(data, (error, results) => {
+//             data.jrn_inc = request.params.id
+//             data.jrn_imm = false
 
-            // jrn 1 - prise en charge
-            data.jrn_msg = 'prise en charge'
-            db.creaLigneJournal(data, (error, results) => {
-                //  response.send({ status: true })
-            })
-            db.getUserNameByUuid(data.ut_uuid, (error, results) => {
-                //data.ut_id =  results[0].ut_id
-                //  response.send({ status: true })
-                // jrn 3 - affectation
-                data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
-                data.jrn_imm = true
-                db.creaLigneJournal(data, (error, results) => {
-                    response.send({ status: true })
-                })
-            })
-            // response.send({ status: true })
-        })
-    }
-})
-
+//             // jrn 1 - prise en charge
+//             data.jrn_msg = 'prise en charge'
+//             db.creaLigneJournal(data, (error, results) => {
+//                 //  response.send({ status: true })
+//             })
+//             db.getUserNameByUuid(data.ut_uuid, (error, results) => {
+//                 //data.ut_id =  results[0].ut_id
+//                 //  response.send({ status: true })
+//                 // jrn 3 - affectation
+//                 data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
+//                 data.jrn_imm = true
+//                 db.creaLigneJournal(data, (error, results) => {
+//                     response.send({ status: true })
+//                 })
+//             })
+//             // response.send({ status: true })
+//         })
+//     }
+// })
 
 app.post('/update_comm', (request, response) => {
     //   console.log('req.body', request.body)

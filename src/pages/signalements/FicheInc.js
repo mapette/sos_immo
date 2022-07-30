@@ -37,9 +37,6 @@ function FicheInc(props) {
       })
   }, [])
 
-  console.log('ficheInc', props.incident)
-  // console.log('varglob début details',props.varGlob)
-  console.log('incident', incident)
   return (
     <div>
       <h2 className="titre gras cadre-15">
@@ -56,6 +53,7 @@ function FicheInc(props) {
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
         incident={incident}
+        setIncident={setIncident}
       />
 
       <FicheIncJrn

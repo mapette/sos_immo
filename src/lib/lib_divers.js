@@ -73,6 +73,7 @@ function determineStatus(ch, res) {    //charge_date, resolution_date
   } else if (ch !== null & ch !== undefined) {
     status = 'enCours'
   }
+  //console.log('determineStatus',status)
   return status
 }
 // FicheInc
@@ -89,10 +90,9 @@ function statusLibelle(status) {
 }
 
 // Demandes
-function determineURL(caturl, data) {
-  console.log('determineURL', data)
+function determineURL(catUrl, data) {
   let url = ''
-  if (caturl == "demande") {
+  if (catUrl == "demande") {
     if (data.profilEcran === 'usager') {
       url = 'http://localhost:3001/get_incByUser'
     }
@@ -105,9 +105,9 @@ function determineURL(caturl, data) {
       }
     }
   }
-  if (caturl == "affectation") {
+  if (catUrl == "affectation") {
     if (data.profil === 'technicien') {
-      url = 'http://localhost:3001/affectation/' + data.inc_id
+      url = 'http://localhost:3001/affectation' + data.inc_id
     }
     else {
       url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id

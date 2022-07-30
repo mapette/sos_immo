@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import BoutonSubmit from '../../tools/BoutonSubmit'
+import Bouton from '../../tools/Bouton'
 
 const time = require('../../lib/lib_time')
 const diplay = require('../../lib/lib_display')
 const lib = require('../../lib/lib_divers')
 
 function FicheIncStatusEnAttente(props) {
-
-  let lTechnod = []
   let [lTechno, setLTechno] = useState([])
   let [lPresta, setLPresta] = useState([])
-  //   
 
   useEffect(() => {
     // pour affectation 'forcée' (suivi des incidents)
@@ -19,7 +17,7 @@ function FicheIncStatusEnAttente(props) {
     if (props.incident.presta_id != undefined) {
       if (props.varGlob.profilEcran === 'techno'
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'imm')) {
-        //    console.log('http://localhost:3001/get_usersByCatAndPresta/2/', props.incident.presta_id)
+        console.log('http://localhost:3001/get_usersByCatAndPresta/2/', props.incident.presta_id)
         fetch('http://localhost:3001/get_usersByCatAndPresta/2/' + props.incident.presta_id,
           lib.optionsGet())
           .then(response => response.json())  // récupère que les données résultat
@@ -42,7 +40,6 @@ function FicheIncStatusEnAttente(props) {
 
   function soumettreAffectation(event) {
     event.preventDefault()
-    console.log('varGlob********************', props.varGlob.profil)
     if (IsAffectationPossible()) {
       let data = {
         inc_id: props.varGlob.focus,
@@ -51,33 +48,30 @@ function FicheIncStatusEnAttente(props) {
       if (document.getElementById("techno") !== null) {     // null si auto-affection
         data.ut_id = document.getElementById("techno").value
       }
-      console.log('url', lib.determineURL('affectation', data))
-      // fetch('http://localhost:3001/affectation' + props.varGlob.focus, lib.optionsGet())
-      //fetch(lib.determineURL('affectation', data), lib.optionsGet())
-      //   .then(response => response.json())
-      //   .then(response => {
-      //     //console.log('reponse bidon', response) // laisser cette ligne sinon ça marche pas !
-      //     //console.log('setincident', incident)
-      //     console.log('incident av', props.incident)
-      //     props.setIncident({
-      //       ...props.incident,
-      //       inc_affect_date: time.initDate(),
-      //     })
-      //     console.log('incident ap', props.incident)
-      //   })
-      // props.setStatus('enCours')
+      //  console.log('url', lib.determineURL('affectation', data))
+      fetch(lib.determineURL('affectation', data), lib.optionsGet())
+        .then(response => response.json())
+        .then(response => {
+          //console.log('reponse bidon', response) // laisser cette ligne sinon ça marche pas !
+          //console.log('setincident', incident)
+          console.log('incident av', props.incident)
+          props.setIncident({
+            ...props.incident,
+            inc_affect_date: time.initDate(),
+          })
+        })
+      props.setStatus('enCours')
     }
   }
-  function IsAffectationPossible() {  // l'utilisateur prend lui-même en charge, l'id sera déterminé par le cookie
+  function IsAffectationPossible() {
     let okAffection = false
     //  auto-affectation toujours possible
-    if (document.getElementById("techno") !== null) {
-      console.log('je suis pas null')
+    if (document.getElementById('techno') === null) {
+      // l'utilisateur prend lui-même en charge, l'id sera déterminé par le cookie
       okAffection = true
     }
     else {  // affectation par valideur ou immo
-      if (document.getElementById("techno").value !== '') {
-        console.log('je suis pas vide')
+      if (document.getElementById('techno').value !== '') {
         okAffection = true
       }
     }
@@ -123,16 +117,16 @@ function FicheIncStatusEnAttente(props) {
           />
         </form>
       }
-      {/* {(props.varGlob.profil == 'imm') &&
-        <form id="attribution"
+      {(props.varGlob.profil == 'imm') &&
+        <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"
-          onSubmit={affectation}
+          onSubmit={soumettreAffectation}
         >
           <select id='presta' name='prestat'
             className='largeur-200'>
             <option value=''> </option>
-            {setLPresta.map(elem =>
+            {lPresta.map(elem =>
               <option
                 value={elem.presta_id}
                 key={elem.presta_id}>
@@ -146,7 +140,7 @@ function FicheIncStatusEnAttente(props) {
             plein={true}
           />
         </form>
-      } */}
+      }
     </div>
   );
 
