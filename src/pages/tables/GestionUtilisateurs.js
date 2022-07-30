@@ -31,8 +31,9 @@ function GestionUtilisateurs(props) {
         });
         setUserNameList(usl)
       })
-  }, [, mode])
+    }, [, mode])
 
+    console.log(mode)
   return (
     <div className="">
       <h2 className="titre gras cadre-15">

@@ -7,7 +7,7 @@ function BoutonSubmit(props) {
   function goSubmit(event, actionToDo, id, setFocus) {
     actionToDo(event, id, setFocus)
   }
-  console.log('bouton sumbit',props.setFocus)
+//  console.log('bouton sumbit',props.setFocus)
   return (
     <span className='cadre-15'>
       <button

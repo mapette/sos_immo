@@ -1,7 +1,25 @@
-const { useDebugValue } = require("react")
+//const { useDebugValue } = require("react")
+
+//soumission
+function optionsPost(data) {
+  return {
+    method: 'post',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }
+}
+
+function optionsGet() {
+  return {
+    method: 'get',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+  }
+}
 
 // ListUser 
-function findStatus(date_exp) {
+function findUserStatus(date_exp) {
   let statut = 'actif'
   if (date_exp !== null) {
     statut = 'inactif'
@@ -10,7 +28,7 @@ function findStatus(date_exp) {
 }
 function findProfil(hab_profil) {
   let profil = 'actif'
-  if (hab_profil === 0) {
+  if (hab_profil === 0) {   // inusité
     profil = 'adm'
   }
   else if (hab_profil === 1) {
@@ -28,7 +46,7 @@ function findProfil(hab_profil) {
   return profil
 }
 
-// FCreaUt - DetailsInc
+// FCreaUt - FicheInc
 function cleanNull(dataToClean) {
   if (dataToClean === '' | dataToClean === null | dataToClean === undefined) {
     return null
@@ -36,7 +54,7 @@ function cleanNull(dataToClean) {
   return dataToClean
 }
 
-// DetailsInc
+// FicheInc
 function cleanNothing(dataToClean) {
   if (dataToClean === null | dataToClean === undefined) {
     return ''
@@ -44,17 +62,20 @@ function cleanNothing(dataToClean) {
   return dataToClean
 }
 
-// PostIt + DetailsInc
-function determineStatus(charge_date, resolution_date) {
-  console.log('ch', charge_date, 'res', resolution_date)
-  if (resolution_date !== null & resolution_date !== undefined) {
-    return ('termine')
-  } else if (charge_date !== null & charge_date !== undefined) {
-    return ('enCours')
+// PostIt + FicheInc
+function determineStatus(ch, res) {    //charge_date, resolution_date
+  let status = 'enAttente'
+  // console.log('ch', ch, 'res', res)
+  // console.log('ch !null : ', ch !== null, 'ch !undef : ', ch !== undefined)
+  // console.log('res !null : ', res !== null, 'res !undef : ', res !== undefined)
+  if (res !== null & res !== undefined) {
+    status = 'termine'
+  } else if (ch !== null & ch !== undefined) {
+    status = 'enCours'
   }
-  else { return ('enAttente') }
+  return status
 }
-// DetailsInc
+// FicheInc
 function statusLibelle(status) {
   if (status === 'enAttente') {
     return 'en attente'
@@ -68,13 +89,31 @@ function statusLibelle(status) {
 }
 
 // Demandes
-function determineURL(critere) {
-  if (critere === 'usager') {
-    return 'http://localhost:3001/get_incByUser'
+function determineURL(caturl, data) {
+  console.log('determineURL', data)
+  let url = ''
+  if (caturl == "demande") {
+    if (data.profilEcran === 'usager') {
+      url = 'http://localhost:3001/get_incByUser'
+    }
+    else if (data.profilEcran === 'techno') {
+      if (data.profil === 'technicien' | data.profil === 'valideur') {
+        url = 'http://localhost:3001/get_incByPresta'
+      }
+      else if (data.profil === 'imm') {
+        url = 'http://localhost:3001/get_inc'
+      }
+    }
   }
-  else if (critere === 'techno') {
-    return 'http://localhost:3001/get_incByPresta'
+  if (caturl == "affectation") {
+    if (data.profil === 'technicien') {
+      url = 'http://localhost:3001/affectation/' + data.inc_id
+    }
+    else {
+      url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id
+    }
   }
+  return url
 }
 function determineTitre(critere) {
   if (critere === 'usager') {
@@ -126,7 +165,9 @@ function determineProfil(respProfil) {
 }
 
 module.exports = {
-  findStatus,
+  optionsPost,
+  optionsGet,
+  findUserStatus,
   findProfil,
   cleanNull,
   cleanNothing,

@@ -48,18 +48,27 @@ function change_mdp(val, fonction_traitement_resultat_bdd) {
 function getUserNameByUuid(ut_uuid, nomBidon) {     // pour le bandeau et info pour le journal
     let params = [ut_uuid]
     let connection = connectToMySQL()
-    let query = `SELECT ut_id, ut_nom,ut_prenom,ut_tel FROM utilisateurs where ut_uuid = ?`
+    let query = `SELECT ut_id, ut_nom, ut_prenom,ut_tel FROM utilisateurs where ut_uuid = ?`
     connection.query(query, params, nomBidon)
     connection.end();
 }
 
-function getUserList(fonction_traitement_resultat_bdd) {
+function getUserListByCat(val, fonction_traitement_resultat_bdd) {
+    let params = []
+    let queryCat = ''
+    if (val !== null) {
+        queryCat = `AND hab_profil = ? `
+        params.push(val['cat'])  
+        if (val['presta_id'] !== null){
+            queryCat += `AND ut_presta = ? `
+            params.push(val['presta_id'])   
+        } 
+    }
     let connection = connectToMySQL()
     let query = `SELECT ut.*, presta_nom, presta_libelle, hab_profil, hab_date_exp
-            FROM sos_immo.utilisateurs ut LEFT JOIN sos_immo.presta ON (ut_presta = presta_id),
-                sos_immo.habilitations hab 
-            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL`
-    connection.query(query, fonction_traitement_resultat_bdd)
+            FROM utilisateurs ut LEFT JOIN presta ON (ut_presta = presta_id), habilitations  
+            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL ` + queryCat     
+    connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
@@ -113,36 +122,61 @@ function getEmpList(fonction_traitement_resultat_bdd) {
     connection.end();
 }
 
-function getIncListByUser(val, fonction_traitement_resultat_bdd) {
+function getIncList(val, fonction_traitement_resultat_bdd) {
+    let params = [val['uuid']]
+    let queryCommun = `SELECT inc_id, emp_nom, emp_etage, tinc_nom, presta_nom,
+                            inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
+                        FROM incidents, emplacements, presta, utilisateurs, types_inc           
+                        WHERE inc_emp = emp_id 
+                            AND inc_presta = presta_id
+                            AND inc_signal_ut = ut_uuid
+                            AND inc_tinc = tinc_id `
+    let queryFilter = ''
+    let queryOrderBy = `order by inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
+    let connection = connectToMySQL()
+    if (val['filtre'] == 'presta') {
+        queryFilter = `AND presta_id = (SELECT ut_presta FROM presta, utilisateurs 
+            WHERE ut_uuid = ?
+            AND ut_presta = presta_id) `
+    }
+    else
+        if (val['filtre'] == 'usager') {
+            queryFilter = `AND ut_id = (SELECT ut_id FROM utilisateurs 
+            WHERE ut_uuid = ?) `
+        }
+    let query = queryCommun + queryFilter + queryOrderBy
+    connection.query((query), params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+function getIncById(val, fonction_traitement_resultat_bdd) {
     let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT inc_id, emp_nom, emp_etage, tinc_nom, 
-                        inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
-                    FROM incidents, emplacements, presta, utilisateurs, types_inc
-                    WHERE inc_emp = emp_id 
-                        AND inc_presta = presta_id
-                        AND inc_signal_ut = ut_uuid
-                        AND inc_tinc = tinc_id
-                        AND ut_id = ?
-                        order by inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
+    let query = `SELECT emp_nom, emp_etage, tinc_nom, presta_id, presta_nom,
+                    inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
+                FROM incidents, emplacements, types_inc, presta
+                WHERE inc_emp = emp_id 
+                    AND inc_presta = presta_id
+                    AND inc_tinc = tinc_id
+                    AND inc_id = ?
+                ORDER BY inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
-function getIncListByPresta(val, fonction_traitement_resultat_bdd) {
-    let params = [val]
+function getJrnByIncId(val, fonction_traitement_resultat_bdd) {
+    let params = [val['id'],]
+    let query = ''
+    let infoImmoExclude = ''
+    if (val['infoImmoInclude'] === 'false') {   // attention : string et non booléen
+        infoImmoExclude = `AND jrn_imm = false `
+    }
+    query = `SELECT jrn_id, jrn_date, jrn_msg, jrn_imm
+        FROM journaux
+        WHERE jrn_inc = ? `
+        + infoImmoExclude +
+        `ORDER BY jrn_date asc, jrn_id asc`
     let connection = connectToMySQL()
-    let query = `SELECT inc_id, emp_nom, emp_etage, tinc_nom, presta_nom,
-                        inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
-                    FROM incidents, emplacements, presta, utilisateurs, types_inc           
-                    WHERE presta_id = (SELECT ut_presta FROM presta, utilisateurs 
-                                            WHERE ut_uuid = ?
-                                            AND ut_presta = presta_id )
-                        AND inc_emp = emp_id 
-                        AND inc_presta = presta_id
-                        AND inc_signal_ut = ut_uuid
-                        AND inc_tinc = tinc_id
-                    order by inc_fin_date asc, inc_affect_date asc, inc_signal_date asc`
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
@@ -158,69 +192,48 @@ function creationSignalement(val, fonction_traitement_resultat_bdd) {
     connection.end();
 }
 
-function ligneJournal(val, fonction_traitement_resultat_bdd) {
+function creaLigneJournal(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    let params = [val['jrn_inc'], val['jrn_msg'], val['jrn_conf']]
-    console.log('param lignes',params)
-    let query = `INSERT INTO journaux (jrn_inc, jrn_msg, jrn_conf)
+    let params = [val['jrn_inc'], val['jrn_msg'], val['jrn_imm']]
+    //      console.log('param lignes',params)
+    let query = `INSERT INTO journaux (jrn_inc, jrn_msg, jrn_imm)
                     VALUES (?, ?, ?)`
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
-function affectation(val, fonction_traitement_resultat_bdd) {
-    console.log('params1', val)
+function affectationInc(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let params = [val['ut_uuid'], val['inc_id'],]
-    console.log('params2', params)
     let query = `UPDATE incidents 
                     SET inc_affect_ut = ?, inc_affect_date = now()
-                    WHERE inc_uuid = ?`
+                    WHERE inc_id = ?`
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 
-function update_comm_presta(val, fonction_traitement_resultat_bdd) {
-    console.log('params1', val)
-    let connection = connectToMySQL()
-    let params = [val['comm'], val['id'],]
-    console.log('params2', params)
-    let query = `UPDATE incidents 
-                    SET inc_jrn_interv = ?
-                    WHERE inc_uuid = ?`
-    connection.query(query, params, fonction_traitement_resultat_bdd)
-    connection.end();
-}
-
-
 //////////////////////////////////////////////
-//////////////////////////////////////////////
-//////////////////////////////////////////////
-
-
-function delProduct(val, fonction_traitement_resultat_bdd) {
-    let connection = connectToMySQL()
-    let idToDelete = [val['id']]
-    let query = "DELETE FROM items WHERE id = ?"
-    connection.query(query, idToDelete)
-    connection.end();
-}
 
 module.exports = {
     userLogin,
     change_mdp,
     traitementApReq,
     getPrestaList,
-    getUserList,
     getUserNameByUuid,
+    getUserListByCat,
     creationUtilisateur,
     creationHabilitation,
     getEmpList,
     creationSignalement,
-    getIncListByUser,
-    getIncListByPresta,
-    affectation,
-    update_comm_presta,
-    ligneJournal,
+    getIncList,
+    affectationInc,
+    creaLigneJournal,
     getPrestaLibelleByTinc,
+    getIncById,
+    getJrnByIncId,
 }
+
+
+
+//////////////////////////////////////////////
+//////////////////////////////////////////////

@@ -45,6 +45,7 @@ function fichePostItDisplay(status) {  // ecran uniquement pour detailsInc du su
     classStatus = ' enAttente'
   }
   else if (status === 'enCours') {
+    classStatus = ' enCours'
   }
   else if (status === 'termine') {
     classStatus = ' termine'
@@ -83,7 +84,7 @@ function rubanPostItDisplay(status) {  // ecran uniquement pour detailsInc du su
     // }
   }
   else if (status === 'enCours') {
-    // classStatus = ' enCours'
+     classStatus = ' enCours'
     // if (profilEcran === 'techno') {
     //   //hauteurFiche = ' hauteur-fiche-en-cours'
     // }

@@ -43,7 +43,7 @@ function Menu(props) {
           couleur={'vert'}
           menu={'menu'}
         />
-        {props.varGlob.profil === 'administrateur' &&
+        {props.varGlob.profil === 'imm' &&
           <Bouton
             txt={'gestion tables'}
             actionToDo={() => setSMenu('tables')}
@@ -80,7 +80,7 @@ function Menu(props) {
           </span>
         }
       </div >
-      {(props.varGlob.profil === 'administrateur' && smenu === 'tables') &&
+      {(props.varGlob.profil === 'imm' && smenu === 'tables') &&
         <div className=''>
           <div className='en-ligne'>
             <Bouton

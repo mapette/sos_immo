@@ -36,7 +36,7 @@ function ListUser(props) {
                 {user.presta_nom}  {user.presta_libelle}
               </td>
               <td className="col-1">
-                {lib.findStatus(user.ut_date_exp)}
+                {lib.findUserStatus(user.ut_date_exp)}
               </td>
               <td className="col-1">
                 <input className='form-check-input' type='radio' name='ut' id={user.ut_uuid} checked></input>

@@ -5,6 +5,8 @@ import BoutonSubmit from './../tools/BoutonSubmit'
 import Alerte from './../tools/Alerte'
 const MD5 = require('sha1')
 
+const lib = require('./../lib/lib_divers')
+
 function ChangeMdp(props) {
   let [warning, setWarning] = useState('')
   let [contNewMdp, setContNewMdp] = useState(false)
@@ -13,11 +15,7 @@ function ChangeMdp(props) {
   let [user, setUser] = useState(''); // besoin du user pour hasher le mdp avant post
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_userBySession', {
-      method: 'get',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    })
+    fetch('http://localhost:3001/get_userBySession', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
@@ -32,12 +30,7 @@ function ChangeMdp(props) {
       newmdp: MD5(user + document.getElementById('newmdp').value),
     }
     console.log('data', data)
-    fetch('http://localhost:3001/change_mdp', {
-      method: 'post',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
+    fetch('http://localhost:3001/change_mdp',  lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
         console.log('status', response.status) // laisser cette ligne sinon ça marche pas !

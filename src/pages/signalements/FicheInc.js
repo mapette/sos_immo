@@ -1,0 +1,89 @@
+import { useState, useEffect } from 'react';
+import './../../tools/App.css';
+import Bouton from '../../tools/Bouton'
+import FicheIncCartouche from './FicheIncCartouche'
+import FicheIncStatus from './FicheIncStatus'
+import FicheIncJrn from './FicheIncJrn'
+
+const time = require('../../lib/lib_time')
+const diplay = require('../../lib/lib_display')
+const lib = require('../../lib/lib_divers')
+
+function FicheInc(props) {
+  let [incident, setIncident] = useState({
+    inc_id: props.varGlob.focus,
+  })
+ 
+  function copieElemVersIncident(response_inc) {
+    setIncident({
+      ...incident,
+      emp_etage: response_inc.emp_etage,
+      emp_nom: response_inc.emp_nom,
+      inc_signal_date: response_inc.inc_signal_date,
+      inc_affect_date: response_inc.inc_affect_date,
+      inc_fin_date: response_inc.inc_fin_date,
+      inc_cloture_date: response_inc.inc_cloture_date,
+      tinc_nom: response_inc.tinc_nom,
+      presta_id: response_inc.presta_id,
+      presta_nom: response_inc.presta_nom,
+    })
+  }
+
+  useEffect(() => {
+    fetch('http://localhost:3001/get_inc_details' + props.varGlob.focus, lib.optionsGet())
+      .then(response => response.json())  // récupère que les données résultat
+      .then(response => {
+        copieElemVersIncident(response)
+      })
+  }, [])
+
+  console.log('ficheInc', props.incident)
+  // console.log('varglob début details',props.varGlob)
+  console.log('incident', incident)
+  return (
+    <div>
+      <h2 className="titre gras cadre-15">
+        DETAIL INCIDENT
+      </h2>
+
+      <FicheIncCartouche
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+        incident={incident}
+      />
+
+      <FicheIncStatus
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+        incident={incident}
+      />
+
+      <FicheIncJrn
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+        incident={incident}
+      />
+
+      <Bouton
+        txt={'retour'}
+        actionToDo={() => props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'demandes'
+        })}
+        couleur={'gris'}
+      />
+    </div>
+  );
+
+
+
+}
+
+
+
+export default FicheInc;
+
+/*        
+
+*/
+

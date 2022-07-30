@@ -8,6 +8,8 @@ import Menu from './pages/Menu'
 import GestionUtilisateurs from './pages/tables/GestionUtilisateurs'
 import NewInc from './pages/signalements/NewInc'
 import Demandes from './pages/signalements/Demandes'
+import FicheInc from './pages/signalements/FicheInc'
+
 import './tools/App.css';
 import Test from './Test'
 
@@ -17,8 +19,8 @@ function App() {
     ecran: 'accueil',
     nom: '',
     profil: '',
-    profilEcran: '', //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
-    focus: '',        // incident pour lequel on veut le détail
+    profilEcran: '',  //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
+    focus: '',        // incident pour lequel on veut la fiche
   })
 
   if (varGlob.ecran === 'test') {
@@ -71,6 +73,12 @@ function App() {
               setVarGlob={setVarGlob}
             />
           }
+          {varGlob.ecran === 'detailsInc' &&
+            <FicheInc
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
         </div>
       </div>
     );
@@ -78,3 +86,8 @@ function App() {
 }
 
 export default App;
+
+
+/*
+
+*/

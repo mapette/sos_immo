@@ -11,11 +11,7 @@ function FCreaUt(props) {
   let [alertMsg, setAlertMsg] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_presta', {
-      method: 'get',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    })
+    fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
@@ -40,15 +36,10 @@ function FCreaUt(props) {
         profil: document.getElementById("profil").value,
       }
       if (alertMsg === '') {
-        fetch('http://localhost:3001/crea_user', {
-          method: 'post',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        })
+        fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
           .then(response => response.json())
           .then(response => {
-            console.log(response)
+            console.log('creation user',response)
             props.setMode('neutre')
           })
       }
@@ -72,7 +63,7 @@ function FCreaUt(props) {
       setAlertMsg('')
     }
   }
-
+  
   return (
     <div className="">
       <form id="form_ut"

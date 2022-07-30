@@ -10,11 +10,7 @@ function Accueil(props) {
   let [warning, setWarning] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_accueil', {
-      method: 'get',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    })
+    fetch('http://localhost:3001/get_accueil', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
@@ -30,12 +26,7 @@ function Accueil(props) {
       ut_id: document.getElementById('id').value,
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
-    fetch('http://localhost:3001/loggin', {
-      method: 'post',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
+    fetch('http://localhost:3001/loggin', lib.optionsPost(data))
       .then(response => {    // résultat brut
         // console.log('response1', response)
         return response.json()  // récupère que les données résultat

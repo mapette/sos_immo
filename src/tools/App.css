@@ -149,10 +149,7 @@ label{
 .rubanTechno {
   height: 50px;
 }
-/*
-  width: 180px;
-  height: 145px;
-*/
+
 .enAttente{
   background-color: #61dafb;
 }
@@ -162,6 +159,41 @@ label{
 .termine{
   background-color: orange;
 }
+
+/* tableaux */
+tr:nth-child(even) {background: white}
+tr:nth-child(odd) {background: #edebeb}	
+table {   
+	border-collapse:collapse;
+	border-bottom:1px solid gray;
+	font-family: Tahoma,Verdana,Segoe,sans-serif;
+}
+.tab-cartouche{	
+  width:75%;
+}
+.tab-jrn{	
+  width:90%;
+}
+ th {
+	border-bottom:1px solid gray;
+	background:none repeat scroll 0 0#4c8fc9;
+	padding:5px;
+	color:white;
+}
+tr {
+	border-top:1px solid gray;
+	text-align:center;	
+}
+.petit{
+  font-size: small;
+} 
+.invisible{
+  visibility:hidden;
+}
+/*
+  display:none;
+*/
+
 /* 
 .detailsInc {
   vertical-align: top;
