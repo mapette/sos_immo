@@ -21,7 +21,7 @@ app.use(cors({
 
 const db = require('./src/db_manager')
 const lib = require('./src/lib_serveur')
-const classes = require('./src/lib_classes')
+const trait = require('./src/lib_traitmt_req')
 
 const port = 3001
 app.listen(port)
@@ -37,12 +37,10 @@ app.get('/get_accueil', (request, response) => {
             if (results[0] !== undefined) {
                 response.send({ id: results[0] })
             }
-            // db.traitementApReq(results, response)        // réponse déjà envoyée
         })
     }
 })
 app.get('/get_userBySession', (request, response) => {
-    //    console.log(request.session.ut)
     response.send({ id: request.session.ut })
 })
 
@@ -54,7 +52,7 @@ app.post('/loggin', (request, response) => {
             request.session.uuid = results[0]['ut_uuid']
             request.session.ut = results[0]['ut_id']
         }
-        db.traitementApReq(results, response)
+        response.json(results)
     })
 })
 
@@ -73,7 +71,6 @@ app.post('/change_mdp', (request, response) => {
                 response.send({ status: true })
             })
         }
-        //  db.traitementApReq(results, response)    // réponse déjà envoyée
     })
 })
 // app.get('/exit', (req, res) => {
@@ -127,7 +124,7 @@ app.get('/get_users', (request, response) => {
 app.get('/get_usersByCatAndPresta/:cat/:presta_id', (request, response) => {
     if (request.session.isId == true & (request.session.profil == 3 | request.session.profil == 4)) {
         db.getUserList((error, results) => {
-            response.send(db.getUserListByCatAndPresta(results, request.params.cat, request.params.presta_id))
+            response.send(trait.getUserListByCatAndPresta(results, request.params.cat, request.params.presta_id))
         })
     }
 })
@@ -163,7 +160,7 @@ app.get('/get_emp', (request, response) => {
 
 app.post('/crea_signalement', (request, response) => {
     let data = {        // toutes les données nécessaires à toutes les req
-        id_presta: request.body.inc,
+        tinc_id: request.body.inc,
         infoUsager: request.body.info,
         emp: request.body.emp,
         tinc: request.body.inc,
@@ -174,35 +171,17 @@ app.post('/crea_signalement', (request, response) => {
         data.coordonneesUsager = results[0].ut_prenom +
             ' ' + results[0].ut_nom +
             ' (tél ' + results[0].ut_tel + ')'
-
         // nom du presta
-        db.getPrestaLibelleByTinc(data.id_presta, (error, results) => {
+        trait.getPrestaLibelleByTinc(data.tinc_id, (error, results) => {
             data.presta = results[0].presta_nom
         })
         if (request.session.isId == true) {
             // création incident
             db.creationSignalement(data, (error, results) => {
                 data.jrn_inc = results.insertId
-                data.jrn_imm = false
-
-                // jrn 1 - création signalement
-                data.jrn_msg = 'signalement de ' + data.coordonneesUsager
-                db.creaLigneJournal(data, (error, results) => {
-                    //  response.send({ status: true })
-                })
-                // jrn 2 - info usager - le cas échéant
-                if (data.infoUsager !== '') {
-                    data.jrn_msg = data.infoUsager
-                    db.creaLigneJournal(data, (error, results) => {
-                        //  response.send({ status: true })
-                    })
-                }
-                // jrn 3 - attribution presta
-                data.jrn_msg = 'attribution ' + data.presta
-                data.jrn_imm = true
-                db.creaLigneJournal(data, (error, results) => {
-                    //  response.send({ status: true })
-                })
+                console.log('av jrn', data)
+                // journal
+                trait.jnrApresSignal(results, response, data)
                 response.send({ status: true })
             })
 
@@ -255,40 +234,14 @@ app.get('/affectation:inc_id', (request, response) => {
     if (request.session.isId == true &&
         request.session.profil == 2) {
         db.affectationInc(data, (error, results) => {
-            db.jnrApresAffectation(results, response, data)
+            // journal
+            trait.jnrApresAffectation(results, response, data)
             response.send({ status: true })
         })
     }
 })
 // app.get('/affectation/:id/:techno_id', (request, response) => {
-//     let data = {
-//         inc_id: request.params.id,
-//         ut_uuid: request.session.uuid,
-//     }
-//     if (request.session.isId == true &&
-//         request.session.profil == 2) {
-//         db.affectationInc(data, (error, results) => {
-//             data.jrn_inc = request.params.id
-//             data.jrn_imm = false
-
-//             // jrn 1 - prise en charge
-//             data.jrn_msg = 'prise en charge'
-//             db.creaLigneJournal(data, (error, results) => {
-//                 //  response.send({ status: true })
-//             })
-//             db.getUserNameByUuid(data.ut_uuid, (error, results) => {
-//                 //data.ut_id =  results[0].ut_id
-//                 //  response.send({ status: true })
-//                 // jrn 3 - affectation
-//                 data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
-//                 data.jrn_imm = true
-//                 db.creaLigneJournal(data, (error, results) => {
-//                     response.send({ status: true })
-//                 })
-//             })
-//             // response.send({ status: true })
-//         })
-//     }
+//   
 // })
 
 app.post('/update_comm', (request, response) => {

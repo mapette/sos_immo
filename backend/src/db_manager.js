@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const classes = require('./lib_classes')
 
 function connectToMySQL() {
     let connection = mysql.createConnection({
@@ -11,39 +10,6 @@ function connectToMySQL() {
     connection.connect()
     //  var sessionStore = new MySQLStore({}, connection);
     return connection
-}
-
-////// traitements requêtes //////
-function traitementApReq(results, response) {
-    // console.log('results traitementApReq', results)
-    response.json(results)
-}
-function getUserListByCatAndPresta(results, cat, presta_id) {
-    let ut_liste = new classes.Ut_manager()
-    results.forEach(element => {
-        ut_liste.liste.push(new classes.Utilisateur(element))
-    });
-    ut_liste.byProfil(cat)
-    ut_liste.byPresta(presta_id)
-    return (ut_liste.liste)
-}
-
-function jnrApresAffectation(results, response, data) {
-    console.log('data', data)
-    // jrn 1 - prise en charge
-    data.jrn_imm = false
-    data.jrn_msg = 'prise en charge par notre technicien'
-    creaLigneJournal(data, (error, results) => {
-        //  response.send({ status: true })
-    })
-    getUserNameByUuid(data.ut_uuid, (error, results) => {
-        // jrn 2 - affectation
-        data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
-        data.jrn_imm = true
-        creaLigneJournal(data, (error, results) => {
-           // response.send({ status: true })
-        })
-    })
 }
 
 ////// requêtes //////
@@ -227,13 +193,9 @@ function affectationInc(val, fonction_traitement_resultat_bdd) {
 }
 
 //////////////////////////////////////////////
-
 module.exports = {
     userLogin,
     change_mdp,
-    traitementApReq,
-    getUserListByCatAndPresta,
-    jnrApresAffectation,
     getPrestaList,
     getUserNameByUuid,
     getUserList,
