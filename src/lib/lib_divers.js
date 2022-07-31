@@ -78,15 +78,17 @@ function determineStatus(ch, res) {    //charge_date, resolution_date
 }
 // FicheInc
 function statusLibelle(status) {
+  let libelle;
   if (status === 'enAttente') {
-    return 'en attente'
+    libelle= 'En attente d\'affectation'
   }
   else if (status === 'enCours') {
-    return 'en cours'
+    libelle= 'Prise en charge'
   }
   else if (status === 'termine') {
-    return 'terminé'
+    libelle= 'Terminé'
   }
+  return libelle
 }
 
 // Demandes
@@ -110,7 +112,12 @@ function determineURL(catUrl, data) {
       url = 'http://localhost:3001/affectation' + data.inc_id
     }
     else {
-      url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id
+      if (data.status === 'enAttente'){
+        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/false'
+      }
+      else{
+        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/true'
+      }
     }
   }
   return url

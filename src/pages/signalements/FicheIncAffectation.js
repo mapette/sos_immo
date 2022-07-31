@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import BoutonSubmit from '../../tools/BoutonSubmit'
-import Bouton from '../../tools/Bouton'
 
 const time = require('../../lib/lib_time')
-const diplay = require('../../lib/lib_display')
 const lib = require('../../lib/lib_divers')
 
-function FicheIncStatusEnAttente(props) {
+function FicheIncAffectation(props) {
   let [lTechno, setLTechno] = useState([])
-  let [lPresta, setLPresta] = useState([])
 
   useEffect(() => {
     // pour affectation 'forcée' (suivi des incidents)
@@ -24,15 +21,19 @@ function FicheIncStatusEnAttente(props) {
           .then(response => {
             setLTechno(lTechno = response)
             console.log('response liste techniciens', response) // laisser cette ligne sinon ça marche pas !
-          })
-      }
-      //  => liste des presta (profil imm)
-      if (props.varGlob.profilEcran === 'techno' & props.varGlob.profil === 'imm') {
-        fetch('http://localhost:3001/get_presta', lib.optionsGet())
-          .then(response => response.json())  // récupère que les données résultat
-          .then(response => {
-            console.log('response liste presta', response) // laisser cette ligne sinon ça marche pas !
-            setLPresta(response)
+            // ajouter le technicien au props.incident - si <> enAttente (pour l'affichage)
+            if (props.status !== 'enAttente' & props.incident.inc_affect_id === undefined) {
+              lTechno.forEach(element => {
+                if (element.ut_uuid == props.incident.inc_affect_ut) {
+                  props.setIncident({
+                    ...props.incident,
+                    inc_affect_id: element.ut_id,
+                    inc_affect_nom: element.ut_nom,
+                    inc_affect_prenom: element.ut_prenom,
+                  })
+                }
+              })
+            }
           })
       }
     }
@@ -44,6 +45,7 @@ function FicheIncStatusEnAttente(props) {
       let data = {
         inc_id: props.varGlob.focus,
         profil: props.varGlob.profil,
+        status: props.status,
       }
       if (document.getElementById("techno") !== null) {     // null si auto-affection
         data.ut_id = document.getElementById("techno").value
@@ -52,12 +54,10 @@ function FicheIncStatusEnAttente(props) {
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
         .then(response => {
-          //console.log('reponse bidon', response) // laisser cette ligne sinon ça marche pas !
-          //console.log('setincident', incident)
-          console.log('incident av', props.incident)
-          props.setIncident({
+           props.setIncident({
             ...props.incident,
             inc_affect_date: time.initDate(),
+            inc_affect_ut: data.ut_id ,
           })
         })
       props.setStatus('enCours')
@@ -72,10 +72,21 @@ function FicheIncStatusEnAttente(props) {
     }
     else {  // affectation par valideur ou immo
       if (document.getElementById('techno').value !== '') {
-        okAffection = true
+        // empêcher ré-affectation au même technicien
+        if (document.getElementById('techno').value !== props.incident.inc_affect_ut) {
+          okAffection = true
+        }
       }
     }
     return okAffection
+  }
+  function libelleBoutonAffectation() {
+    console.log('props.status', props)
+    let libelle = 'Affecter un.e technicien.ne'
+    if (props.status !== 'enAttente') {
+      libelle = 'Ré-affecter à un.e autre technicien.ne'
+    }
+    return libelle
   }
 
   return (
@@ -112,31 +123,7 @@ function FicheIncStatusEnAttente(props) {
           </select>
           <BoutonSubmit
             couleur={'vert'}
-            txt={"Affecter un.e technicien.ne"}
-            plein={true}
-          />
-        </form>
-      }
-      {(props.varGlob.profil == 'imm') &&
-        <form id="attribution" className='cadre-15'
-          type="POST"
-          encType="application/x-www-form-urlencoded"
-          onSubmit={soumettreAffectation}
-        >
-          <select id='presta' name='prestat'
-            className='largeur-200'>
-            <option value=''> </option>
-            {lPresta.map(elem =>
-              <option
-                value={elem.presta_id}
-                key={elem.presta_id}>
-                {elem.presta_nom} - {elem.presta_libelle}
-              </option>
-            )}
-          </select>
-          <BoutonSubmit
-            couleur={'vert'}
-            txt={"changer le prestataire en charge"}
+            txt={libelleBoutonAffectation()}
             plein={true}
           />
         </form>
@@ -146,7 +133,7 @@ function FicheIncStatusEnAttente(props) {
 
 }
 
-export default FicheIncStatusEnAttente;
+export default FicheIncAffectation;
 
 /*        
 

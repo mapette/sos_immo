@@ -230,6 +230,7 @@ app.get('/affectation:inc_id', (request, response) => {
         inc_id: request.params.inc_id,
         jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
         ut_uuid: request.session.uuid,
+        reaffect: 'false',
     }
     if (request.session.isId == true &&
         request.session.profil == 2) {
@@ -240,9 +241,39 @@ app.get('/affectation:inc_id', (request, response) => {
         })
     }
 })
-// app.get('/affectation/:id/:techno_id', (request, response) => {
-//   
-// })
+app.get('/affectation/:inc_id/:techno_id/:reaffect', (request, response) => {
+    let data = {
+        inc_id: request.params.inc_id,
+        jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
+        ut_uuid: request.params.techno_id,
+        reaffect: request.params.reaffect,
+    }
+    console.log(data)
+    if (request.session.isId == true &&
+        (request.session.profil == 3 | request.session.profil == 4)) {
+        db.affectationInc(data, (error, results) => {
+            // journal
+            trait.jnrApresAffectation(results, response, data)
+            response.send({ status: true })
+        })
+    }
+})
+app.get('/attribution/:inc_id/:presta_id', (request, response) => {
+    let data = {
+        inc_id: request.params.inc_id,
+        jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
+        presta_id: request.params.presta_id,
+    }
+    console.log('data', data)
+    if (request.session.isId == true &&
+        request.session.profil == 4) {
+        db.attributionInc(data, (error, results) => {
+            // journal
+            trait.jnrApresAttribution(results, response, data)
+            response.send({ status: true })
+        })
+    }
+})
 
 app.post('/update_comm', (request, response) => {
     //   console.log('req.body', request.body)

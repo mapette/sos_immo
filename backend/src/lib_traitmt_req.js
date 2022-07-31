@@ -27,7 +27,7 @@ function jnrApresSignal(results, response, data) {
         })
     }
     // jrn 3 - attribution presta
-    data.jrn_msg = 'attribution ' + data.presta
+    data.jrn_msg = 'attribution : ' + data.presta
     data.jrn_imm = true
     db.creaLigneJournal(data, (error, results) => {
         //  response.send({ status: true })
@@ -35,15 +35,26 @@ function jnrApresSignal(results, response, data) {
 }
 
 function jnrApresAffectation(results, response, data) {
-    // jrn 1 - prise en charge
-    data.jrn_imm = false
-    data.jrn_msg = 'prise en charge par notre technicien'
-    db.creaLigneJournal(data, (error, results) => {
-        //  response.send({ status: true })
-    })
-    getUserNameByUuid(data.ut_uuid, (error, results) => {
+    // jrn 1 - prise en charge si 1ère affectation
+    if (data.reaffect == 'false') {
+        data.jrn_imm = false
+        data.jrn_msg = 'prise en charge par notre technicien'
+        db.creaLigneJournal(data, (error, results) => {
+            //  response.send({ status: true })
+        })
+    }
+    db.getUserNameByUuid(data.ut_uuid, (error, results) => {
         // jrn 2 - affectation
         data.jrn_msg = 'affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
+        data.jrn_imm = true
+        db.creaLigneJournal(data, (error, results) => {
+            // response.send({ status: true })
+        })
+    })
+}
+function jnrApresAttribution(results, response, data) {
+    db.getPrestaNameById(data.presta_id, (error, results) => {
+        data.jrn_msg = 'attribution : ' + results[0].presta_nom
         data.jrn_imm = true
         db.creaLigneJournal(data, (error, results) => {
             // response.send({ status: true })
@@ -56,4 +67,5 @@ module.exports = {
     getUserListByCatAndPresta,
     jnrApresSignal,
     jnrApresAffectation,
+    jnrApresAttribution,
 }

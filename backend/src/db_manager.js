@@ -81,6 +81,15 @@ function getPrestaLibelleByTinc(id, nomBidon) {     // pour le bandeau et info p
     connection.end();
 }
 
+function getPrestaNameById(id, nomBidon) {     // pour le bandeau et info pour le journal
+    let params = [id]
+    let connection = connectToMySQL()
+    let query = `SELECT presta_nom FROM presta 
+                    WHERE  presta_id = ?`
+    connection.query(query, params, nomBidon)
+    connection.end();
+}
+
 function getPrestaList(fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let query = `SELECT * FROM presta`
@@ -132,7 +141,7 @@ function getIncList(val, fonction_traitement_resultat_bdd) {
 function getIncById(val, fonction_traitement_resultat_bdd) {
     let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT emp_nom, emp_etage, tinc_nom, presta_id, presta_nom,
+    let query = `SELECT emp_nom, emp_etage, tinc_nom, presta_id, presta_nom, inc_affect_ut,
                     inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
                 FROM incidents, emplacements, types_inc, presta
                 WHERE inc_emp = emp_id 
@@ -191,12 +200,22 @@ function affectationInc(val, fonction_traitement_resultat_bdd) {
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
+function attributionInc(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['presta_id'], val['inc_id'],]
+    let query = `UPDATE incidents 
+                    SET inc_presta = ?
+                    WHERE inc_id = ?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
 
 //////////////////////////////////////////////
 module.exports = {
     userLogin,
     change_mdp,
     getPrestaList,
+    getPrestaNameById,
     getUserNameByUuid,
     getUserList,
     creationUtilisateur,
@@ -205,6 +224,7 @@ module.exports = {
     creationSignalement,
     getIncList,
     affectationInc,
+    attributionInc,
     creaLigneJournal,
     getPrestaLibelleByTinc,
     getIncById,

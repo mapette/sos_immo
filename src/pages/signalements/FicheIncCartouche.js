@@ -1,15 +1,10 @@
-import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import Bouton from '../../tools/Bouton'
-import BoutonSubmit from '../../tools/BoutonSubmit'
 
 const time = require('../../lib/lib_time')
-const lib = require('../../lib/lib_divers')
 
 function FicheIncCartouche(props) {
 
-  // console.log('varglob début details',props.varGlob)
-  return (
+ return (
     <div>
       <div className="decal">
         <table className='cadre-15 gras tab-cartouche'>

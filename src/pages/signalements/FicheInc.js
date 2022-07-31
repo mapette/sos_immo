@@ -26,6 +26,7 @@ function FicheInc(props) {
       tinc_nom: response_inc.tinc_nom,
       presta_id: response_inc.presta_id,
       presta_nom: response_inc.presta_nom,
+      inc_affect_ut: response_inc.inc_affect_ut,
     })
   }
 
