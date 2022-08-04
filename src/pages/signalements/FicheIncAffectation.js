@@ -50,7 +50,6 @@ function FicheIncAffectation(props) {
       if (document.getElementById("techno") !== null) {     // null si auto-affection
         data.ut_id = document.getElementById("techno").value
       }
-      //  console.log('url', lib.determineURL('affectation', data))
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
         .then(response => {
@@ -98,7 +97,7 @@ function FicheIncAffectation(props) {
           onSubmit={soumettreAffectation}
         >
           <BoutonSubmit
-            couleur={'vert'}
+            couleur={'bleu'}
             txt={"Je m'en charge !"}
             plein={true}
           />
@@ -122,7 +121,7 @@ function FicheIncAffectation(props) {
             )}
           </select>
           <BoutonSubmit
-            couleur={'vert'}
+            couleur={'bleu'}
             txt={libelleBoutonAffectation()}
             plein={true}
           />

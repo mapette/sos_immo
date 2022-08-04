@@ -5,8 +5,6 @@ import FicheIncCartouche from './FicheIncCartouche'
 import FicheIncStatus from './FicheIncStatus'
 import FicheIncJrn from './FicheIncJrn'
 
-const time = require('../../lib/lib_time')
-const diplay = require('../../lib/lib_display')
 const lib = require('../../lib/lib_divers')
 
 function FicheInc(props) {
@@ -18,11 +16,13 @@ function FicheInc(props) {
     setIncident({
       ...incident,
       emp_etage: response_inc.emp_etage,
+      emp_id: response_inc.emp_id,
       emp_nom: response_inc.emp_nom,
       inc_signal_date: response_inc.inc_signal_date,
       inc_affect_date: response_inc.inc_affect_date,
       inc_fin_date: response_inc.inc_fin_date,
       inc_cloture_date: response_inc.inc_cloture_date,
+      tinc_id: response_inc.tinc_id,
       tinc_nom: response_inc.tinc_nom,
       presta_id: response_inc.presta_id,
       presta_nom: response_inc.presta_nom,

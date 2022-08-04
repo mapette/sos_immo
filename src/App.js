@@ -9,6 +9,7 @@ import GestionUtilisateurs from './pages/tables/GestionUtilisateurs'
 import NewInc from './pages/signalements/NewInc'
 import Demandes from './pages/signalements/Demandes'
 import FicheInc from './pages/signalements/FicheInc'
+import Kpi from './pages/kpi/Kpi'
 
 import './tools/App.css';
 import Test from './Test'
@@ -75,6 +76,12 @@ function App() {
           }
           {varGlob.ecran === 'detailsInc' &&
             <FicheInc
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+           {varGlob.ecran === 'kpi' &&
+            <Kpi
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import Bouton from './../../tools/Bouton'
 import BoutonSubmit from './../../tools/BoutonSubmit'
@@ -14,32 +15,16 @@ function NewInc(props) {
   let [lEmpl, setLEmpl] = useState([])
   let [lInc, setLInc] = useState([])
   let [alertMsg, setAlertMsg] = useState('')
+  const { register, handleSubmit, formState: { errors }, } = useForm()
 
-  function sub_form(event) {
-    event.preventDefault()
-    let data = {
-      emp: document.getElementById("empl").value,
-      inc: document.getElementById("inc").value,
-      info: document.getElementById("info").value,
-    }
-    console.log('data ', data)
-    if (data.emp === '' | data.inc === '') {
-      setAlertMsg('Veuillez préciser le type de problème.')
-    }
-    else {
-      fetch('http://localhost:3001/crea_signalement', lib.optionsPost(data))
-        .then(response => response.json())
-        .then(response => {
-          console.log('response', response)
-          props.setVarGlob({
-            ...props.varGlob,
-            ecran: 'demandes',
-            profilEcran: 'usager',
-          })
-        }
-        )
-    }
-  }
+  useEffect(() => {
+    fetch('http://localhost:3001/get_emp', lib.optionsGet())
+      .then(response => response.json())
+      .then(response => {
+        console.log('response empl list', response) // laisser cette ligne sinon ça marche pas !
+        prepaListe(response)
+      })
+  }, [])
 
   function prepaListe(response) {
     let etages = []
@@ -65,14 +50,19 @@ function NewInc(props) {
     setLInc(response)
   }
 
-  useEffect(() => {
-    fetch('http://localhost:3001/get_emp', lib.optionsGet())
+  function soumettre_inc(data) {
+    console.log('data soumission',data)
+    fetch('http://localhost:3001/crea_signalement', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
-        console.log('response empl list', response) // laisser cette ligne sinon ça marche pas !
-        prepaListe(response)
+        console.log('response', response)
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'demandes',
+          profilEcran: 'usager',
+        })
       })
-  }, [])
+  }
 
   function stypeInput(etapeEnCours) {
     if (etapeEnCours === etape) {
@@ -88,7 +78,7 @@ function NewInc(props) {
       <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
-        onSubmit={sub_form}
+        onSubmit={handleSubmit(soumettre_inc)}
         className='fontsize-12'
       >
         <div className="container no-gutter">
@@ -126,7 +116,7 @@ function NewInc(props) {
               </div>
               <div className='gauche col-6'>
                 <select type=""
-                  id='empl' name='empl'
+                  id='empl'  {...register('emp', { required: true })}
                   onClick={() => {
                     setEtape(2)
                   }}
@@ -156,7 +146,7 @@ function NewInc(props) {
               </div>
               <div className='gauche col-6'>
                 <select type=""
-                  id='inc' name='inc'
+                  id='inc'  {...register('inc', { required: true })}
                   onClick={() => {
                     setEtape(3)
                   }}
@@ -187,12 +177,12 @@ function NewInc(props) {
                 </div>
                 <div className='gauche col-6'>
                   <textarea type=""
-                    id='info' name='info'
+                    id='info' {...register('info',)}
                     rows="5"
                     onClick={() => {
                       setEtape(4)
                     }}
-                    className='largeur-200' />
+                    className='largeur-400' />
                 </div>
               </div>
               <div className='cadre-15 '>

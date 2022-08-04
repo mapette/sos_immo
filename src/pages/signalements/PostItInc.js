@@ -7,7 +7,7 @@ const lib = require('./../../lib/lib_divers')
 
 
 function PostItInc(props) {
-  let [status, setStatus] = useState(lib.determineStatus(props.elem.inc_affect_date, props.elem.inc_fin_date))
+  let [status, setStatus] = useState(lib.determineStatus(props.elem.inc_affect_date, props.elem.inc_fin_date, props.elem.inc_cloture_date))
 
   function showDetails(id) {
     props.setVarGlob({

@@ -72,7 +72,8 @@ function Menu(props) {
               txt={'KPI'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu',
+                ecran: 'kpi',
+                profilEcran: 'kpi',
               })}
               couleur={'rouge'}
               menu={'menu'}

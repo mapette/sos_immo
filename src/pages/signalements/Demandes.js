@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Bouton from './../../tools/Bouton'
 import PostItInc from './PostItInc'
-import FicheInc from './FicheInc'
 
 const lib = require('./../../lib/lib_divers')
 const display = require('./../../lib/lib_display')

@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const MD5 = require('sha1')
+//path = require('path')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -25,8 +27,6 @@ const trait = require('./src/lib_traitmt_req')
 
 const port = 3001
 app.listen(port)
-
-const MD5 = require('sha1')
 
 //////      api     //////
 app.get('/get_accueil', (request, response) => {
@@ -80,10 +80,8 @@ app.post('/change_mdp', (request, response) => {
 
 //////////// gestion utilisateurs ////////////
 app.post('/crea_user', (request, response) => {
-    console.log('cookie av création ', request.session)
     if (request.session.isId == true & request.session.profil == 4) {
         let mdp = lib.genMdp()
-        console.log('mot de passe à changer à la prochaine connexion => ', mdp)
         let data = {
             uuid: lib.genUuid(),
             username: request.body.username, nom: request.body.nom, prenom: request.body.prenom,
@@ -92,7 +90,10 @@ app.post('/crea_user', (request, response) => {
             mdp: MD5(request.body.username + mdp),
             adm: request.session.ut,
         }
+        console.log('mot de passe à changer à la prochaine connexion => ', mdp)
+
         db.creationUtilisateur(data, (error, results) => {
+            //console.log('crea',results)
             // response.send(results)
         })
         data = {
@@ -148,6 +149,18 @@ app.get('/get_inc_journal/:id/:infoImmoInclude', (request, response) => {
         })
     }
 })
+app.post('/update_comm', (request, response) => {
+    if (request.session.isId == true) {
+        let data = {
+            jrn_inc: request.body.jrn_inc,
+            jrn_msg: request.body.jrn_msg,
+            jrn_imm: request.body.jrn_imm
+        }
+        db.creaLigneJournal(data, (error, results) => {
+            response.send({ jrn_id: results.insertId })
+        })
+    }
+})
 
 //////////// incidents usagers ////////////
 app.get('/get_emp', (request, response) => {
@@ -159,11 +172,10 @@ app.get('/get_emp', (request, response) => {
 })
 
 app.post('/crea_signalement', (request, response) => {
-    let data = {        // toutes les données nécessaires à toutes les req
-        tinc_id: request.body.inc,
+    let data = {        // toutes les données nécessaires à toutes les req   
         infoUsager: request.body.info,
         emp: request.body.emp,
-        tinc: request.body.inc,
+        tinc: request.body.tinc,
         ut: request.session.uuid,
     }
     // coordonnées de l'usager
@@ -172,21 +184,52 @@ app.post('/crea_signalement', (request, response) => {
             ' ' + results[0].ut_nom +
             ' (tél ' + results[0].ut_tel + ')'
         // nom du presta
-        trait.getPrestaLibelleByTinc(data.tinc_id, (error, results) => {
+        db.getPrestaLibelleByTinc(data.tinc, (error, results) => {
             data.presta = results[0].presta_nom
         })
         if (request.session.isId == true) {
             // création incident
             db.creationSignalement(data, (error, results) => {
                 data.jrn_inc = results.insertId
-                console.log('av jrn', data)
                 // journal
                 trait.jnrApresSignal(results, response, data)
                 response.send({ status: true })
             })
-
         }
     })
+})
+
+app.get('/clotureInc:inc_id', (request, response) => {
+    let data = {
+        inc_id: request.params.inc_id,
+        jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
+        ut_uuid: request.session.uuid,
+        relance: false,
+    }
+    if (request.session.isId == true) {
+        db.clotureInc(data, (error, results) => {
+            // journal
+            trait.jnrAprescloture(results, response, data)
+            response.send({ status: true })
+        })
+    }
+})
+app.post('/clotureInc', (request, response) => {
+    let data = {
+        inc_id: request.body.inc_id,
+        jrn_inc: request.body.inc_id,// doublon nécessaires pour les req sql
+        ut_uuid: request.session.uuid,
+        jrn_msg: request.body.info,
+        relance: true,
+    }
+    if (request.session.isId == true) {
+        db.clotureInc(data, (error, results) => {
+            // journal
+            trait.jnrAprescloture(results, response, data)
+            response.send({ status: true })
+            // recopier les data de l'inc terminé à l'identique dans un nouveau inc => url creaSignalement
+        })
+    }
 })
 
 //////////// incidents presta ////////////
@@ -248,7 +291,6 @@ app.get('/affectation/:inc_id/:techno_id/:reaffect', (request, response) => {
         ut_uuid: request.params.techno_id,
         reaffect: request.params.reaffect,
     }
-    console.log(data)
     if (request.session.isId == true &&
         (request.session.profil == 3 | request.session.profil == 4)) {
         db.affectationInc(data, (error, results) => {
@@ -264,7 +306,6 @@ app.get('/attribution/:inc_id/:presta_id', (request, response) => {
         jrn_inc: request.params.inc_id,// doublon nécessaires pour les req sql
         presta_id: request.params.presta_id,
     }
-    console.log('data', data)
     if (request.session.isId == true &&
         request.session.profil == 4) {
         db.attributionInc(data, (error, results) => {
@@ -274,20 +315,22 @@ app.get('/attribution/:inc_id/:presta_id', (request, response) => {
         })
     }
 })
-
-app.post('/update_comm', (request, response) => {
-    //   console.log('req.body', request.body)
-    if (request.session.isId == true) {
-        let data = {
-            jrn_inc: request.body.jrn_inc,
-            jrn_msg: request.body.jrn_msg,
-            jrn_imm: request.body.jrn_imm
-        }
-        db.creaLigneJournal(data, (error, results) => {
-            response.send({ jrn_id: results.insertId })
+app.get('/finIntervention:inc_id', (request, response) => {
+    if (request.session.isId == true &&
+        request.session.profil != 1) {
+        db.finIntervention(request.params.inc_id, (error, results) => {
+            // journal
+            let data = {
+                jrn_inc: request.params.inc_id,
+                ut_uuid: request.session.uuid,
+            }
+            trait.jnrApresFin(results, response, data)
+            response.send({ status: true })
         })
     }
 })
+
+
 
 /*
 

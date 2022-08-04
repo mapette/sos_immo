@@ -3,7 +3,6 @@ import './../../tools/App.css';
 import BoutonSubmit from '../../tools/BoutonSubmit'
 
 const time = require('../../lib/lib_time')
-const diplay = require('../../lib/lib_display')
 const lib = require('../../lib/lib_divers')
 
 function FicheIncJrn(props) {
@@ -19,13 +18,13 @@ function FicheIncJrn(props) {
       }
     }
     fetch('http://localhost:3001/get_inc_journal/' + props.varGlob.focus + '/' + infoImmoInclude(),
-           lib.optionsGet())
+      lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         console.log('journal ', response) // laisser cette ligne sinon ça marche pas !
         setJournal(response)
       })
-  }, [,props.incident])
+  }, [, props.incident])
 
   function majCommentaire(event) {
     event.preventDefault()
@@ -58,7 +57,7 @@ function FicheIncJrn(props) {
       return 'invisible'
     }
   }
-
+  console.log('inc incident', props.incident)
   return (
     <div>
       <div className="cadre-15">
@@ -83,35 +82,36 @@ function FicheIncJrn(props) {
             )}
           </tbody>
         </table>
-
-        <form id="msgInfo"
-          type="POST"
-          encType="application/x-www-form-urlencoded"
-          onSubmit={majCommentaire}
-        >
-          <div>
-            <textarea type='text'
-              id='comm' name='comm'
-              rows="2" cols="100"
-              placeholder="complément info :"
-            />
-          </div>
-          <div>
-            {props.varGlob.profilEcran != 'usager' &&
-              <span className={affBtInfoImm()}>
-                <label className="form-check-label petit" for="infoImm">
-                  info immo
-                </label>
-                <input className="form-check-input" name='infoImm' type="checkbox" value="" id="infoImm" />
-              </span>
-            }
-            <BoutonSubmit
-              couleur={'orange'}
-              txt={'Valider'}
-              plein={true}
-            />
-          </div>
-        </form>
+        {props.incident.inc_cloture_date === null &&
+          <form id="msgInfo"
+            type="POST"
+            encType="application/x-www-form-urlencoded"
+            onSubmit={majCommentaire}
+          >
+            <div>
+              <textarea type='text'
+                id='comm' name='comm'
+                rows="2" cols="100"
+                placeholder="complément info :"
+              />
+            </div>
+            <div>
+              {props.varGlob.profilEcran != 'usager' &&
+                <span className={affBtInfoImm()}>
+                  <label className="form-check-label petit" for="infoImm">
+                    info immo
+                  </label>
+                  <input className="form-check-input" name='infoImm' type="checkbox" value="" id="infoImm" />
+                </span>
+              }
+              <BoutonSubmit
+                couleur={'orange'}
+                txt={'Valider'}
+                plein={true}
+              />
+            </div>
+          </form>
+        }
       </div>
     </div>
   );

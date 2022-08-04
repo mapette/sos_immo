@@ -1,45 +1,38 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
-import Bouton from './../../tools/Bouton'
-import BoutonSubmit from './../../tools/BoutonSubmit'
-import Alerte from './../../tools/Alerte'
+import Bouton from '../../tools/Bouton'
+import BoutonSubmit from '../../tools/BoutonSubmit'
+import Alerte from '../../tools/Alerte'
 
-const lib = require('./../../lib/lib_divers')
+const lib = require('../../lib/lib_divers')
 
 function FCreaUt(props) {
   let [prestaList, setPrestaList] = useState([])
   let [alertMsg, setAlertMsg] = useState('')
+  const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
     fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
+        //  console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
         if (response.length !== 0) {
           setPrestaList(prestaList = response)
         }
       })
   }, [])
 
-  function sub_form(event) {
-    event.preventDefault()
+
+  function soumettre_newUser(data) {
+    data.presta = lib.cleanNull(data.presta)
     console.log('msg : ', alertMsg)
     if (alertMsg === '') {
-      console.log('GO')
-      let data = {
-        username: document.getElementById("username").value,
-        nom: document.getElementById("nom").value,
-        prenom: document.getElementById("prenom").value,
-        tel: lib.cleanNull(document.getElementById("tel").value),
-        mail: document.getElementById("email").value,
-        presta: lib.cleanNull(document.getElementById("presta").value),
-        profil: document.getElementById("profil").value,
-      }
       if (alertMsg === '') {
         fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
           .then(response => response.json())
           .then(response => {
-            console.log('creation user',response)
+            console.log('creation user', response)
             props.setMode('neutre')
           })
       }
@@ -47,7 +40,7 @@ function FCreaUt(props) {
   }
 
   function contrInput(username, profil, presta,) {
-    console.log(username, profil, presta)
+    //console.log(username, profil, presta)
     profil = parseInt(profil)
     presta = lib.cleanNull(presta)
     if (props.userNameList.includes(username)) {
@@ -63,19 +56,19 @@ function FCreaUt(props) {
       setAlertMsg('')
     }
   }
-  
+
   return (
     <div className="">
       <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
-        onSubmit={sub_form}
+        onSubmit={handleSubmit(soumettre_newUser)}
         className='fontsize-12'
       >
         <div className='cadre-15'>
           <span className='cadre-15'>
             <label htmlFor='id'>username </label>
-            <input id='username' name='username' required
+            <input id='username' {...register('username', { required: true })}
               onChange={event => {
                 contrInput(
                   event.target.value,
@@ -87,27 +80,31 @@ function FCreaUt(props) {
           </span>
           <span className='cadre-15'>
             <label htmlFor='nom'>nom </label>
-            <input id='nom' name='nom' required></input>
+            <input id='nom' {...register('nom', { required: true })}></input>
+            {errors.nom && <p>Nom obligatoire</p>}
           </span>
           <span className='cadre-15'>
             <label htmlFor='prenom'>prénom </label>
-            <input id='prenom' name='prenom' required></input>
+            <input id='prenom' {...register('prenom', { required: true })}></input>
+            {errors.prenom && <p>Prénom obligatoire</p>}
           </span>
         </div>
         <div className=''>
           <span className='cadre-15'>
             <label htmlFor='tel'>téléphone </label>
-            <input type="tel" id='tel' name='tel'></input>
+            <input type="tel" id='tel' {...register('tel', { required: true })}></input>
+            {errors.tel && <p>Numéro de téléphone obligatoire</p>}
           </span>
           <span className='cadre-15'>
             <label htmlFor='email'>email </label>
-            <input type="email" id='email' name='email' required></input>
+            <input type="email" id='email' {...register('mail', { required: true })} ></input>
+            {errors.mail && <p>Adresse email obligatoire</p>}
           </span>
         </div>
         <div className='cadre-15'>
           <span className='cadre-15'>
             <label htmlFor='profil'>profil initial </label>
-            <select id='profil' name='profil'
+            <select id='profil' {...register('profil')}
               onChange={event => {
                 contrInput(
                   document.getElementById("username").value,
@@ -124,7 +121,7 @@ function FCreaUt(props) {
           </span>
           <span className='cadre-15'>
             <label htmlFor='presta'>si prestataire, nom de l'entreprise </label>
-            <select id='presta' name='presta'
+            <select id='presta' {...register('presta')}
               onChange={event => {
                 contrInput(
                   document.getElementById("username").value,

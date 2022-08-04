@@ -40,30 +40,19 @@ function boutonDisplay(couleur, menu, plein) {
 function fichePostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
   //console.log('params ', detail, status, profil_ecran)
   let ficheInc = 'fiche-commun postItUsager en-ligne'
-  let classStatus;
-  if (status === 'enAttente') {
-    classStatus = ' enAttente'
-  }
-  else if (status === 'enCours') {
-    classStatus = ' enCours'
-  }
-  else if (status === 'termine') {
-    classStatus = ' termine'
-  }
-  let totalClass = ficheInc + classStatus
+  let totalClass = ficheInc + ' ' + status
   return totalClass
   //retour fiche-commun + detail + en-ligne + status
 }
 
-function textAlign(critere) {
-  if (critere === 'usager') {
-    return 'centre '
-  }
-  else if (critere === 'techno') {
-    return 'gauche '
-  }
-  
+function rubanPostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
+  console.log('params ', status)
+  let ficheInc = 'fiche-commun rubanTechno'
+  let totalClass = ficheInc + ' ' + status
+  return totalClass
+  //retour fiche-commun + detail + en-ligne + status
 }
+
 function alignement(critere) {
   if (critere === 'usager') {
     return 'en-ligne '
@@ -72,35 +61,19 @@ function alignement(critere) {
     return ' '
   }
 }
-
-function rubanPostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
-  //console.log('params ', detail, status, profil_ecran)
-  let ficheInc = 'fiche-commun rubanTechno'
-  let classStatus;
-  if (status === 'enAttente') {
-    classStatus = ' enAttente'
-    // if (profilEcran === 'techno') {
-    //   hauteurFiche = ' hauteur-fiche-en-attente'
-    // }
+function textAlign(critere) {
+  if (critere === 'usager') {
+    return 'centre '
   }
-  else if (status === 'enCours') {
-     classStatus = ' enCours'
-    // if (profilEcran === 'techno') {
-    //   //hauteurFiche = ' hauteur-fiche-en-cours'
-    // }
+  else if (critere === 'techno') {
+    return 'gauche '
   }
-  else if (status === 'termine') {
-    classStatus = ' termine'
-  }
-  let totalClass = ficheInc + classStatus
-  return totalClass
-  //retour fiche-commun + detail + en-ligne + status
 }
 
 module.exports = {
+  boutonDisplay,
   fichePostItDisplay,
   rubanPostItDisplay,
-  boutonDisplay,
   alignement,
   textAlign,
 

@@ -58,6 +58,7 @@ function creationUtilisateur(val, fonction_traitement_resultat_bdd) {
     let query = "INSERT INTO utilisateurs " +
         "(ut_uuid, ut_id, ut_nom, ut_prenom, ut_tel, ut_mail, ut_presta, ut_mdp, ut_admin_deb) " +
         "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?)"
+    console.log(params)
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end()
 }
@@ -141,7 +142,7 @@ function getIncList(val, fonction_traitement_resultat_bdd) {
 function getIncById(val, fonction_traitement_resultat_bdd) {
     let params = [val]
     let connection = connectToMySQL()
-    let query = `SELECT emp_nom, emp_etage, tinc_nom, presta_id, presta_nom, inc_affect_ut,
+    let query = `SELECT emp_id, emp_nom, emp_etage, tinc_id, tinc_nom, presta_id, presta_nom, inc_affect_ut,
                     inc_signal_date, inc_affect_date, inc_fin_date, inc_cloture_date
                 FROM incidents, emplacements, types_inc, presta
                 WHERE inc_emp = emp_id 
@@ -184,7 +185,6 @@ function creationSignalement(val, fonction_traitement_resultat_bdd) {
 function creaLigneJournal(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let params = [val['jrn_inc'], val['jrn_msg'], val['jrn_imm']]
-    //      console.log('param lignes',params)
     let query = `INSERT INTO journaux (jrn_inc, jrn_msg, jrn_imm)
                     VALUES (?, ?, ?)`
     connection.query(query, params, fonction_traitement_resultat_bdd)
@@ -210,6 +210,26 @@ function attributionInc(val, fonction_traitement_resultat_bdd) {
     connection.end();
 }
 
+function finIntervention(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = val
+    let query = `UPDATE incidents 
+                    SET inc_fin_date = now()
+                    WHERE inc_id = ?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+function clotureInc(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['inc_id']]
+    let query = `UPDATE incidents 
+                    SET inc_cloture_date = now()
+                    WHERE inc_id = ?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
 //////////////////////////////////////////////
 module.exports = {
     userLogin,
@@ -229,6 +249,8 @@ module.exports = {
     getPrestaLibelleByTinc,
     getIncById,
     getJrnByIncId,
+    finIntervention,
+    clotureInc,
 }
 
 

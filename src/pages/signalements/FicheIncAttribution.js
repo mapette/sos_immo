@@ -54,7 +54,7 @@ function FicheIncAttribution(props) {
 
   return (
     <div>
-      {(props.varGlob.profil == 'imm') &&
+      {(props.varGlob.profil == 'imm') &&   // normalement inutile - je garde par précausion
         <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"
@@ -72,7 +72,7 @@ function FicheIncAttribution(props) {
             )}
           </select>
           <BoutonSubmit
-            couleur={'vert'}
+            couleur={'bleu'}
             txt={"changer le prestataire en charge"}
             plein={true}
           />

@@ -3,30 +3,30 @@ function FormatDate(dateR) {
   return convDateToString(date)
 }
 
-function convDateToString(date){
+function convDateToString(date) {
   let mois
   if (date.getMonth() + 1 < 10) {
-      mois = `0${date.getMonth() + 1}`
+    mois = `0${date.getMonth() + 1}`
   }
   else {
-      mois = `${date.getMonth() + 1}`
+    mois = `${date.getMonth() + 1}`
   }
   let jour
   if (date.getDate() < 10) {
-      jour = `0${date.getDate()}`
+    jour = `0${date.getDate()}`
   }
   else {
-      jour = `${date.getDate()}`
+    jour = `${date.getDate()}`
   }
   return `${jour}-${mois}-${date.getFullYear()}`
 }
 
-function FormatHeure(dateR) {
+function FormatHeure(dateR, kpi) {
   let date = new Date(dateR)
-  return convHeureToString(date)
+  return convHeureToString(date, kpi)
 }
 
-function convHeureToString(date){
+function convHeureToString(date, kpi) {
   let heures
   if (date.getHours() + 1 < 10) {
     heures = `0${date.getHours()}`
@@ -41,11 +41,29 @@ function convHeureToString(date){
   else {
     minutes = `${date.getMinutes()}`
   }
+  if (kpi) {
+    return `${heures}H${minutes}`
+  }
   return `${heures} heures ${minutes}`
 }
 
 function initDate() {
   return new Date()
+}
+
+function displayDateKpi(date){
+  let result = 'néant'
+  if (date !== null){
+   result =  FormatDate(date,true) + ' - ' + FormatHeure(date,true)
+  }
+  return result
+}
+
+function tempsRestant(date1,date2){
+  let result = 'néant'
+  // now - signalement si cloture == null
+   result = date1 - date2
+  return result
 }
 
 ///////////// placard /////////////
@@ -71,5 +89,7 @@ module.exports = {
   FormatDate,
   FormatHeure,
   initDate,
-  
+  displayDateKpi,
+  tempsRestant,
+
 }

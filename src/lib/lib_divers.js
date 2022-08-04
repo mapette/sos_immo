@@ -63,30 +63,32 @@ function cleanNothing(dataToClean) {
 }
 
 // PostIt + FicheInc
-function determineStatus(ch, res) {    //charge_date, resolution_date
+function determineStatus(ch, fin, clo) {    //inc_affect_date, inc_fin_date, inc_cloture_date
   let status = 'enAttente'
-  // console.log('ch', ch, 'res', res)
-  // console.log('ch !null : ', ch !== null, 'ch !undef : ', ch !== undefined)
-  // console.log('res !null : ', res !== null, 'res !undef : ', res !== undefined)
-  if (res !== null & res !== undefined) {
+  if (clo !== null & clo !== undefined) {
+    status = 'clos'
+  } else if (fin !== null & fin !== undefined) {
     status = 'termine'
   } else if (ch !== null & ch !== undefined) {
     status = 'enCours'
   }
-  //console.log('determineStatus',status)
+  console.log(ch, fin, clo,status)
   return status
 }
 // FicheInc
 function statusLibelle(status) {
   let libelle;
   if (status === 'enAttente') {
-    libelle= 'En attente d\'affectation'
+    libelle = 'En attente d\'affectation'
   }
   else if (status === 'enCours') {
-    libelle= 'Prise en charge'
+    libelle = 'Prise en charge'
   }
   else if (status === 'termine') {
-    libelle= 'Terminé'
+    libelle = 'Intervention terminée'
+  }
+  else if (status === 'clos') {
+    libelle = 'Incident clôturé'
   }
   return libelle
 }
@@ -112,10 +114,10 @@ function determineURL(catUrl, data) {
       url = 'http://localhost:3001/affectation' + data.inc_id
     }
     else {
-      if (data.status === 'enAttente'){
+      if (data.status === 'enAttente') {
         url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/false'
       }
-      else{
+      else {
         url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/true'
       }
     }

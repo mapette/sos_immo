@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react';
+
 import './../../tools/App.css';
 import FicheIncAffectation from './FicheIncAffectation'
 import FicheIncAttribution from './FicheIncAttribution'
+import FicheIncFin from './FicheIncFin'
+import FicheIncCloture from './FicheIncCloture'
 
 const time = require('../../lib/lib_time')
-const diplay = require('../../lib/lib_display')
 const lib = require('../../lib/lib_divers')
 
 function FicheIncStatus(props) {
   let [status, setStatus] = useState('')
   useEffect(() => {
-    setStatus(lib.determineStatus(props.incident.inc_affect_date, props.incident.inc_fin_date))
+    setStatus(lib.determineStatus(props.incident.inc_affect_date, props.incident.inc_fin_date, props.incident.inc_cloture_date,))
   }, [props.incident])
 
+  
   return (
     <div>
-
       {status == 'enAttente' &&
         <h3>{lib.statusLibelle(status)}</h3>
       }
@@ -49,6 +51,16 @@ function FicheIncStatus(props) {
       }
       {status == 'enCours' &&
         props.varGlob.profilEcran !== 'usager' &&
+        <FicheIncFin
+          status={status}
+          setStatus={setStatus}
+          varGlob={props.varGlob}
+          incident={props.incident}
+          setIncident={props.setIncident}
+        />
+      }
+      {status == 'enCours' &&
+        props.varGlob.profilEcran !== 'usager' &&
         props.varGlob.profil !== 'technicien' &&
         <span>
           <FicheIncAffectation
@@ -67,15 +79,22 @@ function FicheIncStatus(props) {
           />
         </span>
       }
-      {status == 'AValider' &&
-        <div>
-          <h1>A VALIDER</h1>
-        </div>
+      {status == 'termine' && <h3>{lib.statusLibelle(status)}</h3>}
+      {status == 'termine' && props.varGlob.profilEcran !== 'usager' &&
+        <h3>En attente de validation</h3>}
+      {status == 'termine' &&
+        props.varGlob.profilEcran === 'usager' &&
+        <FicheIncCloture
+          status={status}
+          setStatus={setStatus}
+          varGlob={props.varGlob}
+          setVarGlob={props.setVarGlob}
+          incident={props.incident}
+          setIncident={props.setIncident}
+        />
       }
-      {status == 'cloture' &&
-        <div>
-          <h1>CLOTURE</h1>
-        </div>
+      {status == 'clos' &&
+        <h3>{lib.statusLibelle(status)}</h3>
       }
     </div>
   );
