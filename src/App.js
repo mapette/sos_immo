@@ -9,7 +9,7 @@ import GestionUtilisateurs from './pages/tables/GestionUtilisateurs'
 import NewInc from './pages/signalements/NewInc'
 import Demandes from './pages/signalements/Demandes'
 import FicheInc from './pages/signalements/FicheInc'
-import Kpi from './pages/kpi/Kpi'
+import Pilotage from './pages/kpi/Pilotage'
 
 import './tools/App.css';
 import Test from './Test'
@@ -80,13 +80,14 @@ function App() {
               setVarGlob={setVarGlob}
             />
           }
-           {varGlob.ecran === 'kpi' &&
-            <Kpi
+           {varGlob.ecran === 'pilot' &&
+            <Pilotage
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />
           }
         </div>
+        <br/>
       </div>
     );
   }

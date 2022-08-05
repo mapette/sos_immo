@@ -17,8 +17,6 @@ function PostItInc(props) {
     })
   }
 
-  console.log('status : ', status)
-  console.log(props.varGlob)
   if (props.varGlob.profilEcran == 'usager') {
     return (
       <button onClick={() => showDetails(props.elem.inc_id)} className={diplay.fichePostItDisplay(status)}>

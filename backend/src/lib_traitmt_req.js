@@ -1,11 +1,11 @@
 const db = require('./db_manager')
-const classes = require('./lib_classes')
+const cl = require('./lib_classes')
 
 ////// traitements requêtes //////
 function getUserListByCatAndPresta(results, cat, presta_id) {
-    let ut_liste = new classes.Ut_manager()
+    let ut_liste = new cl.Ut_manager()
     results.forEach(element => {
-        ut_liste.liste.push(new classes.Utilisateur(element))
+        ut_liste.liste.push(new cl.Utilisateur(element))
     });
     ut_liste.byProfil(cat)
     ut_liste.byPresta(presta_id)

@@ -38,7 +38,7 @@ function FicheIncAffectation(props) {
       }
     }
   }, [props.incident])
-
+console.log('ficIncAff', props.varGlob.profilEcran)
   function soumettreAffectation(event) {
     event.preventDefault()
     if (IsAffectationPossible()) {

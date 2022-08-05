@@ -1,6 +1,8 @@
 import React from 'react';
 import './../tools/App.css';
-import Bouton from './../tools/Bouton'
+import Bouton from './Bouton'
+import im_reset_pw from './../reset_pw.png'
+import im_logout from './../logout.jfif'
 
 function Accueil(props) {
   return (
@@ -39,12 +41,12 @@ function Accueil(props) {
               onClick={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'changemdp'
-              })} ><img className='arr-img' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLhebUSApSBT0k2djGywo6tA9kUhheCR0kew&usqp=CAU"
+              })} >
+              <img className='arr-img' src={im_reset_pw}
                 width="70" height="70" />
             </button>
-
             <a href='' className='cadre-3'>
-              <img className='arr-img' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6RcYRF_8ZcI6b0C9GqsR4AkzKsnSfdN1Jfg&usqp=CAU"
+              <img className='arr-img' src={im_logout}
                 width="70" height="70"></img>
             </a>
           </div>

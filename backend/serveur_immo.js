@@ -134,6 +134,7 @@ app.get('/get_usersByCatAndPresta/:cat/:presta_id', (request, response) => {
 app.get('/get_inc_details:id', (request, response) => {
     if (request.session.isId == true) {
         db.getIncById(request.params.id, (error, results) => {
+            console.log(results[0])
             response.send(results[0])
         })
     }
@@ -329,7 +330,6 @@ app.get('/finIntervention:inc_id', (request, response) => {
         })
     }
 })
-
 
 
 /*

@@ -3,7 +3,7 @@ function boutonDisplay(couleur, menu, plein) {
   //console.log('bouton : ',couleur, menu, plein)
   let classBt = 'btn'
   let outline = '-outline'
-  if (plein | menu != undefined) {    // menus forcément plein
+  if (plein) {  
     outline = ''
   }
   let classMenu = menu

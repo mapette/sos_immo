@@ -11,7 +11,7 @@ function FicheInc(props) {
   let [incident, setIncident] = useState({
     inc_id: props.varGlob.focus,
   })
- 
+
   function copieElemVersIncident(response_inc) {
     setIncident({
       ...incident,
@@ -38,6 +38,7 @@ function FicheInc(props) {
       })
   }, [])
 
+  console.log('props.varGlob détails', props.varGlob)
   return (
     <div>
       <h2 className="titre gras cadre-15">
@@ -62,15 +63,26 @@ function FicheInc(props) {
         setVarGlob={props.setVarGlob}
         incident={incident}
       />
-
-      <Bouton
-        txt={'retour'}
-        actionToDo={() => props.setVarGlob({
-          ...props.varGlob,
-          ecran: 'demandes'
-        })}
-        couleur={'gris'}
-      />
+      {props.varGlob.profilEcran != 'Pilotage' &&
+        <Bouton
+          txt={'retour'}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'demandes'
+          })}
+          couleur={'gris'}
+        />
+      }
+      {props.varGlob.profilEcran == 'Pilotage' &&
+        <Bouton
+          txt={'retour pilotage'}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'pilot'
+          })}
+          couleur={'gris'}
+        />
+      }
     </div>
   );
 

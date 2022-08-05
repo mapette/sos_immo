@@ -51,19 +51,47 @@ function initDate() {
   return new Date()
 }
 
-function displayDateKpi(date){
-  let result = 'néant'
-  if (date !== null){
-   result =  FormatDate(date,true) + ' - ' + FormatHeure(date,true)
+function displayDatePilotage(date) {
+  let result = '-'
+  if (date !== null) {
+    result = FormatDate(date, true) + ' - ' + FormatHeure(date, true)
   }
   return result
 }
 
-function tempsRestant(date1,date2){
-  let result = 'néant'
-  // now - signalement si cloture == null
-   result = date1 - date2
-  return result
+function calculTempsRestant(dateSignal, dateFin) {
+  // si fin == null : now - signal 
+  const DELAIS = 86400000 // 24 heures en millisecondes
+  let tmp = null
+  let date = new Date()
+  let signal = new Date(dateSignal)
+  if (dateFin == null) {
+    //    let fin = new Date(dateFin)
+    tmp = DELAIS - (date.getTime() - signal.getTime())
+  }
+  return tmp
+}
+
+function tempsRestant(dateSignal, dateFin) {
+  let diff = {}
+  let msgRetour = 'terminé'
+  let tmp = calculTempsRestant(dateSignal, dateFin)
+  if (tmp != null) {
+    tmp = Math.floor(tmp / 1000);             // Nombre de secondes entre les 2 dates
+    diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+    tmp = Math.floor((tmp - diff.sec) / 60);    // Nombre de minutes (partie entière)
+    diff.min = tmp % 60;                    // Extraction du nombre de minutes
+    tmp = Math.floor((tmp - diff.min) / 60);    // Nombre d'heures (entières)
+    diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+    tmp = Math.floor((tmp - diff.hour) / 24);   // Nombre de jours restants
+    diff.day = tmp;
+    if (diff.sec < 0 | diff.min < 0 | diff.hours < 0) {
+      msgRetour = 'passé de ' + -diff.day + ' jours ' + -diff.hour + 'H ' + -diff.min
+    } else {
+      msgRetour = diff.hour + 'H ' + diff.min
+    }
+  }
+  return msgRetour
 }
 
 ///////////// placard /////////////
@@ -89,7 +117,8 @@ module.exports = {
   FormatDate,
   FormatHeure,
   initDate,
-  displayDateKpi,
+  displayDatePilotage,
+  calculTempsRestant,
   tempsRestant,
 
 }
