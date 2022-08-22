@@ -43,6 +43,8 @@ function GestionUtilisateurs(props) {
   }, [, mode, bt])
 
   function switchBt(btASwitcher) {
+    console.log('bt.usager',bt.usager)
+    console.log('btASwitcher',bt[btASwitcher])
     if (bt[btASwitcher]) {
       setBt({
         ...bt,

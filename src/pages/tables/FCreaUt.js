@@ -18,7 +18,7 @@ function FCreaUt(props) {
       .then(response => {
         //  console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
         if (response.length !== 0) {
-          setPrestaList(prestaList = response)
+          setPrestaList(prestaList = response)      
         }
       })
   }, [])
@@ -34,9 +34,19 @@ function FCreaUt(props) {
           .then(response => {
             console.log('creation user', response)
             props.setMode('neutre')
+            lib.prepaMail(data.mail,'bienvenu ' + data.prenom, msgMail(data.username, response.mdp))
           })
       }
     }
+  }
+  function msgMail(username,mdp){
+    return 'bonjour, '
+    +'\nBienvenue sur SOS Immo.'
+    +"\nVotre identifiant est "  + username + '.'
+    +"\nLe mot de passe provisoire a utiliser lors de votre première connection est "  + mdp + '.'
+    +'\nVous pouvez dès à présent saisir et suivre vos tickets.'
+    // +'\nLe mot de passe devra être modifier à la première connection.'
+    +'\n\tL\'équipe SOS Immo.'
   }
 
   function contrInput(username, profil, presta,) {

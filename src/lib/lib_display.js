@@ -1,11 +1,13 @@
 // boutons
-function boutonDisplay(particularite, couleur, menu, plein) {
-  console.log('particularite : ',particularite)
-  let classBt = 'btn'
-  let outline = '-outline'
+function boutonDisplay(couleur, menu, plein,particularite) {
+   //console.log('param : ', couleur, menu, plein, particularite)
+  let classBt = ' btn'
+  let outline = '-outline '
   if (plein) {
+    
     outline = ''
   }
+  
   let classMenu = menu
   if (particularite === undefined) {
     if (menu === undefined) {
@@ -39,7 +41,6 @@ function boutonDisplay(particularite, couleur, menu, plein) {
     classCouleur = '-secondary bouton-retour '
   }
   let totalClass = classBt + ' ' + classBt + outline + classCouleur + classMenu
-  console.log(totalClass)
   return totalClass
 }
 

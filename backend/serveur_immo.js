@@ -86,7 +86,6 @@ app.post('/crea_user', (request, response) => {
             adm: request.session.ut,
         }
         console.log('mot de passe à changer à la prochaine connexion => ', mdp)
-
         db.creationUtilisateur(data, (error, results) => {
         })
         data = {
@@ -95,7 +94,7 @@ app.post('/crea_user', (request, response) => {
             profil: request.body.profil,
         }
         db.creationHabilitation(data, (error, results) => {
-            response.send({ status: true })// - si pas réponse, le fetch ne peut pas avoir de .then
+            response.send({ mdp: mdp })// - pour prépa du mail
         })
     }
 })
@@ -349,7 +348,6 @@ app.get('/finIntervention:inc_id', (request, response) => {
         })
     }
 })
-
 
 /*
 

@@ -15,7 +15,7 @@ function Bouton(props) {
       <button
         type="button"
         onClick={props.actionToDo}
-        className={diplay.boutonDisplay(props.particularite,props.couleur, props.menu, props.plein)}
+        className={diplay.boutonDisplay(props.couleur, props.menu, props.plein,props.particularite)}
       >
         {props.txt}
       </button>

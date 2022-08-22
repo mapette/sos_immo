@@ -20,7 +20,7 @@ function TestBtClick() {
 let msg1 = 'sjoffre' + 'aaa'
 let msg2 = 'blaurent' + 'aaa'
 let msg3 = 'ocain' + 'aaa'
-let msg4 = 'mario' + 'aaa'
+let msg4 = 'nduval' + 'HoU#cg6H'
 let code = uuidv4()
 let msg = code
 function Test() {
@@ -34,5 +34,10 @@ function Test() {
     </div>
   )
 }
+
+// let mail = 'mailTo:' + 'sophie.joffre@cegetel.net'
+//   + '?subject=' + 'coucou'
+//   + '&body=' + 'text du msg'
+// document.location = mail
 
 export default Test;

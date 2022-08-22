@@ -1,5 +1,12 @@
 //const { useDebugValue } = require("react")
 
+function prepaMail(mailTo, subject, body) {
+  let mail = 'mailTo:' + mailTo
+    + '?subject=' + subject
+    + '&body=' + body
+  document.location = mail
+}
+
 //soumission
 function optionsPost(data) {
   return {
@@ -72,7 +79,7 @@ function determineStatus(ch, fin, clo) {    //inc_affect_date, inc_fin_date, inc
   } else if (ch !== null & ch !== undefined) {
     status = 'enCours'
   }
-  console.log(ch, fin, clo,status)
+  console.log(ch, fin, clo, status)
   return status
 }
 // FicheInc
@@ -174,6 +181,7 @@ function determineProfil(respProfil) {
 }
 
 module.exports = {
+  prepaMail,
   optionsPost,
   optionsGet,
   findUserStatus,

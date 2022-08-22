@@ -38,9 +38,6 @@ function FicheIncCartouche(props) {
             <td> {props.incident.presta_nom}</td>
           </tr>
         </table>
-
-        {/* bouton réaffection pour imm et le boss */}
-
       </div>
     </div>
   );
