@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Bouton from '../../tools/Bouton'
+import BoutonSubmit from '../../tools/BoutonSubmit'
 import ListeInc from './ListeInc'
 
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
+ // let inc_liste_originale = new cl.Inc_manager()
   let inc_liste = new cl.Inc_manager()
   let [lInc, setLInc] = useState([])
+  let [typeListe, setTypeListe] = useState('tous les incidents')
+  let [btCloture, setBtCloture] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:3001/get_inc', lib.optionsGet())
@@ -20,31 +24,63 @@ function Pilotage(props) {
       })
   }, [, lInc])
 
+  function SoumettreClotureIncident(event) {
+    event.preventDefault()
+    fetch('http://localhost:3001/clotureInc', lib.optionsGet())
+      .then(response => response.json())
+      .then(response => {
+        //   console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !
+        inc_liste.clotureAutomatique(response)
+        setLInc(inc_liste.liste)
+        setTypeListe('tous les incidents')
+      })
+  }
+
+  function tousIncidents() {
+ //   inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
+    setLInc(inc_liste.liste)
+    setTypeListe('tous les incidents')
+    setBtCloture(false)
+  }
   function filterEnAttente() {
+
+  //  inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     inc_liste.filterEnAttente()
     setLInc(inc_liste.liste)
+    setTypeListe('incidents en attente')
+    setBtCloture(false)
   }
   function filterEnCours() {
     inc_liste.filterEnCours()
     setLInc(inc_liste.liste)
+    setTypeListe('incidents en cours')
+    setBtCloture(false)
   }
   function filterHorsDelais() {
     inc_liste.filterHorsDelais()
     setLInc(inc_liste.liste)
+    setTypeListe('incidents hors délais')
+    setBtCloture(false)
   }
- 
-  console.log('liste', lInc)
+  function filterFermesNonClotures() {
+    inc_liste.filterFermesNonClotures()
+    setLInc(inc_liste.liste)
+    setTypeListe('incidents fermés, non clôturés')
+    setBtCloture(true)
+  }
+
+  // console.log('liste', lInc)
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
         PILOTAGE
       </h2>
-      {/* <Bouton
+      <Bouton
         txt={'tous les incidents'}
-        actionToDo={() =>  setLInc(inc_liste.liste)}
+        actionToDo={() => tousIncidents()}
         couleur={'vert'}
         menu={'menu'}
-      /> */}
+      />
       <Bouton
         txt={'En attente'}
         actionToDo={() => filterEnAttente()}
@@ -63,11 +99,33 @@ function Pilotage(props) {
         couleur={'vert'}
         menu={'menu'}
       />
+      <Bouton
+        txt={'Fermés non clôturés'}
+        actionToDo={() => filterFermesNonClotures()}
+        couleur={'vert'}
+        menu={'menu'}
+      />
+      <div className='decal gras gauche fontsize-20'>  
+           {typeListe}
+      </div>
       <ListeInc
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
         lInc={lInc}
       />
+      {btCloture === true &&
+        <form id="attribution" className='cadre-15'
+          type="POST"
+          encType="application/x-www-form-urlencoded"
+          onSubmit={SoumettreClotureIncident}
+        >
+          <BoutonSubmit
+            couleur={'rouge'}
+            txt={"Clôturer les incidents fermés depuis 48 heures"}
+            plein={false}
+          />
+        </form>
+      }
       <Bouton
         txt={'retour au menu'}
         actionToDo={() => props.setVarGlob({
@@ -76,6 +134,7 @@ function Pilotage(props) {
         })}
         couleur={'gris'}
       />
+
     </div>
   );
 }

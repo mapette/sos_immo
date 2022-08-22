@@ -18,6 +18,15 @@ class Inc_manager {
   constructor() {
     this.liste = new Array()
   }
+
+  static cloneListe(listeOriginale){
+    let listeClonee = new Inc_manager()
+    for (var i = 0; i < listeOriginale.length; i++){
+      listeClonee.liste[i] = listeOriginale[i];
+    }
+    return  listeClonee.liste
+  }
+
   filterEnAttente() {
     this.liste = this.liste
       .filter(f => f.inc_affect_date === null)
@@ -45,6 +54,35 @@ class Inc_manager {
         return 0
       })
   }
+  filterFermesNonClotures() {
+    this.liste = this.liste
+      .filter(f => f.inc_fin_date !== null && f.inc_cloture_date === null)
+      .sort((x, y) => {
+        if (x.inc_signal_date < y.inc_signal_date) { return -1 }
+        if (x.inc_signal_date > y.inc_signal_date) { return 1 }
+        return 0
+      })
+  }
+  clotureAutomatique(listeInc) {
+    if (listeInc.length > 0) {
+      listeInc.forEach(idToFind => {
+        this.liste.forEach(Incident => {
+          if (idToFind == Incident.inc_id) {
+            Incident.inc_cloture_date = time.initDate()
+          }
+        });
+      });
+
+    }
+
+    this.liste = this.liste
+      .sort((x, y) => {
+        if (x.inc_signal_date < y.inc_signal_date) { return -1 }
+        if (x.inc_signal_date > y.inc_signal_date) { return 1 }
+        return 0
+      })
+  }
+
 }
 
 module.exports = {

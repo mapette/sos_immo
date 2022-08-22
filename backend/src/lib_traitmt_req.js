@@ -79,22 +79,29 @@ function jnrApresFin(results, response, data) {
     })
 }
 
-function jnrAprescloture(results, response, data) {
+function jnrAprescloture(results, response,data) {
+    //console.log('data',data)
     if (data.relance) {
-        data.jrn_msg = 'Relance demandée - Motif : ' + data.jrn_msg 
+        data.jrn_msg = 'Relance demandée - Motif : ' + data.jrn_msg
         data.jrn_imm = false
         db.creaLigneJournal(data, (error, results) => {
             // response.send({ status: true })
         })
 
     }
-    db.getUserNameByUuid(data.ut_uuid, (error, results) => {
-        data.jrn_msg = 'Intervention clôturée : ' + results[0].ut_prenom + ' ' + results[0].ut_nom
-        data.jrn_imm = false
+    if (data.ut_uuid) {
+        db.getUserNameByUuid(data.ut_uuid, (error, results) => {
+            data.jrn_msg = 'Intervention clôturée : ' + results[0].ut_prenom + ' ' + results[0].ut_nom
+            data.jrn_imm = false
+            db.creaLigneJournal(data, (error, results) => {
+                // response.send({ status: true })
+            })
+        })
+    } else {
         db.creaLigneJournal(data, (error, results) => {
             // response.send({ status: true })
         })
-    })
+    }
 }
 
 //////////////////////////////////////////////

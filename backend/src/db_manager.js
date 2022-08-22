@@ -129,11 +129,15 @@ function getIncList(val, fonction_traitement_resultat_bdd) {
             WHERE ut_uuid = ?
             AND ut_presta = presta_id) `
     }
-    else
-        if (val['filtre'] == 'usager') {
-            queryFilter = `AND ut_id = (SELECT ut_id FROM utilisateurs 
+    else if (val['filtre'] == 'usager') {
+        queryFilter = `AND ut_id = (SELECT ut_id FROM utilisateurs 
             WHERE ut_uuid = ?) `
-        }
+    }
+    else if (val['filtre'] == 'tempsClotureExpire') {
+        queryFilter = ` AND inc_fin_date is not null
+                        AND inc_cloture_date is null
+                        AND TIMESTAMPDIFF(hour, inc_fin_date, now()) > 48 `
+    }
     let query = queryCommun + queryFilter + queryOrderBy
     connection.query((query), params, fonction_traitement_resultat_bdd)
     connection.end();
@@ -221,11 +225,21 @@ function finIntervention(val, fonction_traitement_resultat_bdd) {
 }
 
 function clotureInc(val, fonction_traitement_resultat_bdd) {
+    // si val => clôturer 1 inc précis
+    // sinon => clôturer ts les inc fermés depuis + de 48 heures
     let connection = connectToMySQL()
-    let params = [val['inc_id']]
+    let params = null
     let query = `UPDATE incidents 
-                    SET inc_cloture_date = now()
-                    WHERE inc_id = ?`
+                    SET inc_cloture_date = now()`
+    if (val !== null) {
+        params = [val['inc_id']]
+        query = query + ` WHERE inc_id = ?`
+    }
+    else {
+        query = query + ` WHERE inc_fin_date is not null
+                            AND inc_cloture_date is null
+                            AND TIMESTAMPDIFF(hour, inc_fin_date, now()) > 48`
+    }
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }

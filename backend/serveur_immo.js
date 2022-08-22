@@ -33,7 +33,6 @@ app.get('/get_accueil', (request, response) => {
     if (request.session.uuid !== undefined) {
         console.log('cookie', request.session.ut)
         db.getUserNameByUuid(request.session.uuid, (error, results) => {
-            console.log(results[0])
             if (results[0] !== undefined) {
                 response.send({ id: results[0] })
             }
@@ -73,10 +72,6 @@ app.post('/change_mdp', (request, response) => {
         }
     })
 })
-// app.get('/exit', (req, res) => {
-//     console.log('je sors')
-//     res.redirect('get_accueil')
-// })
 
 //////////// gestion utilisateurs ////////////
 app.post('/crea_user', (request, response) => {
@@ -93,8 +88,6 @@ app.post('/crea_user', (request, response) => {
         console.log('mot de passe à changer à la prochaine connexion => ', mdp)
 
         db.creationUtilisateur(data, (error, results) => {
-            //console.log('crea',results)
-            // response.send(results)
         })
         data = {
             uuid: lib.genUuid(),
@@ -134,7 +127,6 @@ app.get('/get_usersByCatAndPresta/:cat/:presta_id', (request, response) => {
 app.get('/get_inc_details:id', (request, response) => {
     if (request.session.isId == true) {
         db.getIncById(request.params.id, (error, results) => {
-            console.log(results[0])
             response.send(results[0])
         })
     }
@@ -229,6 +221,33 @@ app.post('/clotureInc', (request, response) => {
             trait.jnrAprescloture(results, response, data)
             response.send({ status: true })
             // recopier les data de l'inc terminé à l'identique dans un nouveau inc => url creaSignalement
+        })
+    }
+})
+app.get('/clotureInc', (request, response) => {
+    if (request.session.isId == true && request.session.profil == 4) {
+        // récupérer les id des incidents concencés - le cas échéant - pour le journal
+        data = {
+            filtre: 'tempsClotureExpire',
+        }
+        let listeInc = []
+        db.getIncList(data, (error, results) => {
+            // journal
+            results.forEach(element => {
+                let data =
+                {
+                    jrn_inc: element.inc_id,
+                    jrn_msg: 'Intervention clôturée automatiquement',
+                    jrn_imm: false,
+                }
+                trait.jnrAprescloture(results, response, data)
+                listeInc.push(element.inc_id)
+            });
+            // maj incidents
+            db.clotureInc(null, (error, results) => {
+                response.send(listeInc)
+            })
+           
         })
     }
 })

@@ -20,7 +20,7 @@ function TestBtClick() {
 let msg1 = 'sjoffre' + 'aaa'
 let msg2 = 'blaurent' + 'aaa'
 let msg3 = 'ocain' + 'aaa'
-let msg4 = 'nduval' + 'y4AGd1!a'
+let msg4 = 'mario' + 'aaa'
 let code = uuidv4()
 let msg = code
 function Test() {

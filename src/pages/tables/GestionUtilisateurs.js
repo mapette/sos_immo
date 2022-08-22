@@ -5,9 +5,17 @@ import ListUser from './ListUser'
 import FCreaUt from './FCreaUt'
 
 function GestionUtilisateurs(props) {
+  let [bt, setBt] = useState({
+    actif: true,
+    inactif: true,
+    usager: true,
+    imm: true,
+    technicien: true,
+    valideur: true,
+  })
   let [mode, setMode] = useState('neutre')
   let [userList, setUserList] = useState([])
-  let [userNameList, setUserNameList] = useState([])
+  let [userNameList, setUserNameList] = useState([])  //passé en props création
 
   useEffect(() => {
     fetch('http://localhost:3001/get_users', {
@@ -16,7 +24,6 @@ function GestionUtilisateurs(props) {
       headers: { Accept: "application/json", 'Content-Type': 'application/json' },
     })
       .then(response => {    // résultat brut
-        //  console.log('response1', response)
         return response.json()  // récupère que les données résultat
       })
       .then(response => {
@@ -24,21 +31,174 @@ function GestionUtilisateurs(props) {
         if (response.length !== 0) {
           setUserList(userList = response)
         }
-        console.log('userList',userList)
-        let usl = []
+        console.log('userList', userList)  // on pourrait ne le faire qu'en cas de création
+        let listeTempo = []
         response.forEach(r => {
-          usl.push(r['ut_id'])
+          listeTempo.push(r['ut_id'])
         });
-        setUserNameList(usl)
+        setUserNameList(listeTempo)
       })
-    }, [, mode])
+    console.log('username', userNameList)
+    console.log('user', userList)
+  }, [, mode, bt])
 
-    console.log(mode)
+  function switchBt(btASwitcher) {
+    if (bt[btASwitcher]) {
+      setBt({
+        ...bt,
+        [btASwitcher]: false
+      })
+    }
+    else {
+      setBt({
+        ...bt,
+        [btASwitcher]: true
+      })
+    }
+    // retirer de userList les éléments de bt False
+
+  }
+
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
         GESTION UTILISATEURS
       </h2>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-3'>
+            <Bouton
+              txt={'init filtres'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'newInc'
+              })}
+              couleur={'vert'}
+              plein={true}
+              espaceEntreBt={false}
+              particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
+            />
+          </div>
+          <div className='col-8 cadre-15'>
+            <div className='row'>
+              <div class='col-3 en-ligne'>
+                <Bouton
+                  txt={'actif'}
+                  actionToDo={() => switchBt('actif')
+                  }
+                  couleur={'bleu'}
+                  plein={bt.actif}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'inactif'}
+                  actionToDo={() => switchBt('inactif')
+                  }
+                  couleur={'bleu'}
+                  plein={bt.inactif}
+                  espaceEntreBt={false}
+                />
+              </div>
+              <div class='col-8 en-ligne'>
+                <Bouton
+                  txt={'usager'}
+                  actionToDo={() => switchBt('usager')
+                  }
+                  couleur={'orange'}
+                  plein={bt.usager}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'imm'}
+                  actionToDo={() => switchBt('imm')
+                  }
+                  couleur={'orange'}
+                  plein={bt.imm}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'technicien'}
+                  actionToDo={() => switchBt('technicien')
+                  }
+                  couleur={'orange'}
+                  plein={bt.technicien}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'valideur'}
+                  actionToDo={() => switchBt('valideur')
+                  }
+                  couleur={'orange'}
+                  plein={bt.valideur}
+                  espaceEntreBt={false}
+                />
+              </div>
+
+
+            </div>
+            <div className='row'>
+              <p></p>
+            </div>
+            <div className='row'>
+              <div class='col-3 en-ligne'>
+                <Bouton
+                  txt={'actif'}
+                  actionToDo={() => switchBt('actif')
+                  }
+                  couleur={'bleu'}
+                  plein={bt.actif}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'inactif'}
+                  actionToDo={() => switchBt('inactif')
+                  }
+                  couleur={'bleu'}
+                  plein={bt.inactif}
+                  espaceEntreBt={false}
+                />
+              </div>
+              <div class='col-8 en-ligne'>
+                <Bouton
+                  txt={'usager'}
+                  actionToDo={() => switchBt('usager')
+                  }
+                  couleur={'orange'}
+                  plein={bt.usager}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'imm'}
+                  actionToDo={() => switchBt('imm')
+                  }
+                  couleur={'orange'}
+                  plein={bt.imm}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'technicien'}
+                  actionToDo={() => switchBt('technicien')
+                  }
+                  couleur={'orange'}
+                  plein={bt.technicien}
+                  espaceEntreBt={false}
+                />
+                <Bouton
+                  txt={'valideur'}
+                  actionToDo={() => switchBt('valideur')
+                  }
+                  couleur={'orange'}
+                  plein={bt.valideur}
+                  espaceEntreBt={false}
+                />
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
       {mode === 'création' &&
         <FCreaUt
           setMode={setMode}

@@ -1,21 +1,27 @@
 // boutons
-function boutonDisplay(couleur, menu, plein) {
-  //console.log('bouton : ',couleur, menu, plein)
+function boutonDisplay(particularite, couleur, menu, plein) {
+  console.log('particularite : ',particularite)
   let classBt = 'btn'
   let outline = '-outline'
-  if (plein) {  
+  if (plein) {
     outline = ''
   }
   let classMenu = menu
-  if (menu === undefined) {
-    classMenu = " fontsize-12"
+  if (particularite === undefined) {
+    if (menu === undefined) {
+      classMenu = " fontsize-12"
+    }
+    else if (menu === 'menu') {
+      classMenu = " bouton-retour fontsize-20 margin-top-15 menu"
+    }
+    else if (menu === 'smenu') {
+      classMenu = " bouton-retour fontsize-20 margin-top-15 smenu"
+    }
   }
-  else if (menu === 'menu') {
-    classMenu = " bouton-retour fontsize-20 margin-top-15 menu"
+  else {
+    classMenu = particularite
   }
-  else if (menu === 'smenu') {
-    classMenu = " bouton-retour fontsize-20 margin-top-15 smenu"
-  }
+
   let classCouleur = ''
   if (couleur === 'vert') {
     classCouleur = "-success"
@@ -33,6 +39,7 @@ function boutonDisplay(couleur, menu, plein) {
     classCouleur = '-secondary bouton-retour '
   }
   let totalClass = classBt + ' ' + classBt + outline + classCouleur + classMenu
+  console.log(totalClass)
   return totalClass
 }
 

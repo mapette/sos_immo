@@ -28,8 +28,10 @@ function genMdp() {
 function retourneMsg(msg){
     return msg
 }
+
 module.exports = {
     genUuid,
     genMdp,
-    retourneMsg
+    retourneMsg,
+    
 }

@@ -37,7 +37,7 @@ function FicheIncFin(props) {
     fetch('http://localhost:3001/clotureInc' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response prestataire', response) // laisser cette ligne sinon ça marche pas !
+        console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !
         props.setIncident({
           ...props.incident,
           inc_cloture_date: time.initDate(),

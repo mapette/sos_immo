@@ -8,14 +8,10 @@ const time = require('../../lib/lib_time')
 
 function LigneInc(props) {
 
-  console.log('ligne', props)
+ // console.log('ligne', props)
   return (
     <div className="">
-
       ligne incident
-
-
-
       <table className='cadre-15 gras tab-cartouche'>
         <thead>
           <th>signalement</th>
