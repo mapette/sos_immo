@@ -1,6 +1,11 @@
 function FormatDate(dateR) {
-  let date = new Date(dateR)
-  return convDateToString(date)
+  if(dateR === null){
+    return ''
+  }
+  else{
+     let date = new Date(dateR)
+  return convDateToString(date) 
+  }
 }
 
 function convDateToString(date) {

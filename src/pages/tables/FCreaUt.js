@@ -5,163 +5,174 @@ import Bouton from '../../tools/Bouton'
 import BoutonSubmit from '../../tools/BoutonSubmit'
 import Alerte from '../../tools/Alerte'
 
+//const cl_ut = require('../../lib/lib_cl_ut')
 const lib = require('../../lib/lib_divers')
 
 function FCreaUt(props) {
-  let [prestaList, setPrestaList] = useState([])
+  let [userNameList, setUserNameList] = useState([])  //passé en props création
   let [alertMsg, setAlertMsg] = useState('')
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_presta', lib.optionsGet())
+    fetch('http://localhost:3001/get_users', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        //  console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
+        console.log('response user list', response) // laisser cette ligne sinon ça marche pas !
+        let userList = [] // var intermédiaire
         if (response.length !== 0) {
-          setPrestaList(prestaList = response)      
+          response.forEach(element => {
+            userList.push(element['ut_id'])
+          });
+         setUserNameList(userNameList = userList)
         }
       })
   }, [])
 
-
   function soumettre_newUser(data) {
-    data.presta = lib.cleanNull(data.presta)
-    console.log('msg : ', alertMsg)
+    data.ut_presta = lib.cleanNull(data.ut_presta)
     if (alertMsg === '') {
-      if (alertMsg === '') {
-        fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
-          .then(response => response.json())
-          .then(response => {
-            console.log('creation user', response)
-            props.setMode('neutre')
-            lib.prepaMail(data.mail,'bienvenu ' + data.prenom, msgMail(data.username, response.mdp))
-          })
-      }
+      fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
+        .then(response => response.json())
+        .then(response => {
+          props.setMode('neutre')
+          data.mdp = response.mdp
+          lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
+      })
     }
   }
-  function msgMail(username,mdp){
-    return 'bonjour, '
-    +'\nBienvenue sur SOS Immo.'
-    +"\nVotre identifiant est "  + username + '.'
-    +"\nLe mot de passe provisoire a utiliser lors de votre première connection est "  + mdp + '.'
-    +'\nVous pouvez dès à présent saisir et suivre vos tickets.'
-    // +'\nLe mot de passe devra être modifier à la première connection.'
-    +'\n\tL\'équipe SOS Immo.'
+  function msgMail(data) {
+    return 'bonjour ' + data.ut_prenom + ','
+      + '%0A%0ABienvenue sur SOS Immo.'
+      + "%0A%0AVotre identifiant est : " + data.ut_id + '.'
+      + "%0AMot de passe provisoire a utiliser lors de votre première connection : " + data.mdp + '.'
+      + '%0A%0AVous pouvez dès à présent saisir et suivre vos tickets.'
+      // +'\nLe mot de passe devra être modifier à la première connection.'
+      + '%0A%0A      L\'équipe SOS Immo.'
   }
-
-  function contrInput(username, profil, presta,) {
-    //console.log(username, profil, presta)
-    profil = parseInt(profil)
-    presta = lib.cleanNull(presta)
-    if (props.userNameList.includes(username)) {
+  function contrInput(ut_id, hab_profil, ut_presta) {
+    console.log('controle',ut_id, hab_profil, ut_presta)
+    hab_profil = parseInt(hab_profil)
+    ut_presta = lib.cleanNull(ut_presta)
+    if (userNameList.includes(ut_id)) { //
       setAlertMsg('Username déjà utilisé')
     }
-    else if (presta === null && (profil === 2 || profil === 3)) {
+    else if (ut_presta === null && (hab_profil === 2 || hab_profil === 3)) {
       setAlertMsg('Prestataire obligatoire pour ce profil')
     }
-    else if (presta !== null & (profil === 0 | profil === 1 | profil === 4)) {
+    else if (ut_presta !== null & (hab_profil === 0 | hab_profil === 1 | hab_profil === 4)) {
       setAlertMsg('Profil interdit aux prestataires')
     }
     else {
       setAlertMsg('')
     }
   }
-
+console.log('usernames',userNameList)
   return (
-    <div className="">
-      <form id="form_ut"
+    <div className="larg-1000">
+        <div className='cadre-15'>
+        <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
         onSubmit={handleSubmit(soumettre_newUser)}
-        className='fontsize-12'
-      >
-        <div className='cadre-15'>
-          <span className='cadre-15'>
-            <label htmlFor='id'>username </label>
-            <input id='username' {...register('username', { required: true })}
-              onChange={event => {
-                contrInput(
-                  event.target.value,
-                  document.getElementById("profil").value,
-                  document.getElementById("presta").value,
-                )
-              }}
-            ></input>
-          </span>
-          <span className='cadre-15'>
-            <label htmlFor='nom'>nom </label>
-            <input id='nom' {...register('nom', { required: true })}></input>
-            {errors.nom && <p>Nom obligatoire</p>}
-          </span>
-          <span className='cadre-15'>
-            <label htmlFor='prenom'>prénom </label>
-            <input id='prenom' {...register('prenom', { required: true })}></input>
-            {errors.prenom && <p>Prénom obligatoire</p>}
-          </span>
-        </div>
-        <div className=''>
-          <span className='cadre-15'>
-            <label htmlFor='tel'>téléphone </label>
-            <input type="tel" id='tel' {...register('tel', { required: true })}></input>
-            {errors.tel && <p>Numéro de téléphone obligatoire</p>}
-          </span>
-          <span className='cadre-15'>
-            <label htmlFor='email'>email </label>
-            <input type="email" id='email' {...register('mail', { required: true })} ></input>
-            {errors.mail && <p>Adresse email obligatoire</p>}
-          </span>
-        </div>
-        <div className='cadre-15'>
-          <span className='cadre-15'>
-            <label htmlFor='profil'>profil initial </label>
-            <select id='profil' {...register('profil')}
-              onChange={event => {
-                contrInput(
-                  document.getElementById("username").value,
-                  event.target.value,
-                  document.getElementById("presta").value)
-              }}
-              className='largeur-110'>
-              <option value='1' key='1'>usager</option>
-              <option value='2' key='2'>technicien (presta)</option>
-              <option value='3' key='3'>valideur (presta)</option>
-              <option value='0' key='0'>administrateur</option>
-              <option value='4' key='4'>immo</option>
-            </select>
-          </span>
-          <span className='cadre-15'>
-            <label htmlFor='presta'>si prestataire, nom de l'entreprise </label>
-            <select id='presta' {...register('presta')}
-              onChange={event => {
-                contrInput(
-                  document.getElementById("username").value,
-                  document.getElementById("profil").value,
-                  event.target.value,
-                )
-              }}
-              className='largeur-200'>
-              <option value=''> </option>
-              {prestaList.map(elem =>
-                <option
-                  value={elem.presta_id}
-                  key={elem.presta_id}>
-                  {elem.presta_nom} - {elem.presta_libelle}
-                </option>
-              )}
-            </select>
-          </span>
-
-        </div>
-        <Bouton
-          txt={'retour'}
-          actionToDo={() => props.setMode('neutre')}
-          couleur={'gris'}
-        />
-        <BoutonSubmit
-          txt={'Validation création'}
-          couleur={'vert'}
-        />
-      </form>
+        >
+          <table className='decal cadre-15 '>
+            <thead>
+              <th className='largeur-110'>identifiant</th>
+              <th className='largeur-200'>nom</th>
+              <th className='largeur-200'>prénom</th>
+              <th className='largeur-200'>téléphone</th>
+              <th className='largeur-200'>email</th>
+          </thead>
+            <tr>
+              <td>
+              <input id='ut_id' {...register('ut_id', { required: true })}
+                onChange={event => {
+                  contrInput(
+                    event.target.value,
+                    document.getElementById("hab_profil").value,
+                    document.getElementById("ut_presta").value,
+                  )
+                }}
+              ></input>
+              </td>
+              <td>
+                <input className='' id='ut_nom' {...register('ut_nom', { required: true })} />
+                {errors.ut_nom && <p>Nom obligatoire</p>}
+              </td>
+              <td> <input className='' id='ut_prenom' {...register('ut_prenom', { required: true })} />
+                {errors.ut_prenom && <p>Prénom obligatoire</p>}
+              </td>
+              <td>
+                <input className='' id='ut_tel' {...register('ut_tel', { required: true })} />
+                {errors.ut_tel && <p>Numéro de téléphone obligatoire</p>}
+              </td>
+              <td>
+                <input className='' id='ut_mail' {...register('ut_mail', { required: true })} />
+                {errors.ut_mail && <p>Adresse mail obligatoire</p>}
+              </td>
+            </tr>
+          </table>
+          <div className='decal'> 
+          <table className='decal cadre-15 '>
+            <thead>
+              <th className='largeur-300'>profil initial</th>
+              <th className='largeur-400'>si prestataire, nom de l'entreprise</th>
+          </thead>
+            <tr>
+                <td>
+              <select id='hab_profil' {...register('hab_profil')}
+                onChange={event => {
+                  contrInput(
+                    document.getElementById("ut_id").value,
+                    event.target.value,
+                    document.getElementById("ut_presta").value)
+                }}
+                className='largeur-110'>
+                <option value='1' key='1'>usager</option>
+                <option value='2' key='2'>technicien (ut_presta)</option>
+                <option value='3' key='3'>valideur (ut_presta)</option>
+                {/* <option value='0' key='0'>administrateur</option> */}
+                <option value='4' key='4'>imm</option>
+              </select>
+              </td>
+              <td>
+              <select id='ut_presta' {...register('ut_presta')}
+                onChange={event => {
+                  contrInput(
+                    document.getElementById("ut_id").value,
+                    document.getElementById("hab_profil").value,
+                    event.target.value,
+                  )
+                }}
+                className='largeur-200'>
+                <option value=''> </option>
+                {props.prestaList.map(elem =>
+                  <option
+                    value={elem.presta_id}
+                    key={elem.presta_id}>
+                    {elem.presta_nom} - {elem.presta_libelle}
+                  </option>
+                    )}
+              </select>
+              </td>
+            </tr>
+          </table>
+          </div>
+          <div className="">
+            <Bouton
+            txt={'retour'}
+            actionToDo={() => props.setMode('neutre')}
+            couleur={'gris'}
+            plein={true}
+          />
+            <BoutonSubmit
+            txt={'Validation création'}
+            couleur={'vert'}
+            plein={true}
+          />
+          </div>
+        </form>
+      </div>
       {
         alertMsg !== '' &&
         <Alerte
@@ -169,7 +180,6 @@ function FCreaUt(props) {
           niveau={'alerteRouge'}
         />
       }
-
     </div>
   );
 }

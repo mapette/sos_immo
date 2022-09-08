@@ -5,18 +5,17 @@ class Utilisateur {
     this.ut_nom = result.ut_nom
     this.ut_prenom = result.ut_prenom
     this.ut_presta = result.ut_presta
+    this.presta_nom = result.presta_nom
+    this.presta_libelle = result.presta_libelle
     this.ut_tel = result.ut_tel
     this.ut_mail = result.ut_mail
-    //  this.ut_date_deb: 2022-06-22T16:40:19.000Z,
-    //  this.ut_admin_deb: 'sjoffre',
-    //  this.ut_date_exp: null,
-    //  this.ut_admin_exp: null,
-    //  this.ut_mdp: '73a9a84ffa2adc1543d8b1e57fefb5550507deda',
-    //  this.ut_mdp_exp: null,
-    //  this.presta_nom: 'Eclair',
-    //  this.presta_libelle: 'électricité',
     this.hab_profil = result.hab_profil
-    //  this.hab_date_exp: null
+    this.ut_date_deb = result.ut_date_deb
+    this.ut_admin_deb = result.ut_admin_deb
+    this.ut_date_exp = result.ut_date_exp
+    this.ut_admin_exp = result.ut_admin_exp
+    this.hab_profil = result.hab_profil
+   // this.ut_mdp = result.ut_mdp 
   }
 }
 

@@ -72,9 +72,7 @@ class Inc_manager {
           }
         });
       });
-
     }
-
     this.liste = this.liste
       .sort((x, y) => {
         if (x.inc_signal_date < y.inc_signal_date) { return -1 }
@@ -82,7 +80,6 @@ class Inc_manager {
         return 0
       })
   }
-
 }
 
 module.exports = {

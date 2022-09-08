@@ -20,6 +20,7 @@ function Menu(props) {
             ecran: 'accueil'
           })}
           couleur={'gris'}
+          plein={true}
         />
       </div>
       <div className='en-ligne'>

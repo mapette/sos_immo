@@ -12,7 +12,7 @@ function LigneInc(props) {
   return (
     <div className="">
       ligne incident
-      <table className='cadre-15 gras tab-cartouche'>
+      <table className='cadre-15 gras width-75p'>
         <thead>
           <th>signalement</th>
           <th>date</th>

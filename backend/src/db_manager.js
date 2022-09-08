@@ -21,7 +21,7 @@ function userLogin(reqBody, nomBidon) {
                     hab_uuid, ut_mdp_exp 
                 FROM habilitations, utilisateurs
                 WHERE ut_id = ? and ut_mdp = ?
-                    AND hab_ut = ut_uuid`
+                    AND hab_ut = ut_uuid`               
     connection.query(query, params, nomBidon)
     connection.end();
 }
@@ -35,10 +35,24 @@ function change_mdp(val, fonction_traitement_resultat_bdd) {
 }
 
 //////////// utilisateurs ////////////
-function getUserNameByUuid(ut_uuid, nomBidon) {     // pour le bandeau et info pour le journal
+function getUserByUuid(ut_uuid, nomBidon) {     // pour le bandeau et info pour le journal
     let params = [ut_uuid]
     let connection = connectToMySQL()
-    let query = `SELECT ut_id, ut_nom, ut_prenom,ut_tel FROM utilisateurs where ut_uuid = ?`
+    let query = `SELECT ut.*, presta_nom, presta_libelle, hab_uuid, hab_profil
+        FROM utilisateurs ut LEFT JOIN presta ON (ut_presta = presta_id), habilitations  
+        WHERE hab_ut = ut_uuid 
+            AND hab_date_exp IS NULL
+            AND ut_uuid = ?`
+    connection.query(query, params, nomBidon)
+    connection.end();
+}
+
+function getHabByUser(ut_uuid, nomBidon) {     // pour le bandeau et info pour le journal
+    let params = [ut_uuid]
+    let connection = connectToMySQL()
+    let query = `SELECT * FROM habilitations 
+        WHERE hab_ut = ?
+        ORDER BY hab_date_deb DESC`
     connection.query(query, params, nomBidon)
     connection.end();
 }
@@ -54,19 +68,44 @@ function getUserList(fonction_traitement_resultat_bdd) {
 
 function creationUtilisateur(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    let params = [val['uuid'], val['username'], val['nom'], val['prenom'], val['tel'], val['mail'], val['presta'], val['mdp'], val['adm'],]
+    let params = [val['ut_uuid'], val['ut_id'], val['ut_nom'], val['ut_prenom'], val['ut_tel'], val['ut_mail'], val['ut_presta'], val['ut_mdp'], val['ut_admin_deb'],]
     let query = "INSERT INTO utilisateurs " +
         "(ut_uuid, ut_id, ut_nom, ut_prenom, ut_tel, ut_mail, ut_presta, ut_mdp, ut_admin_deb) " +
         "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?)"
-    console.log(params)
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end()
 }
-function creationHabilitation(val, fonction_traitement_resultat_bdd) {
+function creationHabilitationByUsername(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
-    let params = [val['uuid'], val['profil'], val['username'],]
+    let params = [val['hab_uuid'], val['hab_profil'], val['hab_ut'],]
     let query = "INSERT INTO habilitations (hab_uuid,  hab_profil, hab_ut) VALUES (?, ?, " +
         "(SELECT ut_uuid FROM utilisateurs WHERE ut_id = ?))"
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+function creationHabilitationByUserUuid(val, fonction_traitement_resultat_bdd) {
+    console.log('data créa',val)
+    let connection = connectToMySQL()
+    let params = [val['hab_uuid'], val['hab_profil'], val['hab_ut'],]
+    let query = "INSERT INTO habilitations (hab_uuid,  hab_profil, hab_ut) VALUES (?, ?, ?)"
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+
+function updateUtilisateur(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['ut_nom'], val['ut_prenom'],val['ut_tel'],val['ut_mail'],val['ut_presta'],val['ut_uuid'],]
+    let query = `UPDATE utilisateurs 
+                    SET ut_nom=?, ut_prenom=?, ut_tel=?, ut_mail=?, ut_presta=?
+                    WHERE ut_uuid=?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+function expHabilitation(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['hab_uuid'],]
+    let query = `UPDATE habilitations SET hab_date_exp=now()
+                    WHERE hab_uuid=?`
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
@@ -250,10 +289,14 @@ module.exports = {
     change_mdp,
     getPrestaList,
     getPrestaNameById,
-    getUserNameByUuid,
+    getUserByUuid,
+    getHabByUser,
     getUserList,
     creationUtilisateur,
-    creationHabilitation,
+    creationHabilitationByUsername,
+    creationHabilitationByUserUuid,
+    updateUtilisateur,
+    expHabilitation,
     getEmpList,
     creationSignalement,
     getIncList,

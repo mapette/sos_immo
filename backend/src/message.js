@@ -1,5 +1,5 @@
-const db = require('../src/db_manager')
-const lib = require('../src/lib_serveur')
+const db = require('./db_manager')
+const lib = require('./lib_serveur')
 
 class Message {
     constructor(type, data, conf = false) {
@@ -13,7 +13,7 @@ class Message {
         switch (this.type) {
             case 'signal':
                 // récup coordonnées
-                // db.getUserNameByUuid(this.data, (error, results) => {
+                // db.getUserByUuid(this.data, (error, results) => {
                 //     msg = 'Signalement ' + results[0].ut_prenom +
                 //         ' ' + results[0].ut_nom +
                 //         ' ' + results[0].ut_tel

@@ -7,7 +7,7 @@ function FicheIncCartouche(props) {
  return (
     <div>
       <div className="decal">
-        <table className='cadre-15 gras tab-cartouche'>
+        <table className='cadre-15 gras width-75p'>
           <thead>
             <th>signalement</th>
             <th>date</th>
@@ -19,7 +19,7 @@ function FicheIncCartouche(props) {
             <td> {time.FormatHeure(props.incident.inc_signal_date)} </td>
           </tr>
         </table>
-        <table className='cadre-15 gras tab-cartouche'>
+        <table className='cadre-15 gras width-75p'>
           <tr>
             <th colSpan='2'>emplacement</th>
           </tr>
@@ -28,7 +28,7 @@ function FicheIncCartouche(props) {
             <td> étage : {props.incident.emp_etage}</td>
           </tr>
         </table>
-        <table className='cadre-15 gras tab-cartouche'>
+        <table className='cadre-15 gras width-75p'>
           <tr>
             <th>type d'incident</th>
             <th>entreprise affectée</th>

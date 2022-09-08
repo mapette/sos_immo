@@ -1,5 +1,7 @@
 const db = require('./db_manager')
-const cl = require('./lib_classes')
+const lib = require('./lib_serveur')
+const cl = require('./lib_cl_ut')
+const hab = require('./lib_cl_hab')
 
 ////// traitements requêtes //////
 function getUserListByCatAndPresta(results, cat, presta_id) {
@@ -10,6 +12,24 @@ function getUserListByCatAndPresta(results, cat, presta_id) {
     ut_liste.byProfil(cat)
     ut_liste.byPresta(presta_id)
     return (ut_liste.liste)
+}
+
+function controleUpdateHab(data){
+    let habUpdate = new hab.Habilitation(null, data.ut_uuid, parseInt(data.hab_profil))
+    // récup dernière habilitation pour contrôler s'il y a lieu de maj
+    db.getUserByUuid(habUpdate.hab_ut, (error, results) => {
+        let habOrigine = new hab.Habilitation(results[0].hab_uuid,results[0].ut_uuid,results[0].hab_profil)
+        if (habUpdate.hab_profil !== habOrigine.hab_profil){
+            // terminé ancien hab
+            db.expHabilitation(habOrigine, (error, results) => {
+            })
+            // créer new hab
+            habUpdate.hab_uuid = lib.genUuid()
+            db.creationHabilitationByUserUuid(habUpdate, (error, results) => {
+                console.log('new hab',results)
+            })
+        }
+    })
 }
 
 function jnrApresSignal(results, response, data) {
@@ -43,7 +63,7 @@ function jnrApresAffectation(results, response, data) {
             //  response.send({ status: true })
         })
     }
-    db.getUserNameByUuid(data.ut_uuid, (error, results) => {
+    db.getUserByUuid(data.ut_uuid, (error, results) => {
         // jrn 2 - affectation
         data.jrn_msg = 'Affectation ' + results[0].ut_prenom + ' ' + results[0].ut_nom
         data.jrn_imm = true
@@ -69,7 +89,7 @@ function jnrApresFin(results, response, data) {
     db.creaLigneJournal(data, (error, results) => {
         //  response.send({ status: true })
     })
-    db.getUserNameByUuid(data.ut_uuid, (error, results) => {
+    db.getUserByUuid(data.ut_uuid, (error, results) => {
         // jrn 2 - affectation
         data.jrn_msg = 'Fin intervention : ' + results[0].ut_prenom + ' ' + results[0].ut_nom
         data.jrn_imm = true
@@ -90,7 +110,7 @@ function jnrAprescloture(results, response,data) {
 
     }
     if (data.ut_uuid) {
-        db.getUserNameByUuid(data.ut_uuid, (error, results) => {
+        db.getUserByUuid(data.ut_uuid, (error, results) => {
             data.jrn_msg = 'Intervention clôturée : ' + results[0].ut_prenom + ' ' + results[0].ut_nom
             data.jrn_imm = false
             db.creaLigneJournal(data, (error, results) => {
@@ -107,6 +127,7 @@ function jnrAprescloture(results, response,data) {
 //////////////////////////////////////////////
 module.exports = {
     getUserListByCatAndPresta,
+    controleUpdateHab,
     jnrApresSignal,
     jnrApresAffectation,
     jnrApresAttribution,

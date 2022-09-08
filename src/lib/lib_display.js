@@ -1,13 +1,12 @@
 // boutons
-function boutonDisplay(couleur, menu, plein,particularite) {
-   //console.log('param : ', couleur, menu, plein, particularite)
+function boutonDisplay(couleur, menu, plein, particularite) {
+ // console.log('couleur : ', couleur, 'menu : ', menu, 'plein : ', plein, 'particularite : ', particularite)
   let classBt = ' btn'
   let outline = '-outline '
   if (plein) {
-    
     outline = ''
   }
-  
+
   let classMenu = menu
   if (particularite === undefined) {
     if (menu === undefined) {
@@ -41,6 +40,7 @@ function boutonDisplay(couleur, menu, plein,particularite) {
     classCouleur = '-secondary bouton-retour '
   }
   let totalClass = classBt + ' ' + classBt + outline + classCouleur + classMenu
+  //console.log(totalClass)
   return totalClass
 }
 
@@ -54,7 +54,7 @@ function fichePostItDisplay(status) {  // ecran uniquement pour detailsInc du su
 }
 
 function rubanPostItDisplay(status) {  // ecran uniquement pour detailsInc du suivi
-  console.log('params ', status)
+  //console.log('params ', status)
   let ficheInc = 'fiche-commun rubanTechno'
   let totalClass = ficheInc + ' ' + status
   return totalClass

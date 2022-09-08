@@ -21,14 +21,13 @@ function Accueil(props) {
   function sub_form(event) {
     event.preventDefault()
     let data = {
-      //ut_id: 'sjoffre',
-      //ut_mdp: MD5('sjoffre' + 'aaa'),
       ut_id: document.getElementById('id').value,
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
+    console.log('data',data)
     fetch('http://localhost:3001/loggin', lib.optionsPost(data))
       .then(response => {    // résultat brut
-        // console.log('response1', response)
+      //   console.log('response1', response)
         return response.json()  // récupère que les données résultat
       })
       .then(response => {
@@ -72,8 +71,8 @@ function Accueil(props) {
         <div className='cadre-15 decal'>
           <BoutonSubmit
             txt={'Validation'}
-
             couleur={'gris'}
+            plein={true}
           />
         </div>
         <div className='cadre-15'>

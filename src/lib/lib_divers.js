@@ -42,10 +42,10 @@ function findProfil(hab_profil) {
     profil = 'usager'
   }
   else if (hab_profil === 2) {
-    profil = 'tech'
+    profil = 'technicien'
   }
   else if (hab_profil === 3) {
-    profil = 'valid'
+    profil = 'valideur'
   }
   else if (hab_profil === 4) {
     profil = 'imm'

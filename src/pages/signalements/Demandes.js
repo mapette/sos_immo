@@ -54,6 +54,7 @@ function Demandes(props) {
           ecran: 'menu'
         })}
         couleur={'gris'}
+        plein={true}
       />
 
     </div>

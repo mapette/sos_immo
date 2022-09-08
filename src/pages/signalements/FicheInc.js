@@ -71,6 +71,7 @@ function FicheInc(props) {
             ecran: 'demandes'
           })}
           couleur={'gris'}
+          plein={true}
         />
       }
       {props.varGlob.profilEcran == 'Pilotage' &&
@@ -81,6 +82,7 @@ function FicheInc(props) {
             ecran: 'pilot'
           })}
           couleur={'gris'}
+          plein={true}
         />
       }
     </div>

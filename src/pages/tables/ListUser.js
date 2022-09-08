@@ -1,46 +1,44 @@
 import './../../tools/App.css';
+
+const cl_ut = require('../../lib/lib_cl_ut')
 const lib = require('./../../lib/lib_divers')
 
 function ListUser(props) {
 
+  function showDetails(id) {
+    fetch('http://localhost:3001/get_user' + id, lib.optionsGet())
+      .then(response => response.json())
+      .then(response => {
+   //     console.log('response',response)
+        props.setFocus(new cl_ut.Utilisateur(response))
+   //     props.setMode("selection")
+      })
+  }
+
   return (
     <div className="container no-gutter">
-      <table className="table row cadre-15" key='titre'>
+      <table className="cadre-15 width-90p">
         <thead>
-          <tr>
-            <th className="col-1">username</th>
-            <th className="col-2">nom</th>
-            <th className="col-2">prénom</th>
-            <th className="col-2">profil</th>
-            <th className="col-2">employeur</th>
-            <th className="col-1">statut</th>
-            <td className="col-1"></td>
-          </tr>
+          <th className='largeur-110'>username</th>
+          <th className='largeur-110 gauche'>nom</th>
+          <th className='largeur-110 gauche'>prénom</th>
+          <th className='largeur-110 gauche'>profil</th>
+          <th className='largeur-300 gauche'>employeur</th>
+          <th className='largeur-110'>statut</th>
+          <th className='largeur-110 gauche'>téléphone</th>
+          <th className='gauche'>mail</th>
         </thead>
         <tbody>
           {props.userList.map(user =>
-            <tr className="row" key={user.ut_uuid}>
-              <td className="col-1">
-                {user.ut_id}
-              </td>
-              <td className="col-2">
-                {user.ut_nom}
-              </td>
-              <td className="col-2">
-                {user.ut_prenom}
-              </td>
-              <td className="col-2">
-                {lib.findProfil(user.hab_profil)}
-              </td>
-              <td className="col-2">
-                {user.presta_nom}  {user.presta_libelle}
-              </td>
-              <td className="col-1">
-                {lib.findUserStatus(user.ut_date_exp)}
-              </td>
-              <td className="col-1">
-                <input className='form-check-input' type='radio' name='ut' id={user.ut_uuid} checked></input>
-              </td>
+            <tr key={user.ut_uuid} onClick={() => showDetails(user.ut_uuid)}>
+              <td className=''>{user.ut_id}</td>
+              <td className='gauche'>{user.ut_nom}</td>
+              <td className='gauche'>{user.ut_prenom}</td>
+              <td className='gauche'>{lib.findProfil(user.hab_profil)}</td>
+              <td className='gauche'>{user.presta_nom} - {user.presta_libelle}</td>
+              <td className=''>{lib.findUserStatus(user.ut_date_exp)}</td>
+              <td className='gauche'>{user.ut_tel}</td>
+              <td className='gauche'>{user.ut_mail}</td>
             </tr>
           )}
         </tbody>

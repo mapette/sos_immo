@@ -61,7 +61,7 @@ function FicheIncJrn(props) {
   return (
     <div>
       <div className="cadre-15">
-        <table className='cadre-15 tab-jrn'>
+        <table className='cadre-15 width-90p'>
           <thead>
             <th>date</th>
             <th>message</th>

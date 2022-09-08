@@ -146,7 +146,7 @@ function NewInc(props) {
               </div>
               <div className='gauche col-6'>
                 <select type=""
-                  id='inc'  {...register('inc', { required: true })}
+                  id='tinc'  {...register('tinc', { required: true })}
                   onClick={() => {
                     setEtape(3)
                   }}
@@ -189,6 +189,7 @@ function NewInc(props) {
                 <BoutonSubmit
                   txt={'Validation'}
                   couleur={'vert'}
+                  plein={true}
                 />
               </div>
             </div>
@@ -210,6 +211,7 @@ function NewInc(props) {
               ecran: 'menu'
             })}
             couleur={'gris'}
+            plein={true}
           />
         </div>
       </form >

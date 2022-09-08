@@ -8,19 +8,21 @@ const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
- // let inc_liste_originale = new cl.Inc_manager()
+  // let inc_liste_originale = new cl.Inc_manager()
   let inc_liste = new cl.Inc_manager()
   let [lInc, setLInc] = useState([])
-  let [typeListe, setTypeListe] = useState('tous les incidents')
+  let [typeListe, setTypeListe] = useState('')
   let [btCloture, setBtCloture] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:3001/get_inc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        response.forEach(element => {
-          inc_liste.liste.push(new cl.Incident(element))
-        });
+        if (response.length !== 0) {
+          response.forEach(element => {
+            inc_liste.liste.push(new cl.Incident(element))
+          });
+        }
       })
   }, [, lInc])
 
@@ -37,14 +39,13 @@ function Pilotage(props) {
   }
 
   function tousIncidents() {
- //   inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
+    //   inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     setLInc(inc_liste.liste)
     setTypeListe('tous les incidents')
     setBtCloture(false)
   }
   function filterEnAttente() {
-
-  //  inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
+    //  inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     inc_liste.filterEnAttente()
     setLInc(inc_liste.liste)
     setTypeListe('incidents en attente')
@@ -80,39 +81,46 @@ function Pilotage(props) {
         actionToDo={() => tousIncidents()}
         couleur={'vert'}
         menu={'menu'}
+        plein={true}
       />
       <Bouton
         txt={'En attente'}
         actionToDo={() => filterEnAttente()}
         couleur={'vert'}
         menu={'menu'}
+        plein={true}
       />
       <Bouton
         txt={'En Cours'}
         actionToDo={() => filterEnCours()}
         couleur={'vert'}
         menu={'menu'}
+        plein={true}
       />
       <Bouton
         txt={'Hors délais (24 H)'}
         actionToDo={() => filterHorsDelais()}
         couleur={'vert'}
         menu={'menu'}
+        plein={true}
       />
       <Bouton
         txt={'Fermés non clôturés'}
         actionToDo={() => filterFermesNonClotures()}
         couleur={'vert'}
         menu={'menu'}
+        plein={true}
       />
-      <div className='decal gras gauche fontsize-20'>  
-           {typeListe}
+      <div className='decal gras gauche fontsize-20 cadre-15'>
+        {typeListe}
       </div>
+
       <ListeInc
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
         lInc={lInc}
       />
+
       {btCloture === true &&
         <form id="attribution" className='cadre-15'
           type="POST"
@@ -122,7 +130,7 @@ function Pilotage(props) {
           <BoutonSubmit
             couleur={'rouge'}
             txt={"Clôturer les incidents fermés depuis 48 heures"}
-            plein={false}
+            plein={true}
           />
         </form>
       }
@@ -133,6 +141,7 @@ function Pilotage(props) {
           ecran: 'menu'
         })}
         couleur={'gris'}
+        plein={true}
       />
 
     </div>

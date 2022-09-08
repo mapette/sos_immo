@@ -173,6 +173,7 @@ function ChangeMdp(props) {
             ecran: 'menu'
           })}
           couleur={'gris'}
+          plein={true}
         />
       </div>
     </div >

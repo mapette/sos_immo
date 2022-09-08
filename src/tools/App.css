@@ -1,4 +1,12 @@
 /* général */
+::placeholder {
+  color: black;
+}
+
+.input-sans-bordure {
+  border-style: none ;
+}
+
 .centrer {
   text-align: center;
 }
@@ -13,20 +21,26 @@
   border-radius: 16px;
  }
 
-.cadre-15{
-  margin: 15px;
+.bordure{
+  border:1px solid
+}
+
+.no-gutter{
+  margin: 0px;
 }
 .cadre-3{
   margin: 3px;
 }
-.no-gutter{
-  margin: 0px;
+.cadre-15{
+  margin: 15px;
 }
+
 .no-padding{
   padding: 0px;
 }
 .gras{
   font-weight: bold;
+  color:black;
 }
 
 .decal{
@@ -55,7 +69,7 @@
 
 .gauche{
   text-align: left;
-}
+  }
 .droite{
   text-align: right;
 }
@@ -66,14 +80,27 @@
 .largeur-50{
   width: 50px;
 }
+.largeur-110{
+  width: 110px;
+}
 .largeur-200{
   width: 200px;
+}
+.largeur-300{
+  width: 300px;
 }
 .largeur-400{
   width: 400px;
 }
-.largeur-110{
-  width: 110px;
+.larg-1000{
+  width: 1000px;
+}
+
+.width-75p{	
+  width:75%;
+}
+.width-90p{	
+  width:90%;
 }
 
 .en-ligne {
@@ -174,12 +201,6 @@ table {
 	border-bottom:1px solid gray;
 	font-family: Tahoma,Verdana,Segoe,sans-serif;
 }
-.tab-cartouche{	
-  width:75%;
-}
-.tab-jrn{	
-  width:90%;
-}
  th {
 	border-bottom:1px solid gray;
 	background:none repeat scroll 0 0#4c8fc9;
@@ -196,21 +217,10 @@ tr {
 .invisible{
   visibility:hidden;
 }
-/*
-  display:none;
-*/
 
-/* 
-.detailsInc {
-  vertical-align: top;
-  width: 300px;
-  height: 250px;
-}
-.hauteur-fiche-en-attente{
-  height: 2700px;
-}
-.hauteur-fiche-en-cours{
-  height: 320px;
-} */
+
+/*
+
+*/
 
 

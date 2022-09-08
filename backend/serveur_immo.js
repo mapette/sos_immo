@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
 const MD5 = require('sha1')
-//path = require('path')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+
+const cl_ut = require('./src/lib_cl_ut')
+const cl_hab = require('./src/lib_cl_hab')
 
 // gestion des cookies
 const session = require('express-session')
@@ -28,11 +30,11 @@ const trait = require('./src/lib_traitmt_req')
 const port = 3001
 app.listen(port)
 
-//////      api     //////
+//////      loggin     //////
 app.get('/get_accueil', (request, response) => {
     if (request.session.uuid !== undefined) {
         console.log('cookie', request.session.ut)
-        db.getUserNameByUuid(request.session.uuid, (error, results) => {
+        db.getUserByUuid(request.session.uuid, (error, results) => {
             if (results[0] !== undefined) {
                 response.send({ id: results[0] })
             }
@@ -75,25 +77,17 @@ app.post('/change_mdp', (request, response) => {
 
 //////////// gestion utilisateurs ////////////
 app.post('/crea_user', (request, response) => {
+    let user = new cl_ut.Utilisateur(request.body)
     if (request.session.isId == true & request.session.profil == 4) {
         let mdp = lib.genMdp()
-        let data = {
-            uuid: lib.genUuid(),
-            username: request.body.username, nom: request.body.nom, prenom: request.body.prenom,
-            tel: request.body.tel, mail: request.body.mail,
-            presta: request.body.presta,
-            mdp: MD5(request.body.username + mdp),
-            adm: request.session.ut,
-        }
+        user.ut_uuid= lib.genUuid()
+        user.ut_mdp = MD5(user.ut_id + mdp),
+        user.ut_admin_deb = request.session.ut
         console.log('mot de passe à changer à la prochaine connexion => ', mdp)
-        db.creationUtilisateur(data, (error, results) => {
+        db.creationUtilisateur(user, (error, results) => {
         })
-        data = {
-            uuid: lib.genUuid(),
-            username: request.body.username,
-            profil: request.body.profil,
-        }
-        db.creationHabilitation(data, (error, results) => {
+        let hab = new cl_hab.Habilitation(lib.genUuid(),user.ut_id,user.hab_profil)
+        db.creationHabilitationByUsername(hab, (error, results) => {
             response.send({ mdp: mdp })// - pour prépa du mail
         })
     }
@@ -118,6 +112,43 @@ app.get('/get_usersByCatAndPresta/:cat/:presta_id', (request, response) => {
     if (request.session.isId == true & (request.session.profil == 3 | request.session.profil == 4)) {
         db.getUserList((error, results) => {
             response.send(trait.getUserListByCatAndPresta(results, request.params.cat, request.params.presta_id))
+        })
+    }
+})
+
+app.get('/get_user:uuid', (request, response) => {
+    if (request.session.isId == true & request.session.profil == 4) {
+        db.getUserByUuid(request.params.uuid, (error, results) => {
+            response.send(results[0])
+        })
+    }
+})
+app.get('/get_habByUser:uuid', (request, response) => {
+    if (request.session.isId == true & request.session.profil == 4) {
+        db.getHabByUser(request.params.uuid, (error, results) => {
+            // console.log(results)
+            response.send(results)
+        })
+    }
+})
+
+app.post('/update_user', (request, response) => {
+    let user = new cl_ut.Utilisateur(request.body)
+    if (request.session.isId == true) {
+        db.updateUtilisateur(user, (error, results) => {
+            trait.controleUpdateHab(user)
+            console.log('fin post')
+            response.send({ msg:'ok' })
+        })
+    }
+})
+app.post('/update_hab ', (request, response) => {
+    let user = new cl_ut.Utilisateur(request.body)
+    if (request.session.isId == true) {
+        db.updateUtilisateur(user, (error, results) => {
+            trait.controleUpdateHab(user)
+            console.log('fin post')
+           // response.send({ jrn_id: results.insertId })
         })
     }
 })
@@ -170,14 +201,17 @@ app.post('/crea_signalement', (request, response) => {
         tinc: request.body.tinc,
         ut: request.session.uuid,
     }
+    console.log('data signalement',data)
     // coordonnées de l'usager
-    db.getUserNameByUuid(request.session.uuid, (error, results) => {
+    db.getUserByUuid(request.session.uuid, (error, results) => {
         data.coordonneesUsager = results[0].ut_prenom +
             ' ' + results[0].ut_nom +
             ' (tél ' + results[0].ut_tel + ')'
+            console.log('data coordonnées',data)
         // nom du presta
         db.getPrestaLibelleByTinc(data.tinc, (error, results) => {
             data.presta = results[0].presta_nom
+            console.log('data presta',data)
         })
         if (request.session.isId == true) {
             // création incident
@@ -246,7 +280,7 @@ app.get('/clotureInc', (request, response) => {
             db.clotureInc(null, (error, results) => {
                 response.send(listeInc)
             })
-           
+
         })
     }
 })
