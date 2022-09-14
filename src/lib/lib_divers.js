@@ -35,8 +35,8 @@ function findUserStatus(date_exp) {
 }
 function findProfil(hab_profil) {
   let profil = 'actif'
-  if (hab_profil === 0) {   // inusité
-    profil = 'adm'
+  if (hab_profil === 0) {  
+    profil = 'inactif'
   }
   else if (hab_profil === 1) {
     profil = 'usager'

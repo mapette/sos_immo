@@ -48,7 +48,7 @@ function GestionUtilisateurs(props) {
 
         }
       })
-  }, [, lUser,])
+  }, [, lUser])
 
   function initFiltre() {
     setBt({
@@ -79,11 +79,10 @@ function GestionUtilisateurs(props) {
     }
   }
   function tri() {
-    ut_liste.tri(bt)
+    ut_liste.gdFiltre(bt)
     setLUser(ut_liste.liste)
   }
 
- // console.log('mode ', mode)
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
@@ -92,7 +91,7 @@ function GestionUtilisateurs(props) {
       <div className='container bordure cadre-15 '>
         <div className='row'>
           <div className='col-2'>
-           { mode !== 'création' &&
+           { mode !== 'création'  && focus === '' &&
            <Bouton
               txt={'init filtres'}
               actionToDo={() => initFiltre()}
@@ -181,10 +180,10 @@ function GestionUtilisateurs(props) {
               </div>
             </div>
           </div>
-          {mode !== 'création' &&
+          {mode !== 'création' && focus === '' &&
           <div className='col-2'>
             <Bouton
-              txt={'Lancer la recherche'}
+              txt={'Rafraichir la liste'}
               actionToDo={() => tri()}
               couleur={'vert'}
               plein={true}
@@ -210,6 +209,7 @@ function GestionUtilisateurs(props) {
           setVarGlob={props.setVarGlob}
           focus={focus}
           setFocus={setFocus}
+          setMode={setMode}
           prestaList={prestaList}
         />
       }
@@ -232,37 +232,8 @@ function GestionUtilisateurs(props) {
                 couleur={'vert'}
                 plein={true}
               />
-              {/* <Bouton
-                txt={'Affichage utilisateur'}
-                actionToDo={() => setMode('sélection')}
-                couleur={'bleu'}
-                plein={true}
-
-              /> */}
             </span>
           }
-          {/* {mode === 'sélection' &&
-            <span>
-              <Bouton
-                txt={'retour liste'}
-                actionToDo={() => setMode('neutre')}
-                couleur={'gris'}
-                plein={true}
-              />
-              <Bouton
-                txt={'Validation mises à jours'}
-                actionToDo={() => setMode('sélection')}
-                couleur={'bleu'}
-                plein={true}
-              />
-              <Bouton
-                txt={'Résiliation'}
-                actionToDo={() => setMode('sélection')}
-                couleur={'rouge'}
-                plein={true}
-              />
-            </span>
-          } */}
         </div>
       </div>
 

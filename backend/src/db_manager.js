@@ -8,7 +8,6 @@ function connectToMySQL() {
         database: 'sos_immo'
     });
     connection.connect()
-    //  var sessionStore = new MySQLStore({}, connection);
     return connection
 }
 
@@ -22,6 +21,8 @@ function userLogin(reqBody, nomBidon) {
                 FROM habilitations, utilisateurs
                 WHERE ut_id = ? and ut_mdp = ?
                     AND hab_ut = ut_uuid`               
+ //   console.log(params)
+  //  console.log(query)
     connection.query(query, params, nomBidon)
     connection.end();
 }
@@ -61,7 +62,7 @@ function getUserList(fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let query = `SELECT ut.*, presta_nom, presta_libelle, hab_profil, hab_date_exp
             FROM utilisateurs ut LEFT JOIN presta ON (ut_presta = presta_id), habilitations  
-            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL `
+            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL` //
     connection.query(query, fonction_traitement_resultat_bdd)
     connection.end();
 }
@@ -76,20 +77,25 @@ function creationUtilisateur(val, fonction_traitement_resultat_bdd) {
     connection.end()
 }
 function creationHabilitationByUsername(val, fonction_traitement_resultat_bdd) {
+  //  console.log("entrée")
     let connection = connectToMySQL()
     let params = [val['hab_uuid'], val['hab_profil'], val['hab_ut'],]
     let query = "INSERT INTO habilitations (hab_uuid,  hab_profil, hab_ut) VALUES (?, ?, " +
         "(SELECT ut_uuid FROM utilisateurs WHERE ut_id = ?))"
+    console.log(params)
+    console.log(query)
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
 function creationHabilitationByUserUuid(val, fonction_traitement_resultat_bdd) {
-    console.log('data créa',val)
     let connection = connectToMySQL()
     let params = [val['hab_uuid'], val['hab_profil'], val['hab_ut'],]
     let query = "INSERT INTO habilitations (hab_uuid,  hab_profil, hab_ut) VALUES (?, ?, ?)"
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
+    console.log("val",val.hab_uuid)
+    console.log(params)
+    console.log(query)
 }
 
 function updateUtilisateur(val, fonction_traitement_resultat_bdd) {
@@ -101,7 +107,7 @@ function updateUtilisateur(val, fonction_traitement_resultat_bdd) {
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
-function expHabilitation(val, fonction_traitement_resultat_bdd) {
+function expHabilitationByHab(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let params = [val['hab_uuid'],]
     let query = `UPDATE habilitations SET hab_date_exp=now()
@@ -110,6 +116,24 @@ function expHabilitation(val, fonction_traitement_resultat_bdd) {
     connection.end();
 }
 
+function expUtilisateur(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = [val['ut_admin_exp'], val['ut_uuid'],]
+    let query = `UPDATE utilisateurs 
+                    SET ut_date_exp=now(), ut_admin_exp=?, ut_mdp=Null, ut_mdp_exp=now()
+                    WHERE ut_uuid=?`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
+function expHabilitationByUser(val, fonction_traitement_resultat_bdd) {
+    let connection = connectToMySQL()
+    let params = val
+    let query = `UPDATE habilitations SET hab_date_exp=now()
+                    WHERE hab_ut=?
+                    AND hab_date_exp is null`
+    connection.query(query, params, fonction_traitement_resultat_bdd)
+    connection.end();
+}
 //////////// presta ////////////
 function getPrestaLibelleByTinc(id, nomBidon) {     // pour le bandeau et info pour le journal
     let params = [id]
@@ -296,7 +320,9 @@ module.exports = {
     creationHabilitationByUsername,
     creationHabilitationByUserUuid,
     updateUtilisateur,
-    expHabilitation,
+    expHabilitationByHab,
+    expHabilitationByUser,
+    expUtilisateur,
     getEmpList,
     creationSignalement,
     getIncList,

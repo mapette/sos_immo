@@ -14,6 +14,26 @@ function getUserListByCatAndPresta(results, cat, presta_id) {
     return (ut_liste.liste)
 }
 
+function expHabilitation(ut_uuid){
+    // date_exp = now() pour l'hab sans date_exp
+    db.expHabilitationByUser(ut_uuid, (error, results) => {
+    // création hab avec profil 0 (sans date_exp)
+    //    newUuid = lib.genUuid()
+    //    console.log('newUuid',newUuid)
+    //    newHhab = new hab.Habilitation(newUuid,ut_uuid,0)
+    //    console.log('hab',newHhab)
+    let data= {
+        hab_uuid : lib.genUuid(),
+        hab_ut : ut_uuid,
+        hab_profil : 0,
+    }
+        db.creationHabilitationByUserUuid(data, (error, results) => {
+            console.log(results)
+          //  response.send({ msg:'ok' })
+         })
+    })
+}
+
 function controleUpdateHab(data){
     let habUpdate = new hab.Habilitation(null, data.ut_uuid, parseInt(data.hab_profil))
     // récup dernière habilitation pour contrôler s'il y a lieu de maj
@@ -21,7 +41,7 @@ function controleUpdateHab(data){
         let habOrigine = new hab.Habilitation(results[0].hab_uuid,results[0].ut_uuid,results[0].hab_profil)
         if (habUpdate.hab_profil !== habOrigine.hab_profil){
             // terminé ancien hab
-            db.expHabilitation(habOrigine, (error, results) => {
+            db.expHabilitationByHab(habOrigine, (error, results) => {
             })
             // créer new hab
             habUpdate.hab_uuid = lib.genUuid()
@@ -127,6 +147,7 @@ function jnrAprescloture(results, response,data) {
 //////////////////////////////////////////////
 module.exports = {
     getUserListByCatAndPresta,
+    expHabilitation,
     controleUpdateHab,
     jnrApresSignal,
     jnrApresAffectation,

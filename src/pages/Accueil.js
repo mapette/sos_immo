@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-//import './../App.css';
 import BoutonSubmit from './../tools/BoutonSubmit'
 import Alerte from './../tools/Alerte'
 
@@ -27,7 +26,6 @@ function Accueil(props) {
     console.log('data',data)
     fetch('http://localhost:3001/loggin', lib.optionsPost(data))
       .then(response => {    // résultat brut
-      //   console.log('response1', response)
         return response.json()  // récupère que les données résultat
       })
       .then(response => {

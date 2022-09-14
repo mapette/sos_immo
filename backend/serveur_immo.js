@@ -126,18 +126,22 @@ app.get('/get_user:uuid', (request, response) => {
 app.get('/get_habByUser:uuid', (request, response) => {
     if (request.session.isId == true & request.session.profil == 4) {
         db.getHabByUser(request.params.uuid, (error, results) => {
-            // console.log(results)
-            response.send(results)
+            let hab_liste = new cl_hab.Hab_manager()
+            results.forEach(element => {
+                hab_liste.liste.push(new cl_hab.HabilitationTri(element,))
+            });
+            hab_liste.retireProfil0()
+      //      console.log(hab_liste)
+            response.send(hab_liste.liste)
         })
     }
 })
 
 app.post('/update_user', (request, response) => {
     let user = new cl_ut.Utilisateur(request.body)
-    if (request.session.isId == true) {
+    if (request.session.isId == true & request.session.profil == 4) {
         db.updateUtilisateur(user, (error, results) => {
             trait.controleUpdateHab(user)
-            console.log('fin post')
             response.send({ msg:'ok' })
         })
     }
@@ -147,10 +151,22 @@ app.post('/update_hab ', (request, response) => {
     if (request.session.isId == true) {
         db.updateUtilisateur(user, (error, results) => {
             trait.controleUpdateHab(user)
-            console.log('fin post')
            // response.send({ jrn_id: results.insertId })
         })
     }
+})
+
+app.get('/delete_user:uuid', (request, response) => {
+   // let user = new cl_ut.Utilisateur(request.params.ut_uuid)
+   if (request.session.isId == true & request.session.profil == 4) {
+    let user = {
+    ut_uuid : request.params.uuid,
+    ut_admin_exp : request.session.ut,
+   } 
+         db.expUtilisateur(user, (error, results) => {
+            trait.expHabilitation(user.ut_uuid)   
+         })
+     }
 })
 
 //////////// incidents ////////////
@@ -201,17 +217,16 @@ app.post('/crea_signalement', (request, response) => {
         tinc: request.body.tinc,
         ut: request.session.uuid,
     }
-    console.log('data signalement',data)
     // coordonnées de l'usager
     db.getUserByUuid(request.session.uuid, (error, results) => {
         data.coordonneesUsager = results[0].ut_prenom +
             ' ' + results[0].ut_nom +
             ' (tél ' + results[0].ut_tel + ')'
-            console.log('data coordonnées',data)
+         //   console.log('data coordonnées',data)
         // nom du presta
         db.getPrestaLibelleByTinc(data.tinc, (error, results) => {
             data.presta = results[0].presta_nom
-            console.log('data presta',data)
+        //    console.log('data presta',data)
         })
         if (request.session.isId == true) {
             // création incident

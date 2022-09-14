@@ -16,6 +16,7 @@ class Utilisateur {
     this.ut_admin_exp = result.ut_admin_exp
     this.hab_profil = result.hab_profil
    // this.ut_mdp = result.ut_mdp 
+    this.ut_mdp_exp = result.ut_mdp_exp 
   }
 }
 

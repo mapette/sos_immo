@@ -48,7 +48,7 @@ function Pilotage(props) {
     //  inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     inc_liste.filterEnAttente()
     setLInc(inc_liste.liste)
-    setTypeListe('incidents en attente')
+    setTypeListe(`incidents en attente d'affection`)
     setBtCloture(false)
   }
   function filterEnCours() {
@@ -84,7 +84,7 @@ function Pilotage(props) {
         plein={true}
       />
       <Bouton
-        txt={'En attente'}
+        txt={`En attente d'affectation`}
         actionToDo={() => filterEnAttente()}
         couleur={'vert'}
         menu={'menu'}

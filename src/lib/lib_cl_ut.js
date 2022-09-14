@@ -23,8 +23,7 @@ class Ut_manager {
     this.liste = new Array()
   }
 
-   tri(bt) {
-    console.log('bt', bt)
+  gdFiltre(bt) {
     // status
     if (!bt.actif & !bt.inactif) {
       this.liste = []
@@ -52,7 +51,8 @@ class Ut_manager {
       if (!bt.valideur) {
         this.liste = this.liste.filter(f => f.hab_profil !== 3)
       }
-      this.liste = this.liste
+    }
+    this.liste = this.liste
         .sort((x, y) => {
           if (x.ut_prenom < y.ut_prenom) { return -1 }
           if (x.ut_prenom > y.ut_prenom) { return 1 }
@@ -63,9 +63,8 @@ class Ut_manager {
           if (x.ut_nom > y.ut_nom) { return 1 }
           return 0
         })
-    }
   }
-
+  
   byProfil(profil) {
     this.liste = this.liste.filter(f => f.hab_profil === parseInt(profil))
   }

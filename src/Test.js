@@ -19,8 +19,9 @@ function TestBtClick() {
 
 let msg1 = 'sjoffre' + 'aaa'
 let msg2 = 'blaurent' + 'aaa'
-let msg3 = 'ocain' + 'aaa'
-let msg4 = 'nduval' + 'aaa'
+let msg3 = 'toto' + 'AfR+q4Jd'
+let msg4 = 'toto' + 'aaa'
+let msg5 = 'nduval' + 'aaa'
 let code = uuidv4()
 let msg = code
 function Test() {
@@ -31,6 +32,7 @@ function Test() {
       <p> hash {msg2} : {MD5(msg2)}</p>
       <p> hash {msg3} : {MD5(msg3)}</p>
       <p> hash {msg4} : {MD5(msg4)}</p>
+      <p> hash {msg5} : {MD5(msg5)}</p>
     </div>
   )
 }

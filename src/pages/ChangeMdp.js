@@ -145,6 +145,7 @@ function ChangeMdp(props) {
                   <BoutonSubmit
                     txt={'Validation'}
                     couleur={'vert'}
+                    plein={true}
                   />
                 </div>
               }

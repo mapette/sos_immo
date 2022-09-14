@@ -21,9 +21,8 @@ function FicheUser(props) {
       .then(response => {
         setHabList(habList = response)
       })
-  })
+  },[])
   useEffect(()=>{
-    console.log('focus',props.focus)
     document.getElementById('ut_nom').value = props.focus.ut_nom
     document.getElementById('ut_prenom').value = props.focus.ut_prenom
     document.getElementById('ut_tel').value = props.focus.ut_tel
@@ -37,12 +36,24 @@ function FicheUser(props) {
     data.ut_uuid = props.focus.ut_uuid
     if (alertMsg === '') {
       fetch('http://localhost:3001/update_user', lib.optionsPost(data))
-        // .then(response => response.json())
-        // .then(response => {
-        //   props.setMode('neutre')
-       //    lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
-    //  })
+        .then(response => response.json())
+        .then(response => {
+          props.setMode('neutre')
+          props.setFocus('')
+          //  lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
+      })
     }
+  }
+
+  function resiliation(ut_uuid){
+    console.log(ut_uuid)
+ //fetch('http://localhost:3001/get_user' + id, lib.optionsGet())
+ 
+    fetch('http://localhost:3001/delete_user'+ ut_uuid, lib.optionsGet())
+        // fetch resiliationUser
+      // now() date exp habilitation
+      // now() date ut exp
+   // console.log(event)
   }
 
   function contrInput(hab_profil, ut_presta) {
@@ -61,6 +72,7 @@ function FicheUser(props) {
     console.log(alertMsg)
   }
 
+  console.log(props.focus.ut_date_exp != null)
   return (
     <div className="">
       <div className="decal">
@@ -140,7 +152,6 @@ function FicheUser(props) {
                 <option value='1' key='1'>usager</option>
                 <option value='2' key='2'>technicien (presta)</option>
                 <option value='3' key='3'>valideur (presta)</option>
-                {/* <option value='0' key='0'>administrateur</option> */}
                 <option value='4' key='4'>imm</option>
               </select>
                 </td>
@@ -154,8 +165,8 @@ function FicheUser(props) {
                   <th className='largeur-110'>début</th>
                   <th className='largeur-110'>fin</th>
                 </thead>
-                {habList.map(hab =>
-                  <tr>
+                {habList.map(hab => 
+                  <tr key={hab.hab_uuid}>
                     <td> {lib.findProfil(hab.hab_profil)}</td>
                     <td> {time.FormatDate(hab.hab_date_deb)} </td>
                     <td> {time.FormatDate(hab.hab_date_exp)} </td>
@@ -171,24 +182,25 @@ function FicheUser(props) {
                 }
                 <Bouton
                   txt={'Retour à la liste'}
-                  actionToDo={() => 
-                    props.setFocus('')}
+                  actionToDo={() => props.setFocus('')}
                   couleur={'gris'}
                   plein={true}
                 />
+               { props.focus.ut_date_exp === null &&
+               <div>
                 <BoutonSubmit
                   txt={'Modification'}
-                  actionToDo={() => props.setFocus('')}
                   couleur={'bleu'}
                   plein={true}
                 />
                 <Bouton
                   txt={'Résiliation'}
-                  actionToDo={() => props.setFocus('')}
+                  actionToDo={() => resiliation(props.focus.ut_uuid)}
                   couleur={'rouge'}
                   plein={true}
                 />
-               
+               </div>
+               }
               </div>
             </div>
           </div>
