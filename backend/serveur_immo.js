@@ -26,6 +26,8 @@ app.use(cors({
 const db = require('./src/db_manager')
 const lib = require('./src/lib_serveur')
 const trait = require('./src/lib_traitmt_req')
+const login = require('./src/services/login')
+const utilisateurs = require('./src/services/utilisateurs')
 
 const port = 3001
 app.listen(port)

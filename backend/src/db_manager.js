@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const utilisateurs = require('./data/utilisateurs')
 
 function connectToMySQL() {
     let connection = mysql.createConnection({
@@ -19,7 +20,7 @@ function userLogin(reqBody, nomBidon) {
                     ut_id, hab_profil, ut_uuid, 
                     hab_uuid, ut_mdp_exp 
                 FROM habilitations, utilisateurs
-                WHERE ut_id = ? and ut_mdp = ?
+                WHERE ut_id = ? and ut_mdp = ? and hab_date_exp is null
                     AND hab_ut = ut_uuid`               
  //   console.log(params)
   //  console.log(query)
@@ -30,7 +31,7 @@ function userLogin(reqBody, nomBidon) {
 function change_mdp(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let params = [val['ut_newmdp'], val['ut_id'],]
-    let query = "UPDATE utilisateurs SET ut_mdp = ? WHERE (ut_id = ?)"
+    let query = 'UPDATE utilisateurs SET ut_mdp = ?, ut_mdp_exp=DATE_ADD(now(), INTERVAL 90 DAY) WHERE ut_id = ?'
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end();
 }
@@ -71,8 +72,8 @@ function creationUtilisateur(val, fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let params = [val['ut_uuid'], val['ut_id'], val['ut_nom'], val['ut_prenom'], val['ut_tel'], val['ut_mail'], val['ut_presta'], val['ut_mdp'], val['ut_admin_deb'],]
     let query = "INSERT INTO utilisateurs " +
-        "(ut_uuid, ut_id, ut_nom, ut_prenom, ut_tel, ut_mail, ut_presta, ut_mdp, ut_admin_deb) " +
-        "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?)"
+        "(ut_uuid, ut_id, ut_nom, ut_prenom, ut_tel, ut_mail, ut_presta, ut_mdp, ut_admin_deb, ut_mdp_exp) " +
+        "VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?, DATE_ADD(now(), INTERVAL 90 DAY))"
     connection.query(query, params, fonction_traitement_resultat_bdd)
     connection.end()
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BoutonSubmit from './../tools/BoutonSubmit'
+import Bouton from './../tools/Bouton'
 import Alerte from './../tools/Alerte'
 
 const MD5 = require('sha1')
@@ -16,14 +17,14 @@ function Accueil(props) {
         document.getElementById('id').value = response.id['ut_id']
       })
   }, [])
-  
+
   function sub_form(event) {
     event.preventDefault()
     let data = {
       ut_id: document.getElementById('id').value,
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
-    console.log('data',data)
+    console.log('data', data)
     fetch('http://localhost:3001/loggin', lib.optionsPost(data))
       .then(response => {    // résultat brut
         return response.json()  // récupère que les données résultat
@@ -45,7 +46,7 @@ function Accueil(props) {
         }
       })
   }
-
+console.log(props.varGlob)
   return (
     <div className="">
       <h2 className="titre gras cadre-15" >
@@ -83,7 +84,14 @@ function Accueil(props) {
           }
         </div>
       </form>
-      <a href=''>mot de passe oublié</a>
+
+      <button type="button"
+        className='btn btn-link'
+        onClick={() => props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'oubliMdp'
+        })}
+      >mot de passe oublié</button>
     </div>
   );
 }

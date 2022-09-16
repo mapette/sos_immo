@@ -51,7 +51,7 @@ function NewInc(props) {
   }
 
   function soumettre_inc(data) {
-    console.log('data soumission',data)
+   // console.log('data soumission',data)
     fetch('http://localhost:3001/crea_signalement', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+//import { useForm } from 'react-hook-form'; PAS UTILISE ICI - il empêche controleMdp() et controleMdp2()
 import './../tools/App.css';
 import Bouton from './../tools/Bouton'
 import BoutonSubmit from './../tools/BoutonSubmit'
@@ -29,8 +30,7 @@ function ChangeMdp(props) {
       mdp: MD5(user + document.getElementById('mdp').value),
       newmdp: MD5(user + document.getElementById('newmdp').value),
     }
-    console.log('data', data)
-    fetch('http://localhost:3001/change_mdp',  lib.optionsPost(data))
+    fetch('http://localhost:3001/change_mdp', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
         console.log('status', response.status) // laisser cette ligne sinon ça marche pas !
@@ -86,7 +86,7 @@ function ChangeMdp(props) {
       <h2 className="titre gras cadre-15" >
         Modification du mot de passe
       </h2>
-      {warning === '' &&
+      {warning !== 'ok' &&
         <div className="">
           <form id="form_id"
             type="POST"
@@ -151,7 +151,19 @@ function ChangeMdp(props) {
               }
             </div>
           </form>
-          <a href=''>mot de passe oublié</a>
+          {warning === 'erreur' &&
+            <Alerte
+              msg={'mot de passe erroné'}
+              niveau={'alerteSimple'}
+            />
+          }
+          <button type="button"
+            className='btn btn-link'
+            onClick={() => props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'oubliMdp'
+            })}
+          >mot de passe oublié</button>
         </div >
       }
       {warning === 'ok' &&
@@ -160,12 +172,7 @@ function ChangeMdp(props) {
           niveau={'alerteSimple'}
         />
       }
-          {warning === 'erreur' &&
-                  <Alerte
-                    msg={'identifiant ou mot de passe erroné'}
-                    niveau={'alerteSimple'}
-                  />
-                }
+
       <div className='cadre-15'>
         <Bouton
           txt={'retour au menu'}

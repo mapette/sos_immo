@@ -101,16 +101,6 @@ function Menu(props) {
               plein={true}
             />
             <Bouton
-              txt={'habilitations'}
-              actionToDo={() => props.setVarGlob({
-                ...props.varGlob,
-                ecran: 'menu'
-              })}
-              couleur={'orange'}
-              menu={'smenu'}
-              plein={true}
-            />
-            <Bouton
               txt={'presta'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
