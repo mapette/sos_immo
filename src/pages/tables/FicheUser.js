@@ -36,8 +36,8 @@ function FicheUser(props) {
     data.ut_uuid = props.focus.ut_uuid
     if (alertMsg === '') {
       fetch('http://localhost:3001/update_user', lib.optionsPost(data))
-        .then(response => response.json())
-        .then(response => {
+        //.then(response => response.json())
+        .then(() => {
           props.setMode('neutre')
           props.setFocus('')
           //  lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
@@ -50,10 +50,11 @@ function FicheUser(props) {
  //fetch('http://localhost:3001/get_user' + id, lib.optionsGet())
  
     fetch('http://localhost:3001/delete_user'+ ut_uuid, lib.optionsGet())
-        // fetch resiliationUser
-      // now() date exp habilitation
-      // now() date ut exp
-   // console.log(event)
+      .then(() => {
+        props.setMode('neutre')
+        props.setFocus('')
+        //  lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
+    })
   }
 
   function contrInput(hab_profil, ut_presta) {

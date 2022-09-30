@@ -78,7 +78,7 @@ function Menu(props) {
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'pilot',
-                profilEcran: 'Pilotage',
+                profilEcran: 'pilotage',
               })}
               couleur={'rouge'}
               menu={'menu'}

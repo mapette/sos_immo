@@ -25,7 +25,7 @@ function Accueil(props) {
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
     console.log('data', data)
-    fetch('http://localhost:3001/loggin', lib.optionsPost(data))
+    fetch('http://localhost:3001/login', lib.optionsPost(data))
       .then(response => {    // résultat brut
         return response.json()  // récupère que les données résultat
       })

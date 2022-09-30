@@ -34,11 +34,11 @@ function ChangeMdp(props) {
       .then(response => response.json())
       .then(response => {
         console.log('status', response.status) // laisser cette ligne sinon ça marche pas !
-        if (response.status === false) {
-          setWarning('erreur')
+        if (response.status === true) {
+          setWarning('ok')
         }
         else {
-          setWarning('ok')
+          setWarning('erreur')
         }
       })
   }

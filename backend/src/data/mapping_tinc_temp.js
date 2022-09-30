@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-
 function connectToMySQL() {
     let connection = mysql.createConnection({
         host: 'localhost',
@@ -11,7 +10,15 @@ function connectToMySQL() {
     return connection
 }
 
-module.exports = {
-  
-}
 
+
+
+
+
+
+
+
+
+module.exports = {
+   
+}

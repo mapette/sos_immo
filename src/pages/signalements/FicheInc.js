@@ -63,7 +63,7 @@ function FicheInc(props) {
         setVarGlob={props.setVarGlob}
         incident={incident}
       />
-      {props.varGlob.profilEcran != 'Pilotage' &&
+      {props.varGlob.profilEcran != 'pilotage' &&
         <Bouton
           txt={'retour'}
           actionToDo={() => props.setVarGlob({
@@ -74,7 +74,7 @@ function FicheInc(props) {
           plein={true}
         />
       }
-      {props.varGlob.profilEcran == 'Pilotage' &&
+      {props.varGlob.profilEcran == 'pilotage' &&
         <Bouton
           txt={'retour pilotage'}
           actionToDo={() => props.setVarGlob({
