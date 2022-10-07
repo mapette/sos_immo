@@ -27,7 +27,7 @@ function FicheIncFin(props) {
 
   function SoumettreClotureIncident(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/clotureInc' + props.varGlob.focus, lib.optionsGet())
+    fetch('http://localhost:3001/clotureInc/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !

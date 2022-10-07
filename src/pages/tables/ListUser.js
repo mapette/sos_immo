@@ -6,7 +6,7 @@ const lib = require('./../../lib/lib_divers')
 function ListUser(props) {
 
   function showDetails(id) {
-    fetch('http://localhost:3001/get_user' + id, lib.optionsGet())
+    fetch('http://localhost:3001/get_user/' + id, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
    //     console.log('response',response)

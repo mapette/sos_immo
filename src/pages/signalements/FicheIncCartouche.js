@@ -15,8 +15,8 @@ function FicheIncCartouche(props) {
           </thead>
           <tr>
             <td> {props.incident.inc_id}</td>
-            <td> {time.FormatDate(props.incident.inc_signal_date)} </td>
-            <td> {time.FormatHeure(props.incident.inc_signal_date)} </td>
+            <td> {time.formatDate(props.incident.inc_signal_date)} </td>
+            <td> {time.formatHeure(props.incident.inc_signal_date)} </td>
           </tr>
         </table>
         <table className='cadre-15 gras width-75p'>

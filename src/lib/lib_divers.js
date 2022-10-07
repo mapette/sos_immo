@@ -118,7 +118,7 @@ function determineURL(catUrl, data) {
   }
   if (catUrl == "affectation") {
     if (data.profil === 'technicien') {
-      url = 'http://localhost:3001/affectation' + data.inc_id
+      url = 'http://localhost:3001/affectation/' + data.inc_id
     }
     else {
       if (data.status === 'enAttente') {

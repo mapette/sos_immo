@@ -31,7 +31,7 @@ function FicheInc(props) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_inc_details' + props.varGlob.focus, lib.optionsGet())
+    fetch('http://localhost:3001/get_inc_details/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         console.log('*****',response)

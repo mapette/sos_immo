@@ -16,7 +16,7 @@ function FicheUser(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_habByUser' + props.focus.ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/get_habByUser/' + props.focus.ut_uuid, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('hab user',response)
@@ -47,10 +47,7 @@ function FicheUser(props) {
   }
 
   function resiliation(ut_uuid){
-    console.log(ut_uuid)
- //fetch('http://localhost:3001/get_user' + id, lib.optionsGet())
- 
-    fetch('http://localhost:3001/delete_user'+ ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/delete_user/'+ ut_uuid, lib.optionsGet())
       .then(() => {
         props.setMode('neutre')
         props.setFocus('')
@@ -93,9 +90,9 @@ function FicheUser(props) {
             </thead>
             <tr>
               <td className='gras rouge'>{props.focus.ut_id}</td>
-              <td>{time.FormatDate(props.focus.ut_date_deb)} </td>
+              <td>{time.formatDate(props.focus.ut_date_deb)} </td>
               <td>{props.focus.ut_admin_deb} </td>
-              <td>{time.FormatDate(props.focus.ut_date_exp)} </td>
+              <td>{time.formatDate(props.focus.ut_date_exp)} </td>
               <td>{props.focus.ut_admin_exp} </td>
             </tr>
           </table>
@@ -170,8 +167,8 @@ function FicheUser(props) {
                 {habList.map(hab => 
                   <tr key={hab.hab_uuid}>
                     <td> {lib.findProfil(hab.hab_profil)}</td>
-                    <td> {time.FormatDate(hab.hab_date_deb)} </td>
-                    <td> {time.FormatDate(hab.hab_date_exp)} </td>
+                    <td> {time.formatDate(hab.hab_date_deb)} </td>
+                    <td> {time.formatDate(hab.hab_date_exp)} </td>
                   </tr>
                 )}
               </table>

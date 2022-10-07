@@ -72,9 +72,8 @@ function FicheIncJrn(props) {
           <tbody>
             {journal.map(ligne =>
               <tr key={ligne.jrn_id}>
-                <td width='220px'>{time.FormatDate(ligne.jrn_date)} à {time.FormatHeure(ligne.jrn_date)}</td>
+                <td width='220px'>{time.formatDate(ligne.jrn_date)} à {time.formatHeure(ligne.jrn_date)}</td>
                 <td width='800px' className='gauche'>{ligne.jrn_msg}</td>
-
                 {props.varGlob.profilEcran != 'usager' && ligne.jrn_imm == true &&
                   <td width='50px'><input type="checkbox" checked /></td>
                 }

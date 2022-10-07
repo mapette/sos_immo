@@ -1,4 +1,4 @@
-function FormatDate(dateR) {
+function formatDate(dateR) {
   if(dateR === null){
     return ''
   }
@@ -26,7 +26,7 @@ function convDateToString(date) {
   return `${jour}-${mois}-${date.getFullYear()}`
 }
 
-function FormatHeure(dateR, kpi) {
+function formatHeure(dateR, kpi) {
   let date = new Date(dateR)
   return convHeureToString(date, kpi)
 }
@@ -59,7 +59,7 @@ function initDate() {
 function displayDatePilotage(date) {
   let result = '-'
   if (date !== null) {
-    result = FormatDate(date, true) + ' - ' + FormatHeure(date, true)
+    result = formatDate(date) + ' - ' + formatHeure(date, true)
   }
   return result
 }
@@ -71,7 +71,6 @@ function calculTempsRestant(dateSignal, dateFin) {
   let date = new Date()
   let signal = new Date(dateSignal)
   if (dateFin == null) {
-    //    let fin = new Date(dateFin)
     tmp = DELAIS - (date.getTime() - signal.getTime())
   }
   return tmp
@@ -99,31 +98,20 @@ function tempsRestant(dateSignal, dateFin) {
   return msgRetour
 }
 
-///////////// placard /////////////
-function convertDate(inputFormat) {
-  if (inputFormat === null) return '';
-  function pad(s) { return (s < 10) ? '0' + s : s; }
-  let d = new Date(inputFormat)
-  return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/')
-}
-
-function initDate2(nbDay) {
-  let date = new Date()
-  date = addDaysToDate(date, nbDay)
-  return convDateToString(date)
-}
 function addDaysToDate(date, days) {
-  var res = new Date(date);
-  res.setDate(res.getDate() + days);
-  return res;
+  return date.setDate(date.getDate() + days);
+}
+function addHoursToDate(date, hours) {
+  return date.setHours(date.getHours() + hours);
 }
 
 module.exports = {
-  FormatDate,
-  FormatHeure,
+  formatDate,
+  formatHeure,
   initDate,
   displayDatePilotage,
   calculTempsRestant,
   tempsRestant,
-
+  addDaysToDate,
+  addHoursToDate,
 }

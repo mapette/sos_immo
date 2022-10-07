@@ -46,7 +46,7 @@ function FicheIncStatus(props) {
       {status == 'enCours' &&
         <span>
           <h4>{lib.statusLibelle(status)}</h4>
-          <h5>le {time.FormatDate(props.incident.inc_affect_date)} à {time.FormatHeure(props.incident.inc_affect_date)}</h5>
+          <h5>le {time.formatDate(props.incident.inc_affect_date)} à {time.formatHeure(props.incident.inc_affect_date)}</h5>
         </span>
       }
       {status == 'enCours' &&

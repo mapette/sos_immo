@@ -12,3 +12,5 @@ npm install --save
 * mysql
 * react-select      RETIRE
 
+* jest // nmp i -D jest
+
