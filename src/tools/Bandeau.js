@@ -1,14 +1,14 @@
 import React from 'react';
 import './../tools/App.css';
-import Bouton from './Bouton'
-import im_reset_pw from './../reset_pw.png'
-import im_logout from './../logout.jfif'
+import ic_reset from './../img/ic_change_password.png'
+import ic_logout from './../img/ic_logout.jfif'
+import logo from './../img/logo.jfif'
 
 function Accueil(props) {
   return (
     <header className="App-header">
       <div>
-        <img src="https://th.bing.com/th/id/OIP.AH6aNXRlFeyInatyjgermwHaHa?w=202&h=202&c=7&r=0&o=5&pid=1.7"
+        <img src={logo}
           width="100" height="100"></img>
       </div>
       <div className="gras cadre-15">
@@ -42,11 +42,11 @@ function Accueil(props) {
                 ...props.varGlob,
                 ecran: 'changemdp'
               })} >
-              <img className='arr-img' src={im_reset_pw}
+              <img className='arr-img' src={ic_reset}
                 width="70" height="70" />
             </button>
             <a href='' className='cadre-3'>
-              <img className='arr-img' src={im_logout}
+              <img className='arr-img' src={ic_logout}
                 width="70" height="70"></img>
             </a>
           </div>
