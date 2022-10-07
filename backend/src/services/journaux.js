@@ -24,14 +24,6 @@ function UpdateJrn(request, response){
     })
 }
 
-
-
-
-
-
-
-
-
 function jnrApresSignal(results, response, data) {
     // jrn 1 - création signalement
     data.jrn_imm = false
@@ -100,7 +92,6 @@ function jnrApresFin(results, response, data) {
 }
 
 function jnrAprescloture(results, response,data) {
-    //console.log('data',data)
     if (data.relance) {
         data.jrn_msg = 'Relance demandée - Motif : ' + data.jrn_msg
         data.jrn_imm = false

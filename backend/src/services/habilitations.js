@@ -25,20 +25,6 @@ function updateHab(request){
     })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function controleUpdateHab(data){
     // récup dernière habilitation pour contrôler s'il y a lieu de maj
     let habUpdate = new cl_hab.Habilitation(null, data.ut_uuid, parseInt(data.hab_profil))

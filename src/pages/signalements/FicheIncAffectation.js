@@ -50,9 +50,10 @@ function FicheIncAffectation(props) {
       if (document.getElementById("techno") !== null) {     // null si auto-affection
         data.ut_id = document.getElementById("techno").value
       }
+      console.log(lib.determineURL('affectation', data))
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
-        .then(response => {
+        .then(() => {
            props.setIncident({
             ...props.incident,
             inc_affect_date: time.initDate(),

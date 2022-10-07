@@ -56,7 +56,6 @@ function affectation(request,response){
     }
     data_inc.affectationInc(dataAffect, (error, results) => {
         // journal
-        
         serv_jrn.jnrApresAffectation(results, response, dataAffect)
         response.send({ status: true }) 
     })

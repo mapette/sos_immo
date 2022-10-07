@@ -34,7 +34,6 @@ function getIncList(val, fonction_traitement_resultat_bdd) {
                 WHERE ut_uuid = ?) `
         }
         else if (val['filtre'] == 'tempsClotureExpire') {
-            console.log('coucou')
             queryFilter = ` AND inc_fin_date is not null
                             AND inc_cloture_date is null
                             AND TIMESTAMPDIFF(hour, inc_fin_date, now()) > 48 `

@@ -19,6 +19,7 @@ function FicheUser(props) {
     fetch('http://localhost:3001/get_habByUser' + props.focus.ut_uuid, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
+        console.log('hab user',response)
         setHabList(habList = response)
       })
   },[])

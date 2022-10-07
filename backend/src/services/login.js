@@ -2,11 +2,12 @@ const data_ut = require('../data/utilisateurs')
 
 function accueil(request, response){
     if (request.session.uuid !== undefined) {
-        data_ut.getUserByUuid(request.session.uuid, (error, results) => {
-            if (results[0] !== undefined) {
-                response.send({ id: results[0] })
-            }
-        })
+        response.send({ id: request.session.ut })
+        // data_ut.getUserByUuid(request.session.uuid, (error, results) => {
+        //     if (results[0] !== undefined) {
+        //         response.send({ id: results[0] })
+        //     }
+        // })
     }
 }
 

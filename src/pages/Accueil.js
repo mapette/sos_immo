@@ -14,7 +14,7 @@ function Accueil(props) {
       .then(response => response.json())
       .then(response => {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
-        document.getElementById('id').value = response.id['ut_id']
+        document.getElementById('id').value = response.id
       })
   }, [])
 
@@ -24,29 +24,21 @@ function Accueil(props) {
       ut_id: document.getElementById('id').value,
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
-    console.log('data', data)
+   // console.log('data', data)
     fetch('http://localhost:3001/login', lib.optionsPost(data))
-      .then(response => {    // résultat brut
-        return response.json()  // récupère que les données résultat
-      })
+      .then(response => response.json())
       .then(response => {
-        console.log('response id', response) // laisser cette ligne sinon ça marche pas !
-        if (response.length === 0) {
-          setWarning(true)
-          console.log('rien')
-        }
-        else {
-          let profil = lib.determineProfil(response[0].hab_profil)
+          let profil = lib.determineProfil(response.hab_profil)
           props.setVarGlob({
             ...props.varGlob,
-            nom: response[0].ut_prenom + ' ' + response[0].ut_nom,
+            nom: response.ut_prenom + ' ' + response.ut_nom,
             profil: profil.profil,
             ecran: 'menu',
           })
-        }
-      })
+        })
+      .catch(setWarning(true))
   }
-console.log(props.varGlob)
+
   return (
     <div className="">
       <h2 className="titre gras cadre-15" >

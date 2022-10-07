@@ -27,17 +27,6 @@ const serv_inc = require('./src/services/incidents')
 const serv_jrn = require('./src/services/journaux')
 const serv_emp = require('./src/services/emplacements')
 
-const data_emp = require('./src/data/emplacements')
-const data_hab = require('./src/data/habilitations')
-const data_inc = require('./src/data/incidents')
-const data_jrn = require('./src/data/journaux')
-const data_mapp = require('./src/data/mapping_tinc_temp')
-const data_presta = require('./src/data/presta')
-const data_temp = require('./src/data/templacements')
-const data_tinc = require('./src/data/tincidents')
-const data_ut = require('./src/data/utilisateurs')
-
-
 const port = 3001
 app.listen(port)
 
@@ -45,16 +34,13 @@ app.listen(port)
 app.get('/get_accueil', (request, response) => {
      login.accueil(request,response)   
 })
-
 app.get('/get_userBySession', (request, response) => {
     response.send({ id: request.session.ut })
 })
-
 app.post('/login', (request, response) => {
     login.login(request,response)
  })
-
- app.post('/change_mdp', function(request, response) {
+ app.post('/change_mdp', (request, response) => {
     login.change_mdp({
         ut_id: request.session.ut,
         ut_mdp: request.body.mdp,

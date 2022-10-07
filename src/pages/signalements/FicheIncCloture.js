@@ -16,19 +16,12 @@ function FicheIncFin(props) {
     fetch('http://localhost:3001/clotureInc', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
-        data.emp = props.incident.emp_id
-        data.tinc = props.incident.tinc_id
-        data.info = "Relance de l'incident " + props.incident.inc_id + ". Motif : " + data.info
-        fetch('http://localhost:3001/crea_signalement', lib.optionsPost(data))
-          .then(response => response.json())
-          .then(response => {
-            console.log('response', response)
-            props.setVarGlob({
-              ...props.varGlob,
-              ecran: 'demandes',
-              profilEcran: 'usager',
-            })
-          })
+        console.log('response', response)
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'demandes',
+          profilEcran: 'usager',
+        })
       })
   }
 

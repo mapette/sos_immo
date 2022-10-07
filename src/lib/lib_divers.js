@@ -79,7 +79,7 @@ function determineStatus(ch, fin, clo) {    //inc_affect_date, inc_fin_date, inc
   } else if (ch !== null & ch !== undefined) {
     status = 'enCours'
   }
-  console.log(ch, fin, clo, status)
+  //console.log(ch, fin, clo, status)
   return status
 }
 // FicheInc

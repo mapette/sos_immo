@@ -70,7 +70,7 @@ function getUserList(fonction_traitement_resultat_bdd) {
     let connection = connectToMySQL()
     let query = `SELECT ut.*, presta_nom, presta_libelle, hab_profil, hab_date_exp
             FROM utilisateurs ut LEFT JOIN presta ON (ut_presta = presta_id), habilitations  
-            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL` //
+            WHERE hab_ut = ut_uuid and hab_date_exp IS NULL` 
     connection.query(query, fonction_traitement_resultat_bdd)
     connection.end();
 }
