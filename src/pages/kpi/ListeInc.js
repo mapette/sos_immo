@@ -15,7 +15,7 @@ function ListeInc(props) {
     })
   }
 
-  console.log('props.varGlob pilotage', props.varGlob)
+  //console.log('props.varGlob pilotage', props.varGlob)
   return (
     <div className="">
       <table className='cadre-15 '>

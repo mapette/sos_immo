@@ -4,44 +4,48 @@ import './../tools/App.css';
 import Bouton from '../tools/Bouton'
 import BoutonSubmit from '../tools/BoutonSubmit'
 import Alerte from '../tools/Alerte'
-const MD5 = require('sha1')
 
 const lib = require('../lib/lib_divers')
 
 function OubliMdp(props) {
   let [warning, setWarning] = useState('')
   let [type, setType] = useState('')
-  //  let [mail,SetMail]=useState('')
-  //  let [user, setUser] = useState(''); // besoin du user pour hasher le mdp avant post
 
-  /*  useEffect(() => {
-      fetch('http://localhost:3001/get_userBySession', lib.optionsGet())
-        .then(response => response.json())
-        .then(response => {
-          console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
-          setUser(response.id)  // besoin du user pour hasher le mdp avant post
-        })
-    }, [])
-  */
   function sub_form(event) {
     event.preventDefault()
-    if (type == '') { setWarning('précision') }
-    else { setWarning('erreur') }
-    // let data = {
-    //   mdp: MD5(user + document.getElementById('mdp').value),
-    //   newmdp: MD5(user + document.getElementById('newmdp').value),
-    // }
-    // fetch('http://localhost:3001/change_mdp',  lib.optionsPost(data))
-    //   .then(response => response.json())
-    //   .then(response => {
-    //     console.log('status', response.status) // laisser cette ligne sinon ça marche pas !
-    //     if (response.status === false) {
-    //       setWarning('erreur')
-    //     }
-    //     else {
-    //       setWarning('ok')
-    //     }
-    //   })
+    if (type === '') { setWarning('précision') }
+    else { 
+      let data = {
+        type: type,
+        mail: document.getElementById('mail').value,
+      }
+    fetch('http://localhost:3001/forgotPw',  lib.optionsPost(data))
+      .then(response => response.json())
+      .then(response => {
+        if (response.result === 'erreur') { setWarning('erreur') }
+        else { 
+          console.log(response.result)
+          if (type==='id'){setWarning('ok id')}
+          else {
+            // mail à faire
+            setWarning('ok mdp')
+          }
+          lib.prepaMail(data.mail,
+            'Identifiants/mot de passe oublié  SOS Immo',
+             msgMail(type,response.result))
+        }
+      })
+    }
+  }
+  function msgMail(type,result) {
+    let intro = 'bonjour,'
+    + '%0A%0ACe mail fait suite à votre demande.'
+    let motif = () => {
+      if (type === 'mdp') { return '%0A%0AMot de passe provisoire à utiliser lors de votre prochaine connection : ' + result + '.' }
+      else { return "%0AVotre identifiant est : " + result + '.' }
+    }
+    let fin = '%0A%0AL\'équipe SOS Immo vous souhaite une bonne journée.'
+    return intro + motif() + fin 
   }
 
   return (
@@ -49,12 +53,12 @@ function OubliMdp(props) {
       <h2 className="titre gras cadre-15" >
         MOT DE PASSE / IDENTIFIANT OUBLIE
       </h2>
-      {warning !== 'ok' &&
+      {(warning !== 'ok mdp' && warning !== 'ok id') &&
         <div className='cadre-15'>
           <Bouton
             txt={'Identifiant oublié'}
             couleur={'bleu'}
-            plein={true}
+            plein={type === 'id'}
             actionToDo={() => {
               setWarning('id')
               setType('id')
@@ -63,7 +67,7 @@ function OubliMdp(props) {
           <Bouton
             txt={'Mot de passe oublié'}
             couleur={'bleu'}
-            plein={true}
+            plein={type === 'mdp'}
             actionToDo={() => {
               setWarning('mdp')
               setType('mdp')
@@ -125,16 +129,22 @@ function OubliMdp(props) {
           </form>
         </div >
       }
-      {warning === 'ok' &&
+      {warning === 'ok mdp' &&
         <Alerte
-          msg={'Le mot de passe a été modifié.'}
+          msg={'Un mot de passe provisoire a été envoyé par mail.'}
+          niveau={'alerteSimple'}
+        />
+      }
+       {warning === 'ok id' &&
+        <Alerte
+          msg={'L\'identifiant a été envoyé par mail.'}
           niveau={'alerteSimple'}
         />
       }
 
       <div className='cadre-15'>
         <Bouton
-          txt={'retour au menu'}
+          txt={'retour à l\'accueil'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'accueil'
@@ -146,5 +156,6 @@ function OubliMdp(props) {
     </div >
   );
 }
+
 
 export default OubliMdp;

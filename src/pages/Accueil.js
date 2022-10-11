@@ -16,6 +16,8 @@ function Accueil(props) {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
         document.getElementById('id').value = response.id
       })
+
+
   }, [])
 
   function sub_form(event) {
@@ -24,7 +26,6 @@ function Accueil(props) {
       ut_id: document.getElementById('id').value,
       ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
     }
-   // console.log('data', data)
     fetch('http://localhost:3001/login', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
@@ -83,7 +84,7 @@ function Accueil(props) {
           ...props.varGlob,
           ecran: 'oubliMdp'
         })}
-      >mot de passe oublié</button>
+      >identifiant/mot de passe oublié</button>
     </div>
   );
 }

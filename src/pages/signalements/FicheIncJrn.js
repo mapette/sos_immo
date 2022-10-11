@@ -100,7 +100,7 @@ function FicheIncJrn(props) {
                   <label className="form-check-label petit" for="infoImm">
                     info immo
                   </label>
-                  <input className="form-check-input" name='infoImm' type="checkbox" value="" id="infoImm" />
+                  <input className="form-check-input" name='infoImm' type="checkbox" checked value="" id="infoImm" />
                 </span>
               }
               <BoutonSubmit

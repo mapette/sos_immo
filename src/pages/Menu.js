@@ -17,7 +17,9 @@ function Menu(props) {
           txt={'retour accueil'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'accueil'
+            ecran: 'accueil',
+            // nom : '',
+            // profil : '',
           })}
           couleur={'gris'}
           plein={true}
@@ -55,7 +57,7 @@ function Menu(props) {
             plein={true}
           />
         }
-        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' || props.varGlob.profil === 'imm') &&
+        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'imm') &&
           <span>
             <Bouton
               txt={'suivi incidents'}
@@ -87,8 +89,10 @@ function Menu(props) {
           </span>
         }
       </div >
-      {(props.varGlob.profil === 'imm' && smenu === 'tables') &&
+      {
+      (props.varGlob.profil === 'imm' && smenu === 'tables') &&
         <div className=''>
+          <p/>
           <div className='en-ligne'>
             <Bouton
               txt={'utilisateurs'}
@@ -110,6 +114,9 @@ function Menu(props) {
               menu={'smenu'}
               plein={true}
             />
+            </div>
+            <p/>
+            <div >
             <Bouton
               txt={'emplacements'}
               actionToDo={() => props.setVarGlob({
@@ -122,16 +129,6 @@ function Menu(props) {
             />
             <Bouton
               txt={'type d\'emplacement'}
-              actionToDo={() => props.setVarGlob({
-                ...props.varGlob,
-                ecran: 'menu'
-              })}
-              couleur={'bleu'}
-              menu={'smenu'}
-              plein={true}
-            />
-            <Bouton
-              txt={'mapping incident/presta'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'menu'

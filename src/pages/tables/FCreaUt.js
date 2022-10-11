@@ -36,7 +36,9 @@ function FCreaUt(props) {
         .then(response => {
           props.setMode('neutre')
           data.mdp = response.mdp
-          lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
+          lib.prepaMail(data.ut_mail,
+             'Identifiants SOS Immo',
+              msgMail(data))
       })
     }
   }
@@ -44,9 +46,8 @@ function FCreaUt(props) {
     return 'bonjour ' + data.ut_prenom + ','
       + '%0A%0ABienvenue sur SOS Immo.'
       + "%0A%0AVotre identifiant est : " + data.ut_id + '.'
-      + "%0AMot de passe provisoire a utiliser lors de votre première connection : " + data.mdp + '.'
+      + "%0AMot de passe provisoire à utiliser lors de votre prochaine connection : " + data.mdp + '.'
       + '%0A%0AVous pouvez dès à présent saisir et suivre vos tickets.'
-      // +'\nLe mot de passe devra être modifier à la première connection.'
       + '%0A%0A      L\'équipe SOS Immo.'
   }
   function contrInput(ut_id, hab_profil, ut_presta) {

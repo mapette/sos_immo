@@ -19,11 +19,11 @@ function TestBtClick() {
 
 let msg1 = 'sjoffre' + 'aaa'
 let msg2 = 'blaurent' + 'aaa'
-let msg3 = 'fad' + 'aaa'
-let msg4 = 'toto' + 'aaa'
+let msg3 = 'jclair' + 'aaa'
+let msg4 = 'fad' + 'zzz'
 let msg5 = 'nduval' + 'aaa'
 let code = uuidv4()
-let msg = code
+
 function Test() {
   return (
     <div>

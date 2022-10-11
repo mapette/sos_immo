@@ -28,7 +28,10 @@ function App() {
 
   if (varGlob.ecran === 'test') {
     return (
-      <Test />
+      <Test 
+      varGlob={varGlob}
+      setVarGlob={setVarGlob}
+      />
     )
   }
 

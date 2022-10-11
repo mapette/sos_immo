@@ -39,7 +39,7 @@ function FicheInc(props) {
       })
   }, [])
 
-  console.log('props.varGlob détails', props.varGlob)
+  //console.log('props.varGlob détails', props.varGlob)
   return (
     <div>
       <h2 className="titre gras cadre-15">

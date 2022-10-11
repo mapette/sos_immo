@@ -1,5 +1,3 @@
-//const { useDebugValue } = require("react")
-
 function prepaMail(mailTo, subject, body) {
   let mail = 'mailTo:' + mailTo
     + '?subject=' + subject

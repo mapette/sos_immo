@@ -4,7 +4,9 @@ import ic_reset from './../img/ic_change_password.png'
 import ic_logout from './../img/ic_logout.jfif'
 import logo from './../img/logo.jfif'
 
-function Accueil(props) {
+
+function Bandeau(props) {
+
   return (
     <header className="App-header">
       <div>
@@ -14,25 +16,19 @@ function Accueil(props) {
       <div className="gras cadre-15">
         SOS IMMO
       </div>
-      <div className='gauche ut-titre cadre-15'>
-        <div>
-          utilisateur
-        </div>
-        <div>
-          profil
-        </div>
-      </div>
-      <div className='gauche ut-id cadre-15'>
-        <div>
-          {props.varGlob.nom}
-        </div>
-        <div>
-          {props.varGlob.profil}
-        </div>
-      </div>
-      <div>
 
-      </div>
+      {props.varGlob.ecran !== 'accueil' &&
+        <div className='larg-1000'>
+          <div className='gauche ut-titre cadre-15'>
+            <span>utilisateur : </span>
+            <span>{props.varGlob.nom}</span>
+          </div>
+          <div className='gauche ut-id cadre-15'>
+            <span>profil : </span>
+            <span>{props.varGlob.profil}</span>
+          </div>
+        </div>
+        }
       {props.varGlob.ecran !== 'accueil' &&
         <div>
           <div className='bt-exit'>
@@ -59,12 +55,6 @@ function Accueil(props) {
   );
 }
 
-export default Accueil;
+export default Bandeau;
 
 
-
-/*
-
-  <img href='https://www.bing.com/th?q=Herisson+Dessin+Simple&w=80&h=80&c=7&rs=1&p=0&o=5&pid=1.7&mkt=fr-FR&cc=FR&setlang=fr&adlt=moderate&t=1'>
-    
-*/
