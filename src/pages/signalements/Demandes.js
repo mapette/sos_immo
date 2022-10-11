@@ -34,7 +34,40 @@ function Demandes(props) {
       <div className={display.textAlign(props.varGlob.profilEcran)}>
         <div className='row no-gutter'>
           <div className="no-padding">
-            {lInc.map(elem =>
+            {lInc.map(elem => elem.inc_affect_date === null &&
+              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                <PostItInc
+                  elem={elem}
+                  varGlob={props.varGlob}
+                  setVarGlob={props.setVarGlob}
+                />
+              </div>
+            )}
+          </div>
+          <div className="no-padding">
+            {lInc.map(elem => elem.inc_affect_date != null && elem.inc_fin_date === null &&
+              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                <PostItInc
+                  elem={elem}
+                  varGlob={props.varGlob}
+                  setVarGlob={props.setVarGlob}
+                />
+              </div>
+            )}
+          </div>
+          <div className="no-padding">
+            {lInc.map(elem => elem.inc_fin_date != null && elem.inc_cloture_date === null &&
+              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                <PostItInc
+                  elem={elem}
+                  varGlob={props.varGlob}
+                  setVarGlob={props.setVarGlob}
+                />
+              </div>
+            )}
+          </div>
+          <div className="no-padding">
+            {lInc.map(elem => elem.inc_cloture_date != null &&
               <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
                 <PostItInc
                   elem={elem}

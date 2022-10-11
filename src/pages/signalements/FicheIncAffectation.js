@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import BoutonSubmit from '../../tools/BoutonSubmit'
 
@@ -7,6 +8,7 @@ const lib = require('../../lib/lib_divers')
 
 function FicheIncAffectation(props) {
   let [lTechno, setLTechno] = useState([])
+  const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
     // pour affectation 'forcée' (suivi des incidents)
@@ -39,18 +41,12 @@ function FicheIncAffectation(props) {
     }
   }, [props.incident])
 
-  function soumettreAffectation(event) {
-    event.preventDefault()
-    if (IsAffectationPossible()) {
-      let data = {
-        inc_id: props.varGlob.focus,
-        profil: props.varGlob.profil,
-        status: props.status,
-      }
-      if (document.getElementById("techno") !== null) {     // null si auto-affection
-        data.ut_id = document.getElementById("techno").value
-      }
-      console.log(lib.determineURL('affectation', data))
+  function soumettreAffectation(data) {
+    data.inc_id =  props.varGlob.focus
+    data.profil = props.varGlob.profil
+    data.status = props.status
+    if (IsAffectationPossible(data.techno)) { 
+     // console.log(lib.determineURL('affectation', data))
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
         .then(() => {
@@ -63,17 +59,17 @@ function FicheIncAffectation(props) {
       props.setStatus('enCours')
     }
   }
-  function IsAffectationPossible() {
+  function IsAffectationPossible(techno) {
     let okAffection = false
     //  auto-affectation toujours possible
-    if (document.getElementById('techno') === null) {
+    if (techno === undefined) {
       // l'utilisateur prend lui-même en charge, l'id sera déterminé par le cookie
       okAffection = true
     }
     else {  // affectation par valideur ou immo
-      if (document.getElementById('techno').value !== '') {
+      if (techno !== '') {
         // empêcher ré-affectation au même technicien
-        if (document.getElementById('techno').value !== props.incident.inc_affect_ut) {
+        if (techno !== props.incident.inc_affect_ut) {
           okAffection = true
         }
       }
@@ -81,7 +77,6 @@ function FicheIncAffectation(props) {
     return okAffection
   }
   function libelleBoutonAffectation() {
-    console.log('props.status', props)
     let libelle = 'Affecter un.e technicien.ne'
     if (props.status !== 'enAttente') {
       libelle = 'Ré-affecter à un.e autre technicien.ne'
@@ -108,9 +103,10 @@ function FicheIncAffectation(props) {
         <form id="affectation"
           type="POST"
           encType="application/x-www-form-urlencoded"
-          onSubmit={soumettreAffectation}
+          onSubmit={handleSubmit(soumettreAffectation)}
         >
           <select id='techno' name='techno'
+            {...register('techno', { required: true })}
             className='largeur-200'>
             <option value=''> </option>
             {lTechno.map(elem =>

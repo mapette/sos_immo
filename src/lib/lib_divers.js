@@ -120,10 +120,10 @@ function determineURL(catUrl, data) {
     }
     else {
       if (data.status === 'enAttente') {
-        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/false'
+        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/false'
       }
       else {
-        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.ut_id + '/true'
+        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/true'
       }
     }
   }
