@@ -66,7 +66,7 @@ function FicheInc(props) {
       />
       {props.varGlob.profilEcran != 'pilotage' &&
         <Bouton
-          txt={'retour'}
+          txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'demandes'
@@ -77,7 +77,7 @@ function FicheInc(props) {
       }
       {props.varGlob.profilEcran == 'pilotage' &&
         <Bouton
-          txt={'retour pilotage'}
+          txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'pilot'

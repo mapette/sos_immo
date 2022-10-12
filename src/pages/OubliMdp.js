@@ -144,7 +144,7 @@ function OubliMdp(props) {
 
       <div className='cadre-15'>
         <Bouton
-          txt={'retour à l\'accueil'}
+          txt={lib.BT_RETOUR_ACCUEIL}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'accueil'

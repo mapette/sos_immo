@@ -178,6 +178,9 @@ function determineProfil(respProfil) {
   }
 }
 
+const BT_RETOUR_ACCUEIL = 'Retour à l\'accueil'
+const BT_RETOUR_LISTE = 'Retour à la liste'
+
 module.exports = {
   prepaMail,
   optionsPost,
@@ -191,4 +194,7 @@ module.exports = {
   determineURL,
   determineTitre,
   determineStatus,
+  BT_RETOUR_ACCUEIL,
+  BT_RETOUR_LISTE,
+
 }

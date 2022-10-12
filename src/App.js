@@ -6,7 +6,8 @@ import Accueil from './pages/Accueil'
 import OubliMdp from './pages/OubliMdp'
 import ChangeMdp from './pages/ChangeMdp'
 import Menu from './pages/Menu'
-import GestionUtilisateurs from './pages/tables/GestionUtilisateurs'
+import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs'
+import GestionPresta from './pages/tables/presta/GestionPresta'
 import NewInc from './pages/signalements/NewInc'
 import Demandes from './pages/signalements/Demandes'
 import FicheInc from './pages/signalements/FicheInc'
@@ -69,6 +70,12 @@ function App() {
           }
           {varGlob.ecran === 'gestionUtilisateurs' &&
             <GestionUtilisateurs
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+          {varGlob.ecran === 'gestionPresta' &&
+            <GestionPresta
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

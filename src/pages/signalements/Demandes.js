@@ -16,7 +16,7 @@ function Demandes(props) {
       profil: props.varGlob.profil,
     }
     let url_fetch = lib.determineURL("demande", data)
-    console.log('url', url_fetch)
+   // console.log('url', url_fetch)
     fetch(url_fetch, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
@@ -33,6 +33,7 @@ function Demandes(props) {
       <br />
       <div className={display.textAlign(props.varGlob.profilEcran)}>
         <div className='row no-gutter'>
+          <div className='gras'>Incidents attente d'affectation</div>
           <div className="no-padding">
             {lInc.map(elem => elem.inc_affect_date === null &&
               <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
@@ -44,6 +45,7 @@ function Demandes(props) {
               </div>
             )}
           </div>
+          <div className='gras'>Interventions en cours</div>
           <div className="no-padding">
             {lInc.map(elem => elem.inc_affect_date != null && elem.inc_fin_date === null &&
               <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
@@ -55,33 +57,43 @@ function Demandes(props) {
               </div>
             )}
           </div>
-          <div className="no-padding">
-            {lInc.map(elem => elem.inc_fin_date != null && elem.inc_cloture_date === null &&
-              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
-                <PostItInc
-                  elem={elem}
-                  varGlob={props.varGlob}
-                  setVarGlob={props.setVarGlob}
-                />
+          {props.varGlob.profilEcran === 'usager' &&
+            <div>
+              <div className='gras'>Interventions terminées à valider</div>
+              <div className="no-padding">
+                {lInc.map(elem => elem.inc_fin_date != null && elem.inc_cloture_date === null &&
+                  <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                    <PostItInc
+                      elem={elem}
+                      varGlob={props.varGlob}
+                      setVarGlob={props.setVarGlob}
+                    />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-          <div className="no-padding">
-            {lInc.map(elem => elem.inc_cloture_date != null &&
-              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
-                <PostItInc
-                  elem={elem}
-                  varGlob={props.varGlob}
-                  setVarGlob={props.setVarGlob}
-                />
+            </div>
+          }
+          {props.varGlob.profilEcran === 'usager' &&
+            <div>
+              <div className='gras'>Interventions terminées depuis moins de 30 jours</div>
+              <div className="no-padding">
+                {lInc.map(elem => elem.inc_cloture_date != null &&
+                  <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                    <PostItInc
+                      elem={elem}
+                      varGlob={props.varGlob}
+                      setVarGlob={props.setVarGlob}
+                    />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          }
         </div>
       </div>
       <br />
       <Bouton
-        txt={'retour au menu'}
+        txt={lib.BT_RETOUR_ACCUEIL}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,
           ecran: 'menu'

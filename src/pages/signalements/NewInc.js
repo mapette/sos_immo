@@ -205,7 +205,7 @@ function NewInc(props) {
         <div className="">
           <br />
           <Bouton
-            txt={'retour au menu'}
+            txt={lib.BT_RETOUR_ACCUEIL}
             actionToDo={() => props.setVarGlob({
               ...props.varGlob,
               ecran: 'menu'

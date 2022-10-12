@@ -70,7 +70,7 @@ function Pilotage(props) {
     setBtCloture(true)
   }
 
-  // console.log('liste', lInc)
+ //console.log('liste', props.varGlob)
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
@@ -121,7 +121,7 @@ function Pilotage(props) {
         lInc={lInc}
       />
 
-      {btCloture === true &&
+      {btCloture === true && props.varGlob.profil === 'imm' &&
         <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"
@@ -135,7 +135,7 @@ function Pilotage(props) {
         </form>
       }
       <Bouton
-        txt={'retour au menu'}
+        txt={lib.BT_RETOUR_ACCUEIL}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,
           ecran: 'menu'

@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import './../../tools/App.css';
-import Bouton from '../../tools/Bouton'
-import BoutonSubmit from '../../tools/BoutonSubmit';
-import Alerte from '../../tools/Alerte'
+import './../../../tools/App.css';
+import Bouton from '../../../tools/Bouton'
+import BoutonSubmit from '../../../tools/BoutonSubmit';
+import Alerte from '../../../tools/Alerte'
 
-const cl_ut = require('../../lib/lib_cl_ut')
-const lib = require('../../lib/lib_divers')
-const time = require('../../lib/lib_time')
+const lib = require('../../../lib/lib_divers')
+const time = require('../../../lib/lib_time')
 
 function FicheUser(props) {
 
@@ -56,7 +55,7 @@ function FicheUser(props) {
   }
 
   function contrInput(hab_profil, ut_presta) {
-    console.log('contrInput',hab_profil, ut_presta)
+   // console.log('contrInput',hab_profil, ut_presta)
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
     if (ut_presta === null && (hab_profil === 2 || hab_profil === 3)) {
@@ -71,7 +70,7 @@ function FicheUser(props) {
     console.log(alertMsg)
   }
 
-  console.log(props.focus.ut_date_exp != null)
+ // console.log(props.focus.ut_date_exp != null)
   return (
     <div className="">
       <div className="decal">

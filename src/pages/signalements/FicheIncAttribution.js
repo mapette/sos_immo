@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import BoutonSubmit from '../../tools/BoutonSubmit'
 
@@ -6,6 +7,7 @@ const lib = require('../../lib/lib_divers')
 
 function FicheIncAttribution(props) {
   let [lPresta, setLPresta] = useState([])
+  const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
     //  => liste des presta (profil imm)
@@ -17,22 +19,18 @@ function FicheIncAttribution(props) {
       })
   }, [props.incident])
 
-  function soumettreAttribution(event) {
-    event.preventDefault()
-    let newPresta = parseInt(document.getElementById('presta').value)
-    if (IsAttributionPossible(newPresta)) {
-
-      console.log('focus ', props.varGlob.focus)
+  function soumettreAttribution(data) {
+     if (IsAttributionPossible(data.presta)) {
       fetch('http://localhost:3001/attribution/'
-        + props.varGlob.focus + '/' + document.getElementById('presta').value, lib.optionsGet())
+        + props.varGlob.focus + '/' + data.presta, lib.optionsGet())
         .then(response => response.json())
         .then(response => {
           console.log('response prestataire', response) // laisser cette ligne sinon ça marche pas !
           lPresta.forEach(element => {
-            if (element.presta_id === newPresta) {
+            if (element.presta_id === parseInt(data.presta)) {
               props.setIncident({
                 ...props.incident,
-                presta_id: newPresta,
+                presta_id: data.presta,
                 presta_nom: element.presta_nom,
               })
             }
@@ -41,26 +39,25 @@ function FicheIncAttribution(props) {
     }
   }
   function IsAttributionPossible(newPresta) {
-    let okAttribution = false
+    let okAttribution = true
     // empêcher ré-affectation vide ou au même prestataire
-    if (document.getElementById('presta').value !== '') {
-      if (newPresta !== props.incident.presta_id) {
-        okAttribution = true
-      }
+    if (newPresta === '' ||
+        parseInt(newPresta) === props.incident.presta_id) {
+        okAttribution = false
     }
-    console.log(okAttribution)
     return okAttribution
   }
 
   return (
     <div>
-      {(props.varGlob.profil == 'imm') &&   // normalement inutile - je garde par précausion
+      {(props.varGlob.profil === 'imm') &&   // normalement inutile - je garde par précausion
         <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"
-          onSubmit={soumettreAttribution}
+          onSubmit={handleSubmit(soumettreAttribution)}
         >
           <select id='presta' name='prestat'
+            {...register('presta')}
             className='largeur-200'>
             <option value=''> </option>
             {lPresta.map(elem =>
@@ -73,7 +70,7 @@ function FicheIncAttribution(props) {
           </select>
           <BoutonSubmit
             couleur={'bleu'}
-            txt={"changer le prestataire en charge"}
+            txt={"Changer le prestataire en charge"}
             plein={true}
           />
         </form>

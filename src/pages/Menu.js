@@ -13,13 +13,12 @@ function Menu(props) {
   return (
     <div>
       <div className=''>
+        <p/>
         <Bouton
-          txt={'retour accueil'}
+          txt={'déconnexion'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'accueil',
-            // nom : '',
-            // profil : '',
           })}
           couleur={'gris'}
           plein={true}
@@ -27,7 +26,7 @@ function Menu(props) {
       </div>
       <div className='en-ligne'>
         <Bouton
-          txt={'nouvelle demande'}
+          txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'newInc'
@@ -37,7 +36,7 @@ function Menu(props) {
           plein={true}
         />
         <Bouton
-          txt={'mes demandes'}
+          txt={'Mes demandes'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             profilEcran: 'usager',
@@ -50,7 +49,7 @@ function Menu(props) {
         />
         {props.varGlob.profil === 'imm' &&
           <Bouton
-            txt={'gestion tables'}
+            txt={'Gestion des tables'}
             actionToDo={() => setSMenu('tables')}
             couleur={'bleu'}
             menu={'menu'}
@@ -60,7 +59,7 @@ function Menu(props) {
         {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'imm') &&
           <span>
             <Bouton
-              txt={'suivi incidents'}
+              txt={'Suivi des incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 profilEcran: 'techno',
@@ -76,7 +75,7 @@ function Menu(props) {
         {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'imm') &&
           <span>
             <Bouton
-              txt={'pilotage'}
+              txt={'Pilotage'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'pilot',
@@ -95,7 +94,7 @@ function Menu(props) {
           <p/>
           <div className='en-ligne'>
             <Bouton
-              txt={'utilisateurs'}
+              txt={'Utilisateurs'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'gestionUtilisateurs'
@@ -105,10 +104,10 @@ function Menu(props) {
               plein={true}
             />
             <Bouton
-              txt={'presta'}
+              txt={'Prestataires'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu'
+                ecran: 'gestionPresta'
               })}
               couleur={'orange'}
               menu={'smenu'}
@@ -118,7 +117,7 @@ function Menu(props) {
             <p/>
             <div >
             <Bouton
-              txt={'emplacements'}
+              txt={'Emplacements'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'menu'
@@ -128,7 +127,7 @@ function Menu(props) {
               plein={true}
             />
             <Bouton
-              txt={'type d\'emplacement'}
+              txt={'Type d\'emplacement'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'menu'
@@ -138,7 +137,7 @@ function Menu(props) {
               plein={true}
             />
             <Bouton
-              txt={'types d\'incidents'}
+              txt={'Types d\'incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'menu'

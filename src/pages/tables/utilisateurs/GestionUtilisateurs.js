@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import './../../tools/App.css';
-import Bouton from './../../tools/Bouton'
+import './../../../tools/App.css';
+import Bouton from './../../../tools/Bouton'
 import ListUser from './ListUser'
 import FCreaUt from './FCreaUt'
 import FicheUser from './FicheUser'
 
-const cl_ut = require('../../lib/lib_cl_ut')
-const lib = require('../../lib/lib_divers')
+const cl_ut = require('../../../lib/lib_cl_ut')
+const lib = require('../../../lib/lib_divers')
 
 function GestionUtilisateurs(props) {
   let [bt, setBt] = useState({
@@ -93,7 +93,7 @@ function GestionUtilisateurs(props) {
           <div className='col-2'>
            { mode !== 'création'  && focus === '' &&
            <Bouton
-              txt={'init filtres'}
+              txt={'Init filtres'}
               actionToDo={() => initFiltre()}
               couleur={'vert'}
               plein={true}
@@ -218,7 +218,7 @@ function GestionUtilisateurs(props) {
           { focus == '' && mode === 'neutre' &&
             <span>
               <Bouton
-                txt={'retour au menu'}
+                txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
                   ecran: 'menu'
@@ -240,8 +240,6 @@ function GestionUtilisateurs(props) {
       <ListUser
         userList={lUser}
         setFocus={setFocus}
-    //    setMode={setMode}
-  //      mode={mode}
       />
 
     </div>

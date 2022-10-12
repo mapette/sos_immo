@@ -18,7 +18,7 @@ function Bandeau(props) {
       </div>
 
       {props.varGlob.ecran !== 'accueil' &&
-        <div className='larg-1000'>
+        <div className='largeur-1000'>
           <div className='gauche ut-titre cadre-15'>
             <span>utilisateur : </span>
             <span>{props.varGlob.nom}</span>

@@ -81,7 +81,7 @@ function FicheIncJrn(props) {
             )}
           </tbody>
         </table>
-        {props.incident.inc_cloture_date === null &&
+        {props.incident.inc_fin_date === null &&
           <form id="msgInfo"
             type="POST"
             encType="application/x-www-form-urlencoded"

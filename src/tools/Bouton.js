@@ -17,9 +17,10 @@ function Bouton(props) {
         onClick={props.actionToDo}
         className={diplay.boutonDisplay(props.couleur, props.menu, props.plein,props.particularite)}
       >
-        {props.txt}
+        {props.txt[0].toUpperCase() + props.txt.slice(1)}
       </button>
     </span>
   );
 }
 export default Bouton;
+
