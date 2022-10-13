@@ -6,7 +6,9 @@
 .input-sans-bordure {
   border-style: none ;
 }
-
+.container{
+  text-align: center;
+}
 .centrer {
   text-align: center;
 }
@@ -77,6 +79,10 @@
   text-align: center;
 }
 
+
+.largeur-5{
+  width: 5px;
+}
 .largeur-50{
   width: 50px;
 }
@@ -217,10 +223,4 @@ tr {
 .invisible{
   visibility:hidden;
 }
-
-
-/*
-
-*/
-
 

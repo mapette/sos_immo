@@ -34,7 +34,10 @@ function Pilotage(props) {
         //   console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !
         inc_liste.clotureAutomatique(response)
         setLInc(inc_liste.liste)
-        setTypeListe('tous les incidents')
+        console.log(lInc)
+        filterFermesNonClotures()
+        // setTypeListe('Fermés non clôturés')
+        // setBtCloture(false)
       })
   }
 
@@ -70,9 +73,9 @@ function Pilotage(props) {
     setBtCloture(true)
   }
 
- //console.log('liste', props.varGlob)
+
   return (
-    <div className="">
+    <div className=''>
       <h2 className="titre gras cadre-15">
         PILOTAGE
       </h2>
@@ -111,7 +114,7 @@ function Pilotage(props) {
         menu={'menu'}
         plein={true}
       />
-      <div className='decal gras gauche fontsize-20 cadre-15'>
+      <div className='decal gras fontsize-20 cadre-15 mx-auto'>
         {typeListe}
       </div>
 

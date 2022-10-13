@@ -12,6 +12,8 @@ function FicheUser(props) {
 
   let [habList, setHabList] = useState([])
   let [alertMsg, setAlertMsg] = useState('')
+  let [changePresta, setChangePresta] = useState (false)
+  let [changeProfil, setChangeProfil] = useState (false)
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
@@ -31,16 +33,25 @@ function FicheUser(props) {
     document.getElementById('hab_profil').value = props.focus.hab_profil
   }, [,props.focus])
 
-  function soumettre_newUser(data) {
+  function contrInput(data){
+    if (data.ut_nom === '') { data.ut_nom = document.getElementById('ut_nom').value }
+    if (data.ut_prenom === '') { data.ut_prenom = document.getElementById('ut_prenom').value }
+    if (data.ut_tel === '') { data.ut_tel = document.getElementById('ut_tel').value }
+    if (data.ut_mail === '') { data.ut_mail = document.getElementById('ut_mail').value }
+    if (!changePresta) {data.ut_presta = document.getElementById('ut_presta').value }
+    if (!changeProfil) {data.hab_profil = document.getElementById('hab_profil').value }
     data.ut_presta = lib.cleanNull(data.ut_presta)
-    data.ut_uuid = props.focus.ut_uuid
+    return data
+  }
+  
+  function soumettre_updateUser(data) {
     if (alertMsg === '') {
+      data.ut_uuid = props.focus.ut_uuid
+      data = contrInput(data)
       fetch('http://localhost:3001/update_user', lib.optionsPost(data))
-        //.then(response => response.json())
         .then(() => {
           props.setMode('neutre')
           props.setFocus('')
-          //  lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
       })
     }
   }
@@ -54,8 +65,7 @@ function FicheUser(props) {
     })
   }
 
-  function contrInput(hab_profil, ut_presta) {
-   // console.log('contrInput',hab_profil, ut_presta)
+  function contrListBox(hab_profil, ut_presta) {
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
     if (ut_presta === null && (hab_profil === 2 || hab_profil === 3)) {
@@ -70,65 +80,61 @@ function FicheUser(props) {
     console.log(alertMsg)
   }
 
- // console.log(props.focus.ut_date_exp != null)
   return (
-    <div className="">
-      <div className="decal">
+    <div className="mx-auto">
+
       <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
-        onSubmit={handleSubmit(soumettre_newUser)}
-        >
-          <table className='cadre-15 '>
-            <thead>
-              <th className='largeur-110'>identifiant</th>
-              <th className='largeur-110'>entrée</th>
-              <th className='largeur-110'>opérateur</th>
-              <th className='largeur-110'>sortie</th>
-              <th className='largeur-110'>opérateur</th>
-            </thead>
-            <tr>
-              <td className='gras rouge'>{props.focus.ut_id}</td>
-              <td>{time.formatDate(props.focus.ut_date_deb)} </td>
-              <td>{props.focus.ut_admin_deb} </td>
-              <td>{time.formatDate(props.focus.ut_date_exp)} </td>
-              <td>{props.focus.ut_admin_exp} </td>
-            </tr>
-          </table>
-          <table className='cadre-15 '>
-            <thead>
-              <th className='gauche largeur-110'>nom</th>
-              <th className='gauche largeur-110'>prénom</th>
-              <th className='gauche largeur-110'>téléphone</th>
-              <th className='gauche largeur-200'>email</th>
-              <th className=' largeur-300'>employeur</th>
-              <th className='gauche largeur-110'>profil actuel</th>
-            </thead>
-            <tr>
-              <td>
-                <input className='input-sans-bordure' id='ut_nom' {...register('ut_nom', { required: true })} />
-               {errors.ut_nom && <p>Nom obligatoire</p>}
-              </td>
-              <td> <input className='input-sans-bordure' id='ut_prenom' {...register('ut_prenom', { required: true })} />
-                {errors.ut_prenom && <p>Prénom obligatoire</p>}
-              </td>
-              <td>
-                <input className='input-sans-bordure' id='ut_tel' {...register('ut_tel', { required: true })} />
-                {errors.ut_tel && <p>Numéro de téléphone obligatoire</p>}
-              </td>
-              <td>
-                <input className='input-sans-bordure' id='ut_mail' {...register('ut_mail', { required: true })} />
-                {errors.ut_mail && <p>Adresse mail obligatoire</p>}
-              </td>
-              <td>
+        onSubmit={handleSubmit(soumettre_updateUser)}
+      >
+        <table className='cadre-15 mx-auto'>
+          <thead>
+            <th className='largeur-110'>identifiant</th>
+            <th className='largeur-110'>entrée</th>
+            <th className='largeur-110'>opérateur</th>
+            <th className='largeur-110'>sortie</th>
+            <th className='largeur-110'>opérateur</th>
+          </thead>
+          <tr>
+            <td className='gras rouge'>{props.focus.ut_id}</td>
+            <td>{time.formatDate(props.focus.ut_date_deb)} </td>
+            <td>{props.focus.ut_admin_deb} </td>
+            <td>{time.formatDate(props.focus.ut_date_exp)} </td>
+            <td>{props.focus.ut_admin_exp} </td>
+          </tr>
+        </table>
+        <table className='cadre-15 mx-auto'>
+          <thead>
+            <th className='gauche largeur-110'>nom</th>
+            <th className='gauche largeur-110'>prénom</th>
+            <th className='gauche largeur-110'>téléphone</th>
+            <th className='gauche largeur-200'>email</th>
+            <th className=' largeur-300'>employeur</th>
+            <th className='gauche largeur-110'>profil actuel</th>
+          </thead>
+          <tr>
+            <td>
+              <input className='input-sans-bordure' id='ut_nom' {...register('ut_nom', )} />
+            </td>
+            <td> <input className='input-sans-bordure' id='ut_prenom' {...register('ut_prenom',)} />
+            </td>
+            <td>
+              <input className='input-sans-bordure' id='ut_tel' {...register('ut_tel', )} />
+            </td>
+            <td>
+              <input className='input-sans-bordure' id='ut_mail' {...register('ut_mail', )} />
+            </td>
+            <td>
               <select id='ut_presta' {...register('ut_presta')}
                 onChange={event => {
-                  contrInput(
+                  setChangePresta(true)
+                  contrListBox(
                     document.getElementById("hab_profil").value,
                     event.target.value,
                   )
                 }}
-                className='largeur-200'>
+                className='largeur-300'>
                 <option value=''> </option>
                 {props.prestaList.map(elem =>
                   <option
@@ -138,81 +144,76 @@ function FicheUser(props) {
                   </option>
                 )}
               </select>
-              </td>
-              <td> 
+            </td>
+            <td>
               <select id='hab_profil' {...register('hab_profil')}
                 onChange={event => {
-                  contrInput(
+                  setChangeProfil(true)
+                  contrListBox(
                     event.target.value,
                     document.getElementById("ut_presta").value)
                 }}
-                className='largeur-110'>
+                className='largeur-200'>
                 <option value='1' key='1'>usager</option>
                 <option value='2' key='2'>technicien (presta)</option>
                 <option value='3' key='3'>valideur (presta)</option>
                 <option value='4' key='4'>imm</option>
               </select>
-                </td>
-            </tr>
-          </table>
-          <div className='container no-gutter'>
-            <div className='row'>
-              <table className='decal cadre-15 col-5'>
-                <thead>
-                  <th className='largeur-110'>profil</th>
-                  <th className='largeur-110'>début</th>
-                  <th className='largeur-110'>fin</th>
-                </thead>
-                {habList.map(hab => 
-                  <tr key={hab.hab_uuid}>
-                    <td> {lib.findProfil(hab.hab_profil)}</td>
-                    <td> {time.formatDate(hab.hab_date_deb)} </td>
-                    <td> {time.formatDate(hab.hab_date_exp)} </td>
-                  </tr>
-                )}
-              </table>
-              <div className='cadre-15 col-5 en-ligne'>
-              {alertMsg !== '' &&
-                    <Alerte
-                      msg={alertMsg}
-                      niveau={'alerteRouge'}
-                    />
-                }
-                <Bouton
-                  txt={'Retour à la liste'}
-                  actionToDo={() => props.setFocus('')}
-                  couleur={'gris'}
-                  plein={true}
-                />
-               { props.focus.ut_date_exp === null &&
-               <div>
-                <BoutonSubmit
-                  txt={'Modification'}
-                  couleur={'bleu'}
-                  plein={true}
-                />
-                <Bouton
-                  txt={'Résiliation'}
-                  actionToDo={() => resiliation(props.focus.ut_uuid)}
-                  couleur={'rouge'}
-                  plein={true}
-                />
-               </div>
-               }
-              </div>
+            </td>
+          </tr>
+        </table>
+        <div className='mx-auto container no-gutter'>
+          <div className='row'>
+            {alertMsg !== '' &&
+              <Alerte
+                msg={alertMsg}
+                niveau={'alerteRouge'}
+              />
+            }
+            <div className='cadre-15 en-ligne'>
+              <Bouton
+                txt={'Retour à la liste'}
+                actionToDo={() => props.setFocus('')}
+                couleur={'gris'}
+                plein={true}
+              />
+              {props.focus.ut_date_exp === null &&
+                <span>
+                  <BoutonSubmit
+                    txt={'Modification'}
+                    couleur={'bleu'}
+                    plein={true}
+                  />
+                  <Bouton
+                    txt={'Résiliation'}
+                    actionToDo={() => resiliation(props.focus.ut_uuid)}
+                    couleur={'rouge'}
+                    plein={true}
+                  />
+                </span>
+              }
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
 
-
-
+      <table className='mx-auto cadre-15'>
+        <thead>
+          <th className='largeur-110'>profil</th>
+          <th className='largeur-200'>début</th>
+          <th className='largeur-200'>fin</th>
+        </thead>
+        {habList.map(hab =>
+          <tr key={hab.hab_uuid}>
+            <td> {lib.findProfil(hab.hab_profil)}</td>
+            <td> {time.formatDate(hab.hab_date_deb)} </td>
+            <td> {time.formatDate(hab.hab_date_exp)} </td>
+          </tr>
+        )}
+      </table>
     </div>
   );
 }
 
-/*
-    
-*/
 
 export default FicheUser;

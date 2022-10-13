@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
-import Bouton from './../../tools/Bouton'
-import BoutonSubmit from './../../tools/BoutonSubmit'
-import Alerte from './../../tools/Alerte'
+import Bouton from '../../tools/Bouton'
+import BoutonSubmit from '../../tools/BoutonSubmit'
+import Alerte from '../../tools/Alerte'
 
-const lib = require('./../../lib/lib_divers')
+const lib = require('../../lib/lib_divers')
 
 function NewInc(props) {
   let [etape, setEtape] = useState(0)
@@ -81,7 +81,7 @@ function NewInc(props) {
         onSubmit={handleSubmit(soumettre_inc)}
         className='fontsize-12'
       >
-        <div className="container no-gutter">
+        <div className="no-gutter">
           <div className='row cadre-15'>
             <div className='droite col-6'>
               <label className={stypeInput(0)} htmlFor='etage'>étage</label>

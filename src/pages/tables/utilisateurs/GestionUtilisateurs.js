@@ -88,7 +88,7 @@ function GestionUtilisateurs(props) {
       <h2 className="titre gras cadre-15">
         GESTION UTILISATEURS
       </h2>
-      <div className='container bordure cadre-15 '>
+      <div className='mx-auto container bordure cadre-15 '>
         <div className='row'>
           <div className='col-2'>
            { mode !== 'création'  && focus === '' &&
@@ -213,8 +213,8 @@ function GestionUtilisateurs(props) {
           prestaList={prestaList}
         />
       }
-      <div className='gauche decal'>
-        <div className='en-ligne'>
+
+      <div className='gauche decal en-ligne'>
           { focus == '' && mode === 'neutre' &&
             <span>
               <Bouton
@@ -234,7 +234,6 @@ function GestionUtilisateurs(props) {
               />
             </span>
           }
-        </div>
       </div>
 
       <ListUser

@@ -16,8 +16,8 @@ function ListeInc(props) {
   }
 
   return (
-    <div className="">
-      <table className='cadre-15 '>
+
+      <table className='cadre-15 mx-auto'>
         <thead>
           <th>id</th>
           <th>emplacement</th>
@@ -89,7 +89,6 @@ function ListeInc(props) {
           )}
         </tbody>
       </table>
-    </div>
   );
 }
 

@@ -16,7 +16,7 @@ function ListUser(props) {
   }
 
   return (
-    <div className="container no-gutter">
+    <div className="mx-auto container no-gutter">
       <table className="cadre-15 width-90p">
         <thead>
           <th className='largeur-110'>username</th>

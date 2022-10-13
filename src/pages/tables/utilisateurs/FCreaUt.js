@@ -29,6 +29,7 @@ function FCreaUt(props) {
 
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
+    console.log(data)
     if (alertMsg === '') {
       fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
         .then(response => response.json())
@@ -49,7 +50,7 @@ function FCreaUt(props) {
       + '%0A%0AVous pouvez dès à présent saisir et suivre vos tickets.'
       + '%0A%0A      L\'équipe SOS Immo.'
   }
-  function contrInput(ut_id, hab_profil, ut_presta) {
+  function contrListBox(ut_id, hab_profil, ut_presta) {
     console.log('controle',ut_id, hab_profil, ut_presta)
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
@@ -66,34 +67,34 @@ function FCreaUt(props) {
       setAlertMsg('')
     }
   }
-//console.log('usernames',userNameList)
+
   return (
-    <div className="largeur-1000">
-        <div className='cadre-15'>
+    <div className="mx-auto">
+     
         <form id="form_ut"
-        type="POST"
-        encType="application/x-www-form-urlencoded"
-        onSubmit={handleSubmit(soumettre_newUser)}
+          type="POST"
+          encType="application/x-www-form-urlencoded"
+          onSubmit={handleSubmit(soumettre_newUser)}
         >
-          <table className='decal cadre-15 '>
+          <table className='mx-auto decal cadre-15 '>
             <thead>
               <th className='largeur-110'>identifiant</th>
               <th className='largeur-200'>nom</th>
               <th className='largeur-200'>prénom</th>
               <th className='largeur-200'>téléphone</th>
               <th className='largeur-200'>email</th>
-          </thead>
+            </thead>
             <tr>
               <td>
-              <input id='ut_id' {...register('ut_id', { required: true })}
-                onChange={event => {
-                  contrInput(
-                    event.target.value,
-                    document.getElementById("hab_profil").value,
-                    document.getElementById("ut_presta").value,
-                  )
-                }}
-              ></input>
+                <input id='ut_id' {...register('ut_id', { required: true })}
+                  onChange={event => {
+                    contrListBox(
+                      event.target.value,
+                      document.getElementById("hab_profil").value,
+                      document.getElementById("ut_presta").value,
+                    )
+                  }}
+                ></input>
               </td>
               <td>
                 <input className='' id='ut_nom' {...register('ut_nom', { required: true })} />
@@ -112,67 +113,66 @@ function FCreaUt(props) {
               </td>
             </tr>
           </table>
-          <div className='decal'> 
-          <table className='decal cadre-15 '>
-            <thead>
-              <th className='largeur-300'>profil initial</th>
-              <th className='largeur-400'>si prestataire, nom de l'entreprise</th>
-          </thead>
-            <tr>
+          <div className='decal'>
+            <table className='mx-auto decal cadre-15 '>
+              <thead>
+                <th className='largeur-300'>profil initial</th>
+                <th className='largeur-400'>si prestataire, nom de l'entreprise</th>
+              </thead>
+              <tr>
                 <td>
-              <select id='hab_profil' {...register('hab_profil')}
-                onChange={event => {
-                  contrInput(
-                    document.getElementById("ut_id").value,
-                    event.target.value,
-                    document.getElementById("ut_presta").value)
-                }}
-                className='largeur-110'>
-                <option value='1' key='1'>usager</option>
-                <option value='2' key='2'>technicien (ut_presta)</option>
-                <option value='3' key='3'>valideur (ut_presta)</option>
-                {/* <option value='0' key='0'>administrateur</option> */}
-                <option value='4' key='4'>imm</option>
-              </select>
-              </td>
-              <td>
-              <select id='ut_presta' {...register('ut_presta')}
-                onChange={event => {
-                  contrInput(
-                    document.getElementById("ut_id").value,
-                    document.getElementById("hab_profil").value,
-                    event.target.value,
-                  )
-                }}
-                className='largeur-200'>
-                <option value=''> </option>
-                {props.prestaList.map(elem =>
-                  <option
-                    value={elem.presta_id}
-                    key={elem.presta_id}>
-                    {elem.presta_nom} - {elem.presta_libelle}
-                  </option>
+                  <select id='hab_profil' {...register('hab_profil')}
+                    onChange={event => {
+                      contrListBox(
+                        document.getElementById("ut_id").value,
+                        event.target.value,
+                        document.getElementById("ut_presta").value)
+                    }}
+                    className='largeur-200'>
+                    <option value='1' key='1'>usager</option>
+                    <option value='2' key='2'>technicien (ut_presta)</option>
+                    <option value='3' key='3'>valideur (ut_presta)</option>
+                    <option value='4' key='4'>imm</option>
+                  </select>
+                </td>
+                <td>
+                  <select id='ut_presta' {...register('ut_presta')}
+                    onChange={event => {
+                      contrListBox(
+                        document.getElementById("ut_id").value,
+                        document.getElementById("hab_profil").value,
+                        event.target.value,
+                      )
+                    }}
+                    className='largeur-300'>
+                    <option value=''> </option>
+                    {props.prestaList.map(elem =>
+                      <option
+                        value={elem.presta_id}
+                        key={elem.presta_id}>
+                        {elem.presta_nom} - {elem.presta_libelle}
+                      </option>
                     )}
-              </select>
-              </td>
-            </tr>
-          </table>
+                  </select>
+                </td>
+              </tr>
+            </table>
           </div>
           <div className="">
             <Bouton
-            txt={'retour'}
-            actionToDo={() => props.setMode('neutre')}
-            couleur={'gris'}
-            plein={true}
-          />
+              txt={'retour'}
+              actionToDo={() => props.setMode('neutre')}
+              couleur={'gris'}
+              plein={true}
+            />
             <BoutonSubmit
-            txt={'Validation création'}
-            couleur={'vert'}
-            plein={true}
-          />
+              txt={'Validation création'}
+              couleur={'vert'}
+              plein={true}
+            />
           </div>
         </form>
-      </div>
+      
       {
         alertMsg !== '' &&
         <Alerte
