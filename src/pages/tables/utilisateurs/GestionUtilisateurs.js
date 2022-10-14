@@ -209,7 +209,7 @@ function GestionUtilisateurs(props) {
           userList={lUser}
         />
       }
-      { mode !== 'création' && props.varGlob.focus != '' &&
+      { mode !== 'création' && props.varGlob.focus !== '' &&
         <FicheUser
           varGlob={props.varGlob}
           setVarGlob={props.setVarGlob}

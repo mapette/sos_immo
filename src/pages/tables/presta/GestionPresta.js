@@ -18,7 +18,7 @@ function GestionPresta(props) {
           setPrestaList(prestaList = response)
         }
       })
-  }, [,mode,props.varGlob.focus,])
+  }, [,mode,props.varGlob.focus])
 
 
 
@@ -35,7 +35,7 @@ function GestionPresta(props) {
         setVarGlob={props.setVarGlob}
       />
 
-      {mode != 'neutre' &&
+      {mode !== 'neutre' &&
         <FichePresta
           mode={mode}
           setMode={setMode}

@@ -51,7 +51,7 @@ function ChangeMdp(props) {
     let charMin = 'abcdefghijklmnopqrstuvwxyz'
     let charMaj = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let charNum = '0123456789'
-    let charSpe = '!@#$+-*&_'
+    let charSpe = '()!@#$+-*&_'
     let decompoMdp = document.getElementById('newmdp').value.split('')
     decompoMdp.forEach(element => {
       if (charMin.includes(element)) { cpt.min++ }

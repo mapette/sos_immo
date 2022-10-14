@@ -7,11 +7,11 @@ function FicheIncCartouche(props) {
  return (
     <div>
       <div className="decal">
-        <table className='cadre-15 gras width-75p'>
+        <table className='cadre-15 gras mx-auto'>
           <thead>
-            <th>signalement</th>
-            <th>date</th>
-            <th>heure</th>
+            <th className='largeur-200'>signalement</th>
+            <th className='largeur-300'>date</th>
+            <th className='largeur-300'>heure</th>
           </thead>
           <tr>
             <td> {props.incident.inc_id}</td>
@@ -19,23 +19,23 @@ function FicheIncCartouche(props) {
             <td> {time.formatHeure(props.incident.inc_signal_date)} </td>
           </tr>
         </table>
-        <table className='cadre-15 gras width-75p'>
+        <table className='cadre-15 gras mx-auto '>
           <tr>
             <th colSpan='2'>emplacement</th>
           </tr>
           <tr>
-            <td> {props.incident.emp_nom}</td>
-            <td> étage : {props.incident.emp_etage}</td>
+            <td className='largeur-400'> {props.incident.emp_nom}</td>
+            <td className='largeur-400'> étage : {props.incident.emp_etage}</td>
           </tr>
         </table>
-        <table className='cadre-15 gras width-75p'>
+        <table className='cadre-15 gras mx-auto '>
           <tr>
-            <th>type d'incident</th>
+            <th >type d'incident</th>
             <th>entreprise affectée</th>
           </tr>
           <tr>
-            <td> {props.incident.tinc_nom}</td>
-            <td> {props.incident.presta_nom}</td>
+            <td className='largeur-400'> {props.incident.tinc_nom}</td>
+            <td  className='largeur-400'> {props.incident.presta_nom}</td>
           </tr>
         </table>
       </div>

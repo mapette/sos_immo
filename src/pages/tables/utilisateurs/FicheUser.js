@@ -14,7 +14,7 @@ function FicheUser(props) {
   let [alertMsg, setAlertMsg] = useState('')
   let [changePresta, setChangePresta] = useState(false)
   let [changeProfil, setChangeProfil] = useState(false)
-  const { register, handleSubmit, formState: { errors }, } = useForm()
+  const { register, handleSubmit, } = useForm()
 
   useEffect(() => {
     fetch('http://localhost:3001/get_habByUser/' + props.varGlob.focus.ut_uuid, lib.optionsGet())

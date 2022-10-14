@@ -13,7 +13,6 @@ import Demandes from './pages/signalements/Demandes'
 import FicheInc from './pages/signalements/FicheInc'
 import Pilotage from './pages/kpi/Pilotage'
 
-
 import './tools/App.css';
 import Test from './Test'
 

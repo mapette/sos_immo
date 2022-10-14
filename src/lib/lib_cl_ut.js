@@ -20,7 +20,7 @@ class Utilisateur {
 
 class Ut_manager {
   constructor() {
-    this.liste = new Array()
+    this.liste = []
   }
 
   filtreNom(nom) {
@@ -56,7 +56,7 @@ class Ut_manager {
       }
     }
     // critères manuels uniquement
-    else if (bt.nom !== '' || bt.presta !== ''
+    else if ((bt.nom !== '' || bt.presta !== '')
       && !bt.actif && !bt.inactif
       && !bt.usager && !bt.imm && !bt.technicien && !bt.valideur) {
       this.filtreNom(bt.nom)
