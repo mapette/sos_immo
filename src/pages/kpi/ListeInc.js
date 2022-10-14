@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 
 const time = require('../../lib/lib_time')
 
 function ListeInc(props) {
-
 
   function showDetails(id) {
     props.setVarGlob({
@@ -16,7 +14,6 @@ function ListeInc(props) {
   }
 
   return (
-
       <table className='cadre-15 mx-auto'>
         <thead>
           <th>id</th>

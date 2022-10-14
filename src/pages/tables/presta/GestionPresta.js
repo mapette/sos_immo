@@ -31,7 +31,6 @@ function GestionPresta(props) {
         prestaList={prestaList}
         mode={mode}
         setMode={setMode}
-        setFocus={props.setFocus}
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
       />
@@ -40,8 +39,6 @@ function GestionPresta(props) {
         <FichePresta
           mode={mode}
           setMode={setMode}
-          focus={props.focus}
-          setFocus={props.setFocus}
           varGlob={props.varGlob}
           setVarGlob={props.setVarGlob}
 
@@ -52,19 +49,19 @@ function GestionPresta(props) {
         <div className='en-ligne'>
           {props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
-              <Bouton
-                txt={'Nouveau prestataire'}
-                actionToDo={() => setMode('création')}
-                couleur={'vert'}
-                plein={true}
-              />
-              <Bouton
+               <Bouton
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
                   ecran: 'menu'
                 })}
                 couleur={'gris'}
+                plein={true}
+              />
+              <Bouton
+                txt={'Nouveau prestataire'}
+                actionToDo={() => setMode('création')}
+                couleur={'vert'}
                 plein={true}
               />
             </span>

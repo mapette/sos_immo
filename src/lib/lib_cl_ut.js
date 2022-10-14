@@ -23,39 +23,87 @@ class Ut_manager {
     this.liste = new Array()
   }
 
+  filtreNom(nom) {
+    if (nom !== '') {
+      this.liste = this.liste.filter(f =>
+      (f.ut_nom.toLowerCase().indexOf(nom) !== -1
+        || f.ut_prenom.toLowerCase().indexOf(nom) !== -1
+        || f.ut_id.toLowerCase().indexOf(nom) !== -1)
+      )
+    }
+  }
+
+  filtrePresta(presta){
+    if (presta !== '') {
+      this.liste = this.liste.filter(f => f.ut_presta === parseInt(presta))
+    }
+  }
+
   gdFiltre(bt) {
-    // status
-    if (!bt.actif & !bt.inactif) {
+    // aucun critère
+    if (bt.nom === '' && bt.presta === ''
+      && !bt.actif && !bt.inactif
+      && !bt.usager && !bt.imm && !bt.technicien && !bt.valideur) {
       this.liste = []
     }
-    else if (bt.actif & !bt.inactif) {
-      this.liste = this.liste.filter(f => f.ut_date_exp === null)
-    }
-    else if (!bt.actif & bt.inactif) {
+    // inactif
+    else if (!bt.actif && bt.inactif) {
       this.liste = this.liste.filter(f => f.ut_date_exp !== null)
+      this.liste.filter(f => f.hab_profil === 0)
+      if (bt.nom === '' || bt.presta === '') {
+        this.filtreNom(bt.nom)
+        this.filtrePresta(bt.presta)
+      }
     }
-    // profils
-    if (!bt.usager & !bt.imm & !bt.technicien & !bt.valideur) {
+    // critères manuels uniquement
+    else if (bt.nom !== '' || bt.presta !== ''
+      && !bt.actif && !bt.inactif
+      && !bt.usager && !bt.imm && !bt.technicien && !bt.valideur) {
+      this.filtreNom(bt.nom)
+      this.filtrePresta(bt.presta)
+    }
+    // actif uniquement sans profil
+    else if (bt.nom === '' && bt.presta === ''
+      && bt.actif && !bt.inactif
+      && !bt.usager && !bt.imm && !bt.technicien && !bt.valideur) {
       this.liste = []
     }
+    // actif avec profil - au minimum
     else {
-      if (!bt.usager) {
-        this.liste = this.liste.filter(f => f.hab_profil !== 1)
+      this.filtreNom(bt.nom)
+      this.filtrePresta(bt.presta)
+
+      // status
+      if (!bt.actif & !bt.inactif) {
+        this.liste = []
       }
-      if (!bt.imm) {
-        this.liste = this.liste.filter(f => f.hab_profil !== 4)
+      else if (bt.actif & !bt.inactif) {
+        this.liste = this.liste.filter(f => f.ut_date_exp === null)
       }
-      if (!bt.technicien) {
-        this.liste = this.liste.filter(f => f.hab_profil !== 2)
+
+      // profils
+      if (!bt.usager & !bt.imm & !bt.technicien & !bt.valideur) {
+        this.liste = []
       }
-      if (!bt.valideur) {
-        this.liste = this.liste.filter(f => f.hab_profil !== 3)
+      else {
+        if (!bt.usager) {
+          this.liste = this.liste.filter(f => f.hab_profil !== 1)
+        }
+        if (!bt.imm) {
+          this.liste = this.liste.filter(f => f.hab_profil !== 4)
+        }
+        if (!bt.technicien) {
+          this.liste = this.liste.filter(f => f.hab_profil !== 2)
+        }
+        if (!bt.valideur) {
+          this.liste = this.liste.filter(f => f.hab_profil !== 3)
+        }
       }
     }
     this.liste = this.liste
-        .sort((x, y) => {
-          if (x.ut_prenom < y.ut_prenom) { return -1 }
-          if (x.ut_prenom > y.ut_prenom) { return 1 }
+      .sort((x, y) => {
+        if (x.ut_prenom < y.ut_prenom) { return -1 }
+        if (x.ut_prenom > y.ut_prenom) { return 1 }
           return 0
         })
         .sort((x, y) => {
@@ -63,8 +111,9 @@ class Ut_manager {
           if (x.ut_nom > y.ut_nom) { return 1 }
           return 0
         })
+    
   }
-  
+
   byProfil(profil) {
     this.liste = this.liste.filter(f => f.hab_profil === parseInt(profil))
   }

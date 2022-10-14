@@ -12,57 +12,62 @@ function FicheUser(props) {
 
   let [habList, setHabList] = useState([])
   let [alertMsg, setAlertMsg] = useState('')
-  let [changePresta, setChangePresta] = useState (false)
-  let [changeProfil, setChangeProfil] = useState (false)
+  let [changePresta, setChangePresta] = useState(false)
+  let [changeProfil, setChangeProfil] = useState(false)
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_habByUser/' + props.focus.ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/get_habByUser/' + props.varGlob.focus.ut_uuid, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('hab user',response)
         setHabList(habList = response)
       })
-  },[])
-  useEffect(()=>{
-    document.getElementById('ut_nom').value = props.focus.ut_nom
-    document.getElementById('ut_prenom').value = props.focus.ut_prenom
-    document.getElementById('ut_tel').value = props.focus.ut_tel
-    document.getElementById('ut_mail').value = props.focus.ut_mail
-    document.getElementById('ut_presta').value = props.focus.ut_presta
-    document.getElementById('hab_profil').value = props.focus.hab_profil
-  }, [,props.focus])
+  }, [])
+  useEffect(() => {
+    document.getElementById('ut_nom').value = props.varGlob.focus.ut_nom
+    document.getElementById('ut_prenom').value = props.varGlob.focus.ut_prenom
+    document.getElementById('ut_tel').value = props.varGlob.focus.ut_tel
+    document.getElementById('ut_mail').value = props.varGlob.focus.ut_mail
+    document.getElementById('ut_presta').value = props.varGlob.focus.ut_presta
+    document.getElementById('hab_profil').value = props.varGlob.focus.hab_profil
+  }, [, props.varGlob.focus])
 
-  function contrInput(data){
+  function contrInput(data) {
     if (data.ut_nom === '') { data.ut_nom = document.getElementById('ut_nom').value }
     if (data.ut_prenom === '') { data.ut_prenom = document.getElementById('ut_prenom').value }
     if (data.ut_tel === '') { data.ut_tel = document.getElementById('ut_tel').value }
     if (data.ut_mail === '') { data.ut_mail = document.getElementById('ut_mail').value }
-    if (!changePresta) {data.ut_presta = document.getElementById('ut_presta').value }
-    if (!changeProfil) {data.hab_profil = document.getElementById('hab_profil').value }
+    if (!changePresta) { data.ut_presta = document.getElementById('ut_presta').value }
+    if (!changeProfil) { data.hab_profil = document.getElementById('hab_profil').value }
     data.ut_presta = lib.cleanNull(data.ut_presta)
     return data
   }
-  
-  function soumettre_updateUser(data) {
+
+  function soumettreUpdateUser(data) {
     if (alertMsg === '') {
-      data.ut_uuid = props.focus.ut_uuid
+      data.ut_uuid = props.varGlob.focus.ut_uuid
       data = contrInput(data)
       fetch('http://localhost:3001/update_user', lib.optionsPost(data))
         .then(() => {
           props.setMode('neutre')
-          props.setFocus('')
-      })
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: '',
+          })
+        })
     }
   }
 
-  function resiliation(ut_uuid){
-    fetch('http://localhost:3001/delete_user/'+ ut_uuid, lib.optionsGet())
+  function soumettreResiliation(ut_uuid) {
+    console.log(ut_uuid)
+    fetch('http://localhost:3001/delete_user/' + ut_uuid, lib.optionsGet())
       .then(() => {
         props.setMode('neutre')
-        props.setFocus('')
-        //  lib.prepaMail(data.ut_mail, 'Identifiants SOS Immo', msgMail(data))
-    })
+        props.setVarGlob({
+          ...props.varGlob,
+          focus: '',
+        })
+      })
   }
 
   function contrListBox(hab_profil, ut_presta) {
@@ -77,16 +82,15 @@ function FicheUser(props) {
     else {
       setAlertMsg('')
     }
-    console.log(alertMsg)
   }
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto container bordure arr-img">
 
       <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
-        onSubmit={handleSubmit(soumettre_updateUser)}
+        onSubmit={handleSubmit(soumettreUpdateUser)}
       >
         <table className='cadre-15 mx-auto'>
           <thead>
@@ -97,11 +101,11 @@ function FicheUser(props) {
             <th className='largeur-110'>opérateur</th>
           </thead>
           <tr>
-            <td className='gras rouge'>{props.focus.ut_id}</td>
-            <td>{time.formatDate(props.focus.ut_date_deb)} </td>
-            <td>{props.focus.ut_admin_deb} </td>
-            <td>{time.formatDate(props.focus.ut_date_exp)} </td>
-            <td>{props.focus.ut_admin_exp} </td>
+            <td className='gras rouge'>{props.varGlob.focus.ut_id}</td>
+            <td>{time.formatDate(props.varGlob.focus.ut_date_deb)} </td>
+            <td>{props.varGlob.focus.ut_admin_deb} </td>
+            <td>{time.formatDate(props.varGlob.focus.ut_date_exp)} </td>
+            <td>{props.varGlob.focus.ut_admin_exp} </td>
           </tr>
         </table>
         <table className='cadre-15 mx-auto'>
@@ -115,15 +119,15 @@ function FicheUser(props) {
           </thead>
           <tr>
             <td>
-              <input className='input-sans-bordure' id='ut_nom' {...register('ut_nom', )} />
+              <input className='input-sans-bordure' id='ut_nom' {...register('ut_nom',)} />
             </td>
             <td> <input className='input-sans-bordure' id='ut_prenom' {...register('ut_prenom',)} />
             </td>
             <td>
-              <input className='input-sans-bordure' id='ut_tel' {...register('ut_tel', )} />
+              <input className='input-sans-bordure' id='ut_tel' {...register('ut_tel',)} />
             </td>
             <td>
-              <input className='input-sans-bordure' id='ut_mail' {...register('ut_mail', )} />
+              <input className='input-sans-bordure' id='ut_mail' {...register('ut_mail',)} />
             </td>
             <td>
               <select id='ut_presta' {...register('ut_presta')}
@@ -163,41 +167,13 @@ function FicheUser(props) {
           </tr>
         </table>
         <div className='mx-auto container no-gutter'>
-          <div className='row'>
-            {alertMsg !== '' &&
-              <Alerte
-                msg={alertMsg}
-                niveau={'alerteRouge'}
-              />
-            }
-            <div className='cadre-15 en-ligne'>
-              <Bouton
-                txt={'Retour à la liste'}
-                actionToDo={() => props.setFocus('')}
-                couleur={'gris'}
-                plein={true}
-              />
-              {props.focus.ut_date_exp === null &&
-                <span>
-                  <BoutonSubmit
-                    txt={'Modification'}
-                    couleur={'bleu'}
-                    plein={true}
-                  />
-                  <Bouton
-                    txt={'Résiliation'}
-                    actionToDo={() => resiliation(props.focus.ut_uuid)}
-                    couleur={'rouge'}
-                    plein={true}
-                  />
-                </span>
-              }
-            </div>
-          </div>
-        </div>
-      </form>
-
-      <table className='mx-auto cadre-15'>
+          {alertMsg !== '' &&
+            <Alerte
+              msg={alertMsg}
+              niveau={'alerteRouge'}
+            />
+          }
+ <table className='mx-auto cadre-15'>
         <thead>
           <th className='largeur-110'>profil</th>
           <th className='largeur-200'>début</th>
@@ -211,9 +187,47 @@ function FicheUser(props) {
           </tr>
         )}
       </table>
+
+          <div className='cadre-15 en-ligne'>
+            <Bouton
+              txt={lib.BT_RETOUR_LISTE}
+              actionToDo={() => {
+                props.setMode('neutre')
+                props.setVarGlob({
+                  ...props.varGlob,
+                  focus: '',
+                })
+              }}
+              couleur={'gris'}
+              plein={true}
+            />
+            {props.varGlob.focus.ut_date_exp === null &&
+              <span>
+                <BoutonSubmit
+                  txt={'Modification'}
+                  couleur={'bleu'}
+                  plein={true}
+                />
+                <Bouton
+                  txt={'Résiliation'}
+                  actionToDo={() => soumettreResiliation(props.varGlob.focus.ut_uuid)}
+                  couleur={'rouge'}
+                  plein={true}
+                />
+              </span>
+            }
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
 
 
 export default FicheUser;
+
+
+
+
+
+

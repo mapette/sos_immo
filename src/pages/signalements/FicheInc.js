@@ -39,7 +39,7 @@ function FicheInc(props) {
       })
   }, [])
 
-  //console.log('props.varGlob détails', props.varGlob)
+  console.log('props.varGlob détails', props.varGlob)
   return (
     <div>
       <h2 className="titre gras cadre-15">
@@ -69,7 +69,8 @@ function FicheInc(props) {
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'demandes'
+            ecran: 'demandes',
+            focus:'',
           })}
           couleur={'gris'}
           plein={true}
@@ -80,7 +81,8 @@ function FicheInc(props) {
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'pilot'
+            ecran: 'pilot',
+            focus:'',
           })}
           couleur={'gris'}
           plein={true}

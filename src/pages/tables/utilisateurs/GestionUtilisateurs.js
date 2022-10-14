@@ -23,16 +23,13 @@ function GestionUtilisateurs(props) {
   let [lUser, setLUser] = useState([])
   let [prestaList, setPrestaList] = useState([])
 
-  let [focus, setFocus] = useState('') // utilisateur en focus
-
   useEffect(() => {
     fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        //  console.log('response presta list', response) // laisser cette ligne sinon ça marche pas !
-        if (response.length !== 0) {
-          setPrestaList(prestaList = response)
-        }
+      if (response.length !== 0) {
+        setPrestaList(prestaList = response)
+      }
       })
   }, [])
 
@@ -42,7 +39,6 @@ function GestionUtilisateurs(props) {
       .then(response => {
         if (response.length !== 0) {
           response.forEach(element => {
-            //  console.log('elem', element)
             ut_liste.liste.push(new cl_ut.Utilisateur(element))
           });
 
@@ -59,10 +55,11 @@ function GestionUtilisateurs(props) {
       imm: false,
       technicien: false,
       valideur: false,
+      nom : null,
+      presta: null,
     })
   }
   function switchBt(btASwitcher) {
-    console.log('mode',mode)
     if (mode !== 'création') {
       if (bt[btASwitcher]) {
         setBt({
@@ -78,7 +75,16 @@ function GestionUtilisateurs(props) {
       }
     }
   }
+  function filtreRecherches(){
+    setBt({
+      ...bt,
+      nom: document.getElementById('nomToFind').value.toLowerCase(),
+      presta: document.getElementById('prestaToFind').value,
+    })
+    
+  }
   function tri() {
+    filtreRecherches()
     ut_liste.gdFiltre(bt)
     setLUser(ut_liste.liste)
   }
@@ -88,30 +94,30 @@ function GestionUtilisateurs(props) {
       <h2 className="titre gras cadre-15">
         GESTION UTILISATEURS
       </h2>
-      <div className='mx-auto container bordure cadre-15 '>
+      <div className='mx-auto container bordure arr-img cadre-15 '>
         <div className='row'>
           <div className='col-2'>
-           { mode !== 'création'  && focus === '' &&
-           <Bouton
-              txt={'Init filtres'}
-              actionToDo={() => initFiltre()}
-              couleur={'vert'}
-              plein={true}
-              espaceEntreBt={false}
-              particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
-            />}
+            {mode !== 'création' && props.varGlob.focus === '' &&
+              <Bouton
+                txt={'Init filtres'}
+                actionToDo={() => initFiltre()}
+                couleur={'vert'}
+                plein={true}
+                espaceEntreBt={false}
+                particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
+              />}
           </div>
           <div className='col-6 cadre-15'>
             <div className='row'>
               <div className='col-4 en-ligne'>
-                <label htmlFor='nomToFind'>nom</label>
+                <label htmlFor='nomToFind'>Critère</label>
                 <input id='nomToFind' className='largeur-110'>
                 </input>
               </div>
               <div className='col-7 en-ligne'>
-                <label>presta</label>
+                <label>Prestataire</label>
                 <select id='prestaToFind' >
-                  <option value=''> </option>
+                  <option value=''></option>
                   {prestaList.map(elem =>
                     <option
                       value={elem.presta_id}
@@ -180,7 +186,7 @@ function GestionUtilisateurs(props) {
               </div>
             </div>
           </div>
-          {mode !== 'création' && focus === '' &&
+          {mode !== 'création' && props.varGlob.focus === '' &&
           <div className='col-2'>
             <Bouton
               txt={'Rafraichir la liste'}
@@ -203,25 +209,24 @@ function GestionUtilisateurs(props) {
           userList={lUser}
         />
       }
-      { mode !== 'création' && focus != '' &&
+      { mode !== 'création' && props.varGlob.focus != '' &&
         <FicheUser
           varGlob={props.varGlob}
           setVarGlob={props.setVarGlob}
-          focus={focus}
-          setFocus={setFocus}
           setMode={setMode}
           prestaList={prestaList}
         />
       }
 
       <div className='gauche decal en-ligne'>
-          { focus == '' && mode === 'neutre' &&
+          { props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
               <Bouton
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
-                  ecran: 'menu'
+                  ecran: 'menu',
+                  focus: '',
                 })}
                 couleur={'gris'}
                 plein={true}
@@ -238,7 +243,10 @@ function GestionUtilisateurs(props) {
 
       <ListUser
         userList={lUser}
-        setFocus={setFocus}
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+        prestaList={prestaList}
+        setMode={setMode}
       />
 
     </div>

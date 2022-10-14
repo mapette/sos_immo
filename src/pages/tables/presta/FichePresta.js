@@ -37,7 +37,10 @@ function FichePresta(props) {
     fetch('http://localhost:3001/crea_presta', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
-        props.setFocus('')
+        props.setVarGlob({
+          ...props.varGlob,
+          focus: ''
+        })
       })
   }
 
@@ -119,11 +122,6 @@ function FichePresta(props) {
                 </tr>
               </tbody>
             </table>
-            <BoutonSubmit
-              txt={'Validation création'}
-              couleur={'vert'}
-              plein={true}
-            />
             <Bouton
               txt={lib.BT_RETOUR_LISTE}
               actionToDo={() => {
@@ -135,6 +133,11 @@ function FichePresta(props) {
                 })
               }}
               couleur={'gris'}
+              plein={true}
+            />
+            <BoutonSubmit
+              txt={'Validation création'}
+              couleur={'vert'}
               plein={true}
             />
           </form>

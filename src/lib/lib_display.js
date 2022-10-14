@@ -51,7 +51,7 @@ function boutonDisplay(couleur, menu, plein, particularite) {
 
 // fiches incident
 
-function postItDisplay(style, status) {  // ecran uniquement pour detailsInc du suivi
+function postItDisplay(style, status) {  // ecran uniquement pour detailInc du suivi
   let totalClass = ''
   if(style === undefined | status === undefined){totalClass = undefined}
   else{

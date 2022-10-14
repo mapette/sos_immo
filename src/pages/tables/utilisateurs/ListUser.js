@@ -9,9 +9,11 @@ function ListUser(props) {
     fetch('http://localhost:3001/get_user/' + id, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-   //     console.log('response',response)
-        props.setFocus(new cl_ut.Utilisateur(response))
-   //     props.setMode("selection")
+        props.setVarGlob({
+          ...props.varGlob,
+          focus: new cl_ut.Utilisateur(response),
+        })
+        props.setMode("selection")
       })
   }
 
