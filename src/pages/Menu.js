@@ -120,7 +120,7 @@ function Menu(props) {
               txt={'Emplacements'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu'
+                ecran: 'gestionEmp'
               })}
               couleur={'bleu'}
               menu={'smenu'}

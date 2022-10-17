@@ -2,7 +2,7 @@ import './../../../tools/App.css';
 
 const lib = require('../../../lib/lib_divers')
 
-function ListPresta(props) {
+function ListEmp(props) {
 
   function showDetails(id) {
     if (props.mode !== 'création') {
@@ -18,21 +18,23 @@ function ListPresta(props) {
         })
     }
   }
-  
+  console.log(props)
   return (
     <div className="container no-gutter mx-auto">
       <table className="cadre-15 ">
         <thead>
           <th className='largeur-50'>id</th>
-          <th className='largeur-300 gauche'>nom</th>
-          <th className='largeur-400 gauche'>libellé</th>
+          <th className='largeur-110'>étage</th>
+          <th className='largeur-200 gauche'>nom</th>
+          <th className='largeur-200 gauche'>type</th>
         </thead>
         <tbody>
-          {props.prestaList.map(presta =>
-            <tr key={presta.presta_id} onClick={() => showDetails(presta.presta_id)}>
-              <td className=''>{presta.presta_id}</td>
-              <td className='gauche'>{presta.presta_nom}</td>
-              <td className='gauche'>{presta.presta_libelle}</td>
+          {props.empList.map(emp =>
+            <tr key={emp.emp_id} onClick={() => showDetails(emp.presta_id)}>
+              <td className=''>{emp.emp_id}</td>
+              <td className=''>{emp.emp_etage}</td>
+              <td className='gauche'>{emp.emp_nom}</td>
+              <td className='gauche'>{emp.temp_nom}</td>
             </tr>
           )}
         </tbody>
@@ -41,4 +43,4 @@ function ListPresta(props) {
   );
 }
 
-export default ListPresta;
+export default ListEmp;

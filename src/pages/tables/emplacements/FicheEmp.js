@@ -6,7 +6,7 @@ import BoutonSubmit from '../../../tools/BoutonSubmit'
 
 const lib = require('../../../lib/lib_divers')
 
-function FichePresta(props) {
+function FicheEmp(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
@@ -148,4 +148,4 @@ function FichePresta(props) {
   );
 }
 
-export default FichePresta;
+export default FicheEmp;

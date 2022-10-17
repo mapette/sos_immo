@@ -3,7 +3,7 @@ import './../../tools/App.css';
 const time = require('../../lib/lib_time')
 
 function FicheIncCartouche(props) {
-
+console.log(props.incident)
  return (
     <div>
       <div className="decal">
