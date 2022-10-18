@@ -22,6 +22,8 @@ function FichePresta(props) {
 
   function soumettre_updatePresta(data) {
     data.presta_id = props.varGlob.focus.presta_id
+    if (data.presta_nom === '') { data.presta_nom = props.varGlob.focus.presta_nom }
+    if (data.presta_libelle === '') { data.presta_nom = props.varGlob.focus.presta_libelle }
     console.log('data', data)
     fetch('http://localhost:3001/update_presta', lib.optionsPost(data))
       .then(() => {
@@ -55,7 +57,7 @@ function FichePresta(props) {
           >
             <table className="cadre-15">
               <thead>
-                <th className=''>mise à jour</th>
+                <th className='largeur-110'>mise à jour</th>
                 <th className='largeur-300 '>nom</th>
                 <th className='largeur-400 '>libellé</th>
               </thead>
@@ -63,12 +65,10 @@ function FichePresta(props) {
                 <tr>
                   <td className=''>{props.varGlob.focus.presta_id}</td>
                   <td>
-                    <input className='input-sans-bordure' id='presta_nom' {...register('presta_nom', { required: true })} />
-                    {errors.presta_nom && <p>Nom obligatoire</p>}
+                    <input className='input-sans-bordure' id='presta_nom' {...register('presta_nom')} />      
                   </td>
                   <td>
-                    <input className='input-sans-bordure' id='presta_libelle' {...register('presta_libelle', { required: true })} />
-                    {errors.presta_libelle && <p>Libellé obligatoire</p>}
+                    <input className='input-sans-bordure' id='presta_libelle' {...register('presta_libelle')} />        
                   </td>
                 </tr>
               </tbody>

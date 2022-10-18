@@ -14,42 +14,20 @@ function GestionEmp(props) {
     fetch('http://localhost:3001/get_emp', lib.optionsGet())
        .then(response => response.json())
        .then(response => {
-        if (response.length !== 0) {
-          setEmpList(empList = response)
-        }
+         if (response.length !== 0) { setEmpList(empList = response) }
         })
   }, [,mode,props.varGlob.focus])
-
-
 
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
         GESTION EMPLACEMENTS / LIEUX
       </h2>
-      <ListEmp
-        empList={empList}
-        mode={mode}
-        setMode={setMode}
-        varGlob={props.varGlob}
-        setVarGlob={props.setVarGlob}
-      />
-
-      {mode !== 'neutre' &&
-        <FicheEmp
-          mode={mode}
-          setMode={setMode}
-          varGlob={props.varGlob}
-          setVarGlob={props.setVarGlob}
-
-        />
-      }
-
       <div className='decal mx-auto'>
         <div className='en-ligne'>
           {props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
-               <Bouton
+              <Bouton
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
@@ -59,7 +37,7 @@ function GestionEmp(props) {
                 plein={true}
               />
               <Bouton
-                txt={'Nouveau prestataire'}
+                txt={'Nouvel emplacement'}
                 actionToDo={() => setMode('création')}
                 couleur={'vert'}
                 plein={true}
@@ -68,6 +46,22 @@ function GestionEmp(props) {
           }
         </div>
       </div>
+      {mode !== 'neutre' &&
+        <FicheEmp
+          mode={mode}
+          setMode={setMode}
+          varGlob={props.varGlob}
+          setVarGlob={props.setVarGlob}
+        />
+      }
+      <ListEmp
+        empList={empList}
+        mode={mode}
+        setMode={setMode}
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+      />
+
     </div>
   );
 }

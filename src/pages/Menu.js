@@ -49,7 +49,7 @@ function Menu(props) {
         />
         {props.varGlob.profil === 'imm' &&
           <Bouton
-            txt={'Gestion des tables'}
+            txt={'Admin'}
             actionToDo={() => setSMenu('tables')}
             couleur={'bleu'}
             menu={'menu'}
