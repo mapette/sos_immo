@@ -4,7 +4,7 @@ const diplay = require('./../lib/lib_display')
 
 function Bouton(props) {
   let margin = 'cadre-15'
-  if (props.espaceEntreBt != undefined) {
+  if (props.espaceEntreBt !== undefined) {
     if (!props.espaceEntreBt) {
       margin = 'no-gutter'
     }

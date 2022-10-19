@@ -1,92 +1,145 @@
 import { useState, useEffect } from 'react';
-import BoutonSubmit from './../tools/BoutonSubmit'
+import './../tools/App.css';
 import Bouton from './../tools/Bouton'
-import Alerte from './../tools/Alerte'
 
-const MD5 = require('sha1')
-const lib = require('./../lib/lib_divers')
 
-function Accueil(props) {
-  let [warning, setWarning] = useState(false)
+function Menu(props) {
+  let [smenu, setSMenu] = useState('aucun')
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_accueil', lib.optionsGet())
-      .then(response => response.json())
-      .then(response => {
-        console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
-        document.getElementById('id').value = response.id
-      })
-
-
+    setSMenu('aucun')
   }, [])
 
-  function sub_form(event) {
-    event.preventDefault()
-    let data = {
-      ut_id: document.getElementById('id').value,
-      ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
-    }
-    fetch('http://localhost:3001/login', lib.optionsPost(data))
-      .then(response => response.json())
-      .then(response => {
-          let profil = lib.determineProfil(response.hab_profil)
-          props.setVarGlob({
-            ...props.varGlob,
-            nom: response.ut_prenom + ' ' + response.ut_nom,
-            profil: profil.profil,
-            ecran: 'menu',
-          })
-        })
-      .catch(setWarning(true))
-  }
-
   return (
-    <div className="">
-      <h2 className="titre gras cadre-15" >
-        Veuillez vous identifier
-      </h2>
-      <form id="form_id"
-        type="POST"
-        encType="application/x-www-form-urlencoded"
-        onSubmit={sub_form}
-      >
-        <div className='cadre-15'>
-          <div className='cadre-15'>
-            <label htmlFor='id'>identifiant </label>
-            <input id='id' name='id'></input>
-          </div>
-          <div >
-            <label htmlFor='mdp'>mot de passe </label>
-            <input type='password' id='mdp' name='mdp'></input>
-          </div>
-        </div>
-        <div className='cadre-15 decal'>
-          <BoutonSubmit
-            txt={'Validation'}
-            couleur={'gris'}
+    <div>
+      <p/>
+      <div className='en-ligne'>
+        <Bouton
+          txt={'Nouvelle demande'}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'newInc'
+          })}
+          couleur={'vert'}
+          menu={'menu'}
+          plein={true}
+        />
+        <Bouton
+          txt={'Mes demandes'}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            profilEcran: 'usager',
+            ecran: 'demandes',
+
+          })}
+          couleur={'vert'}
+          menu={'menu'}
+          plein={true}
+        />
+        {props.varGlob.profil === 'imm' &&
+          <Bouton
+            txt={'Admin'}
+            actionToDo={() => setSMenu('tables')}
+            couleur={'bleu'}
+            menu={'menu'}
             plein={true}
           />
-        </div>
-        <div className='cadre-15'>
-          {warning &&
-            <Alerte
-              msg={'identifiant ou mot de passe erroné'}
-              niveau={'alerteSimple'}
+        }
+        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'imm') &&
+          <span>
+            <Bouton
+              txt={'Suivi des incidents'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                profilEcran: 'techno',
+                ecran: 'demandes',
+
+              })}
+              couleur={'orange'}
+              menu={'menu'}
+              plein={true}
             />
-
-          }
+          </span>
+        }
+        {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'imm') &&
+          <span>
+            <Bouton
+              txt={'Pilotage'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'pilot',
+                profilEcran: 'pilotage',
+              })}
+              couleur={'rouge'}
+              menu={'menu'}
+              plein={true}
+            />
+          </span>
+        }
+      </div >
+      {
+      (props.varGlob.profil === 'imm' && smenu === 'tables') &&
+        <div className=''>
+          <p/>
+          <div className='en-ligne'>
+            <Bouton
+              txt={'Utilisateurs'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'gestionUtilisateurs'
+              })}
+              couleur={'orange'}
+              menu={'smenu'}
+              plein={true}
+            />
+            <Bouton
+              txt={'Prestataires'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'gestionPresta'
+              })}
+              couleur={'orange'}
+              menu={'smenu'}
+              plein={true}
+            />
+            </div>
+            <p/>
+            <div >
+            <Bouton
+              txt={'Emplacements'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'gestionEmp'
+              })}
+              couleur={'bleu'}
+              menu={'smenu'}
+              plein={true}
+            />
+            <Bouton
+              txt={'Type d\'emplacement'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'menu'
+              })}
+              couleur={'bleu'}
+              menu={'smenu'}
+              plein={true}
+            />
+            <Bouton
+              txt={'Types d\'incidents'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'menu'
+              })}
+              couleur={'bleu'}
+              menu={'smenu'}
+              plein={true}
+            />
+          </div>
         </div>
-      </form>
-
-      <button type="button"
-        className='btn btn-link'
-        onClick={() => props.setVarGlob({
-          ...props.varGlob,
-          ecran: 'oubliMdp'
-        })}
-      >identifiant/mot de passe oublié</button>
+      }
     </div>
   );
 }
 
-export default Accueil;
+export default Menu;

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Bandeau from './tools/Bandeau';
-import Accueil from './pages/Accueil'
+import Login from './pages/Login'
 import OubliMdp from './pages/OubliMdp'
 import ChangeMdp from './pages/ChangeMdp'
-import Menu from './pages/Menu'
+import Accueil from './pages/Accueil'
 import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs'
 import GestionPresta from './pages/tables/presta/GestionPresta'
 import GestionEmp from './pages/tables/emplacements/GestionEmp'
@@ -20,7 +20,7 @@ import Test from './Test'
 function App() {
 
   let [varGlob, setVarGlob] = useState({
-    ecran: 'accueil',
+    ecran: 'login',
     nom: '',
     profil: '',
     profilEcran: '',  //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
@@ -44,8 +44,8 @@ function App() {
           setVarGlob={setVarGlob}
         />
         <div>
-          {varGlob.ecran === 'accueil' &&
-            <Accueil
+          {varGlob.ecran === 'login' &&
+            <Login
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />
@@ -63,7 +63,7 @@ function App() {
             />
           }
           {varGlob.ecran === 'menu' &&
-            <Menu
+            <Accueil
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

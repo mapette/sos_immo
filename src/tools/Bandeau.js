@@ -17,7 +17,7 @@ function Bandeau(props) {
         SOS IMMO
       </div>
 
-      {props.varGlob.ecran !== 'accueil' &&
+      {props.varGlob.ecran !== 'login' &&
         <div className='largeur-1000'>
           <div className='gauche ut-titre cadre-15'>
             <span>utilisateur : </span>
@@ -29,7 +29,7 @@ function Bandeau(props) {
           </div>
         </div>
         }
-      {props.varGlob.ecran !== 'accueil' &&
+      {props.varGlob.ecran !== 'login' &&
         <div>
           <div className='bt-exit'>
             <button type="image"
