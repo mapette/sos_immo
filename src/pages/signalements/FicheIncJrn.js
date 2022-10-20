@@ -70,8 +70,8 @@ function FicheIncJrn(props) {
             <tr key={ligne.jrn_id}>
               <td className='largeur-300'>{time.formatDate(ligne.jrn_date)} à {time.formatHeure(ligne.jrn_date)}</td>
               <td className='largeur-1000 gauche'>{ligne.jrn_msg}</td>
-              {props.varGlob.profilEcran !== 'usager' && ligne.jrn_imm === true &&
-                <td width='25px'><input type="checkbox" checked /></td>
+              {props.varGlob.profilEcran !== 'usager' && ligne.jrn_imm == true &&
+               <td width='25px'><input type="checkbox" checked /></td>
               }
             </tr>
           )}

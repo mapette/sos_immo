@@ -10,7 +10,7 @@ function Login(props) {
   let [warning, setWarning] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_accueil', lib.optionsGet())
+    fetch('http://localhost:3001/accueil', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         console.log('response', response.id) // laisser cette ligne sinon ça marche pas !

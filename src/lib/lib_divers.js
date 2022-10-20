@@ -119,12 +119,7 @@ function determineURL(catUrl, data) {
       url = 'http://localhost:3001/affectation/' + data.inc_id
     }
     else {
-      if (data.status === 'enAttente') {
-        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/false'
-      }
-      else {
-        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/true'
-      }
+        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno      
     }
   }
   return url
