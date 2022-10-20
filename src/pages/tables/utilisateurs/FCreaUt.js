@@ -8,7 +8,8 @@ import Alerte from '../../../tools/Alerte'
 const lib = require('../../../lib/lib_divers')
 
 function FCreaUt(props) {
-  let [userNameList, setUserNameList] = useState([])  //passé en props création
+  let [userIdList, setuserIDList] = useState([]) 
+  let [userMailList, setUserMailList] = useState([])  
   let [alertMsg, setAlertMsg] = useState('')
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
@@ -17,19 +18,22 @@ function FCreaUt(props) {
       .then(response => response.json())
       .then(response => {
         console.log('response user list', response) // laisser cette ligne sinon ça marche pas !
-        let userList = [] // var intermédiaire
+        let idList = [] // var intermédiaire
+        let mailList = [] // var intermédiaire
         if (response.length !== 0) {
           response.forEach(element => {
-            userList.push(element['ut_id'])
+            idList.push(element['ut_id'])
+            mailList.push(element['ut_mail'])
           });
-         setUserNameList(userNameList = userList)
+        setuserIDList(userIdList = idList)
+        setUserMailList(userMailList = mailList)
         }
       })
   }, [])
 
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
-    console.log(data)
+    console.log('data',data)
     if (alertMsg === '') {
       fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
         .then(response => response.json())
@@ -50,12 +54,15 @@ function FCreaUt(props) {
       + '%0A%0AVous pouvez dès à présent saisir et suivre vos tickets.'
       + '%0A%0A      L\'équipe SOS Immo.'
   }
-  function contrListBox(ut_id, hab_profil, ut_presta) {
+  function contrListBox(ut_id,ut_mail, hab_profil, ut_presta) {
     console.log('controle',ut_id, hab_profil, ut_presta)
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
-    if (userNameList.includes(ut_id)) { //
+    if (userIdList.includes(ut_id)) {
       setAlertMsg('Username déjà utilisé')
+    }
+    else if (userMailList.includes(ut_mail)) {
+      setAlertMsg('Adresse mail déjà utilisée')
     }
     else if (ut_presta === null && (hab_profil === 2 || hab_profil === 3)) {
       setAlertMsg('Prestataire obligatoire pour ce profil')
@@ -90,6 +97,7 @@ function FCreaUt(props) {
                   onChange={event => {
                     contrListBox(
                       event.target.value,
+                      document.getElementById("ut_mail").value,
                       document.getElementById("hab_profil").value,
                       document.getElementById("ut_presta").value,
                     )
@@ -108,8 +116,16 @@ function FCreaUt(props) {
                 {errors.ut_tel && <p>Numéro de téléphone obligatoire</p>}
               </td>
               <td>
-                <input className='' id='ut_mail' {...register('ut_mail', { required: true })} />
-                {errors.ut_mail && <p>Adresse mail obligatoire</p>}
+                <input id='ut_mail' {...register('ut_mail', { required: true })}
+                  onChange={event => {
+                    contrListBox(
+                      document.getElementById("ut_id").value,
+                      event.target.value,
+                      document.getElementById("hab_profil").value,
+                      document.getElementById("ut_presta").value,
+                    )
+                  }}
+                ></input>
               </td>
             </tr>
           </table>
@@ -125,6 +141,7 @@ function FCreaUt(props) {
                     onChange={event => {
                       contrListBox(
                         document.getElementById("ut_id").value,
+                        document.getElementById("ut_mail").value,
                         event.target.value,
                         document.getElementById("ut_presta").value)
                     }}
@@ -140,6 +157,7 @@ function FCreaUt(props) {
                     onChange={event => {
                       contrListBox(
                         document.getElementById("ut_id").value,
+                        document.getElementById("ut_mail").value,
                         document.getElementById("hab_profil").value,
                         event.target.value,
                       )
