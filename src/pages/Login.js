@@ -3,7 +3,7 @@ import BoutonSubmit from './../tools/BoutonSubmit'
 import Bouton from './../tools/Bouton'
 import Alerte from './../tools/Alerte'
 
-const MD5 = require('sha1')
+const sha1 = require('sha1')
 const lib = require('./../lib/lib_divers')
 
 function Login(props) {
@@ -22,7 +22,7 @@ function Login(props) {
     event.preventDefault()
     let data = {
       ut_id: document.getElementById('id').value,
-      ut_mdp: MD5(document.getElementById('id').value + document.getElementById('mdp').value),
+      ut_mdp: sha1(document.getElementById('id').value + document.getElementById('mdp').value),
     }
     fetch('http://localhost:3001/login', lib.optionsPost(data))
       .then(response => response.json())

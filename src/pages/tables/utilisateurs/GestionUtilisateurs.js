@@ -55,7 +55,7 @@ function GestionUtilisateurs(props) {
       imm: false,
       technicien: false,
       valideur: false,
-      nom : null,
+      nom: null,
       presta: null,
     })
   }
@@ -75,13 +75,13 @@ function GestionUtilisateurs(props) {
       }
     }
   }
-  function filtreRecherches(){
+  function filtreRecherches() {
     setBt({
       ...bt,
       nom: document.getElementById('nomToFind').value.toLowerCase(),
       presta: document.getElementById('prestaToFind').value,
     })
-    
+
   }
   function tri() {
     filtreRecherches()
@@ -94,10 +94,10 @@ function GestionUtilisateurs(props) {
       <h2 className="titre gras cadre-15">
         GESTION UTILISATEURS
       </h2>
-      <div className='mx-auto container bordure arr-img cadre-15 '>
-        <div className='row'>
-          <div className='col-2'>
-            {mode !== 'création' && props.varGlob.focus === '' &&
+      {mode !== 'création' && props.varGlob.focus === '' &&
+        <div className='mx-auto container bordure arr-img cadre-15 '>
+          <div className='row'>
+            <div className='col-2'>
               <Bouton
                 txt={'Init filtres'}
                 actionToDo={() => initFiltre()}
@@ -105,101 +105,103 @@ function GestionUtilisateurs(props) {
                 plein={true}
                 espaceEntreBt={false}
                 particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
-              />}
+              />
+            </div>
+            <div className='col-6 cadre-15'>
+              <div className='row'>
+                <div className='col-4 en-ligne'>
+                  <label htmlFor='nomToFind'>Critère</label>
+                  <input id='nomToFind' className='largeur-110'>
+                  </input>
+                </div>
+                <div className='col-7 en-ligne'>
+                  <label>Prestataire</label>
+                  <select id='prestaToFind' >
+                    <option value=''></option>
+                    {prestaList.map(elem =>
+                      <option
+                        value={elem.presta_id}
+                        key={elem.presta_id}>
+                        {elem.presta_nom} - {elem.presta_libelle}
+                      </option>
+                    )}
+                  </select>
+                </div>
+              </div>
+              <div className='row'>
+                <p></p>
+              </div>
+              <div className='row'>
+                <div className='col-3 en-ligne'>
+                  <Bouton
+                    txt={'actif'}
+                    actionToDo={() => switchBt('actif')
+                    }
+                    couleur={'bleu'}
+                    plein={bt.actif}
+                    espaceEntreBt={false}
+                  />
+                  <Bouton
+                    txt={'inactif'}
+                    actionToDo={() => switchBt('inactif')
+                    }
+                    couleur={'bleu'}
+                    plein={bt.inactif}
+                    espaceEntreBt={false}
+                  />
+                </div>
+                <div className='col-8 en-ligne'>
+                  <Bouton
+                    txt={'usager'}
+                    actionToDo={() => switchBt('usager')
+                    }
+                    couleur={'orange'}
+                    plein={bt.usager}
+                    espaceEntreBt={false}
+                  />
+                  <Bouton
+                    txt={'imm'}
+                    actionToDo={() => switchBt('imm')
+                    }
+                    couleur={'orange'}
+                    plein={bt.imm}
+                    espaceEntreBt={false}
+                  />
+                  <Bouton
+                    txt={'technicien'}
+                    actionToDo={() => switchBt('technicien')
+                    }
+                    couleur={'orange'}
+                    plein={bt.technicien}
+                    espaceEntreBt={false}
+                  />
+                  <Bouton
+                    txt={'valideur'}
+                    actionToDo={() => switchBt('valideur')
+                    }
+                    couleur={'orange'}
+                    plein={bt.valideur}
+                    espaceEntreBt={false}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className='col-2'>
+              <Bouton
+                txt={'Rafraichir la liste'}
+                actionToDo={() => tri()}
+                couleur={'vert'}
+                plein={true}
+                espaceEntreBt={false}
+                particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
+              />
+            </div>
           </div>
-          <div className='col-6 cadre-15'>
-            <div className='row'>
-              <div className='col-4 en-ligne'>
-                <label htmlFor='nomToFind'>Critère</label>
-                <input id='nomToFind' className='largeur-110'>
-                </input>
-              </div>
-              <div className='col-7 en-ligne'>
-                <label>Prestataire</label>
-                <select id='prestaToFind' >
-                  <option value=''></option>
-                  {prestaList.map(elem =>
-                    <option
-                      value={elem.presta_id}
-                      key={elem.presta_id}>
-                      {elem.presta_nom} - {elem.presta_libelle}
-                    </option>
-                  )}
-                </select>
-              </div>
-            </div>
-            <div className='row'>
-              <p></p>
-            </div>
-            <div className='row'>
-              <div className='col-3 en-ligne'>
-                <Bouton
-                  txt={'actif'}
-                  actionToDo={() => switchBt('actif')
-                  }
-                  couleur={'bleu'}
-                  plein={bt.actif}
-                  espaceEntreBt={false}
-                />
-                <Bouton
-                  txt={'inactif'}
-                  actionToDo={() => switchBt('inactif')
-                  }
-                  couleur={'bleu'}
-                  plein={bt.inactif}
-                  espaceEntreBt={false}
-                />
-              </div>
-              <div className='col-8 en-ligne'>
-                <Bouton
-                  txt={'usager'}
-                  actionToDo={() => switchBt('usager')
-                  }
-                  couleur={'orange'}
-                  plein={bt.usager}
-                  espaceEntreBt={false}
-                />
-                <Bouton
-                  txt={'imm'}
-                  actionToDo={() => switchBt('imm')
-                  }
-                  couleur={'orange'}
-                  plein={bt.imm}
-                  espaceEntreBt={false}
-                />
-                <Bouton
-                  txt={'technicien'}
-                  actionToDo={() => switchBt('technicien')
-                  }
-                  couleur={'orange'}
-                  plein={bt.technicien}
-                  espaceEntreBt={false}
-                />
-                <Bouton
-                  txt={'valideur'}
-                  actionToDo={() => switchBt('valideur')
-                  }
-                  couleur={'orange'}
-                  plein={bt.valideur}
-                  espaceEntreBt={false}
-                />
-              </div>
-            </div>
-          </div>
-          {mode !== 'création' && props.varGlob.focus === '' &&
-          <div className='col-2'>
-            <Bouton
-              txt={'Rafraichir la liste'}
-              actionToDo={() => tri()}
-              couleur={'vert'}
-              plein={true}
-              espaceEntreBt={false}
-              particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
-            />
-          </div>}
+          <p />
         </div>
-        <p/>
-      </div>
+     
+      }
+
 
       {mode === 'création' &&
         <FCreaUt
@@ -209,7 +211,7 @@ function GestionUtilisateurs(props) {
           userList={lUser}
         />
       }
-      { mode !== 'création' && props.varGlob.focus !== '' &&
+      {mode !== 'création' && props.varGlob.focus !== '' &&
         <FicheUser
           varGlob={props.varGlob}
           setVarGlob={props.setVarGlob}

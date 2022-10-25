@@ -192,18 +192,11 @@ describe('determineURL', () => {      //catUrl, profil, profilEcran
         correctUrl = 'http://localhost:3001/affectation/' + data.inc_id
         expect(result).toEqual(correctUrl)
     })
-    test(`should return correct url when affectation/profil:xxx/status:enAttente `, () => {
+    test(`should return correct url when affectation/profil:xxx`, () => {
         catUrl = 'affectation',
-        data = { profil: 'xxx', status:'enAttente', inc_id:0, techno:'toto', }
+        data = { profil: 'xxx', inc_id:0, techno:'toto', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/false'
-        expect(result).toEqual(correctUrl)
-    })
-    test(`should return correct url when affectation/profil:xxx/status:enAttente `, () => {
-        catUrl = 'affectation',
-        data = { profil: 'xxx', status:'xxx', inc_id:0, techno:'toto', }
-        result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno + '/true'
+        correctUrl = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno
         expect(result).toEqual(correctUrl)
     })
 })

@@ -55,7 +55,7 @@ function postItDisplay(style, status) {  // ecran uniquement pour detailInc du s
   let totalClass = ''
   if(style === undefined | status === undefined){totalClass = undefined}
   else{
-    if (style === 'techno') { totalClass = 'fiche-commun rubanTechno ' }
+    if (style === 'techno') { totalClass = 'fiche-commun gauche rubanTechno ' }
     else if (style === 'usager') { totalClass = 'fiche-commun postItUsager en-ligne ' }
     totalClass = totalClass + status
   }
