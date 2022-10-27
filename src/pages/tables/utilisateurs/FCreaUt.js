@@ -149,7 +149,7 @@ function FCreaUt(props) {
                     <option value='1' key='1'>usager</option>
                     <option value='2' key='2'>technicien (ut_presta)</option>
                     <option value='3' key='3'>valideur (ut_presta)</option>
-                    <option value='4' key='4'>imm</option>
+                    <option value='4' key='4'>admin</option>
                   </select>
                 </td>
                 <td>

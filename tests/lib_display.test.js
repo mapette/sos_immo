@@ -53,7 +53,7 @@ describe('postItDisplay', () => {
         expect(lib_display.postItDisplay('usager','xxx')).toEqual('fiche-commun postItUsager en-ligne xxx')
     })
     test(`should be 'fiche-commun rubanTechno xxx' when ('techno', 'xxx')`, () => {
-        expect(lib_display.postItDisplay('techno','xxx')).toEqual('fiche-commun rubanTechno xxx')
+        expect(lib_display.postItDisplay('techno','xxx')).toEqual('fiche-commun gauche rubanTechno xxx')
     })
     test(`should be undefined when no parameters`, () => {
         expect(lib_display.postItDisplay()).toBeUndefined

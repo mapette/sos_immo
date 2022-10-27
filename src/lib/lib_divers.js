@@ -46,7 +46,7 @@ function findProfil(hab_profil) {
     profil = 'valideur'
   }
   else if (hab_profil === 4) {
-    profil = 'imm'
+    profil = 'admin'
   }
   return profil
 }
@@ -101,7 +101,7 @@ function statusLibelle(status) {
 // Demandes
 function determineURL(catUrl, data) {
   let url = ''
-  if (catUrl == "demande") {
+  if (catUrl === "demande") {
     if (data.profilEcran === 'usager') {
       url = 'http://localhost:3001/get_incByUser'
     }
@@ -109,12 +109,12 @@ function determineURL(catUrl, data) {
       if (data.profil === 'technicien' | data.profil === 'valideur') {
         url = 'http://localhost:3001/get_incByPresta'
       }
-      else if (data.profil === 'imm') {
+      else if (data.profil === 'admin') {
         url = 'http://localhost:3001/get_inc'
       }
     }
   }
-  if (catUrl == "affectation") {
+  if (catUrl === "affectation") {
     if (data.profil === 'technicien') {
       url = 'http://localhost:3001/affectation/' + data.inc_id
     }
@@ -161,7 +161,7 @@ function determineProfil(respProfil) {
   }
   else if (respProfil === 4) {
     return {
-      profil: 'imm',
+      profil: 'admin',
       ecran: 'gestionUtilisateurs',
     }
   }

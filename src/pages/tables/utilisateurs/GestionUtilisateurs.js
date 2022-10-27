@@ -160,7 +160,7 @@ function GestionUtilisateurs(props) {
                     espaceEntreBt={false}
                   />
                   <Bouton
-                    txt={'imm'}
+                    txt={'admin'}
                     actionToDo={() => switchBt('imm')
                     }
                     couleur={'orange'}
@@ -199,9 +199,7 @@ function GestionUtilisateurs(props) {
           </div>
           <p />
         </div>
-     
       }
-
 
       {mode === 'création' &&
         <FCreaUt

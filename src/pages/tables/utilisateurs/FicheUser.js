@@ -161,7 +161,7 @@ function FicheUser(props) {
                 <option value='1' key='1'>usager</option>
                 <option value='2' key='2'>technicien (presta)</option>
                 <option value='3' key='3'>valideur (presta)</option>
-                <option value='4' key='4'>imm</option>
+                <option value='4' key='4'>admin</option>
               </select>
             </td>
           </tr>

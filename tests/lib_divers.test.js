@@ -64,12 +64,12 @@ describe('findProfil - determineProfil', () => {
         result = lib.determineProfil(profil)
         expect(result).toEqual({ profil: 'valideur', ecran: 'gestionUtilisateurs' })
     })
-    test(`should be imm when profil:4`, () => {
+    test(`should be admin when profil:4`, () => {
         profil = 4
         result = lib.findProfil(profil)
-        expect(result).toEqual('imm')
+        expect(result).toEqual('admin')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'imm', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'admin', ecran: 'gestionUtilisateurs' })
     })
     test(`should be actif when profil else`, () => {
         profil = 'xxx'
@@ -167,20 +167,20 @@ describe('determineURL', () => {      //catUrl, profil, profilEcran
     })
     test(`should return correct url`, () => {
         catUrl = 'demande',
-        data = { profil: 'imm', profilEcran: 'techno', }
+        data = { profil: 'admin', profilEcran: 'techno', }
         result = lib.determineURL(catUrl,data)
         correctUrl = 'http://localhost:3001/get_inc'
         expect(result).toEqual(correctUrl)
     })
-    test(`should return nothing when demande/profil !=imm !=technicien`, () => {
+    test(`should return nothing when demande/profil !=admin !=technicien`, () => {
         catUrl = 'demande',
         data = { profil: 'xxx', profilEcran: 'techno', }
         result = lib.determineURL(catUrl,data)
         expect(result).toBeEmptyDOMElement 
     })
-    test(`should return nothing when demande/profil ok/profilEcran !=imm !=technicien`, () => {
+    test(`should return nothing when demande/profil ok/profilEcran !=admin !=technicien`, () => {
         catUrl = 'demande',
-        data = { profil: 'imm', profilEcran: 'xxx', }
+        data = { profil: 'admin', profilEcran: 'xxx', }
         result = lib.determineURL(catUrl,data)
         expect(result).toBeEmptyDOMElement 
     })

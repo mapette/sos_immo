@@ -15,13 +15,13 @@ function FicheIncStatus(props) {
     setStatus(lib.determineStatus(props.incident.inc_affect_date, props.incident.inc_fin_date, props.incident.inc_cloture_date,))
   }, [props.incident])
 
-  
+ console.log(props.varGlob.profil) 
   return (
     <div>
-      {status == 'enAttente' &&
+      {status === 'enAttente' &&
         <h3>{lib.statusLibelle(status)}</h3>
       }
-      {status == 'enAttente' &&
+      {status === 'enAttente' &&
         props.varGlob.profilEcran !== 'usager' &&
         <FicheIncAffectation
           status={status}
@@ -31,7 +31,7 @@ function FicheIncStatus(props) {
           setIncident={props.setIncident}
         />
       }
-      {status == 'enAttente' &&
+      {status === 'enAttente' &&
         props.varGlob.profilEcran !== 'usager' &&
         props.varGlob.profil !== 'technicien' &&
         <FicheIncAttribution
@@ -43,13 +43,13 @@ function FicheIncStatus(props) {
         />
       }
 
-      {status == 'enCours' &&
+      {status === 'enCours' &&
         <span>
           <h4>{lib.statusLibelle(status)}</h4>
           <h5>le {time.formatDate(props.incident.inc_affect_date)} à {time.formatHeure(props.incident.inc_affect_date)}</h5>
         </span>
       }
-      {status == 'enCours' &&
+      {status === 'enCours' &&
         props.varGlob.profilEcran !== 'usager' &&
         <FicheIncFin
           status={status}
@@ -59,7 +59,7 @@ function FicheIncStatus(props) {
           setIncident={props.setIncident}
         />
       }
-      {status == 'enCours' &&
+      {status === 'enCours' &&
         props.varGlob.profilEcran !== 'usager' &&
         props.varGlob.profil !== 'technicien' &&
         <span>
@@ -79,10 +79,10 @@ function FicheIncStatus(props) {
           />
         </span>
       }
-      {status == 'termine' && <h3>{lib.statusLibelle(status)}</h3>}
-      {status == 'termine' && props.varGlob.profilEcran !== 'usager' &&
+      {status === 'termine' && <h3>{lib.statusLibelle(status)}</h3>}
+      {status === 'termine' && props.varGlob.profilEcran !== 'usager' &&
         <h3>En attente de validation</h3>}
-      {status == 'termine' &&
+      {status === 'termine' &&
         props.varGlob.profilEcran === 'usager' &&
         <FicheIncCloture
           status={status}
@@ -93,7 +93,7 @@ function FicheIncStatus(props) {
           setIncident={props.setIncident}
         />
       }
-      {status == 'clos' &&
+      {status === 'clos' &&
         <h3>{lib.statusLibelle(status)}</h3>
       }
     </div>

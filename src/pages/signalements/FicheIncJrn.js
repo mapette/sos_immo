@@ -62,7 +62,7 @@ function FicheIncJrn(props) {
           <th>date</th>
           <th>message</th>
           {props.varGlob.profilEcran !== 'usager' &&
-            <th>info imm</th>
+            <th>info immo</th>
           }
         </thead>
         <tbody>

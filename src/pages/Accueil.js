@@ -36,7 +36,7 @@ function Menu(props) {
           menu={'menu'}
           plein={true}
         />
-        {props.varGlob.profil === 'imm' &&
+        {props.varGlob.profil === 'admin' &&
           <Bouton
             txt={'Admin'}
             actionToDo={() => setSMenu('tables')}
@@ -45,7 +45,7 @@ function Menu(props) {
             plein={true}
           />
         }
-        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'imm') &&
+        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'admin') &&
           <span>
             <Bouton
               txt={'Suivi des incidents'}
@@ -61,7 +61,7 @@ function Menu(props) {
             />
           </span>
         }
-        {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'imm') &&
+        {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'admin') &&
           <span>
             <Bouton
               txt={'Pilotage'}
@@ -78,7 +78,7 @@ function Menu(props) {
         }
       </div >
       {
-      (props.varGlob.profil === 'imm' && smenu === 'tables') &&
+      (props.varGlob.profil === 'admin' && smenu === 'tables') &&
         <div className=''>
           <p/>
           <div className='en-ligne'>

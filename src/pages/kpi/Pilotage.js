@@ -124,7 +124,7 @@ function Pilotage(props) {
         lInc={lInc}
       />
 
-      {btCloture === true && props.varGlob.profil === 'imm' &&
+      {btCloture === true && props.varGlob.profil === 'admin' &&
         <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"

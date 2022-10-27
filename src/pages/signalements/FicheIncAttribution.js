@@ -10,7 +10,7 @@ function FicheIncAttribution(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    //  => liste des presta (profil imm)
+    //  => liste des presta (profil admin)
     fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
@@ -50,7 +50,7 @@ function FicheIncAttribution(props) {
 
   return (
     <div>
-      {(props.varGlob.profil === 'imm') &&   // normalement inutile - je garde par précausion
+      {(props.varGlob.profil === 'admin') &&   // normalement inutile - je garde par précausion
         <form id="attribution" className='cadre-15'
           type="POST"
           encType="application/x-www-form-urlencoded"
