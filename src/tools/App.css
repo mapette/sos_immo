@@ -42,7 +42,6 @@
 }
 .gras{
   font-weight: bold;
-  color:black;
 }
 
 .decal{
@@ -115,21 +114,17 @@
   margin-right: 5px;
 }
 
-.App-header {
-  background-color: #7f4d80;
-  min-height: 10vh;   
-  display: flex;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .titre{
   color: rgb(44, 102, 209);
   border: 2px solid rgb(44, 102, 209);
   padding: 0px;
   border-radius: 60px;
 }
+
+.noir{
+  color: black;
+}
+
 
 .rouge{
   color: red;
@@ -154,6 +149,15 @@ label{
   }
 
 /* bandeau */
+.App-header {
+  background-color: #7f4d80;
+  min-height: 10vh;   
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
 .ut-titre{
   color: darkkhaki;
 }

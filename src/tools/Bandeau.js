@@ -11,9 +11,9 @@ function Bandeau(props) {
     <header className="App-header">
       <div>
         <img src={logo}
-          width="100" height="100"></img>
+          width="150" height="150"></img>
       </div>
-      <div className="gras cadre-15">
+      <div className="gras noir largeur-400 cadre-15">
         SOS IMMO
       </div>
 
@@ -39,11 +39,11 @@ function Bandeau(props) {
                 ecran: 'changemdp'
               })} >
               <img className='arr-img' src={ic_reset}
-                width="70" height="70" />
+                width="137" height="137" />
             </button>
             <a href='' className='cadre-3'>
               <img className='arr-img' src={ic_logout}
-                width="70" height="70"></img>
+                width="140" height="140" />
             </a>
           </div>
           <div className='bt-exit'>
