@@ -16,7 +16,6 @@ function FicheEmp(props) {
        .then(response => {
         if (response.length !== 0) {
           setTempList(tempList = response)
-          console.log(tempList)
         }
         })
   }, [])
@@ -92,7 +91,7 @@ function FicheEmp(props) {
                       className='largeur-300'>
                       <option value=''> </option>
                       {tempList.map(temp =>
-                        <option
+                        <option       
                           value={temp.temp_id}
                           key={temp.temp_id}>
                           {temp.temp_nom}
@@ -125,7 +124,6 @@ function FicheEmp(props) {
           </form>
         </div>
       }
-
       {props.mode === 'création' &&
         <div className="container mx-auto">
           <form id="form_ut"

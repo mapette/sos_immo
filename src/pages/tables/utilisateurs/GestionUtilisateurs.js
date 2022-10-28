@@ -27,9 +27,9 @@ function GestionUtilisateurs(props) {
     fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-      if (response.length !== 0) {
-        setPrestaList(prestaList = response)
-      }
+        if (response.length !== 0) {
+          setPrestaList(prestaList = response)
+        }
       })
   }, [])
 
@@ -81,7 +81,6 @@ function GestionUtilisateurs(props) {
       nom: document.getElementById('nomToFind').value.toLowerCase(),
       presta: document.getElementById('prestaToFind').value,
     })
-
   }
   function tri() {
     filtreRecherches()
@@ -198,6 +197,29 @@ function GestionUtilisateurs(props) {
             </div>
           </div>
           <p />
+          <div className='gauche decal en-ligne'>
+            {props.varGlob.focus === '' && mode === 'neutre' &&
+              <span>
+                <Bouton
+                  txt={lib.BT_RETOUR_ACCUEIL}
+                  actionToDo={() => props.setVarGlob({
+                    ...props.varGlob,
+                    ecran: 'menu',
+                    focus: '',
+                  })}
+                  couleur={'gris'}
+                  plein={true}
+                />
+                <Bouton
+                  txt={'Nouvel utilisateur'}
+                  actionToDo={() => setMode('création')}
+                  couleur={'vert'}
+                  plein={true}
+                />
+              </span>
+            }
+          </div>
+          <p />
         </div>
       }
 
@@ -218,29 +240,6 @@ function GestionUtilisateurs(props) {
         />
       }
 
-      <div className='gauche decal en-ligne'>
-          { props.varGlob.focus === '' && mode === 'neutre' &&
-            <span>
-              <Bouton
-                txt={lib.BT_RETOUR_ACCUEIL}
-                actionToDo={() => props.setVarGlob({
-                  ...props.varGlob,
-                  ecran: 'menu',
-                  focus: '',
-                })}
-                couleur={'gris'}
-                plein={true}
-              />
-              <Bouton
-                txt={'Nouvel utilisateur'}
-                actionToDo={() => setMode('création')}
-                couleur={'vert'}
-                plein={true}
-              />
-            </span>
-          }
-      </div>
-
       <ListUser
         userList={lUser}
         varGlob={props.varGlob}
@@ -248,7 +247,6 @@ function GestionUtilisateurs(props) {
         prestaList={prestaList}
         setMode={setMode}
       />
-
     </div>
   );
 }

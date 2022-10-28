@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 
 const sha1 = require('sha1')
 
-let msg1 = 'sjoffre' + 'aaa'
-let msg2 = 'blaurent' + 'aaa'
-let msg3 = 'jclair' + 'aaa'
-let msg4 = 'lsala' + 'aaa'
-let msg5 = 'mclean' + 'aaa'
+let msg1 = 'hwilliam' + 'Pepette2021+'
+let msg2 = 'hwilliam' + 'Pepette2022+'
+let msg3 = 'hwilliam' + 'aaa'
+let msg4 = 'mario' + 'Pepette2021+'
+let msg5 = 'mario' + 'Pepette2022+'
 let code = uuidv4()
 
 function Test() {

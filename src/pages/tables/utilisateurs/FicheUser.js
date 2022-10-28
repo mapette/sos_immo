@@ -59,7 +59,6 @@ function FicheUser(props) {
   }
 
   function soumettreResiliation(ut_uuid) {
-    console.log(ut_uuid)
     fetch('http://localhost:3001/delete_user/' + ut_uuid, lib.optionsGet())
       .then(() => {
         props.setMode('neutre')

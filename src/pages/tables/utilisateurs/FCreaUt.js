@@ -17,7 +17,6 @@ function FCreaUt(props) {
     fetch('http://localhost:3001/get_users', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response user list', response) // laisser cette ligne sinon ça marche pas !
         let idList = [] // var intermédiaire
         let mailList = [] // var intermédiaire
         if (response.length !== 0) {
@@ -33,7 +32,6 @@ function FCreaUt(props) {
 
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
-    console.log('data',data)
     if (alertMsg === '') {
       fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
         .then(response => response.json())
@@ -55,7 +53,7 @@ function FCreaUt(props) {
       + '%0A%0A      L\'équipe SOS Immo.'
   }
   function contrListBox(ut_id,ut_mail, hab_profil, ut_presta) {
-    console.log('controle',ut_id, hab_profil, ut_presta)
+   // console.log('controle',ut_id, hab_profil, ut_presta)
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
     if (userIdList.includes(ut_id)) {
@@ -76,7 +74,7 @@ function FCreaUt(props) {
   }
 
   return (
-    <div className="mx-auto">
+    <div className='mx-auto container bordure arr-img cadre-15 '>
      
         <form id="form_ut"
           type="POST"
@@ -189,6 +187,7 @@ function FCreaUt(props) {
               plein={true}
             />
           </div>
+          <p/>
         </form>
       
       {
