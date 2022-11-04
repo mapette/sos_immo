@@ -1,0 +1,10 @@
+name: Tests unitaires Front
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install jest
+      - run: npm run test
+
