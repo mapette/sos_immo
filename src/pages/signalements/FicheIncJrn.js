@@ -38,7 +38,11 @@ function FicheIncJrn(props) {
       else {
         data.jrn_imm = document.getElementById("infoImm").checked
       }
-      fetch('http://localhost:3001/update_comm', lib.optionsPost(data))
+      console.log("props",props)
+      let url
+      if(props.varGlob.profilEcran == "usager"){url = 'http://localhost:3001/update_jrn_usager'}
+      else {url = 'http://localhost:3001/update_jrn_techno'}
+      fetch(url, lib.optionsPost(data))
         .then(response => response.json())  
         .then(response => {
           document.getElementById("comm").value = ''
