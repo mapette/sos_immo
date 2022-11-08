@@ -17,7 +17,6 @@ function GestionUtilisateurs(props) {
     technicien: false,
     valideur: false,
   })
-
   let [mode, setMode] = useState('neutre')
   let ut_liste = new cl_ut.Ut_manager()
   let [lUser, setLUser] = useState([])
@@ -41,7 +40,6 @@ function GestionUtilisateurs(props) {
           response.forEach(element => {
             ut_liste.liste.push(new cl_ut.Utilisateur(element))
           });
-
         }
       })
   }, [, lUser])
@@ -84,6 +82,7 @@ function GestionUtilisateurs(props) {
   }
   function tri() {
     filtreRecherches()
+    console.log('tri',ut_liste.liste)
     ut_liste.gdFiltre(bt)
     setLUser(ut_liste.liste)
   }

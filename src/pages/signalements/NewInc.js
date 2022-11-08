@@ -21,12 +21,12 @@ function NewInc(props) {
     fetch('http://localhost:3001/get_empNewInc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response empl list', response) // laisser cette ligne sinon ça marche pas !
-        prepaListe(response)
+       // console.log('response empl list', response) // laisser cette ligne sinon ça marche pas !
+        prepaListes(response)
       })
   }, [])
 
-  function prepaListe(response) {
+  function prepaListes(response) {
     let etages = []
     let liste_emplacements = []
     let emplacements = []

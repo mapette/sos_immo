@@ -16,7 +16,6 @@ function ListUser(props) {
         props.setMode("selection")
       })
   }
-
   return (
     <div className="mx-auto container no-gutter">
       <table className="cadre-15 width-90p">
