@@ -6,7 +6,7 @@ import BoutonSubmit from '../../../tools/BoutonSubmit'
 
 const lib = require('../../../lib/lib_divers')
 
-function FicheTemp(props) {
+function FicheEmp(props) {
   let [tempList, setTempList] = useState([])
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
@@ -191,4 +191,4 @@ function FicheTemp(props) {
   );
 }
 
-export default FicheTemp;
+export default FicheEmp;
