@@ -38,7 +38,6 @@ function FicheIncJrn(props) {
       else {
         data.jrn_imm = document.getElementById("infoImm").checked
       }
-      console.log("props",props)
       let url
       if(props.varGlob.profilEcran == "usager"){url = 'http://localhost:3001/update_jrn_usager'}
       else {url = 'http://localhost:3001/update_jrn_techno'}
