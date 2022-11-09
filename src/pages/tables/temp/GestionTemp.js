@@ -7,21 +7,21 @@ import FicheTemp from './FicheTemp';
 const lib = require('../../../lib/lib_divers')
 
 function GestionEmp(props) {
-  let [empList, setEmpList] = useState([])
+  let [tempList, setTempList] = useState([])
   let [mode, setMode] = useState('neutre')
-  
+
   useEffect(() => {
-    fetch('http://localhost:3001/get_emp', lib.optionsGet())
-       .then(response => response.json())
-       .then(response => {
-         if (response.length !== 0) { setEmpList(empList = response) }
-        })
-  }, [,mode,props.varGlob.focus])
+    fetch('http://localhost:3001/get_temp', lib.optionsGet())
+      .then(response => response.json())
+      .then(response => {
+        if (response.length !== 0) { setTempList(tempList = response) }
+      })
+  }, [, mode, props.varGlob.focus])
 
   return (
     <div className="">
       <h2 className="titre gras cadre-15">
-        GESTION EMPLACEMENTS / LIEUX
+        GESTION TYPES D'EMPLACEMENTS
       </h2>
       <div className='decal mx-auto'>
         <div className='en-ligne'>
@@ -37,7 +37,7 @@ function GestionEmp(props) {
                 plein={true}
               />
               <Bouton
-                txt={'Nouvel emplacement'}
+                txt={'Nouveau type d\'emplacement'}
                 actionToDo={() => setMode('création')}
                 couleur={'vert'}
                 plein={true}
@@ -46,21 +46,29 @@ function GestionEmp(props) {
           }
         </div>
       </div>
-      {mode !== 'neutre' &&
-        <FicheTemp
-          mode={mode}
-          setMode={setMode}
-          varGlob={props.varGlob}
-          setVarGlob={props.setVarGlob}
-        />
-      }
-      <ListTemp
-        empList={empList}
-        mode={mode}
-        setMode={setMode}
-        varGlob={props.varGlob}
-        setVarGlob={props.setVarGlob}
-      />
+      <div className='container'>
+        <div className='row'>
+          <div className='col-6'>
+            <ListTemp
+              tempList={tempList}
+              mode={mode}
+              setMode={setMode}
+              varGlob={props.varGlob}
+              setVarGlob={props.setVarGlob}
+            />
+          </div>
+          <div className='col-6'>
+            {mode !== 'neutre' &&
+              <FicheTemp
+                mode={mode}
+                setMode={setMode}
+                varGlob={props.varGlob}
+                setVarGlob={props.setVarGlob}
+              />
+            }
+          </div>
+        </div>
+      </div>
 
     </div>
   );

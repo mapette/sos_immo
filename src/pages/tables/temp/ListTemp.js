@@ -6,9 +6,9 @@ function ListTemp(props) {
 
   function showDetails(id) {
     if (props.mode !== 'création') {
-      fetch('http://localhost:3001/get_emp/' + id, lib.optionsGet())
-        .then(response => response.json())
-        .then(response => {
+      fetch('http://localhost:3001/get_temp/' + id, lib.optionsGet())
+      .then(response => response.json())  
+      .then(response => {
           props.setVarGlob({
             ...props.varGlob,
             focus: response
@@ -17,23 +17,19 @@ function ListTemp(props) {
         })
     }
   }
-  //console.log(props)
+
   return (
     <div className="container mx-auto">
       <table className="cadre-15 ">
         <thead>
           <th className='largeur-50'>id</th>
-          <th className='largeur-50'>étage</th>
-          <th className='largeur-200 gauche'>nom</th>
           <th className='largeur-200 gauche'>type</th>
         </thead>
         <tbody>
-          {props.empList.map(emp =>
-            <tr key={emp.emp_id} onClick={() => showDetails(emp.emp_id)}>
-              <td className=''>{emp.emp_id}</td>
-              <td className=''>{emp.emp_etage}</td>
-              <td className='gauche'>{emp.emp_nom}</td>
-              <td className='gauche'>{emp.temp_nom}</td>
+          {props.tempList.map(temp =>
+            <tr key={temp.temp_id} onClick={() => showDetails(temp.temp_id)}>
+              <td className=''>{temp.temp_id}</td>
+              <td className='gauche'>{temp.temp_nom}</td>
             </tr>
           )}
         </tbody>
