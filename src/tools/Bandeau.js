@@ -39,14 +39,12 @@ function Bandeau(props) {
                 ecran: 'changemdp'
               })} >
               <img className='arr-img' src={ic_reset}
-                width="137" height="137" />
+                width="127" height="127" />
             </button>
             <a href='' className='cadre-3'>
               <img className='arr-img' src={ic_logout}
-                width="140" height="140" />
+                width="130" height="130" />
             </a>
-          </div>
-          <div className='bt-exit'>
           </div>
         </div>
       }

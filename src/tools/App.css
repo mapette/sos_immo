@@ -16,9 +16,8 @@
 .bt-exit
 {
   float :right;
-  margin-left: 500px; /*ça va dépendre de la taille de l'écran*/
+/*  margin-left: 500px; /*ça va dépendre de la taille de l'écran*/
   }
-
 .arr-img{
   border-radius: 16px;
  }
