@@ -1,16 +1,12 @@
-20220606
-téléchargement nodejs
+# SOS_IMMO Front End
+20220606 téléchargement nodejs
 cmd : node -v : v16.14.0
 
-
+### Librairies à installer : 
 npm install --save 
 * create-react-app
-* express 
-* session-express
-* cors
-* react
-* mysql
-* react-select      RETIRE
+* jest
 
-* jest // nmp i -D jest
-
+### lancement : npm start
+* ligne de commande : npm start
+* navigateur : localhost:3000
