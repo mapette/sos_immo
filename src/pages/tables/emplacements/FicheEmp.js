@@ -19,7 +19,7 @@ function FicheEmp(props) {
         }
         })
   }, [])
-
+//console.log('focus', props.varGlob.focus)
   useEffect(() => {
     if (props.mode === 'sélection') {
       document.getElementById('emp_etage').value = props.varGlob.focus.emp_etage
@@ -34,7 +34,7 @@ function FicheEmp(props) {
     // récup temp list
   }, [props.varGlob.focus])
 
-  function soumettre_updatePresta(data) {
+  function soumettre_updateEmp(data) {
     if (data.emp_etage === '') { data.emp_etage = props.varGlob.focus.emp_etage }
     if (data.emp_nom === '') { data.emp_nom = props.varGlob.focus.emp_nom }
     if (data.emp_temp === '') { data.emp_temp = props.varGlob.focus.emp_temp }
@@ -50,7 +50,7 @@ function FicheEmp(props) {
       })
   }
 
-  function soumettre_newPresta(data) {
+  function soumettre_newEmp(data) {
     fetch('http://localhost:3001/crea_emp', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
@@ -68,7 +68,7 @@ function FicheEmp(props) {
           <form id="form_ut"
             type="POST"
             encType="application/x-www-form-urlencoded"
-            onSubmit={handleSubmit(soumettre_updatePresta)}
+            onSubmit={handleSubmit(soumettre_updateEmp)}
           >
             <table className="cadre-15">
             <thead>
@@ -129,7 +129,7 @@ function FicheEmp(props) {
           <form id="form_ut"
             type="POST"
             encType="application/x-www-form-urlencoded"
-            onSubmit={handleSubmit(soumettre_newPresta)}
+            onSubmit={handleSubmit(soumettre_newEmp)}
           >
             <table className="cadre-15">
               <thead>
