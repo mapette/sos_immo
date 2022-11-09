@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import BoutonSubmit from './../tools/BoutonSubmit'
-import Bouton from './../tools/Bouton'
 import Alerte from './../tools/Alerte'
 
 const sha1 = require('sha1')
 const lib = require('./../lib/lib_divers')
+const lib_time = require('./../lib/lib_time')
 
 function Login(props) {
   let [warning, setWarning] = useState(false)
@@ -13,10 +13,14 @@ function Login(props) {
     fetch('http://localhost:3001/accueil', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
-        document.getElementById('id').value = response.id
+         document.getElementById('id').value = response.id
       })
   }, [])
+
+  function controleExpMdp(dateExp) {
+    if (lib_time.isDateExp(dateExp)) { return 'changemdp' }
+    else { return 'menu' }
+  }
 
   function soumettreLogin(event) {
     event.preventDefault()
@@ -27,14 +31,15 @@ function Login(props) {
     fetch('http://localhost:3001/login', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
-          let profil = lib.determineProfil(response.hab_profil)
-          props.setVarGlob({
-            ...props.varGlob,
-            nom: response.ut_prenom + ' ' + response.ut_nom,
-            profil: profil.profil,
-            ecran: 'menu',
-          })
+        let profil = lib.determineProfil(response.hab_profil)
+        props.setVarGlob({
+          ...props.varGlob,
+          nom: response.ut_prenom + ' ' + response.ut_nom,
+          profil: profil.profil,
+          expMdp: lib_time.isDateExp(response.ut_mdp_exp),
+          ecran: controleExpMdp(response.ut_mdp_exp)
         })
+      })
       .catch(setWarning(true))
   }
 

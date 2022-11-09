@@ -34,12 +34,14 @@ function ChangeMdp(props) {
       .then(response => response.json())
       .then(response => {
         console.log('status', response.status) // laisser cette ligne sinon ça marche pas !
-        if (response.status === true) {
-          setWarning('ok')
+        if (response.status === true) { 
+          setWarning('ok') 
+          props.setVarGlob({
+            ...props.varGlob,
+            expMdp: false,
+          })
         }
-        else {
-          setWarning('erreur')
-        }
+        else { setWarning('erreur') }
       })
   }
 
@@ -80,12 +82,13 @@ function ChangeMdp(props) {
       setContNewMdp2(false)
     }
   }
-
+  console.log('toto',props.varGlob)
   return (
     <div className="">
       <h2 className="titre gras cadre-15" >
         Modification du mot de passe
       </h2>
+      <p className='cadre-35'/>
       {warning !== 'ok' &&
         <div className="">
           <form id="form_id"
@@ -157,33 +160,27 @@ function ChangeMdp(props) {
               niveau={'alerteSimple'}
             />
           }
-          <button type="button"
-            className='btn btn-link'
-            onClick={() => props.setVarGlob({
-              ...props.varGlob,
-              ecran: 'oubliMdp'
-            })}
-          >mot de passe oublié</button>
         </div >
       }
+
       {warning === 'ok' &&
         <Alerte
           msg={'Le mot de passe a été modifié.'}
           niveau={'alerteSimple'}
         />
       }
-
-      <div className='cadre-15'>
-        <Bouton
-          txt={lib.BT_RETOUR_ACCUEIL}
-          actionToDo={() => props.setVarGlob({
-            ...props.varGlob,
-            ecran: 'menu'
-          })}
-          couleur={'gris'}
-          plein={true}
-        />
-      </div>
+      {!props.varGlob.expMdp &&
+        <div className='cadre-35'>
+          <Bouton
+            txt={lib.BT_RETOUR_ACCUEIL}
+            actionToDo={() => props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'menu'
+            })}
+            couleur={'gris'}
+            plein={true}
+          />
+        </div>}
     </div >
   );
 }

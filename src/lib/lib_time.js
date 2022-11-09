@@ -66,7 +66,6 @@ function displayDatePilotage(date) {
 
 function calculTempsRestant(dateSignal, dateFin) {
   // si fin == null : now - signal 
-  const DELAIS = 86400000 // 24 heures en millisecondes
   let tmp = null
   let date = new Date()
   let signal = new Date(dateSignal)
@@ -98,6 +97,11 @@ function tempsRestant(dateSignal, dateFin) {
   return msgRetour
 }
 
+function isDateExp(dateExp) {
+  if (new Date(dateExp) < new Date()) { return true }
+  else { return false }
+}
+
 function addDaysToDate(date, days) {
   return date.setDate(date.getDate() + days);
 }
@@ -105,6 +109,8 @@ function addHoursToDate(date, hours) {
   return date.setHours(date.getHours() + hours);
 }
 
+const DELAIS = 86400000 // 24 heures en millisecondes
+ 
 module.exports = {
   formatDate,
   formatHeure,
@@ -114,4 +120,5 @@ module.exports = {
   tempsRestant,
   addDaysToDate,
   addHoursToDate,
+  isDateExp,
 }

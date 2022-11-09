@@ -128,7 +128,7 @@ function GestionUtilisateurs(props) {
                 </div>
               </div>
               <div className='row'>
-                <p></p>
+                <p />
               </div>
               <div className='row'>
                 <div className='col-3 en-ligne'>
