@@ -82,13 +82,26 @@ function ChangeMdp(props) {
       setContNewMdp2(false)
     }
   }
-  console.log('toto',props.varGlob)
+
   return (
     <div className="">
       <h2 className="titre gras cadre-15" >
         Modification du mot de passe
       </h2>
-      <p className='cadre-35'/>
+      <p className='cadre-35' />
+      {props.varGlob.expMdp &&
+        <p>
+          <Alerte
+            msg={'Mot de passe expiré'}
+            niveau={'alerteRouge'}
+          />
+          <Alerte
+            msg={'Merci de le renouveler'}
+            niveau={'alerteSimple'}
+          />
+        </p>
+      }
+      <p className='cadre-35' />
       {warning !== 'ok' &&
         <div className="">
           <form id="form_id"
