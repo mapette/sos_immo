@@ -11,7 +11,7 @@ import GestionPresta from './pages/tables/presta/GestionPresta'
 import GestionEmp from './pages/tables/emplacements/GestionEmp'
 import GestionTemp from './pages/tables/temp/GestionTemp'
 import NewInc from './pages/signalements/NewInc'
-import Demandes from './pages/signalements/Demandes'
+import MyInc from './pages/signalements/MyInc'
 import FicheInc from './pages/signalements/FicheInc'
 import Pilotage from './pages/kpi/Pilotage'
 
@@ -102,7 +102,7 @@ function App() {
             />
           }
           {varGlob.ecran === 'demandes' &&
-            <Demandes
+            <MyInc
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

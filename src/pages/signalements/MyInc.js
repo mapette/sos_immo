@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import Button from './../../tools/Button'
+import Button from '../../tools/Button'
 import PostItInc from './PostItInc'
 
-const lib = require('./../../lib/lib_divers')
-const display = require('./../../lib/lib_display')
+const lib = require('../../lib/lib_divers')
+const display = require('../../lib/lib_display')
 
-function Demandes(props) {
+function MyInc(props) {
   let [lInc, setLInc] = useState([])
 
   useEffect(() => {
@@ -104,7 +104,7 @@ function Demandes(props) {
   );
 }
 
-export default Demandes;
+export default MyInc;
 
 /*        
 
