@@ -77,21 +77,29 @@ function calculTempsRestant(dateSignal, dateFin) {
 
 function tempsRestant(dateSignal, dateFin) {
   let diff = {}
+  let min; let hour
   let msgRetour = 'terminé'
   let tmp = calculTempsRestant(dateSignal, dateFin)
   if (tmp != null) {
     tmp = Math.floor(tmp / 1000);             // Nombre de secondes entre les 2 dates
     diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+
     tmp = Math.floor((tmp - diff.sec) / 60);    // Nombre de minutes (partie entière)
     diff.min = tmp % 60;                    // Extraction du nombre de minutes
+    if (Math.abs(diff.min) < 10) { min = '0' + Math.abs(diff.min).toString()} 
+    else min = Math.abs(diff.min)
+
     tmp = Math.floor((tmp - diff.min) / 60);    // Nombre d'heures (entières)
     diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+    if (Math.abs(diff.hour) < 10) { hour = '0' + Math.abs(diff.hour).toString()} 
+    else hour = Math.abs(diff.hour)
+
     tmp = Math.floor((tmp - diff.hour) / 24);   // Nombre de jours restants
     diff.day = tmp;
     if (diff.sec < 0 | diff.min < 0 | diff.hours < 0) {
-      msgRetour = 'passé de ' + -diff.day + ' jours ' + -diff.hour + 'H ' + -diff.min
+      msgRetour = 'passé de ' + -diff.day + ' jours ' + hour + 'H ' + min
     } else {
-      msgRetour = diff.hour + 'H ' + diff.min
+      msgRetour = hour + 'H ' + diff.min
     }
   }
   return msgRetour

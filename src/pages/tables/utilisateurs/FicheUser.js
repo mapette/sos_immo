@@ -91,30 +91,26 @@ function FicheUser(props) {
         encType="application/x-www-form-urlencoded"
         onSubmit={handleSubmit(soumettreUpdateUser)}
       >
+        {/* données figées */}
         <table className='cadre-15 mx-auto'>
           <thead>
             <th className='largeur-110'>identifiant</th>
             <th className='largeur-110'>entrée</th>
-            <th className='largeur-110'>opérateur</th>
             <th className='largeur-110'>sortie</th>
-            <th className='largeur-110'>opérateur</th>
           </thead>
           <tr>
             <td className='gras rouge'>{props.varGlob.focus.ut_id}</td>
             <td>{time.formatDate(props.varGlob.focus.ut_date_deb)} </td>
-            <td>{props.varGlob.focus.ut_admin_deb} </td>
             <td>{time.formatDate(props.varGlob.focus.ut_date_exp)} </td>
-            <td>{props.varGlob.focus.ut_admin_exp} </td>
           </tr>
         </table>
+        {/* données utilisateur */}
         <table className='cadre-15 mx-auto'>
           <thead>
             <th className='gauche largeur-110'>nom</th>
             <th className='gauche largeur-110'>prénom</th>
             <th className='gauche largeur-110'>téléphone</th>
             <th className='gauche largeur-200'>email</th>
-            <th className=' largeur-300'>employeur</th>
-            <th className='gauche largeur-110'>profil actuel</th>
           </thead>
           <tr>
             <td>
@@ -128,6 +124,15 @@ function FicheUser(props) {
             <td>
               <input className='input-sans-bordure' id='ut_mail' {...register('ut_mail',)} />
             </td>
+          </tr>
+        </table>
+        {/* profil utilisateur */}
+        <table className='cadre-15 mx-auto'>
+          <thead>
+            <th className=' largeur-300'>employeur</th>
+            <th className='la rgeur-110'>profil actuel</th>
+          </thead>
+          <tr>
             <td>
               <select id='ut_presta' {...register('ut_presta')}
                 onChange={event => {
@@ -172,20 +177,21 @@ function FicheUser(props) {
               niveau={'alerteRouge'}
             />
           }
- <table className='mx-auto cadre-15'>
-        <thead>
-          <th className='largeur-110'>profil</th>
-          <th className='largeur-200'>début</th>
-          <th className='largeur-200'>fin</th>
-        </thead>
-        {habList.map(hab =>
-          <tr key={hab.hab_uuid}>
-            <td> {lib.findProfil(hab.hab_profil)}</td>
-            <td> {time.formatDate(hab.hab_date_deb)} </td>
-            <td> {time.formatDate(hab.hab_date_exp)} </td>
-          </tr>
-        )}
-      </table>
+          {/* historique habilitations */}
+          <table className='mx-auto cadre-15'>
+            <thead>
+              <th className='largeur-110'>profil</th>
+              <th className='largeur-200'>début</th>
+              <th className='largeur-200'>fin</th>
+            </thead>
+            {habList.map(hab =>
+              <tr key={hab.hab_uuid}>
+                <td> {lib.findProfil(hab.hab_profil)}</td>
+                <td> {time.formatDate(hab.hab_date_deb)} </td>
+                <td> {time.formatDate(hab.hab_date_exp)} </td>
+              </tr>
+            )}
+          </table>
 
           <div className='cadre-15 en-ligne'>
             <Bouton
