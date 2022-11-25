@@ -16,11 +16,9 @@ function Demandes(props) {
       profil: props.varGlob.profil,
     }
     let url_fetch = lib.determineURL("demande", data)
-   // console.log('url', url_fetch)
     fetch(url_fetch, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response liste incidents', response) // laisser cette ligne sinon ça marche pas !
         setLInc(response)
       })
   }, [])

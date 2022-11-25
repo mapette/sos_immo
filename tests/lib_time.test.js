@@ -68,7 +68,6 @@ describe('tempsRestant/calculTempsRestant/addDaysToDate', () => {
     })
     test(`shoud terminé when dateSignal less than 24 hours`, () => {
         dateSignal = new Date((lib.addHoursToDate(new Date(), -5)))
-        console.log(dateSignal)
         expect(lib.tempsRestant(dateSignal,null)).toContain('18H 59')   // 24 - 5 => 19
     })
 })

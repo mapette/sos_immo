@@ -31,24 +31,18 @@ function Pilotage(props) {
     fetch('http://localhost:3001/clotureInc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        //   console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !
         inc_liste.clotureAutomatique(response)
         setLInc(inc_liste.liste)
-        console.log(lInc)
         filterFermesNonClotures()
-        // setTypeListe('Fermés non clôturés')
-        // setBtCloture(false)
       })
   }
 
   function tousIncidents() {
-    //   inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     setLInc(inc_liste.liste)
     setTypeListe('tous les incidents')
     setBtCloture(false)
   }
   function filterEnAttente() {
-    //  inc_liste.liste = cl.Inc_manager.cloneListe(inc_liste_originale.liste)
     inc_liste.filterEnAttente()
     setLInc(inc_liste.liste)
     setTypeListe(`incidents en attente d'affection`)

@@ -8,11 +8,9 @@ const time = require('../../lib/lib_time')
 function FicheIncFin(props) {
    function SoumettreFinIntervention(event) {
     event.preventDefault()
-         console.log('focus ', props.varGlob.focus)
       fetch('http://localhost:3001/finIntervention/' + props.varGlob.focus , lib.optionsGet())
         .then(response => response.json())
         .then(response => {
-          console.log('response prestataire', response) // laisser cette ligne sinon ça marche pas !
           props.setIncident({
             ...props.incident,
             inc_fin_date: time.initDate(),

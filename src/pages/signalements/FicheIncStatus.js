@@ -15,7 +15,6 @@ function FicheIncStatus(props) {
     setStatus(lib.determineStatus(props.incident.inc_affect_date, props.incident.inc_fin_date, props.incident.inc_cloture_date,))
   }, [props.incident])
 
- console.log(props.varGlob.profil) 
   return (
     <div>
       {status === 'enAttente' &&

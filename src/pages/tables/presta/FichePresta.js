@@ -24,7 +24,6 @@ function FichePresta(props) {
     data.presta_id = props.varGlob.focus.presta_id
     if (data.presta_nom === '') { data.presta_nom = props.varGlob.focus.presta_nom }
     if (data.presta_libelle === '') { data.presta_nom = props.varGlob.focus.presta_libelle }
-    console.log('data', data)
     fetch('http://localhost:3001/update_presta', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')

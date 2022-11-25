@@ -5,7 +5,7 @@ import Bandeau from './tools/Bandeau';
 import Login from './pages/Login'
 import OubliMdp from './pages/OubliMdp'
 import ChangeMdp from './pages/ChangeMdp'
-import Accueil from './pages/Accueil'
+import Menu from './pages/Menu'
 import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs'
 import GestionPresta from './pages/tables/presta/GestionPresta'
 import GestionEmp from './pages/tables/emplacements/GestionEmp'
@@ -22,6 +22,7 @@ function App() {
 
   let [varGlob, setVarGlob] = useState({
     ecran: 'login',
+    smenu: '',
     nom: '',
     profil: '',
     profilEcran: '',  //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
@@ -65,7 +66,7 @@ function App() {
             />
           }
           {varGlob.ecran === 'menu' &&
-            <Accueil
+            <Menu
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

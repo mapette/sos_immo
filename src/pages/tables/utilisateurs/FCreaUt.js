@@ -53,7 +53,6 @@ function FCreaUt(props) {
       + '%0A%0A      L\'équipe SOS Immo.'
   }
   function contrListBox(ut_id,ut_mail, hab_profil, ut_presta) {
-   // console.log('controle',ut_id, hab_profil, ut_presta)
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
     if (userIdList.includes(ut_id)) {

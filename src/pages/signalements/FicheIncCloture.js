@@ -15,8 +15,7 @@ function FicheIncFin(props) {
     data.inc_id = props.incident.inc_id
     fetch('http://localhost:3001/clotureInc', lib.optionsPost(data))
       .then(response => response.json())
-      .then(response => {
-        console.log('response', response)
+      .then(() => {
         props.setVarGlob({
           ...props.varGlob,
           ecran: 'demandes',
@@ -29,8 +28,7 @@ function FicheIncFin(props) {
     event.preventDefault()
     fetch('http://localhost:3001/clotureInc/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())
-      .then(response => {
-        console.log('response clôture', response) // laisser cette ligne sinon ça marche pas !
+      .then(() => {
         props.setIncident({
           ...props.incident,
           inc_cloture_date: time.initDate(),

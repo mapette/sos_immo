@@ -4,11 +4,6 @@ import Bouton from './../tools/Bouton'
 
 
 function Menu(props) {
-  let [smenu, setSMenu] = useState('aucun')
-
-  useEffect(() => {
-    setSMenu('aucun')
-  }, [])
 
   return (
     <div>
@@ -18,7 +13,8 @@ function Menu(props) {
           txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'newInc'
+            ecran: 'newInc',
+            smenu:'',
           })}
           couleur={'vert'}
           menu={'menu'}
@@ -30,7 +26,7 @@ function Menu(props) {
             ...props.varGlob,
             profilEcran: 'usager',
             ecran: 'demandes',
-
+            smenu:'',
           })}
           couleur={'vert'}
           menu={'menu'}
@@ -39,7 +35,10 @@ function Menu(props) {
         {props.varGlob.profil === 'admin' &&
           <Bouton
             txt={'Admin'}
-            actionToDo={() => setSMenu('tables')}
+            actionToDo={() => props.setVarGlob({
+              ...props.varGlob,
+              smenu:'tables',
+            })}
             couleur={'bleu'}
             menu={'menu'}
             plein={true}
@@ -53,7 +52,7 @@ function Menu(props) {
                 ...props.varGlob,
                 profilEcran: 'techno',
                 ecran: 'demandes',
-
+                smenu:'',
               })}
               couleur={'orange'}
               menu={'menu'}
@@ -68,6 +67,7 @@ function Menu(props) {
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'pilot',
+                smenu:'',
                 profilEcran: 'pilotage',
               })}
               couleur={'rouge'}
@@ -78,7 +78,7 @@ function Menu(props) {
         }
       </div >
       {
-      (props.varGlob.profil === 'admin' && smenu === 'tables') &&
+      (props.varGlob.profil === 'admin' && props.varGlob.smenu === 'tables') &&
         <div className=''>
           <p/>
           <div className='en-ligne'>
@@ -86,7 +86,7 @@ function Menu(props) {
               txt={'Utilisateurs'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'gestionUtilisateurs'
+                ecran: 'gestionUtilisateurs',
               })}
               couleur={'orange'}
               menu={'smenu'}

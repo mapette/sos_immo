@@ -19,7 +19,6 @@ function ChangeMdp(props) {
     fetch('http://localhost:3001/get_userBySession', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response', response.id) // laisser cette ligne sinon ça marche pas !
         setUser(response.id)  // besoin du user pour hasher le mdp avant post
       })
   }, [])
@@ -33,7 +32,6 @@ function ChangeMdp(props) {
     fetch('http://localhost:3001/change_mdp', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
-        console.log('status', response.status) // laisser cette ligne sinon ça marche pas !
         if (response.status === true) { 
           setWarning('ok') 
           props.setVarGlob({

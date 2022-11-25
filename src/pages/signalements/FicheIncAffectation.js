@@ -13,7 +13,6 @@ function FicheIncAffectation(props) {
   useEffect(() => {
     // pour affectation 'forcée' (suivi des incidents)
     //  => liste des techniciens (profil valideur et admin) // presta_id : presta en charge du type d'incident
-    console.log('profils',props.varGlob.profilEcran, ' ',props.varGlob.profil)
     if (props.incident.presta_id != undefined) {
       if ((props.varGlob.profilEcran === 'techno') | (props.varGlob.profilEcran === 'pilotage')
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'admin')) {
@@ -22,7 +21,6 @@ function FicheIncAffectation(props) {
           .then(response => response.json())  // récupère que les données résultat
           .then(response => {
             setLTechno(lTechno = response)
-            console.log('response liste techniciens', response) // laisser cette ligne sinon ça marche pas !
             // ajouter le technicien au props.incident - si <> enAttente (pour l'affichage)
             if (props.status !== 'enAttente' & props.incident.inc_affect_id === undefined) {
               lTechno.forEach(element => {
@@ -46,7 +44,6 @@ function FicheIncAffectation(props) {
     data.profil = props.varGlob.profil
     data.status = props.status
     if (IsAffectationPossible(data.techno)) { 
-     // console.log(lib.determineURL('affectation', data))
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
         .then(() => {

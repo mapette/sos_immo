@@ -19,7 +19,7 @@ function FicheEmp(props) {
         }
         })
   }, [])
-//console.log('focus', props.varGlob.focus)
+
   useEffect(() => {
     if (props.mode === 'sélection') {
       document.getElementById('emp_etage').value = props.varGlob.focus.emp_etage

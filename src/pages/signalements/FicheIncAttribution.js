@@ -14,7 +14,6 @@ function FicheIncAttribution(props) {
     fetch('http://localhost:3001/get_presta', lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
-        console.log('response liste presta', response) // laisser cette ligne sinon ça marche pas !
         setLPresta(response)
       })
   }, [props.incident])
@@ -24,8 +23,7 @@ function FicheIncAttribution(props) {
       fetch('http://localhost:3001/attribution/'
         + props.varGlob.focus + '/' + data.presta, lib.optionsGet())
         .then(response => response.json())
-        .then(response => {
-          console.log('response prestataire', response) // laisser cette ligne sinon ça marche pas !
+        .then(() => {
           lPresta.forEach(element => {
             if (element.presta_id === parseInt(data.presta)) {
               props.setIncident({

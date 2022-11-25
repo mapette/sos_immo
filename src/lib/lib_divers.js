@@ -173,7 +173,7 @@ function determineProfil(respProfil) {
   }
 }
 
-const BT_RETOUR_ACCUEIL = 'Retour à l\'accueil'
+const BT_RETOUR_ACCUEIL = 'Retour au menu'
 const BT_RETOUR_LISTE = 'Retour à la liste'
 
 module.exports = {

@@ -31,16 +31,13 @@ function FicheInc(props) {
   }
 
   useEffect(() => {
-    console.log('focus', props.varGlob.focus)
     fetch('http://localhost:3001/get_inc_details/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
-        console.log('*****',response)
         copieElemVersIncident(response)
       })
   }, [])
 
-  console.log('props.varGlob détails', props.varGlob)
   return (
     <div>
       <h2 className="titre gras cadre-15">

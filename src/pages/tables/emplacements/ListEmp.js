@@ -17,7 +17,7 @@ function ListEmp(props) {
         })
     }
   }
-  //console.log(props)
+
   return (
     <div className="container mx-auto">
       <table className="cadre-15 ">

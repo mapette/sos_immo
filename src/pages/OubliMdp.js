@@ -24,7 +24,6 @@ function OubliMdp(props) {
       .then(response => {
         if (response.result === 'erreur') { setWarning('erreur') }
         else { 
-          console.log(response.result)
           if (type==='id'){setWarning('ok id')}
           else {
             // mail à faire

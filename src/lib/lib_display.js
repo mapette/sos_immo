@@ -45,7 +45,6 @@ function boutonDisplay(couleur, menu, plein, particularite) {
     let classBt = ' btn'    
     totalClass = classBt + ' ' + classBt + outline + classCouleur + classMenu
   }
- // console.log(totalClass)
   return totalClass
 }
 

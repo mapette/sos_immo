@@ -9,7 +9,6 @@ function ListPresta(props) {
       fetch('http://localhost:3001/get_presta/' + id, lib.optionsGet())
         .then(response => response.json())
         .then(response => {
-          console.log('response', response)
           props.setVarGlob({
             ...props.varGlob,
             focus: response
