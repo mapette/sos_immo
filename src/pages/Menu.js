@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../tools/App.css';
-import Bouton from './../tools/Bouton'
+import Button from './../tools/Button'
 
 
 function Menu(props) {
@@ -9,7 +9,7 @@ function Menu(props) {
     <div>
       <p/>
       <div className='en-ligne'>
-        <Bouton
+        <Button
           txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
@@ -20,7 +20,7 @@ function Menu(props) {
           menu={'menu'}
           plein={true}
         />
-        <Bouton
+        <Button
           txt={'Mes demandes'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
@@ -33,7 +33,7 @@ function Menu(props) {
           plein={true}
         />
         {props.varGlob.profil === 'admin' &&
-          <Bouton
+          <Button
             txt={'Admin'}
             actionToDo={() => props.setVarGlob({
               ...props.varGlob,
@@ -46,7 +46,7 @@ function Menu(props) {
         }
         {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'admin') &&
           <span>
-            <Bouton
+            <Button
               txt={'Suivi des incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -62,7 +62,7 @@ function Menu(props) {
         }
         {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'admin') &&
           <span>
-            <Bouton
+            <Button
               txt={'Pilotage'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -82,7 +82,7 @@ function Menu(props) {
         <div className=''>
           <p/>
           <div className='en-ligne'>
-            <Bouton
+            <Button
               txt={'Utilisateurs'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -92,7 +92,7 @@ function Menu(props) {
               menu={'smenu'}
               plein={true}
             />
-            <Bouton
+            <Button
               txt={'Prestataires'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -105,7 +105,7 @@ function Menu(props) {
             </div>
             <p/>
             <div >
-            <Bouton
+            <Button
               txt={'Emplacements'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -115,7 +115,7 @@ function Menu(props) {
               menu={'smenu'}
               plein={true}
             />
-            <Bouton
+            <Button
               txt={'Type d\'emplacement'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
@@ -125,7 +125,7 @@ function Menu(props) {
               menu={'smenu'}
               plein={true}
             />
-            <Bouton
+            <Button
               txt={'Types d\'incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,

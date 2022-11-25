@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
-import Bouton from '../../../tools/Bouton'
-import BoutonSubmit from '../../../tools/BoutonSubmit'
+import Button from '../../../tools/Button'
+import SubmitButton from '../../../tools/SubmitButton'
 import Alerte from '../../../tools/Alerte'
 
 const lib = require('../../../lib/lib_divers')
@@ -174,13 +174,13 @@ function FCreaUt(props) {
             </table>
           </div>
           <div className="">
-            <Bouton
+            <Button
               txt={'retour'}
               actionToDo={() => props.setMode('neutre')}
               couleur={'gris'}
               plein={true}
             />
-            <BoutonSubmit
+            <SubmitButton
               txt={'Validation création'}
               couleur={'vert'}
               plein={true}

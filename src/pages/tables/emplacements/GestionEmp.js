@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../../tools/App.css';
-import Bouton from '../../../tools/Bouton'
+import Button from '../../../tools/Button'
 import ListEmp from './ListEmp';
 import FicheEmp from './FicheEmp';
 
@@ -27,7 +27,7 @@ function GestionEmp(props) {
         <div className='en-ligne'>
           {props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
-              <Bouton
+              <Button
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
@@ -36,7 +36,7 @@ function GestionEmp(props) {
                 couleur={'gris'}
                 plein={true}
               />
-              <Bouton
+              <Button
                 txt={'Nouvel emplacement'}
                 actionToDo={() => setMode('création')}
                 couleur={'vert'}

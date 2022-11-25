@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import BoutonSubmit from './../tools/BoutonSubmit'
+import SubmitButton from './../tools/SubmitButton'
 import Alerte from './../tools/Alerte'
 
 const sha1 = require('sha1')
@@ -64,7 +64,7 @@ function Login(props) {
           </div>
         </div>
         <div className='cadre-15 decal'>
-          <BoutonSubmit
+          <SubmitButton
             txt={'Validation'}
             couleur={'gris'}
             plein={true}

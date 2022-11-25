@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Bandeau from './tools/Bandeau';
+import Ribbon from './tools/Ribbon';
 import Login from './pages/Login'
 import OubliMdp from './pages/OubliMdp'
 import ChangeMdp from './pages/ChangeMdp'
@@ -42,7 +42,7 @@ function App() {
   if (varGlob.ecran !== 'tests') {
     return (
       <div className="centrer">
-        <Bandeau
+        <Ribbon
           varGlob={varGlob}
           setVarGlob={setVarGlob}
         />

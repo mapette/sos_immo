@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import BoutonSubmit from '../../tools/BoutonSubmit'
+import SubmitButton from '../../tools/SubmitButton'
 
 const time = require('../../lib/lib_time')
 const lib = require('../../lib/lib_divers')
@@ -102,7 +102,7 @@ function FicheIncJrn(props) {
                 <input className="form-check-input" name='infoImm' type="checkbox" value="" id="infoImm" />
               </span>
             }
-            <BoutonSubmit
+            <SubmitButton
               couleur={'orange'}
               txt={'Valider'}
               plein={true}

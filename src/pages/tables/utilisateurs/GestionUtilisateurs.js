@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../../tools/App.css';
-import Bouton from './../../../tools/Bouton'
+import Button from './../../../tools/Button'
 import ListUser from './ListUser'
 import FCreaUt from './FCreaUt'
 import FicheUser from './FicheUser'
@@ -97,7 +97,7 @@ function GestionUtilisateurs(props) {
         <div className='mx-auto container bordure arr-img cadre-15 '>
           <div className='row'>
             <div className='col-2'>
-              <Bouton
+              <Button
                 txt={'Init filtres'}
                 actionToDo={() => initFiltre()}
                 couleur={'vert'}
@@ -132,7 +132,7 @@ function GestionUtilisateurs(props) {
               </div>
               <div className='row'>
                 <div className='col-3 en-ligne'>
-                  <Bouton
+                  <Button
                     txt={'actif'}
                     actionToDo={() => switchBt('actif')
                     }
@@ -140,7 +140,7 @@ function GestionUtilisateurs(props) {
                     plein={bt.actif}
                     espaceEntreBt={false}
                   />
-                  <Bouton
+                  <Button
                     txt={'inactif'}
                     actionToDo={() => switchBt('inactif')
                     }
@@ -150,7 +150,7 @@ function GestionUtilisateurs(props) {
                   />
                 </div>
                 <div className='col-8 en-ligne'>
-                  <Bouton
+                  <Button
                     txt={'usager'}
                     actionToDo={() => switchBt('usager')
                     }
@@ -158,7 +158,7 @@ function GestionUtilisateurs(props) {
                     plein={bt.usager}
                     espaceEntreBt={false}
                   />
-                  <Bouton
+                  <Button
                     txt={'admin'}
                     actionToDo={() => switchBt('imm')
                     }
@@ -166,7 +166,7 @@ function GestionUtilisateurs(props) {
                     plein={bt.imm}
                     espaceEntreBt={false}
                   />
-                  <Bouton
+                  <Button
                     txt={'technicien'}
                     actionToDo={() => switchBt('technicien')
                     }
@@ -174,7 +174,7 @@ function GestionUtilisateurs(props) {
                     plein={bt.technicien}
                     espaceEntreBt={false}
                   />
-                  <Bouton
+                  <Button
                     txt={'valideur'}
                     actionToDo={() => switchBt('valideur')
                     }
@@ -186,7 +186,7 @@ function GestionUtilisateurs(props) {
               </div>
             </div>
             <div className='col-2'>
-              <Bouton
+              <Button
                 txt={'Rafraichir la liste'}
                 actionToDo={() => tri()}
                 couleur={'vert'}
@@ -200,7 +200,7 @@ function GestionUtilisateurs(props) {
           <div className='gauche decal en-ligne'>
             {props.varGlob.focus === '' && mode === 'neutre' &&
               <span>
-                <Bouton
+                <Button
                   txt={lib.BT_RETOUR_ACCUEIL}
                   actionToDo={() => props.setVarGlob({
                     ...props.varGlob,
@@ -210,7 +210,7 @@ function GestionUtilisateurs(props) {
                   couleur={'gris'}
                   plein={true}
                 />
-                <Bouton
+                <Button
                   txt={'Nouvel utilisateur'}
                   actionToDo={() => setMode('création')}
                   couleur={'vert'}

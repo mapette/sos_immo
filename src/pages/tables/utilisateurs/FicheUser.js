@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
-import Bouton from '../../../tools/Bouton'
-import BoutonSubmit from '../../../tools/BoutonSubmit';
+import Button from '../../../tools/Button'
+import SubmitButton from '../../../tools/SubmitButton';
 import Alerte from '../../../tools/Alerte'
 
 const lib = require('../../../lib/lib_divers')
@@ -194,7 +194,7 @@ function FicheUser(props) {
           </table>
 
           <div className='cadre-15 en-ligne'>
-            <Bouton
+            <Button
               txt={lib.BT_RETOUR_LISTE}
               actionToDo={() => {
                 props.setMode('neutre')
@@ -208,12 +208,12 @@ function FicheUser(props) {
             />
             {props.varGlob.focus.ut_date_exp === null &&
               <span>
-                <BoutonSubmit
+                <SubmitButton
                   txt={'Modification'}
                   couleur={'bleu'}
                   plein={true}
                 />
-                <Bouton
+                <Button
                   txt={'Résiliation'}
                   actionToDo={() => soumettreResiliation(props.varGlob.focus.ut_uuid)}
                   couleur={'rouge'}

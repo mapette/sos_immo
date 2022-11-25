@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import Bouton from '../../tools/Bouton'
-import BoutonSubmit from '../../tools/BoutonSubmit'
+import Button from '../../tools/Button'
+import SubmitButton from '../../tools/SubmitButton'
 import ListeInc from './ListeInc'
 
 const cl = require('../../lib/lib_cl_incidents')
@@ -73,35 +73,35 @@ function Pilotage(props) {
       <h2 className="titre gras cadre-15">
         PILOTAGE
       </h2>
-      <Bouton
+      <Button
         txt={'tous les incidents'}
         actionToDo={() => tousIncidents()}
         couleur={'vert'}
         menu={'menu'}
         plein={true}
       />
-      <Bouton
+      <Button
         txt={`En attente d'affectation`}
         actionToDo={() => filterEnAttente()}
         couleur={'vert'}
         menu={'menu'}
         plein={true}
       />
-      <Bouton
+      <Button
         txt={'En Cours'}
         actionToDo={() => filterEnCours()}
         couleur={'vert'}
         menu={'menu'}
         plein={true}
       />
-      <Bouton
+      <Button
         txt={'Hors délais (24 H)'}
         actionToDo={() => filterHorsDelais()}
         couleur={'vert'}
         menu={'menu'}
         plein={true}
       />
-      <Bouton
+      <Button
         txt={'Fermés non clôturés'}
         actionToDo={() => filterFermesNonClotures()}
         couleur={'vert'}
@@ -124,14 +124,14 @@ function Pilotage(props) {
           encType="application/x-www-form-urlencoded"
           onSubmit={SoumettreClotureIncident}
         >
-          <BoutonSubmit
+          <SubmitButton
             couleur={'rouge'}
             txt={"Clôturer les incidents fermés depuis 48 heures"}
             plein={true}
           />
         </form>
       }
-      <Bouton
+      <Button
         txt={lib.BT_RETOUR_ACCUEIL}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,

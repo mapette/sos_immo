@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import BoutonSubmit from '../../tools/BoutonSubmit'
+import SubmitButton from '../../tools/SubmitButton'
 
 const lib = require('../../lib/lib_divers')
 const time = require('../../lib/lib_time')
@@ -27,7 +27,7 @@ function FicheIncFin(props) {
           encType="application/x-www-form-urlencoded"
           onSubmit={SoumettreFinIntervention}
         >  
-          <BoutonSubmit
+          <SubmitButton
             couleur={'vert'}
             txt={"Intervention terminée"}
             plein={true}

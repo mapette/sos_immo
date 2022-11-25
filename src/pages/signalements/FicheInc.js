@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import Bouton from '../../tools/Bouton'
+import Button from '../../tools/Button'
 import FicheIncCartouche from './FicheIncCartouche'
 import FicheIncStatus from './FicheIncStatus'
 import FicheIncJrn from './FicheIncJrn'
@@ -63,7 +63,7 @@ function FicheInc(props) {
         incident={incident}
       />
       {props.varGlob.profilEcran != 'pilotage' &&
-        <Bouton
+        <Button
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
@@ -75,7 +75,7 @@ function FicheInc(props) {
         />
       }
       {props.varGlob.profilEcran == 'pilotage' &&
-        <Bouton
+        <Button
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,

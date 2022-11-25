@@ -5,7 +5,7 @@ import ic_logout from './../img/ic_logout.jfif'
 import logo from './../img/logo.jfif'
 
 
-function Bandeau(props) {
+function Ribbon(props) {
 
   return (
     <header className="App-header">
@@ -53,6 +53,6 @@ function Bandeau(props) {
   );
 }
 
-export default Bandeau;
+export default Ribbon;
 
 

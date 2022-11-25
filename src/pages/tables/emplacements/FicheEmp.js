@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
-import Bouton from '../../../tools/Bouton'
-import BoutonSubmit from '../../../tools/BoutonSubmit'
+import Button from '../../../tools/Button'
+import SubmitButton from '../../../tools/SubmitButton'
 
 const lib = require('../../../lib/lib_divers')
 
@@ -102,7 +102,7 @@ function FicheEmp(props) {
                 </tr>
               </tbody>
             </table>
-            <Bouton
+            <Button
               txt={lib.BT_RETOUR_LISTE}
               actionToDo={() => {
                 props.setMode('neutre')
@@ -115,7 +115,7 @@ function FicheEmp(props) {
               couleur={'gris'}
               plein={true}
             />
-            <BoutonSubmit
+            <SubmitButton
               txt={'Mise à jour'}
               couleur={'vert'}
               plein={true}
@@ -166,7 +166,7 @@ function FicheEmp(props) {
                 </tr>
               </tbody>
             </table>
-            <Bouton
+            <Button
               txt={lib.BT_RETOUR_LISTE}
               actionToDo={() => {
                 props.setMode('neutre')
@@ -179,7 +179,7 @@ function FicheEmp(props) {
               couleur={'gris'}
               plein={true}
             />
-            <BoutonSubmit
+            <SubmitButton
               txt={'Validation création'}
               couleur={'vert'}
               plein={true}

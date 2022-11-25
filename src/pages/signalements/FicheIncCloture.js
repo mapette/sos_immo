@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
-import BoutonSubmit from '../../tools/BoutonSubmit'
-import Bouton from '../../tools/Bouton'
+import SubmitButton from '../../tools/SubmitButton'
+import Button from '../../tools/Button'
 
 const lib = require('../../lib/lib_divers')
 const time = require('../../lib/lib_time')
@@ -45,13 +45,13 @@ function FicheIncFin(props) {
             encType="application/x-www-form-urlencoded"
             onSubmit={SoumettreClotureIncident}
           >
-            <BoutonSubmit
+            <SubmitButton
               couleur={'vert'}
               txt={"Merci je suis satisfait.e"}
               plein={true}
             />
           </form>
-          <Bouton
+          <Button
             couleur={'rouge'}
             txt={"Non ça ne va pas. Revenez SVP !"}
             plein={true}
@@ -79,12 +79,12 @@ function FicheIncFin(props) {
               className='largeur-400' />
             {errors.info && <p>Expliquez-nous le problème SVP.</p>}
             <div>
-              <BoutonSubmit
+              <SubmitButton
                 couleur={'rouge'}
                 txt={"Création d'une nouvelle fiche incident"}
                 plein={true}
               />
-              <Bouton
+              <Button
                 couleur={'vert'}
                 txt={"Non merci"}
                 plein={true}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
-import BoutonSubmit from '../../tools/BoutonSubmit'
+import SubmitButton from '../../tools/SubmitButton'
 
 const lib = require('../../lib/lib_divers')
 
@@ -66,7 +66,7 @@ function FicheIncAttribution(props) {
               </option>
             )}
           </select>
-          <BoutonSubmit
+          <SubmitButton
             couleur={'bleu'}
             txt={"Changer le prestataire en charge"}
             plein={true}

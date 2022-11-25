@@ -1,8 +1,8 @@
 import './../tools/App.css';
 
-const diplay = require('./../lib/lib_display')
+const diplay = require('../lib/lib_display')
 
-function Bouton(props) {
+function Button(props) {
   let margin = 'cadre-15'
   if (props.espaceEntreBt !== undefined) {
     if (!props.espaceEntreBt) {
@@ -22,5 +22,5 @@ function Bouton(props) {
     </span>
   );
 }
-export default Bouton;
+export default Button;
 

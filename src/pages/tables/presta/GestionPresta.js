@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../../tools/App.css';
-import Bouton from '../../../tools/Bouton'
+import Button from '../../../tools/Button'
 import ListPresta from './ListPresta';
 import FichePresta from './FichePresta';
 
@@ -49,7 +49,7 @@ function GestionPresta(props) {
         <div className='en-ligne'>
           {props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
-               <Bouton
+               <Button
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
@@ -58,7 +58,7 @@ function GestionPresta(props) {
                 couleur={'gris'}
                 plein={true}
               />
-              <Bouton
+              <Button
                 txt={'Nouveau prestataire'}
                 actionToDo={() => setMode('création')}
                 couleur={'vert'}

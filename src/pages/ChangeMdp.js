@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 //import { useForm } from 'react-hook-form'; PAS UTILISE ICI - il empêche controleMdp() et controleMdp2()
 import './../tools/App.css';
-import Bouton from './../tools/Bouton'
-import BoutonSubmit from './../tools/BoutonSubmit'
+import Button from './../tools/Button'
+import SubmitButton from './../tools/SubmitButton'
 import Alerte from './../tools/Alerte'
 const sha1 = require('sha1')
 
@@ -156,7 +156,7 @@ function ChangeMdp(props) {
               </div>
               {(contNewMdp2) &&
                 <div className='cadre-15 decal'>
-                  <BoutonSubmit
+                  <SubmitButton
                     txt={'Validation'}
                     couleur={'vert'}
                     plein={true}
@@ -182,7 +182,7 @@ function ChangeMdp(props) {
       }
       {!props.varGlob.expMdp &&
         <div className='cadre-35'>
-          <Bouton
+          <Button
             txt={lib.BT_RETOUR_ACCUEIL}
             actionToDo={() => props.setVarGlob({
               ...props.varGlob,

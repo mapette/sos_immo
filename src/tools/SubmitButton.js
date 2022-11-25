@@ -2,7 +2,7 @@ import './../tools/App.css';
 
 const diplay = require('../lib/lib_display')
 
-function BoutonSubmit(props) {
+function SubmitButton(props) {
 
   return (
     <span className='cadre-15'>
@@ -15,4 +15,4 @@ function BoutonSubmit(props) {
     </span>
   );
 }
-export default BoutonSubmit;
+export default SubmitButton;

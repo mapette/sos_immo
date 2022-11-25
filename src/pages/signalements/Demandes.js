@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
-import Bouton from './../../tools/Bouton'
+import Button from './../../tools/Button'
 import PostItInc from './PostItInc'
 
 const lib = require('./../../lib/lib_divers')
@@ -90,7 +90,7 @@ function Demandes(props) {
         </div>
       </div>
       <br />
-      <Bouton
+      <Button
         txt={lib.BT_RETOUR_ACCUEIL}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,

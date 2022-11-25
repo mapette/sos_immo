@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 //import { useForm } from 'react-hook-form'; PAS UTILISE ICI - il empêche controleMdp() et controleMdp2() 
 import './../tools/App.css';
-import Bouton from '../tools/Bouton'
-import BoutonSubmit from '../tools/BoutonSubmit'
+import Button from '../tools/Button'
+import SubmitButton from '../tools/SubmitButton'
 import Alerte from '../tools/Alerte'
 
 const lib = require('../lib/lib_divers')
@@ -54,7 +54,7 @@ function OubliMdp(props) {
       </h2>
       {(warning !== 'ok mdp' && warning !== 'ok id') &&
         <div className='cadre-15'>
-          <Bouton
+          <Button
             txt={'Identifiant oublié'}
             couleur={'bleu'}
             plein={type === 'id'}
@@ -63,7 +63,7 @@ function OubliMdp(props) {
               setType('id')
             }
             } />
-          <Bouton
+          <Button
             txt={'Mot de passe oublié'}
             couleur={'bleu'}
             plein={type === 'mdp'}
@@ -117,7 +117,7 @@ function OubliMdp(props) {
                 />
               }
               <div className='cadre-15'>
-                <BoutonSubmit
+                <SubmitButton
                   txt={'Validation'}
                   couleur={'vert'}
                   plein={true}
@@ -142,7 +142,7 @@ function OubliMdp(props) {
       }
 
       <div className='cadre-15'>
-        <Bouton
+        <Button
           txt={lib.BT_RETOUR_ACCUEIL}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,

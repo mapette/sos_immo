@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
-import BoutonSubmit from '../../tools/BoutonSubmit'
+import SubmitButton from '../../tools/SubmitButton'
 
 const time = require('../../lib/lib_time')
 const lib = require('../../lib/lib_divers')
@@ -13,6 +13,7 @@ function FicheIncAffectation(props) {
   useEffect(() => {
     // pour affectation 'forcée' (suivi des incidents)
     //  => liste des techniciens (profil valideur et admin) // presta_id : presta en charge du type d'incident
+    // console.log('profils',props.varGlob.profilEcran, ' ',props.varGlob.profil)
     if (props.incident.presta_id != undefined) {
       if ((props.varGlob.profilEcran === 'techno') | (props.varGlob.profilEcran === 'pilotage')
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'admin')) {
@@ -89,7 +90,7 @@ function FicheIncAffectation(props) {
           encType="application/x-www-form-urlencoded"
           onSubmit={soumettreAffectation}
         >
-          <BoutonSubmit
+          <SubmitButton
             couleur={'bleu'}
             txt={"Je m'en charge !"}
             plein={true}
@@ -114,7 +115,7 @@ function FicheIncAffectation(props) {
               </option>
             )}
           </select>
-          <BoutonSubmit
+          <SubmitButton
             couleur={'bleu'}
             txt={libelleBoutonAffectation()}
             plein={true}
