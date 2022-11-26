@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import SubmitButton from '../../../tools/SubmitButton'
-
 const lib = require('../../../lib/lib_divers')
 
 function FicheTemp(props) {
@@ -84,7 +83,6 @@ function FicheTemp(props) {
               couleur={'vert'}
               plein={true}
             />
-
           </form>
         </div>
       }

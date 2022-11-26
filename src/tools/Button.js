@@ -1,5 +1,4 @@
 import './../tools/App.css';
-
 const diplay = require('../lib/lib_display')
 
 function Button(props) {
@@ -22,5 +21,5 @@ function Button(props) {
     </span>
   );
 }
-export default Button;
 
+export default Button;

@@ -4,7 +4,6 @@ import './../../tools/App.css';
 import Button from '../../tools/Button'
 import SubmitButton from '../../tools/SubmitButton'
 import Alerte from '../../tools/Alerte'
-
 const lib = require('../../lib/lib_divers')
 
 function NewInc(props) {
@@ -217,7 +216,3 @@ function NewInc(props) {
 }
 
 export default NewInc;
-
-/*        
-
-*/

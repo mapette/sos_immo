@@ -4,7 +4,6 @@ import Button from './../../../tools/Button'
 import ListUser from './ListUser'
 import FCreaUt from './FCreaUt'
 import FicheUser from './FicheUser'
-
 const cl_ut = require('../../../lib/lib_cl_ut')
 const lib = require('../../../lib/lib_divers')
 
@@ -41,7 +40,6 @@ function GestionUtilisateurs(props) {
           response.forEach(element => {
             ut_liste.liste.push(new cl_ut.Utilisateur(element))
           });
-
         }
       })
   }, [, lUser])

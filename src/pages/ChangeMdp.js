@@ -5,14 +5,12 @@ import Button from './../tools/Button'
 import SubmitButton from './../tools/SubmitButton'
 import Alerte from './../tools/Alerte'
 const sha1 = require('sha1')
-
 const lib = require('./../lib/lib_divers')
 
 function ChangeMdp(props) {
   let [warning, setWarning] = useState('')
   let [contNewMdp, setContNewMdp] = useState(false)
   let [contNewMdp2, setContNewMdp2] = useState(false)
-
   let [user, setUser] = useState(''); // besoin du user pour hasher le mdp avant post
 
   useEffect(() => {

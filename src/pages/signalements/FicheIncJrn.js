@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import SubmitButton from '../../tools/SubmitButton'
-
 const time = require('../../lib/lib_time')
 const lib = require('../../lib/lib_divers')
 
@@ -115,8 +114,3 @@ function FicheIncJrn(props) {
 }
 
 export default FicheIncJrn;
-
-/*        
-
-*/
-

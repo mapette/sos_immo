@@ -1,5 +1,4 @@
 import './../../tools/App.css';
-
 const time = require('../../lib/lib_time')
 
 function ListeIncLine(props) {
@@ -30,7 +29,3 @@ function ListeIncLine(props) {
 }
 
 export default ListeIncLine;
-
-/*        
-
-*/

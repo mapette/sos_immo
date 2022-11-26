@@ -1,5 +1,4 @@
 import './../../tools/App.css';
-
 const time = require('../../lib/lib_time')
 
 function FicheIncCartouche(props) {
@@ -41,14 +40,6 @@ function FicheIncCartouche(props) {
       </div>
     </div>
   );
-
-
-
 }
 
 export default FicheIncCartouche;
-
-/*        
-
-*/
-

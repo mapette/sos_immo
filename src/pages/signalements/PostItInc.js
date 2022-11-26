@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import './../../tools/App.css';
-
 const time = require('../../lib/lib_time')
 const display = require('./../../lib/lib_display')
 const lib = require('./../../lib/lib_divers')
-
 
 function PostItInc(props) {
   let [status, setStatus] = useState(lib.determineStatus(props.elem.inc_affect_date, props.elem.inc_fin_date, props.elem.inc_cloture_date))
@@ -60,11 +58,6 @@ function PostItInc(props) {
   else {
     return (<h1>COMPRENDS PAS</h1>)
   }
-
 }
 
 export default PostItInc;
-
-/*        
-
-*/

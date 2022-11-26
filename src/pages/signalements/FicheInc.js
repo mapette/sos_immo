@@ -4,7 +4,6 @@ import Button from '../../tools/Button'
 import FicheIncCartouche from './FicheIncCartouche'
 import FicheIncStatus from './FicheIncStatus'
 import FicheIncJrn from './FicheIncJrn'
-
 const lib = require('../../lib/lib_divers')
 
 function FicheInc(props) {
@@ -43,20 +42,17 @@ function FicheInc(props) {
       <h2 className="titre gras cadre-15">
         DETAIL INCIDENT
       </h2>
-
       <FicheIncCartouche
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
         incident={incident}
       />
-
       <FicheIncStatus
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
         incident={incident}
         setIncident={setIncident}
       />
-
       <FicheIncJrn
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}
@@ -88,16 +84,6 @@ function FicheInc(props) {
       }
     </div>
   );
-
-
-
 }
 
-
-
 export default FicheInc;
-
-/*        
-
-*/
-

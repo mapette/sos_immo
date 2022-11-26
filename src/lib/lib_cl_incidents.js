@@ -85,5 +85,4 @@ class Inc_manager {
 module.exports = {
   Incident,
   Inc_manager,
-
 }

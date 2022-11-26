@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import SubmitButton from '../../tools/SubmitButton'
-
 const lib = require('../../lib/lib_divers')
 
 function FicheIncAttribution(props) {
@@ -79,8 +78,3 @@ function FicheIncAttribution(props) {
 }
 
 export default FicheIncAttribution;
-
-/*        
-
-*/
-

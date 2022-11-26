@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Button from '../../tools/Button'
 import PostItInc from './PostItInc'
-
 const lib = require('../../lib/lib_divers')
 const display = require('../../lib/lib_display')
 
@@ -105,7 +104,3 @@ function MyInc(props) {
 }
 
 export default MyInc;
-
-/*        
-
-*/

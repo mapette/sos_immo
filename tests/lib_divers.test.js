@@ -222,5 +222,3 @@ describe('determineTitre', () => {
         expect(result).toBeUndefined
     })
 })
-
-

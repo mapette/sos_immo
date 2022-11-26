@@ -1,7 +1,6 @@
 import './../../tools/App.css';
 import ListeIncLine from './ListeIncLine'
 
-
 function ListeInc(props) {
 
   return (
@@ -53,4 +52,3 @@ function ListeInc(props) {
 }
 
 export default ListeInc;
-

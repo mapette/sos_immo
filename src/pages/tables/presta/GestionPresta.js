@@ -3,7 +3,6 @@ import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import ListPresta from './ListPresta';
 import FichePresta from './FichePresta';
-
 const lib = require('../../../lib/lib_divers')
 
 function GestionPresta(props) {
@@ -19,8 +18,6 @@ function GestionPresta(props) {
         }
       })
   }, [,mode,props.varGlob.focus])
-
-
 
   return (
     <div className="">
@@ -41,7 +38,6 @@ function GestionPresta(props) {
           setMode={setMode}
           varGlob={props.varGlob}
           setVarGlob={props.setVarGlob}
-
         />
       }
 

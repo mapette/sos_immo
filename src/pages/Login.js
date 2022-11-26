@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import SubmitButton from './../tools/SubmitButton'
 import Alerte from './../tools/Alerte'
-
 const sha1 = require('sha1')
 const lib = require('./../lib/lib_divers')
 const lib_time = require('./../lib/lib_time')
@@ -76,7 +75,6 @@ function Login(props) {
               msg={'identifiant ou mot de passe erroné'}
               niveau={'alerteSimple'}
             />
-
           }
         </div>
       </form>

@@ -1,5 +1,3 @@
-//import './../App.css';
-
 function Alerte(props) {  //alerteRouge, alerteSimple
 
   return (

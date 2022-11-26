@@ -120,7 +120,6 @@ function FicheEmp(props) {
               couleur={'vert'}
               plein={true}
             />
-
           </form>
         </div>
       }

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import SubmitButton from '../../tools/SubmitButton'
-
 const time = require('../../lib/lib_time')
 const lib = require('../../lib/lib_divers')
 
@@ -124,12 +123,6 @@ function FicheIncAffectation(props) {
       }
     </div>
   );
-
 }
 
 export default FicheIncAffectation;
-
-/*        
-
-*/
-

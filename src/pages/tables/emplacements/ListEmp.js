@@ -1,5 +1,4 @@
 import './../../../tools/App.css';
-
 const lib = require('../../../lib/lib_divers')
 
 function ListEmp(props) {

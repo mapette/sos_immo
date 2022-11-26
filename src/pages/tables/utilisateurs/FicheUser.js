@@ -4,7 +4,6 @@ import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import SubmitButton from '../../../tools/SubmitButton';
 import Alerte from '../../../tools/Alerte'
-
 const lib = require('../../../lib/lib_divers')
 const time = require('../../../lib/lib_time')
 
@@ -85,7 +84,6 @@ function FicheUser(props) {
 
   return (
     <div className="mx-auto container bordure arr-img">
-
       <form id="form_ut"
         type="POST"
         encType="application/x-www-form-urlencoded"
@@ -228,11 +226,4 @@ function FicheUser(props) {
   );
 }
 
-
 export default FicheUser;
-
-
-
-
-
-

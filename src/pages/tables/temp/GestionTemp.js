@@ -3,7 +3,6 @@ import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import ListTemp from './ListTemp';
 import FicheTemp from './FicheTemp';
-
 const lib = require('../../../lib/lib_divers')
 
 function GestionEmp(props) {
@@ -69,7 +68,6 @@ function GestionEmp(props) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

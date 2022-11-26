@@ -1,5 +1,4 @@
 import './../../../tools/App.css';
-
 const cl_ut = require('../../../lib/lib_cl_ut')
 const lib = require('./../../../lib/lib_divers')
 

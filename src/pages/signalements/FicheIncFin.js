@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import SubmitButton from '../../tools/SubmitButton'
-
 const lib = require('../../lib/lib_divers')
 const time = require('../../lib/lib_time')
 
@@ -36,12 +34,7 @@ function FicheIncFin(props) {
       }
     </div>
   );
-
 }
 
 export default FicheIncFin;
-
-/*        
-
-*/
 

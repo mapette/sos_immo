@@ -4,7 +4,6 @@ import './../tools/App.css';
 import Button from '../tools/Button'
 import SubmitButton from '../tools/SubmitButton'
 import Alerte from '../tools/Alerte'
-
 const lib = require('../lib/lib_divers')
 
 function OubliMdp(props) {
@@ -61,8 +60,8 @@ function OubliMdp(props) {
             actionToDo={() => {
               setWarning('id')
               setType('id')
-            }
-            } />
+            }}
+          />
           <Button
             txt={'Mot de passe oublié'}
             couleur={'bleu'}
@@ -70,8 +69,7 @@ function OubliMdp(props) {
             actionToDo={() => {
               setWarning('mdp')
               setType('mdp')
-            }
-            }
+            }}
           />
           <form id="form_id"
             type="POST"
@@ -155,6 +153,5 @@ function OubliMdp(props) {
     </div >
   );
 }
-
 
 export default OubliMdp;

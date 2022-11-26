@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-
 import './../../tools/App.css';
 import FicheIncAffectation from './FicheIncAffectation'
 import FicheIncAttribution from './FicheIncAttribution'
 import FicheIncFin from './FicheIncFin'
 import FicheIncCloture from './FicheIncCloture'
-
 const time = require('../../lib/lib_time')
 const lib = require('../../lib/lib_divers')
 
@@ -97,12 +95,6 @@ function FicheIncStatus(props) {
       }
     </div>
   );
-
 }
 
 export default FicheIncStatus;
-
-/*        
-
-*/
-

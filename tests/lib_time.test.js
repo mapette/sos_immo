@@ -71,5 +71,3 @@ describe('tempsRestant/calculTempsRestant/addDaysToDate', () => {
         expect(lib.tempsRestant(dateSignal,null)).toContain('19H 0')   // 24 - 5 => 19
     })
 })
-
-

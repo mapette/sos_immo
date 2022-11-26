@@ -3,12 +3,10 @@ import './../../tools/App.css';
 import Button from '../../tools/Button'
 import SubmitButton from '../../tools/SubmitButton'
 import ListeInc from './ListeInc'
-
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
-  // let inc_liste_originale = new cl.Inc_manager()
   let inc_liste = new cl.Inc_manager()
   let [lInc, setLInc] = useState([])
   let [typeListe, setTypeListe] = useState('')
@@ -66,7 +64,6 @@ function Pilotage(props) {
     setTypeListe('incidents fermés, non clôturés')
     setBtCloture(true)
   }
-
 
   return (
     <div className=''>
@@ -140,13 +137,8 @@ function Pilotage(props) {
         couleur={'gris'}
         plein={true}
       />
-
     </div>
   );
 }
 
 export default Pilotage;
-
-/*        
-
-*/

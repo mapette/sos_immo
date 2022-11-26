@@ -1,20 +1,18 @@
-import { useState, useEffect } from 'react';
 import './../tools/App.css';
 import Button from './../tools/Button'
-
 
 function Menu(props) {
 
   return (
     <div>
-      <p/>
+      <p />
       <div className='en-ligne'>
         <Button
           txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'newInc',
-            smenu:'',
+            smenu: '',
           })}
           couleur={'vert'}
           menu={'menu'}
@@ -26,7 +24,7 @@ function Menu(props) {
             ...props.varGlob,
             profilEcran: 'usager',
             ecran: 'demandes',
-            smenu:'',
+            smenu: '',
           })}
           couleur={'vert'}
           menu={'menu'}
@@ -37,14 +35,14 @@ function Menu(props) {
             txt={'Admin'}
             actionToDo={() => props.setVarGlob({
               ...props.varGlob,
-              smenu:'tables',
+              smenu: 'tables',
             })}
             couleur={'bleu'}
             menu={'menu'}
             plein={true}
           />
         }
-        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur' ) && //|| props.varGlob.profil === 'admin') &&
+        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur') && //|| props.varGlob.profil === 'admin') &&
           <span>
             <Button
               txt={'Suivi des incidents'}
@@ -52,7 +50,7 @@ function Menu(props) {
                 ...props.varGlob,
                 profilEcran: 'techno',
                 ecran: 'demandes',
-                smenu:'',
+                smenu: '',
               })}
               couleur={'orange'}
               menu={'menu'}
@@ -67,7 +65,7 @@ function Menu(props) {
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'pilot',
-                smenu:'',
+                smenu: '',
                 profilEcran: 'pilotage',
               })}
               couleur={'rouge'}
@@ -78,9 +76,9 @@ function Menu(props) {
         }
       </div >
       {
-      (props.varGlob.profil === 'admin' && props.varGlob.smenu === 'tables') &&
+        (props.varGlob.profil === 'admin' && props.varGlob.smenu === 'tables') &&
         <div className=''>
-          <p/>
+          <p />
           <div className='en-ligne'>
             <Button
               txt={'Utilisateurs'}
@@ -102,9 +100,9 @@ function Menu(props) {
               menu={'smenu'}
               plein={true}
             />
-            </div>
-            <p/>
-            <div >
+          </div>
+          <p />
+          <div >
             <Button
               txt={'Emplacements'}
               actionToDo={() => props.setVarGlob({

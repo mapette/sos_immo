@@ -3,7 +3,6 @@ import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import ListEmp from './ListEmp';
 import FicheEmp from './FicheEmp';
-
 const lib = require('../../../lib/lib_divers')
 
 function GestionEmp(props) {
