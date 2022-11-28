@@ -16,34 +16,34 @@ function Ribbon(props) {
         SOS IMMO
       </div>
 
-      {props.varGlob.ecran !== 'login' &&
-        <div className='largeur-1000'>
-          <div className='gauche ut-titre cadre-15'>
-            <span>utilisateur : </span>
-            <span>{props.varGlob.nom}</span>
-          </div>
-          <div className='gauche ut-id cadre-15'>
-            <span>profil : </span>
-            <span>{props.varGlob.profil}</span>
-          </div>
-        </div>
-        }
-      {props.varGlob.ecran !== 'login' &&
+      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
         <div>
-          <div className='bt-exit'>
-            <button type="image"
-              className='cadre-3'
-              onClick={() => props.setVarGlob({
-                ...props.varGlob,
-                ecran: 'changemdp'
-              })} >
-              <img className='arr-img' src={ic_reset}
-                width="50" height="50" />
-            </button>
-            <a href='' className='cadre-3'>
-              <img className='arr-img' src={ic_logout}
-                width="60" height="60" />
-            </a>
+          <div className='largeur-1000'>
+            <div className='gauche ut-titre cadre-15'>
+              <span>utilisateur : </span>
+              <span>{props.varGlob.nom}</span>
+            </div>
+            <div className='gauche ut-id cadre-15'>
+              <span>profil : </span>
+              <span>{props.varGlob.profil}</span>
+            </div>
+          </div>
+          <div>
+            <div className='bt-exit'>
+              <button type="image"
+                className='cadre-3'
+                onClick={() => props.setVarGlob({
+                  ...props.varGlob,
+                  ecran: 'changemdp'
+                })} >
+                <img className='arr-img' src={ic_reset}
+                  width="50" height="50" />
+              </button>
+              <a href='' className='cadre-3'>
+                <img className='arr-img' src={ic_logout}
+                  width="60" height="60" />
+              </a>
+            </div>
           </div>
         </div>
       }

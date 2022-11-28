@@ -29,7 +29,7 @@ function App() {
     expMdp: false,    // true si mdp à renouveler
     focus: '',        // élement pour lequel on veut le détail
   })
-
+  console.log(varGlob.ecran)
   if (varGlob.ecran === 'test') {
     return (
       <Test 

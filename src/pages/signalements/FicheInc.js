@@ -64,19 +64,20 @@ function FicheInc(props) {
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'demandes',
-            focus:'',
+            focus: '',
           })}
           couleur={'gris'}
           plein={true}
         />
       }
+
       {props.varGlob.profilEcran == 'pilotage' &&
         <Button
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             ecran: 'pilot',
-            focus:'',
+            focus: '',
           })}
           couleur={'gris'}
           plein={true}

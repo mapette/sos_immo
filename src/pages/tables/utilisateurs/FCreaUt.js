@@ -55,7 +55,7 @@ function FCreaUt(props) {
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
     if (userIdList.includes(ut_id)) {
-      setAlertMsg('Username déjà utilisé')
+      setAlertMsg('Identifiant déjà utilisé')
     }
     else if (userMailList.includes(ut_mail)) {
       setAlertMsg('Adresse mail déjà utilisée')

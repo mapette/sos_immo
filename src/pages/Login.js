@@ -11,9 +11,7 @@ function Login(props) {
   useEffect(() => {
     fetch('http://localhost:3001/accueil', lib.optionsGet())
       .then(response => response.json())
-      .then(response => {
-         document.getElementById('id').value = response.id
-      })
+      .then(response => { document.getElementById('id').value = response.id })
   }, [])
 
   function controleExpMdp(dateExp) {

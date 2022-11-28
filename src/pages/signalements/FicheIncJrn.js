@@ -103,7 +103,7 @@ function FicheIncJrn(props) {
             }
             <SubmitButton
               couleur={'orange'}
-              txt={'Valider'}
+              txt={'Valider nouveau message'}
               plein={true}
             />
           </div>
