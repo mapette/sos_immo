@@ -17,7 +17,7 @@ describe('boutonDisplay', () => {
         expect(lib_display.boutonDisplay('orange')).toContain('outline -warning fontsize')
     })
     test(`should contain 'secondary' when couleur:gris`, () => {
-        expect(lib_display.boutonDisplay('gris')).toContain('outline -secondary bouton-retour fontsize')
+        expect(lib_display.boutonDisplay('gris')).toContain('outline -secondary fontsize')
     })
     test(`should not contain color when couleur:else`, () => {
         expect(lib_display.boutonDisplay('xxx')).toContain('outline  fontsize')
