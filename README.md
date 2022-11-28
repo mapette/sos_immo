@@ -10,3 +10,8 @@ npm install --save
 ### lancement : npm start
 * ligne de commande : npm start
 * navigateur : localhost:3000
+
+##### tests unitaires
+* répertoire tests : 3 fichiers
+* ligne de commande : npm test
+* pipe line github après chaque push (sélectionner actions)
