@@ -103,23 +103,23 @@ function determineURL(catUrl, data) {
   let url = ''
   if (catUrl === "demande") {
     if (data.profilEcran === 'usager') {
-      url = 'http://localhost:3001/get_incByUser'
+      url = 'http://localhost:3001/inc/get_byUser'
     }
     else if (data.profilEcran === 'techno') {
       if (data.profil === 'technicien' | data.profil === 'valideur') {
-        url = 'http://localhost:3001/get_incByPresta'
+        url = 'http://localhost:3001/inc/get_byPresta'
       }
       else if (data.profil === 'admin') {
-        url = 'http://localhost:3001/get_inc'
+        url = 'http://localhost:3001/inc/get_all'
       }
     }
   }
   if (catUrl === "affectation") {
     if (data.profil === 'technicien') {
-      url = 'http://localhost:3001/affectation/' + data.inc_id
+      url = 'http://localhost:3001/inc/affect/' + data.inc_id
     }
     else {
-        url = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno      
+        url = 'http://localhost:3001/inc/affect/' + data.inc_id + '/' + data.techno      
     }
   }
   return url

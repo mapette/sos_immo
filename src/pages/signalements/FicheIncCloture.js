@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import SubmitButton from '../../tools/SubmitButton'
@@ -10,9 +10,9 @@ function FicheIncFin(props) {
   let [insatisfaction, setInsatisfaction] = useState(false)
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
-  function SoumettreInsatisfaction(data) {
+  function SoumettreInsatisfaction(data) { //relaunch
     data.inc_id = props.incident.inc_id
-    fetch('http://localhost:3001/clotureInc', lib.optionsPost(data))
+    fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsPost(data))
       .then(response => response.json())
       .then(() => {
         props.setVarGlob({
@@ -25,7 +25,7 @@ function FicheIncFin(props) {
 
   function SoumettreClotureIncident(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/clotureInc/' + props.varGlob.focus, lib.optionsGet())
+    fetch('http://localhost:3001/inc/closing/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())
       .then(() => {
         props.setIncident({

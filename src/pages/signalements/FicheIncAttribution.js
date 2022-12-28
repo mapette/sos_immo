@@ -19,7 +19,7 @@ function FicheIncAttribution(props) {
 
   function soumettreAttribution(data) {
      if (IsAttributionPossible(data.presta)) {
-      fetch('http://localhost:3001/attribution/'
+      fetch('http://localhost:3001/inc/attrib/'
         + props.varGlob.focus + '/' + data.presta, lib.optionsGet())
         .then(response => response.json())
         .then(() => {

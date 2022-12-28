@@ -5,7 +5,7 @@ const lib = require('./../../../lib/lib_divers')
 function ListUser(props) {
 
   function showDetails(id) {
-    fetch('http://localhost:3001/get_user/' + id, lib.optionsGet())
+    fetch('http://localhost:3001/user/get_one/' + id, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         props.setVarGlob({
@@ -20,7 +20,7 @@ function ListUser(props) {
     <div className="mx-auto container no-gutter">
       <table className="cadre-15 width-90p">
         <thead>
-          <th className='largeur-110'>username</th>
+          <th className='largeur-110'>identifiant</th>
           <th className='largeur-110 gauche'>nom</th>
           <th className='largeur-110 gauche'>prénom</th>
           <th className='largeur-110 gauche'>profil</th>

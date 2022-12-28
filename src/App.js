@@ -25,21 +25,12 @@ function App() {
     smenu: '',
     nom: '',
     profil: '',
-    profilEcran: '',  //'Demandes' : depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
+    profilEcran: '',  // depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
     expMdp: false,    // true si mdp à renouveler
-    focus: '',        // élement pour lequel on veut le détail
+    focus: '',        // élement pour lequel on veut le détail (utilisateur, incident, emplacement...)
   })
-  console.log(varGlob.ecran)
-  if (varGlob.ecran === 'test') {
-    return (
-      <Test 
-      varGlob={varGlob}
-      setVarGlob={setVarGlob}
-      />
-    )
-  }
 
-  if (varGlob.ecran !== 'tests') {
+  {
     return (
       <div className="centrer">
         <Ribbon
@@ -113,17 +104,16 @@ function App() {
               setVarGlob={setVarGlob}
             />
           }
-           {varGlob.ecran === 'pilot' &&
+          {varGlob.ecran === 'pilot' &&
             <Pilotage
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />
           }
         </div>
-        <br/>
+        <br />
       </div>
     );
   }
 }
-
 export default App;

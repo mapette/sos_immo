@@ -11,7 +11,7 @@ function FicheEmp(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_temp', lib.optionsGet())
+    fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
        .then(response => response.json())
        .then(response => {
         if (response.length !== 0) {
@@ -40,7 +40,7 @@ function FicheEmp(props) {
     if (data.emp_temp === '') { data.emp_temp = props.varGlob.focus.emp_temp }
     data.emp_id = props.varGlob.focus.emp_id
     data.emp_temp = parseInt(data.emp_temp)
-    fetch('http://localhost:3001/update_emp', lib.optionsPost(data))
+    fetch('http://localhost:3001/emp/update', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -51,7 +51,7 @@ function FicheEmp(props) {
   }
 
   function soumettre_newEmp(data) {
-    fetch('http://localhost:3001/crea_emp', lib.optionsPost(data))
+    fetch('http://localhost:3001/emp/creation', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({

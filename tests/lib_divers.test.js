@@ -155,21 +155,21 @@ describe('determineURL', () => {      //catUrl, profil, profilEcran
         catUrl = 'demande'
         data = {profilEcran: 'usager', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/get_incByUser'
+        correctUrl = 'http://localhost:3001/get_byUser'
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url`, () => {
         catUrl = 'demande',
         data = { profil: 'technicien', profilEcran: 'techno', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/get_incByPresta'
+        correctUrl = 'http://localhost:3001/inc/get_byPresta'
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url`, () => {
         catUrl = 'demande',
         data = { profil: 'admin', profilEcran: 'techno', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/get_inc'
+        correctUrl = 'http://localhost:3001/inc/get_all'
         expect(result).toEqual(correctUrl)
     })
     test(`should return nothing when demande/profil !=admin !=technicien`, () => {

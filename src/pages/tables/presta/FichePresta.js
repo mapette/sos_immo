@@ -23,7 +23,7 @@ function FichePresta(props) {
     data.presta_id = props.varGlob.focus.presta_id
     if (data.presta_nom === '') { data.presta_nom = props.varGlob.focus.presta_nom }
     if (data.presta_libelle === '') { data.presta_nom = props.varGlob.focus.presta_libelle }
-    fetch('http://localhost:3001/update_presta', lib.optionsPost(data))
+    fetch('http://localhost:3001/presta/update', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -34,7 +34,7 @@ function FichePresta(props) {
   }
 
   function soumettre_newPresta(data) {
-    fetch('http://localhost:3001/crea_presta', lib.optionsPost(data))
+    fetch('http://localhost:3001/presta/creation', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({

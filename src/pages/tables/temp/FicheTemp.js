@@ -20,7 +20,7 @@ function FicheTemp(props) {
   function soumettre_updateTemp(data) {
     if (data.temp_nom === '') { data.temp_nom = props.varGlob.focus.temp_nom }
     data.temp_id = props.varGlob.focus.temp_id
-    fetch('http://localhost:3001/update_temp', lib.optionsPost(data))
+    fetch('http://localhost:3001/temp/update', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -31,7 +31,7 @@ function FicheTemp(props) {
   }
 
   function soumettre_newTemp(data) {
-    fetch('http://localhost:3001/crea_temp', lib.optionsPost(data))
+    fetch('http://localhost:3001/temp/creation', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({

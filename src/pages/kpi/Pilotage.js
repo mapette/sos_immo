@@ -13,7 +13,7 @@ function Pilotage(props) {
   let [btCloture, setBtCloture] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_inc', lib.optionsGet())
+    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) {
@@ -26,7 +26,7 @@ function Pilotage(props) {
 
   function SoumettreClotureIncident(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/clotureInc', lib.optionsGet())
+    fetch('http://localhost:3001/inc/closing', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         inc_liste.clotureAutomatique(response)

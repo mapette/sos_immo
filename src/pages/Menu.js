@@ -42,7 +42,7 @@ function Menu(props) {
             plein={true}
           />
         }
-        {(props.varGlob.profil === 'technicien' || props.varGlob.profil === 'valideur') && //|| props.varGlob.profil === 'admin') &&
+        {props.varGlob.profil === 'technicien' && // || props.varGlob.profil === 'valideur') && || props.varGlob.profil === 'admin') &&
           <span>
             <Button
               txt={'Suivi des incidents'}

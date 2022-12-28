@@ -16,7 +16,7 @@ function FicheIncJrn(props) {
         return false
       }
     }
-    fetch('http://localhost:3001/get_inc_journal/' + props.varGlob.focus + '/' + infoImmoInclude(),
+    fetch('http://localhost:3001/inc/get_jnr/' + props.varGlob.focus + '/' + infoImmoInclude(),
       lib.optionsGet())
       .then(response => response.json()) 
       .then(response => {
@@ -38,8 +38,8 @@ function FicheIncJrn(props) {
         data.jrn_imm = document.getElementById("infoImm").checked
       }
       let url
-      if(props.varGlob.profilEcran == "usager"){url = 'http://localhost:3001/update_jrn_usager'}
-      else {url = 'http://localhost:3001/update_jrn_techno'}
+      if(props.varGlob.profilEcran == "usager"){url = 'http://localhost:3001/jrn/update_user'}
+      else {url = 'http://localhost:3001/jrn/update_techno'}
       fetch(url, lib.optionsPost(data))
         .then(response => response.json())  
         .then(response => {

@@ -13,7 +13,7 @@ function FCreaUt(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_users', lib.optionsGet())
+    fetch('http://localhost:3001/user/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         let idList = [] // var intermédiaire
@@ -32,7 +32,7 @@ function FCreaUt(props) {
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
     if (alertMsg === '') {
-      fetch('http://localhost:3001/crea_user', lib.optionsPost(data))
+      fetch('http://localhost:3001/user/creation', lib.optionsPost(data))
         .then(response => response.json())
         .then(response => {
           props.setMode('neutre')

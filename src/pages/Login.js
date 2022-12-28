@@ -9,9 +9,9 @@ function Login(props) {
   let [warning, setWarning] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/accueil', lib.optionsGet())
+    fetch('http://localhost:3001/welcome', lib.optionsGet())
       .then(response => response.json())
-      .then(response => { document.getElementById('id').value = response.id })
+      .then(response => document.getElementById('id').value = response.id)
   }, [])
 
   function controleExpMdp(dateExp) {

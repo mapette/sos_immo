@@ -1,4 +1,3 @@
-import './../tools/App.css';
 const diplay = require('../lib/lib_display')
 
 function Button(props) {

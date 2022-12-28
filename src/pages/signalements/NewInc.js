@@ -17,7 +17,7 @@ function NewInc(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_empNewInc', lib.optionsGet())
+    fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         prepaListe(response)
@@ -49,7 +49,7 @@ function NewInc(props) {
   }
 
   function soumettre_inc(data) {
-    fetch('http://localhost:3001/crea_inc', lib.optionsPost(data))
+    fetch('http://localhost:3001/inc/creation', lib.optionsPost(data))
       .then(response => response.json())
       .then(() => {
         props.setVarGlob({

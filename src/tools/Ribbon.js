@@ -1,5 +1,3 @@
-import React from 'react';
-import './../tools/App.css';
 import ic_reset from './../img/ic_change_password.png'
 import ic_logout from './../img/ic_logout.jfif'
 import logo from './../img/logo.jfif'

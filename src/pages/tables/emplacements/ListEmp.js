@@ -5,7 +5,7 @@ function ListEmp(props) {
 
   function showDetails(id) {
     if (props.mode !== 'création') {
-      fetch('http://localhost:3001/get_emp/' + id, lib.optionsGet())
+      fetch('http://localhost:3001/emp/get_one/' + id, lib.optionsGet())
         .then(response => response.json())
         .then(response => {
           props.setVarGlob({

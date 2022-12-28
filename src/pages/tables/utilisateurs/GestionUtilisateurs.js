@@ -33,7 +33,7 @@ function GestionUtilisateurs(props) {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_users', lib.optionsGet())
+    fetch('http://localhost:3001/user/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) {

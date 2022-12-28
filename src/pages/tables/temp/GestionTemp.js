@@ -10,7 +10,7 @@ function GestionEmp(props) {
   let [mode, setMode] = useState('neutre')
 
   useEffect(() => {
-    fetch('http://localhost:3001/get_temp', lib.optionsGet())
+    fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setTempList(tempList = response) }
