@@ -106,7 +106,7 @@ function determineURL(catUrl, data) {
       url = 'http://localhost:3001/inc/get_byUser'
     }
     else if (data.profilEcran === 'techno') {
-      if (data.profil === 'technicien' | data.profil === 'valideur') {
+      if (data.profil === 'technicien') {
         url = 'http://localhost:3001/inc/get_byPresta'
       }
       else if (data.profil === 'admin') {

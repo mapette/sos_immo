@@ -42,7 +42,7 @@ function Menu(props) {
             plein={true}
           />
         }
-        {props.varGlob.profil === 'technicien' && // || props.varGlob.profil === 'valideur') && || props.varGlob.profil === 'admin') &&
+        {props.varGlob.profil === 'technicien' && 
           <span>
             <Button
               txt={'Suivi des incidents'}
@@ -65,6 +65,22 @@ function Menu(props) {
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 ecran: 'pilot',
+                smenu: '',
+                profilEcran: 'pilotage',
+              })}
+              couleur={'rouge'}
+              menu={'menu'}
+              plein={true}
+            />
+          </span>
+        }
+        {props.varGlob.profil === 'admin' &&
+          <span>
+            <Button
+              txt={'Archivage'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'archivage',
                 smenu: '',
                 profilEcran: 'pilotage',
               })}

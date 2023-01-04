@@ -10,13 +10,13 @@ import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs
 import GestionPresta from './pages/tables/presta/GestionPresta'
 import GestionEmp from './pages/tables/emplacements/GestionEmp'
 import GestionTemp from './pages/tables/temp/GestionTemp'
-import NewInc from './pages/signalements/NewInc'
-import MyInc from './pages/signalements/MyInc'
-import FicheInc from './pages/signalements/FicheInc'
+import NewInc from './pages/incidents/NewInc'
+import MyInc from './pages/incidents/MyInc'
+import FicheInc from './pages/incidents/FicheInc'
 import Pilotage from './pages/kpi/Pilotage'
+import Archivage from './pages/kpi/Archivage'
 
 import './tools/App.css';
-import Test from './Test'
 
 function App() {
 
@@ -106,6 +106,12 @@ function App() {
           }
           {varGlob.ecran === 'pilot' &&
             <Pilotage
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+          {varGlob.ecran === 'archivage' &&
+            <Archivage
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

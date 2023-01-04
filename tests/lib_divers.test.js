@@ -43,7 +43,7 @@ describe('findProfil - determineProfil', () => {
         result = lib.determineProfil(profil)
         expect(result).toEqual({ profil: 'administrateur', ecran: 'gestionUtilisateurs' })
     })
-    test(`should be usager  when profil:1`, () => {
+    test(`should be usager when profil:1`, () => {
         profil = 1
         result = lib.findProfil(profil)
         expect(result).toEqual('usager')
@@ -155,7 +155,7 @@ describe('determineURL', () => {      //catUrl, profil, profilEcran
         catUrl = 'demande'
         data = {profilEcran: 'usager', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/get_byUser'
+        correctUrl = 'http://localhost:3001/inc/get_byUser'
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url`, () => {
@@ -189,14 +189,14 @@ describe('determineURL', () => {      //catUrl, profil, profilEcran
         catUrl = 'affectation',
         data = { profil: 'technicien',}
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/affectation/' + data.inc_id
+        correctUrl = 'http://localhost:3001/inc/affect/' + data.inc_id
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url when affectation/profil:xxx`, () => {
         catUrl = 'affectation',
         data = { profil: 'xxx', inc_id:0, techno:'toto', }
         result = lib.determineURL(catUrl,data)
-        correctUrl = 'http://localhost:3001/affectation/' + data.inc_id + '/' + data.techno
+        correctUrl = 'http://localhost:3001/inc/affect/' + data.inc_id + '/' + data.techno
         expect(result).toEqual(correctUrl)
     })
 })

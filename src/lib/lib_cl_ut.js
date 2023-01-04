@@ -19,9 +19,7 @@ class Utilisateur {
 }
 
 class Ut_manager {
-  constructor() {
-    this.liste = []
-  }
+  constructor() { this.liste = [] }
 
   filtreNom(nom) {
     if (nom !== '') {
@@ -33,10 +31,8 @@ class Ut_manager {
     }
   }
 
-  filtrePresta(presta){
-    if (presta !== '') {
-      this.liste = this.liste.filter(f => f.ut_presta === parseInt(presta))
-    }
+  filtrePresta(presta) {
+    if (presta !== '') this.liste = this.liste.filter(f => f.ut_presta === parseInt(presta))
   }
 
   gdFiltre(bt) {
@@ -111,7 +107,6 @@ class Ut_manager {
           if (x.ut_nom > y.ut_nom) { return 1 }
           return 0
         })
-    
   }
 
   byProfil(profil) {

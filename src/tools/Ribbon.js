@@ -1,6 +1,7 @@
 import ic_reset from './../img/ic_change_password.png'
 import ic_logout from './../img/ic_logout.jfif'
 import logo from './../img/logo.jfif'
+const lib = require('../lib/lib_divers')
 
 function Ribbon(props) {
 
@@ -37,10 +38,24 @@ function Ribbon(props) {
                 <img className='arr-img' src={ic_reset}
                   width="50" height="50" />
               </button>
-              <a href='' className='cadre-3'>
+
+              <button type="image"
+                className='cadre-3'
+                onClick={() => {
+                  fetch('http://localhost:3001/logout', lib.optionsGet())
+                  fetch('http://localhost:3001/welcome', lib.optionsGet())
+                  props.setVarGlob({
+                  ...props.varGlob,
+                  ecran: 'login'
+                })}} >
                 <img className='arr-img' src={ic_logout}
                   width="60" height="60" />
-              </a>
+              </button>
+              
+              {/* <a href='' className='cadre-3'>
+                <img className='arr-img' src={ic_logout}
+                  width="60" height="60" />
+              </a> */}
             </div>
           </div>
         </div>
