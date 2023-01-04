@@ -25,6 +25,8 @@ function optionsGet() {
 
 // ListUser 
 function findUserStatus(date_exp) {
+  // entrée : attribut date_exp de l'objet Utilisateur (date d'inactivation)
+  // sortie : string -> 'actif' si date_exp Null, 'inactif' sinon
   let statut = 'actif'
   if (date_exp !== null) {
     statut = 'inactif'

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Button from '../../tools/Button'
 import SubmitButton from '../../tools/SubmitButton'
-import ListeInc from './ListeInc'
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
@@ -33,10 +32,17 @@ function Pilotage(props) {
       <h2 className="titre gras cadre-15">
         ARCHIVAGE
       </h2>
-           <Button
+      <Button
         txt={'Incidents clôturés depuis + de 30 jours'}
         actionToDo={() => archive()}
-        couleur={'bleu'}
+        couleur={'vert'}
+        menu={'menu'}
+        plein={true}
+      />
+      <Button
+        txt={'Incidents archivés depuis + de 24 mois'}
+        actionToDo={() => archive()}
+        couleur={'vert'}
         menu={'menu'}
         plein={true}
       />
