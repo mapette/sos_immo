@@ -12,20 +12,10 @@ function Pilotage(props) {
   let [btCloture, setBtCloture] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
-      .then(response => response.json())
-      .then(response => {
-        if (response.length !== 0) {
-          response.forEach(element => {
-            inc_liste.liste.push(new cl.Incident(element))
-          });
-        }
-      })
-  }, [, lInc])
+  })
 
   function archive() {
   }
-
  
   return (
     <div className=''>

@@ -58,7 +58,7 @@ function FicheUser(props) {
   }
 
   function soumettreResiliation(ut_uuid) {
-    fetch('http://localhost:3001/user/delete/' + ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/user/exit/' + ut_uuid, lib.optionsGet())
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -127,10 +127,25 @@ function FicheUser(props) {
         {/* profil utilisateur */}
         <table className='cadre-15 mx-auto'>
           <thead>
+            <th className='largeur-200'>profil actuel</th>
             <th className=' largeur-300'>employeur</th>
-            <th className='la rgeur-110'>profil actuel</th>
           </thead>
           <tr>
+            <td>
+              <select id='hab_profil' {...register('hab_profil')}
+                onChange={event => {
+                  setChangeProfil(true)
+                  contrListBox(
+                    event.target.value,
+                    document.getElementById("ut_presta").value)
+                }}
+                className='largeur-200'>
+                <option value='1' key='1'>usager</option>
+                <option value='2' key='2'>technicien (presta)</option>
+                <option value='3' key='3'>valideur (presta)</option>
+                <option value='4' key='4'>admin</option>
+              </select>
+            </td>
             <td>
               <select id='ut_presta' {...register('ut_presta')}
                 onChange={event => {
@@ -149,21 +164,6 @@ function FicheUser(props) {
                     {elem.presta_nom} - {elem.presta_libelle}
                   </option>
                 )}
-              </select>
-            </td>
-            <td>
-              <select id='hab_profil' {...register('hab_profil')}
-                onChange={event => {
-                  setChangeProfil(true)
-                  contrListBox(
-                    event.target.value,
-                    document.getElementById("ut_presta").value)
-                }}
-                className='largeur-200'>
-                <option value='1' key='1'>usager</option>
-                <option value='2' key='2'>technicien (presta)</option>
-                <option value='3' key='3'>valideur (presta)</option>
-                <option value='4' key='4'>admin</option>
               </select>
             </td>
           </tr>

@@ -37,7 +37,7 @@ function Pilotage(props) {
 
   function tousIncidents() {
     setLInc(inc_liste.liste)
-    setTypeListe('tous les incidents non clôturés ou clôturés depuis moins de 30 jours')
+    setTypeListe('tous les incidents de la base')
     setBtCloture(false)
   }
   function filterEnAttente() {
@@ -142,3 +142,6 @@ function Pilotage(props) {
 }
 
 export default Pilotage;
+
+
+//    setTypeListe('tous les incidents non clôturés ou clôturés depuis moins de 30 jours')

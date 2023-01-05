@@ -46,7 +46,10 @@ function Ribbon(props) {
                   fetch('http://localhost:3001/welcome', lib.optionsGet())
                   props.setVarGlob({
                   ...props.varGlob,
-                  ecran: 'login'
+                  ecran: 'login',
+                  smenu: '',
+                  profilEcran: '',
+                  focus: '',
                 })}} >
                 <img className='arr-img' src={ic_logout}
                   width="60" height="60" />
