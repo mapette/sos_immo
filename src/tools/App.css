@@ -80,7 +80,6 @@
   text-align: center;
 }
 
-
 .largeur-5{
   width: 5px;
 }
@@ -160,12 +159,32 @@ label{
   color: white;
 }
 
-.ut-titre{
+.color-titre{
   color: darkkhaki;
 }
-.ut-id{
+.color-id{
   color: #61dafb;
   color: #53cf6b;
+}
+
+.ribbon-marge{
+  width:1%;
+}
+.ribbon-logo{
+  width:9%;
+}
+.ribbon-nom-appli{
+  width:15%;
+}
+.ribbon-nom-profil{
+  width:64%;
+}
+.ribbon-bt{
+  width:5%;
+}
+.ribbon-bt-length{
+  width:50px;
+  height:50px;
 }
 
 /* bouton retour */

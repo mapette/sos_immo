@@ -7,62 +7,64 @@ function Ribbon(props) {
 
   return (
     <header className="App-header">
-      <div>
+      <div className="ribbon-marge"></div>
+      <div className="ribbon-logo">
         <img src={logo}
           width="150" height="150"></img>
       </div>
-      <div className="gras noir largeur-400 cadre-15">
+      <div className="gras noir ribbon-nom-appli cadre-15">
         SOS IMMO
       </div>
 
       {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
-        <div>
-          <div className='largeur-1000'>
-            <div className='gauche ut-titre cadre-15'>
+        <div  className='ribbon-nom-profil'>
+          <div>
+            <div className='gauche color-titre cadre-15'>
               <span>utilisateur : </span>
               <span>{props.varGlob.nom}</span>
             </div>
-            <div className='gauche ut-id cadre-15'>
+            <div className='gauche color-id cadre-15'>
               <span>profil : </span>
               <span>{props.varGlob.profil}</span>
             </div>
           </div>
-          <div>
-            <div className='bt-exit'>
-              <button type="image"
-                className='cadre-3'
-                onClick={() => props.setVarGlob({
-                  ...props.varGlob,
-                  ecran: 'changemdp'
-                })} >
-                <img className='arr-img' src={ic_reset}
-                  width="50" height="50" />
-              </button>
-
-              <button type="image"
-                className='cadre-3'
-                onClick={() => {
-                  fetch('http://localhost:3001/logout', lib.optionsGet())
-                  fetch('http://localhost:3001/welcome', lib.optionsGet())
-                  props.setVarGlob({
-                  ...props.varGlob,
-                  ecran: 'login',
-                  smenu: '',
-                  profilEcran: '',
-                  focus: '',
-                })}} >
-                <img className='arr-img' src={ic_logout}
-                  width="60" height="60" />
-              </button>
-              
-              {/* <a href='' className='cadre-3'>
-                <img className='arr-img' src={ic_logout}
-                  width="60" height="60" />
-              </a> */}
-            </div>
-          </div>
         </div>
       }
+
+      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
+        <div className='ribbon-bt'>
+          <button type="image"
+            className='cadre-3'
+            onClick={() => props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'changemdp'
+            })} >
+            <img className='arr-img ribbon-bt-length' src={ic_reset} />
+          </button>
+        </div>
+      }
+
+      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
+        <div className='ribbon-bt'>
+          <button type="image"
+            className='cadre-3'
+            onClick={() => {
+              fetch('http://localhost:3001/logout', lib.optionsGet())
+              fetch('http://localhost:3001/welcome', lib.optionsGet())
+              props.setVarGlob({
+                ...props.varGlob,
+                ecran: 'login',
+                smenu: '',
+                profilEcran: '',
+                focus: '',
+              })
+            }} >
+            <img className='arr-img ribbon-bt-length' src={ic_logout} />
+          </button>
+        </div>
+      }
+      
+      <div className="ribbon-marge"></div>
     </header>
   );
 }
