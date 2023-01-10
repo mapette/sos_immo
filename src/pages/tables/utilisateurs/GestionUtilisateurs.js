@@ -102,7 +102,7 @@ function GestionUtilisateurs(props) {
                 particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
               />
             </div>
-            <div className='col-6 cadre-15'>
+            <div className='col-7 cadre-15'>
               <div className='row'>
                 <div className='col-4 en-ligne'>
                   <label htmlFor='nomToFind'>Critère</label>

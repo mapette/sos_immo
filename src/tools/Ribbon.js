@@ -1,6 +1,8 @@
 import ic_reset from './../img/ic_change_password.png'
 import ic_logout from './../img/ic_logout.jfif'
 import logo from './../img/logo.jfif'
+import './Ribbon.css';
+
 const lib = require('../lib/lib_divers')
 
 function Ribbon(props) {
@@ -39,15 +41,17 @@ function Ribbon(props) {
               ...props.varGlob,
               ecran: 'changemdp'
             })} >
-            <img className='arr-img ribbon-bt-length' src={ic_reset} />
+            <img title='changer le mot de passe'
+              className='arr-img ribbon-bt-length' src={ic_reset} />
           </button>
         </div>
       }
 
       {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
-        <div className='ribbon-bt'>
-          <button type="image"
-            className='cadre-3'
+        <div className='ribbon-bt' >
+          <button
+            type="image"
+            className='cadre-3 '
             onClick={() => {
               fetch('http://localhost:3001/logout', lib.optionsGet())
               fetch('http://localhost:3001/welcome', lib.optionsGet())
@@ -59,7 +63,8 @@ function Ribbon(props) {
                 focus: '',
               })
             }} >
-            <img className='arr-img ribbon-bt-length' src={ic_logout} />
+            <img title='déconnexion'
+              className='arr-img ribbon-bt-length' src={ic_logout} />
           </button>
         </div>
       }

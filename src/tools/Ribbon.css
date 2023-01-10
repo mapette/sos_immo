@@ -1,0 +1,124 @@
+
+/* ribbon */
+.ribbon-marge{
+  width:1%;
+}
+.ribbon-logo{
+  width:15%;
+}
+.ribbon-nom-appli{
+  width:20%;
+}
+.ribbon-nom-profil{
+  width:49%;
+}
+.ribbon-bt{
+  width:7%;
+}
+@media (min-width:1200px){
+  .ribbon-marge{
+    width:1%;
+  }
+  .ribbon-logo{
+    width:12%;
+  }
+  .ribbon-nom-appli{
+    width:15%;
+  }
+  .ribbon-nom-profil{
+    width:59%;
+  }
+  .ribbon-bt{
+    width:6%;
+  }
+}
+@media (
+ min-width:1500px){
+  .ribbon-marge{
+    width:1%;
+  }
+  .ribbon-logo{
+    width:10%;
+  }
+  .ribbon-nom-appli{
+    width:13%;
+  }
+  .ribbon-nom-profil{
+    width:68%;
+  }
+  .ribbon-bt{
+    width:5%;
+  }
+}
+@media (min-width:1800px){
+  .ribbon-marge{
+    width:1%;
+  }
+  .ribbon-logo{
+    width:8%;
+  }
+  .ribbon-nom-appli{
+    width:11%;
+  }
+  .ribbon-nom-profil{
+    width:71%;
+  }
+  .ribbon-bt{
+    width:4%;
+  }
+}
+@media (min-width:2000px){
+  .ribbon-marge{
+    width:1%;
+  }
+  .ribbon-logo{
+    width:6%;
+  }
+  .ribbon-nom-appli{
+    width:11%;
+  }
+  .ribbon-nom-profil{
+    width:73%;
+  }
+  .ribbon-bt{
+    width:3.5%;
+  }
+}
+@media (min-width:2400px){
+  .ribbon-marge{
+    width:1%;
+  }
+  .ribbon-logo{
+    width:5%;
+  }
+  .ribbon-nom-appli{
+    width:9%;
+  }
+  .ribbon-nom-profil{
+    width:78%;
+  }
+  .ribbon-bt{
+    width:3%;
+  }
+}
+.ribbon-bt-length{
+  width:50px;
+  height:50px;
+}
+
+.App-header {
+  background-color: #7f4d80;
+  min-height: 10vh;   
+  display: flex;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.color-titre{
+  color: darkkhaki;
+}
+.color-id{
+  color: #61dafb;
+  color: #53cf6b;
+}

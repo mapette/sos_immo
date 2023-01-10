@@ -123,7 +123,7 @@ function NewInc(props) {
                   <option value='' > </option>
                   {
                     lEmpl.map(elem =>
-                      elem.etage == document.getElementById("etage").value &&
+                      elem.etage === document.getElementById("etage").value &&
                       <option
                         value={elem.id}
                         key={elem.id}>
@@ -153,7 +153,7 @@ function NewInc(props) {
                   <option value=''> </option>
                   {
                     lInc.map(elem =>
-                      elem.emp_id == document.getElementById("empl").value &&
+                      elem.emp_id === document.getElementById("empl").value &&
                       <option
                         value={elem.tinc_id}
                         key={elem.tinc_id}>
@@ -172,7 +172,7 @@ function NewInc(props) {
                   <label className={stypeInput(3)} htmlFor='info'>informations complémentaires</label>
                 </div>
                 <div className='gauche col-6'>
-                  <textarea type=""
+                  <textarea placeholder='facultatif' type=""
                     id='info' {...register('info',)}
                     rows="5"
                     onClick={() => {
@@ -192,7 +192,7 @@ function NewInc(props) {
           }
         </div>
         {
-          alertMsg != '' &&
+          alertMsg !== '' &&
           <Alerte
             msg={alertMsg}
             niveau={'alerteSimple'}
