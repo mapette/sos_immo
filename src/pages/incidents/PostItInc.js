@@ -14,10 +14,13 @@ function PostItInc(props) {
       ecran: 'detailsInc'
     })
   }
-//fichePostItDisplay
+  //fichePostItDisplay
   if (props.varGlob.profilEcran === 'usager') {
     return (
-        <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran, status)}> 
+      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran, status)}>
+        <div>
+          incident {props.elem.inc_id}
+        </div>
         <div>
           {time.formatDate(props.elem.inc_signal_date)}
         </div>
@@ -37,19 +40,23 @@ function PostItInc(props) {
     )
   }
   else if (props.varGlob.profilEcran === 'techno') {
-    let espace = ' '
-    let taquet = ' | '
+    let ESPACE = ' '
+    let TAQUET = ' | '
+    let TIRET = ' - '
+    let FLECHE = ' => '
     return (
-      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran,status)}>
+      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran, status)}>
         <div>
+          {props.elem.inc_id}
+          {TIRET}
           {time.formatDate(props.elem.inc_signal_date)}
-          {espace}
+          {ESPACE}
           {time.formatHeure(props.elem.inc_signal_date)}
-          {taquet}
+          {TAQUET}
           étage {props.elem.emp_etage}
-          {taquet}
+          {TAQUET}
           {props.elem.emp_nom}
-          {' => '}
+          {FLECHE}
           {props.elem.tinc_nom}
         </div>
       </button>

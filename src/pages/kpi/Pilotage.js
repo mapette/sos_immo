@@ -19,7 +19,7 @@ function Pilotage(props) {
         if (response.length !== 0) {
           response.forEach(element => {
             inc_liste.liste.push(new cl.Incident(element))
-          });
+          })
         }
       })
   }, [, lInc])
@@ -29,7 +29,7 @@ function Pilotage(props) {
     fetch('http://localhost:3001/inc/closing', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        inc_liste.clotureAutomatique(response)
+        inc_liste.clotureAutomatique(response)  // maj liste à l'écran
         setLInc(inc_liste.liste)
         filterFermesNonClotures()
       })

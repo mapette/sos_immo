@@ -27,6 +27,12 @@ class Inc_manager {
     return  listeClonee.liste
   }
 
+  onlyOld() {
+    this.liste = this.liste
+      .filter(f => time.oldIncident(f.inc_cloture_date))
+  }
+
+
   filterEnAttente() {
     this.liste = this.liste
       .filter(f => f.inc_affect_date === null)
@@ -67,7 +73,7 @@ class Inc_manager {
     if (listeInc.length > 0) {
       listeInc.forEach(idToFind => {
         this.liste.forEach(Incident => {
-          if (idToFind == Incident.inc_id) {
+          if (idToFind === Incident.inc_id) {
             Incident.inc_cloture_date = time.initDate()
           }
         });
@@ -80,6 +86,15 @@ class Inc_manager {
         return 0
       })
   }
+
+  archivage(listeInc) {
+    if (listeInc.length > 0) {
+      listeInc.forEach(idToArc => {
+        this.liste = this.liste.filter(f => idToArc.inc_id !== f.inc_id)
+      });
+    }
+  }
+
 }
 
 module.exports = {

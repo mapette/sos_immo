@@ -8,6 +8,15 @@ function formatDate(dateR) {
   }
 }
 
+function oldIncident(dateCloture) {
+  let result = false
+  if (dateCloture != null && new Date() - new Date(dateCloture) > DELAIS_VISIBILITE_INC_CLOTURE) {
+    result = true
+  }
+  return result
+}
+
+
 function convDateToString(date) {
   let mois
   if (date.getMonth() + 1 < 10) {
@@ -117,8 +126,10 @@ function addHoursToDate(date, hours) {
   return date.setHours(date.getHours() + hours);
 }
 
+
 const DELAIS = 86400000 // 24 heures en millisecondes
- 
+const DELAIS_VISIBILITE_INC_CLOTURE = 2592000000 // 30 jours
+
 module.exports = {
   formatDate,
   formatHeure,
@@ -129,4 +140,5 @@ module.exports = {
   addDaysToDate,
   addHoursToDate,
   isDateExp,
+  oldIncident,
 }

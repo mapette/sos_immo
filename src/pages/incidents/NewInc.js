@@ -112,7 +112,7 @@ function NewInc(props) {
               </div>
               <div className='gauche col-6'>
                 <select type=""
-                  id='empl'  {...register('emp', { required: true })}
+                  id='empl' name='empl' {...register('emp', { required: true })}
                   onClick={() => {
                     setEtape(2)
                   }}
@@ -153,7 +153,7 @@ function NewInc(props) {
                   <option value=''> </option>
                   {
                     lInc.map(elem =>
-                      elem.emp_id === document.getElementById("empl").value &&
+                      elem.emp_id == document.getElementById("empl").value &&
                       <option
                         value={elem.tinc_id}
                         key={elem.tinc_id}>

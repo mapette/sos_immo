@@ -1,22 +1,52 @@
 import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Button from '../../tools/Button'
+import ListeInc from './ListeInc'
 import SubmitButton from '../../tools/SubmitButton'
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
-  let inc_liste = new cl.Inc_manager()
+  let inc_liste = new cl.Inc_manager() // liste totale d'incidents
+  let inc_arch = new cl.Inc_manager()  // liste d'incidents archivés
   let [lInc, setLInc] = useState([])
   let [typeListe, setTypeListe] = useState('')
-  let [btCloture, setBtCloture] = useState(false)
+  let [btAction, setBtAction] = useState('')
 
   useEffect(() => {
-  })
+    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())  
+      .then(response => response.json())
+      .then(response => {
+        if (response.length !== 0) {
+          response.forEach(element => {
+            inc_liste.liste.push(new cl.Incident(element)) 
+          });
+        }
+      })
+  }, [, lInc])
+
+  function SoumettreArchiveIncident(event) {
+    event.preventDefault()
+    fetch('http://localhost:3001/inc/arc', lib.optionsGet())
+      .then(response => response.json())
+      .then(response => {   // liste des éléments archivés
+        response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });
+        inc_liste.archivage(inc_arch.liste) // maj liste à l'écran
+        setLInc(inc_liste.liste)
+        inc_clos()
+      })
+  }
+
+  function inc_clos() {
+    inc_liste.onlyOld()
+    setLInc(inc_liste.liste)
+    setBtAction('ArcInc')
+  }
 
   function archive() {
+    setBtAction('')
   }
- 
+
   return (
     <div className=''>
       <h2 className="titre gras cadre-15">
@@ -24,7 +54,7 @@ function Pilotage(props) {
       </h2>
       <Button
         txt={'Incidents clôturés depuis + de 30 jours'}
-        actionToDo={() => archive()}
+        actionToDo={() => inc_clos()}
         couleur={'vert'}
         menu={'menu'}
         plein={true}
@@ -52,6 +82,26 @@ function Pilotage(props) {
       />
       <div className='decal gras fontsize-20 cadre-15 mx-auto'>
       </div>
+
+      <ListeInc
+        varGlob={props.varGlob}
+        setVarGlob={props.setVarGlob}
+        lInc={lInc}
+      />
+
+      {btAction == 'ArcInc' &&
+        <form id="attribution" className='cadre-15'
+          type="POST"
+          encType="application/x-www-form-urlencoded"
+          onSubmit={SoumettreArchiveIncident}
+        >
+          <SubmitButton
+            couleur={'rouge'}
+            txt={"Archiver"}
+            plein={true}
+          />
+        </form>
+      }
 
       <Button
         txt={lib.BT_RETOUR_ACCUEIL}
