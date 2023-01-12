@@ -10,7 +10,6 @@ function Pilotage(props) {
   let inc_liste = new cl.Inc_manager() // liste totale d'incidents
   let inc_arch = new cl.Inc_manager()  // liste d'incidents archivés
   let [lInc, setLInc] = useState([])
-  let [typeListe, setTypeListe] = useState('')
   let [btAction, setBtAction] = useState('')
 
   useEffect(() => {
