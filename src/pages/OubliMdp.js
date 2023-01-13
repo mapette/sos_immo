@@ -4,6 +4,7 @@ import './../tools/App.css';
 import Button from '../tools/Button'
 import SubmitButton from '../tools/SubmitButton'
 import Alerte from '../tools/Alerte'
+import { Collapse } from 'bootstrap';
 const lib = require('../lib/lib_divers')
 
 function OubliMdp(props) {
@@ -45,7 +46,7 @@ function OubliMdp(props) {
     let fin = '%0A%0AL\'équipe SOS Immo vous souhaite une bonne journée.'
     return intro + motif() + fin 
   }
-
+ 
   return (
     <div className="">
       <h2 className="titre gras cadre-15" >

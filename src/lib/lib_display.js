@@ -17,7 +17,7 @@ function boutonDisplay(couleur, menu, plein, particularite) {
     else if (couleur === 'orange') {
       classCouleur = "-warning"
     }
-    else if (couleur === 'gris') {    // gris réservé au bouton-retour
+        else if (couleur === 'gris') {    // gris réservé au bouton-retour
       // classCouleur = '-secondary bouton-retour'
       classCouleur = '-secondary'
     }
@@ -38,7 +38,7 @@ function boutonDisplay(couleur, menu, plein, particularite) {
       classMenu = particularite
     }
    
-    let outline = '-outline '
+    let outline = '-outline'
     if (plein) {
       outline = ''
     }

@@ -26,12 +26,15 @@ describe('optionsGet', () => {
 })
 
 describe('findUserStatus', () => {
-    test(`should be inactif when date_exp`, () => {
+    test(`should be inactif when date_exp correct`, () => {
         date_exp = new Date()
         expect(lib.findUserStatus(date_exp)).toEqual('inactif')
     })
-    test(`should be inactif else`, () => {
+    test(`should be inactif when date_exp null`, () => {
         expect(lib.findUserStatus(null)).toEqual('actif')
+    })
+    test(`should be inactif else`, () => {
+        expect(lib.findUserStatus('coucou')).toEqual('inactif')
     })
 })
 
