@@ -42,6 +42,7 @@ class Inc_manager {
         return 0
       })
   }
+
   filterEnCours() {
     this.liste = this.liste
       .filter(f => f.inc_affect_date !== null && f.inc_fin_date === null)
@@ -71,13 +72,13 @@ class Inc_manager {
   }
   clotureAutomatique(listeInc) {
     if (listeInc.length > 0) {
-      listeInc.forEach(idToFind => {
-        this.liste.forEach(Incident => {
-          if (idToFind === Incident.inc_id) {
-            Incident.inc_cloture_date = time.initDate()
+      listeInc.forEach(idToClos => {
+        this.liste.forEach(inc => {
+          if (idToClos.inc_id === inc.inc_id) {
+            inc.inc_cloture_date = time.initDate()
           }
-        });
-      });
+        })
+      })
     }
     this.liste = this.liste
       .sort((x, y) => {
@@ -94,6 +95,9 @@ class Inc_manager {
       });
     }
   }
+
+  len(){return this.liste.length}
+
 
 }
 

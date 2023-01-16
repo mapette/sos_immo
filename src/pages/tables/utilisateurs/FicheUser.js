@@ -68,6 +68,10 @@ function FicheUser(props) {
       })
   }
 
+  function soumettreReintegration(ut_uuid) {
+    setAlertMsg('Non encore fonctionnelle')
+  }
+
   function contrListBox(hab_profil, ut_presta) {
     hab_profil = parseInt(hab_profil)
     ut_presta = lib.cleanNull(ut_presta)
@@ -217,6 +221,17 @@ function FicheUser(props) {
                   couleur={'rouge'}
                   plein={true}
                 />
+              </span>
+            }
+             {props.varGlob.focus.ut_date_exp !== null &&
+              <span>
+                <Button
+                  txt={'Réintégration'}
+                  actionToDo={() => soumettreReintegration(props.varGlob.focus.ut_uuid)}
+                  couleur={'vert'}
+                  plein={true}
+                />
+
               </span>
             }
           </div>

@@ -8,6 +8,7 @@ const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
   let inc_liste = new cl.Inc_manager()
+  let inc_clos = new cl.Inc_manager()
   let [lInc, setLInc] = useState([])
   let [typeListe, setTypeListe] = useState('')
   let [btCloture, setBtCloture] = useState(false)
@@ -28,40 +29,41 @@ function Pilotage(props) {
     event.preventDefault()
     fetch('http://localhost:3001/inc/closing', lib.optionsGet())
       .then(response => response.json())
-      .then(response => {
-        inc_liste.clotureAutomatique(response)  // maj liste à l'écran
+      .then(response => {   // liste des incidents clôturés
+        response.forEach(inc => { inc_clos.liste.push(new cl.Incident(inc)) });
+        inc_liste.clotureAutomatique(inc_clos.liste) // maj liste à l'écran
         setLInc(inc_liste.liste)
-        filterFermesNonClotures()
+        filterFermesNonClotures(inc_liste)
       })
   }
 
   function tousIncidents() {
     setLInc(inc_liste.liste)
-    setTypeListe('tous les incidents de la base')
+    setTypeListe('tous les incidents de la base - ' + inc_liste.len())
     setBtCloture(false)
   }
   function filterEnAttente() {
     inc_liste.filterEnAttente()
     setLInc(inc_liste.liste)
-    setTypeListe(`incidents en attente d'affection`)
+    setTypeListe(`incidents en attente d'affection - ` + inc_liste.len())
     setBtCloture(false)
   }
   function filterEnCours() {
     inc_liste.filterEnCours()
     setLInc(inc_liste.liste)
-    setTypeListe('incidents en cours')
+    setTypeListe('incidents en cours - ' + inc_liste.len())
     setBtCloture(false)
   }
   function filterHorsDelais() {
     inc_liste.filterHorsDelais()
     setLInc(inc_liste.liste)
-    setTypeListe('incidents hors délais')
+    setTypeListe('incidents hors délais - ' + inc_liste.len())
     setBtCloture(false)
   }
   function filterFermesNonClotures() {
     inc_liste.filterFermesNonClotures()
     setLInc(inc_liste.liste)
-    setTypeListe('incidents fermés, non clôturés')
+    setTypeListe('incidents fermés, non clôturés - ' + inc_liste.len())
     setBtCloture(true)
   }
 

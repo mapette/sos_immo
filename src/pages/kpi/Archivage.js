@@ -3,12 +3,14 @@ import './../../tools/App.css';
 import Button from '../../tools/Button'
 import ListeInc from './ListeInc'
 import SubmitButton from '../../tools/SubmitButton'
+import Alerte from '../../tools/Alerte'
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
 function Pilotage(props) {
   let inc_liste = new cl.Inc_manager() // liste totale d'incidents
   let inc_arch = new cl.Inc_manager()  // liste d'incidents archivés
+  let [alertMsg, setAlertMsg] = useState('')
   let [lInc, setLInc] = useState([])
   let [btAction, setBtAction] = useState('')
 
@@ -40,10 +42,12 @@ function Pilotage(props) {
     inc_liste.onlyOld()
     setLInc(inc_liste.liste)
     setBtAction('ArcInc')
+    setAlertMsg('')
   }
 
   function archive() {
     setBtAction('')
+    setAlertMsg('Non encore fonctionnelle')
   }
 
   return (
@@ -82,6 +86,13 @@ function Pilotage(props) {
       <div className='decal gras fontsize-20 cadre-15 mx-auto'>
       </div>
 
+      {alertMsg !== '' &&
+        <Alerte
+          msg={alertMsg}
+          niveau={'alerteRouge'}
+        />
+      }
+      
       <ListeInc
         varGlob={props.varGlob}
         setVarGlob={props.setVarGlob}

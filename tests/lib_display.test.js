@@ -5,22 +5,22 @@ describe('boutonDisplay', () => {
         expect(lib_display.boutonDisplay()).toBeUndefined
     })
     test(`should contain 'danger' when couleur:rouge`, () => {
-        expect(lib_display.boutonDisplay('rouge')).toContain('outline -danger fontsize')
+        expect(lib_display.boutonDisplay('rouge')).toContain('outline-danger fontsize')
     })
     test(`should contain 'danger' when couleur:vert`, () => {
-        expect(lib_display.boutonDisplay('vert')).toContain('outline -success fontsize')
+        expect(lib_display.boutonDisplay('vert')).toContain('outline-success fontsize')
     })
     test(`should contain 'danger' when couleur:bleu`, () => {
-        expect(lib_display.boutonDisplay('bleu')).toContain('outline -primary fontsize')
+        expect(lib_display.boutonDisplay('bleu')).toContain('outline-primary fontsize')
     })
     test(`should contain 'danger' when couleur:orange`, () => {
-        expect(lib_display.boutonDisplay('orange')).toContain('outline -warning fontsize')
+        expect(lib_display.boutonDisplay('orange')).toContain('outline-warning fontsize')
     })
     test(`should contain 'secondary' when couleur:gris`, () => {
-        expect(lib_display.boutonDisplay('gris')).toContain('outline -secondary fontsize')
+        expect(lib_display.boutonDisplay('gris')).toContain('outline-secondary fontsize')
     })
     test(`should not contain color when couleur:else`, () => {
-        expect(lib_display.boutonDisplay('xxx')).toContain('outline  fontsize')
+        expect(lib_display.boutonDisplay('xxx')).toContain('outline fontsize')
     })
  
     test(`should not contain menu but particularite when particularite:not undefined`, () => {
@@ -37,13 +37,13 @@ describe('boutonDisplay', () => {
     })
   
     test(`should contain 'outline' when plein:true`, () => {
-        expect(lib_display.boutonDisplay('rouge','menu',false)).toContain('btn-outline -danger')
+        expect(lib_display.boutonDisplay('rouge','menu',false)).toContain('btn-outline-danger')
     })
     test(`should not contain 'outline' when plein:true`, () => {
         expect(lib_display.boutonDisplay('rouge','menu',true)).toContain('btn-danger')
     })
     test(`should contain 'outline' when plein:undefined`, () => {
-        expect(lib_display.boutonDisplay('rouge','menu',undefined)).toContain('btn-outline -danger')
+        expect(lib_display.boutonDisplay('rouge','menu',undefined)).toContain('btn-outline-danger')
     })
 
 })
