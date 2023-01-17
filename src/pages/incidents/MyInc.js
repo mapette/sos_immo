@@ -98,7 +98,15 @@ function MyInc(props) {
         couleur={'gris'}
         plein={true}
       />
-
+      <Button
+        txt={'Nouvelle demande'}
+        actionToDo={() => props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'newInc'
+        })}
+        couleur={'vert'}
+        plein={true}
+      />
     </div>
   );
 }
