@@ -70,13 +70,13 @@ function cleanNothing(dataToClean) {
 }
 
 // PostIt + FicheInc
-function determineStatus(ch, fin, clo) {    //inc_affect_date, inc_fin_date, inc_cloture_date
+function determineStatus(aff, fin, clo) {    //inc_affect_date, inc_fin_date, inc_cloture_date
   let status = 'enAttente'
   if (clo !== null & clo !== undefined) {
     status = 'clos'
   } else if (fin !== null & fin !== undefined) {
     status = 'termine'
-  } else if (ch !== null & ch !== undefined) {
+  } else if (aff !== null & aff !== undefined) {
     status = 'enCours'
   }
   //console.log(ch, fin, clo, status)

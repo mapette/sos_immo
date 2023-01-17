@@ -11,6 +11,7 @@ function ListeInc(props) {
         <th>étage</th>
         <th>incident</th>
         <th>presta</th>
+        <th>status</th>
         <th>signalement</th>
         <th>affectation</th>
         <th>fin intervention</th>
