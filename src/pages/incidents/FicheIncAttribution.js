@@ -10,7 +10,7 @@ function FicheIncAttribution(props) {
 
   useEffect(() => {
     //  => liste des presta (profil admin)
-    fetch('http://localhost:3001/get_presta', lib.optionsGet())
+    fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         setLPresta(response)

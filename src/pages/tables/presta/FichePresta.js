@@ -22,7 +22,7 @@ function FichePresta(props) {
   function soumettre_updatePresta(data) {
     data.presta_id = props.varGlob.focus.presta_id
     if (data.presta_nom === '') { data.presta_nom = props.varGlob.focus.presta_nom }
-    if (data.presta_libelle === '') { data.presta_nom = props.varGlob.focus.presta_libelle }
+    if (data.presta_libelle === '') { data.presta_libelle = props.varGlob.focus.presta_libelle }
     fetch('http://localhost:3001/presta/update', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')

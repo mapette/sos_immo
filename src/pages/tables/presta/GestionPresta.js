@@ -10,7 +10,7 @@ function GestionPresta(props) {
   let [mode, setMode] = useState('neutre')
   
   useEffect(() => {
-    fetch('http://localhost:3001/get_presta', lib.optionsGet())
+    fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) {

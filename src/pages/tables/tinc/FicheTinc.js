@@ -3,44 +3,37 @@ import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import SubmitButton from '../../../tools/SubmitButton'
-
 const lib = require('../../../lib/lib_divers')
 
-function FicheEmp(props) {
-  let [tempList, setTempList] = useState([])
+function FicheTemp(props) {
+  let [prestaList, setPrestaList] = useState([])
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
        .then(response => response.json())
        .then(response => {
         if (response.length !== 0) {
-          setTempList(tempList = response)
+          setPrestaList(prestaList = response)
         }
         })
   }, [])
-
   useEffect(() => {
     if (props.mode === 'sélection') {
-      document.getElementById('emp_etage').value = props.varGlob.focus.emp_etage
-      document.getElementById('emp_nom').value = props.varGlob.focus.emp_nom
-      document.getElementById('emp_temp').value = props.varGlob.focus.emp_temp
+      document.getElementById('tinc_nom').value = props.varGlob.focus.tinc_nom
+      document.getElementById('presta_id').value = props.varGlob.focus.tinc_presta
     }
     else if (props.mode === 'création') {
-      document.getElementById('emp_etage').value = ''
-      document.getElementById('emp_nom').value = ''
-      document.getElementById('emp_temp').value = ''
+      document.getElementById('tinc_nom').value = ''
+      document.getElementById('presta_id').value = ''
     }
-    // récup temp list
   }, [props.varGlob.focus])
 
-  function soumettre_updateEmp(data) {
-    if (data.emp_etage === '') { data.emp_etage = props.varGlob.focus.emp_etage }
-    if (data.emp_nom === '') { data.emp_nom = props.varGlob.focus.emp_nom }
-    if (data.emp_temp === '') { data.emp_temp = props.varGlob.focus.emp_temp }
-    data.emp_id = props.varGlob.focus.emp_id
-    data.emp_temp = parseInt(data.emp_temp)
-    fetch('http://localhost:3001/emp/update', lib.optionsPost(data))
+  function soumettre_updateTinc(data) {
+    if (data.tinc_nom === '') { data.tinc_nom = props.varGlob.focus.tinc_nom }
+    if (data.presta_id === '') { data.presta_id = props.varGlob.focus.tinc_presta }
+    data.tinc_id = props.varGlob.focus.tinc_id
+    fetch('http://localhost:3001/tinc/update', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -50,8 +43,8 @@ function FicheEmp(props) {
       })
   }
 
-  function soumettre_newEmp(data) {
-    fetch('http://localhost:3001/emp/creation', lib.optionsPost(data))
+  function soumettre_newTemp(data) {
+    fetch('http://localhost:3001/tinc/create', lib.optionsPost(data))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({
@@ -68,32 +61,29 @@ function FicheEmp(props) {
           <form id="form_ut"
             type="POST"
             encType="application/x-www-form-urlencoded"
-            onSubmit={handleSubmit(soumettre_updateEmp)}
+            onSubmit={handleSubmit(soumettre_updateTinc)}
           >
             <table className="cadre-15">
             <thead>
                 <th className='largeur-110'>Mise à jour</th>
-                <th className='largeur-50'>étage</th>
-                <th className='largeur-300 gauche'>nom</th>
-                <th className='largeur-200 gauche'>type</th>
+                <th className='largeur-400 '>nom</th>
+                <th className='largeur-300 '>presta en charge</th>
               </thead>
               <tbody>
                 <tr>
-                <td className=''>{props.varGlob.focus.emp_id}</td>
-                  <td>
-                    <input className='input-sans-bordure centrer' id='emp_etage' {...register('emp_etage')} />
+                  <td className='largeur-110'>{props.varGlob.focus.tinc_id}</td>
+                  <td className=''>
+                    <input className='input-sans-bordure largeur-400'
+                      id='tinc_nom' {...register('tinc_nom')} />
                   </td>
                   <td>
-                    <input className='input-sans-bordure' id='emp_nom' {...register('emp_nom')} />
-                  </td>
-                  <td>
-                    <select id='emp_temp' {...register('emp_temp')}
+                    <select id='presta_id' {...register('presta_id')}
                       className='largeur-300'>
-                      {tempList.map(temp =>
+                      {prestaList.map(presta =>
                         <option       
-                          value={temp.temp_id}
-                          key={temp.temp_id}>
-                          {temp.temp_nom}
+                          value={presta.presta_id}
+                          key={presta.presta_id}>
+                          {presta.presta_nom} - {presta.presta_libelle}
                         </option>
                       )}
                     </select>
@@ -108,7 +98,7 @@ function FicheEmp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionEmp'
+                  ecran: 'gestionTinc'
                 })
               }}
               couleur={'gris'}
@@ -127,39 +117,32 @@ function FicheEmp(props) {
           <form id="form_ut"
             type="POST"
             encType="application/x-www-form-urlencoded"
-            onSubmit={handleSubmit(soumettre_newEmp)}
+            onSubmit={handleSubmit(soumettre_newTemp)}
           >
             <table className="cadre-15">
               <thead>
-                <th className=''>Nouvel emplacement</th>
-                <th className='largeur-50'>étage</th>
-                <th className='largeur-300 gauche'>nom</th>
-                <th className='largeur-200 gauche'>type</th>
+                <th className=''>Nouveau type</th>
+                <th className='largeur-400 '>nom</th>
+                <th className='largeur-300 '>presta en charge</th>
               </thead>
               <tbody>
                 <tr>
                   <td className=''></td>
                   <td>
-                    <input className='input-sans-bordure' id='emp_etage' {...register('emp_etage', { required: true })} />
-                    {errors.emp_etage && <p>étage obligatoire</p>}
+                    <input className='input-sans-bordure largeur-400' id='tinc_nom' {...register('tinc_nom', { required: true })} />
+                    {errors.tinc_nom && <p>Nom obligatoire</p>}
                   </td>
                   <td>
-                    <input className='input-sans-bordure' id='emp_nom' {...register('emp_nom', { required: true })} />
-                    {errors.emp_nom && <p>Nom obligatoire</p>}
-                  </td>
-                  <td>
-                    <select id='emp_temp' {...register('emp_temp', { required: true })}
+                    <select id='presta_id' {...register('presta_id', { required: true })}
                       className='largeur-300'>
-                      <option value=''> </option>
-                      {tempList.map(temp =>
+                      {prestaList.map(presta =>
                         <option
-                          value={temp.temp_id}
-                          key={temp.temp_id}>
-                          {temp.temp_nom}
+                          value={presta.presta_id}
+                          key={presta.presta_id}>
+                          {presta.presta_nom}
                         </option>
                       )}
                     </select>
-                    {errors.emp_temp && <p>type obligatoire</p>}
                   </td>
                 </tr>
               </tbody>
@@ -171,7 +154,7 @@ function FicheEmp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionEmp'
+                  ecran: 'gestionTinc'
                 })
               }}
               couleur={'gris'}
@@ -189,4 +172,4 @@ function FicheEmp(props) {
   );
 }
 
-export default FicheEmp;
+export default FicheTemp;

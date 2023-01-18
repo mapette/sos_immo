@@ -5,7 +5,7 @@ function ListPresta(props) {
 
   function showDetails(id) {
     if (props.mode !== 'création') {
-      fetch('http://localhost:3001/get_presta/' + id, lib.optionsGet())
+      fetch('http://localhost:3001/presta/get_one/' + id, lib.optionsGet())
         .then(response => response.json())
         .then(response => {
           props.setVarGlob({

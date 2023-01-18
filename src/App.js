@@ -10,6 +10,7 @@ import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs
 import GestionPresta from './pages/tables/presta/GestionPresta'
 import GestionEmp from './pages/tables/emplacements/GestionEmp'
 import GestionTemp from './pages/tables/temp/GestionTemp'
+import GestionTinc from './pages/tables/tinc/GestionTinc'
 import NewInc from './pages/incidents/NewInc'
 import MyInc from './pages/incidents/MyInc'
 import FicheInc from './pages/incidents/FicheInc'
@@ -79,9 +80,15 @@ function App() {
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />
-          }
+          }          
           {varGlob.ecran === 'gestionTemp' &&
             <GestionTemp
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+          {varGlob.ecran === 'gestionTinc' &&
+            <GestionTinc
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

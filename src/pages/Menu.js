@@ -143,7 +143,8 @@ function Menu(props) {
               txt={'Types d\'incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'menu'
+                // ecran: 'gestionTemp',
+                ecran: 'gestionTinc',
               })}
               couleur={'bleu'}
               menu={'smenu'}
