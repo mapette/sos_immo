@@ -51,7 +51,7 @@ function FicheTemp(props) {
             onSubmit={handleSubmit(soumettre_updateTemp)}
           >
             <table className="cadre-15">
-            <thead>
+              <thead>
                 <th className='largeur-110'>Mise à jour</th>
                 <th className='largeur-300 '>nom</th>
               </thead>
@@ -65,8 +65,13 @@ function FicheTemp(props) {
                 </tr>
               </tbody>
             </table>
+            <SubmitButton
+              txt={'Mise à jour'}
+              couleur={'vert'}
+              plein={true}
+            />
             <Button
-              txt={lib.BT_RETOUR_LISTE}
+              txt={'Annulation'}
               actionToDo={() => {
                 props.setMode('neutre')
                 props.setVarGlob({
@@ -75,12 +80,7 @@ function FicheTemp(props) {
                   ecran: 'gestionTemp'
                 })
               }}
-              couleur={'gris'}
-              plein={true}
-            />
-            <SubmitButton
-              txt={'Mise à jour'}
-              couleur={'vert'}
+              couleur={'bleu'}
               plein={true}
             />
           </form>
@@ -101,9 +101,9 @@ function FicheTemp(props) {
               <tbody>
                 <tr>
                   <td className=''></td>
-                  <td>
+                 <td>
                     <input className='input-sans-bordure' id='temp_nom' {...register('temp_nom', { required: true })} />
-                    {errors.emp_nom && <p>Nom obligatoire</p>}
+                    {errors.emp_nom && <p>Nom obligatoire</p>} 
                   </td>
                 </tr>
               </tbody>

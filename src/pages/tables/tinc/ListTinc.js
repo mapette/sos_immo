@@ -23,7 +23,7 @@ function ListTinc(props) {
         <thead>
           <th className='largeur-50'>id</th>
           <th className='largeur-300 gauche'>type</th>
-          <th className='largeur-170 gauche'>presta en charge</th>
+          <th className='largeur-200 gauche'>prestataire en charge</th>
         </thead>
         <tbody>
           {props.tincList.map(tinc =>

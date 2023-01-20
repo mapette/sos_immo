@@ -8,7 +8,7 @@ const lib = require('../../../lib/lib_divers')
 function GestionPresta(props) {
   let [prestaList, setPrestaList] = useState([])
   let [mode, setMode] = useState('neutre')
-  
+
   useEffect(() => {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
@@ -17,7 +17,8 @@ function GestionPresta(props) {
           setPrestaList(prestaList = response)
         }
       })
-  }, [,mode,props.varGlob.focus])
+      .catch((err) => { console.log('toto', err) })
+  }, [, mode, props.varGlob.focus])
 
   return (
     <div className="">
@@ -45,7 +46,7 @@ function GestionPresta(props) {
         <div className='en-ligne'>
           {props.varGlob.focus === '' && mode === 'neutre' &&
             <span>
-               <Button
+              <Button
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,

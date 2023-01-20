@@ -123,7 +123,7 @@ function FicheTemp(props) {
               <thead>
                 <th className=''>Nouveau type</th>
                 <th className='largeur-400 '>nom</th>
-                <th className='largeur-300 '>presta en charge</th>
+                <th className='largeur-300 '>prestataire en charge</th>
               </thead>
               <tbody>
                 <tr>

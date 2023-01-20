@@ -7,8 +7,8 @@ import SubmitButton from '../../../tools/SubmitButton'
 const lib = require('../../../lib/lib_divers')
 
 function FicheEmp(props) {
-  let [tempList, setTempList] = useState([])
   const { register, handleSubmit, formState: { errors }, } = useForm()
+  let [tempList, setTempList] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
@@ -138,7 +138,7 @@ function FicheEmp(props) {
               </thead>
               <tbody>
                 <tr>
-                  <td className=''></td>
+                  <td />
                   <td>
                     <input className='input-sans-bordure' id='emp_etage' {...register('emp_etage', { required: true })} />
                     {errors.emp_etage && <p>étage obligatoire</p>}
