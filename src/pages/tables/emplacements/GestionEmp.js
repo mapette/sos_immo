@@ -15,6 +15,12 @@ function GestionEmp(props) {
        .then(response => {
          if (response.length !== 0) { setEmpList(empList = response) }
         })
+        .catch(() => {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'err503'
+          })
+        })
   }, [,mode,props.varGlob.focus])
 
   return (

@@ -34,11 +34,23 @@ function GestionUtilisateurs(props) {
     fetch('http://localhost:3001/user/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else if (response.length !== 0) {
           response.forEach(element => {
             ut_liste.liste.push(new cl_ut.Utilisateur(element))
           });
         }
+      })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
       })
   }, [, lUser])
 

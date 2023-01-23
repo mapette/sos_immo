@@ -13,11 +13,22 @@ function GestionPresta(props) {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) {
+        if  (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else if (response.length !== 0) {
           setPrestaList(prestaList = response)
         }
       })
-      .catch((err) => { console.log('toto', err) })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
   }, [, mode, props.varGlob.focus])
 
   return (

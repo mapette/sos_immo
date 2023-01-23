@@ -18,15 +18,26 @@ function GestionEmp(props) {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) { setTempList(tempList = response) }
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else if (response.length !== 0) { setTempList(tempList = response) }
       })
-      fetch('http://localhost:3001/tinc/get_all', lib.optionsGet())
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
+    fetch('http://localhost:3001/tinc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setTincList(tincList = response) }
       })
-    }, [, mode, props.varGlob.focus]) // pour maj auto de la liste
-  
+  }, [, mode, props.varGlob.focus]) // pour maj auto de la liste
+
   return (
     <div className="">
       <h2 className="titre gras cadre-15">

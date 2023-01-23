@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Ribbon from './tools/Ribbon';
-import Login from './pages/Login'
-import OubliMdp from './pages/OubliMdp'
-import ChangeMdp from './pages/ChangeMdp'
+import Login from './pages/authentification/Login'
+import OubliMdp from './pages/authentification/OubliMdp'
+import ChangeMdp from './pages/authentification/ChangeMdp'
 import Menu from './pages/Menu'
 import GestionUtilisateurs from './pages/tables/utilisateurs/GestionUtilisateurs'
 import GestionPresta from './pages/tables/presta/GestionPresta'
@@ -16,7 +16,7 @@ import MyInc from './pages/incidents/MyInc'
 import FicheInc from './pages/incidents/FicheInc'
 import Pilotage from './pages/kpi/Pilotage'
 import Archivage from './pages/kpi/Archivage'
-
+import Err503 from './pages/Err503'
 import './tools/App.css';
 
 function App() {
@@ -119,6 +119,12 @@ function App() {
           }
           {varGlob.ecran === 'archivage' &&
             <Archivage
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+          {varGlob.ecran === 'err503' &&
+            <Err503
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />

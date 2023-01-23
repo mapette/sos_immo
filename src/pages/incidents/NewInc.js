@@ -20,11 +20,23 @@ function NewInc(props) {
     fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        prepaListe(response)
+        if  (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else         prepaLists(response)
+      })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
       })
   }, [])
 
-  function prepaListe(response) {
+  function prepaLists(response) {
     let etages = []
     let liste_emplacements = []
     let emplacements = []
@@ -51,12 +63,20 @@ function NewInc(props) {
   function soumettre_inc(data) {
     fetch('http://localhost:3001/inc/creation', lib.optionsPost(data))
       .then(response => response.json())
-      .then(() => {
-        props.setVarGlob({
-          ...props.varGlob,
-          ecran: 'demandes',
-          profilEcran: 'usager',
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'demandes',
+            profilEcran: 'usager',
+          })
+        }
       })
   }
 

@@ -45,12 +45,19 @@ function FicheIncAffectation(props) {
     if (IsAffectationPossible(data.techno)) { 
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
-        .then(() => {
-           props.setIncident({
-            ...props.incident,
-            inc_affect_date: time.initDate(),
-            inc_affect_ut: data.ut_id ,
-          })
+        .then(response => {
+          if (response.deconnect) {
+            props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'login'
+            })
+          } else {
+            props.setIncident({
+              ...props.incident,
+              inc_affect_date: time.initDate(),
+              inc_affect_ut: data.ut_id,
+            })
+          }
         })
       props.setStatus('enCours')
     }

@@ -11,12 +11,17 @@ function FicheTemp(props) {
 
   useEffect(() => {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
-       .then(response => response.json())
-       .then(response => {
-        if (response.length !== 0) {
+      .then(response => response.json())
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else if (response.length !== 0) {
           setPrestaList(prestaList = response)
         }
-        })
+      })
   }, [])
   useEffect(() => {
     if (props.mode === 'sélection') {
@@ -34,23 +39,37 @@ function FicheTemp(props) {
     if (data.presta_id === '') { data.presta_id = props.varGlob.focus.tinc_presta }
     data.tinc_id = props.varGlob.focus.tinc_id
     fetch('http://localhost:3001/tinc/update', lib.optionsPost(data))
-      .then(() => {
-        props.setMode('neutre')
-        props.setVarGlob({
-          ...props.varGlob,
-          focus: ''
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          props.setMode('neutre')
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: ''
+          })
+        }
       })
   }
 
   function soumettre_newTemp(data) {
     fetch('http://localhost:3001/tinc/create', lib.optionsPost(data))
-      .then(() => {
-        props.setMode('neutre')
-        props.setVarGlob({
-          ...props.varGlob,
-          focus: ''
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          props.setMode('neutre')
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: ''
+          })
+        }
       })
   }
 

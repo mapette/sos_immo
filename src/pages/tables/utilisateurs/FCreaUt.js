@@ -16,15 +16,22 @@ function FCreaUt(props) {
     fetch('http://localhost:3001/user/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        let idList = [] // var intermédiaire
-        let mailList = [] // var intermédiaire
-        if (response.length !== 0) {
-          response.forEach(element => {
-            idList.push(element['ut_id'])
-            mailList.push(element['ut_mail'])
-          });
-        setuserIDList(userIdList = idList)
-        setUserMailList(userMailList = mailList)
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          let idList = [] // var intermédiaire
+          let mailList = [] // var intermédiaire
+          if (response.length !== 0) {
+            response.forEach(element => {
+              idList.push(element['ut_id'])
+              mailList.push(element['ut_mail'])
+            });
+            setuserIDList(userIdList = idList)
+            setUserMailList(userMailList = mailList)
+          }
         }
       })
   }, [])
@@ -35,12 +42,19 @@ function FCreaUt(props) {
       fetch('http://localhost:3001/user/creation', lib.optionsPost(data))
         .then(response => response.json())
         .then(response => {
-          props.setMode('neutre')
-          data.mdp = response.mdp
-          lib.prepaMail(data.ut_mail,
-             'Identifiants SOS Immo',
+          if (response.deconnect) {
+            props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'login'
+            })
+          } else {
+            props.setMode('neutre')
+            data.mdp = response.mdp
+            lib.prepaMail(data.ut_mail,
+              'Identifiants SOS Immo',
               msgMail(data))
-      })
+          }
+        })
     }
   }
   function msgMail(data) {

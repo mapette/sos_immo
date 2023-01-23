@@ -18,23 +18,31 @@ function FicheIncAttribution(props) {
   }, [props.incident])
 
   function soumettreAttribution(data) {
-     if (IsAttributionPossible(data.presta)) {
+    if (IsAttributionPossible(data.presta)) {
       fetch('http://localhost:3001/inc/attrib/'
         + props.varGlob.focus + '/' + data.presta, lib.optionsGet())
         .then(response => response.json())
-        .then(() => {
-          lPresta.forEach(element => {
-            if (element.presta_id === parseInt(data.presta)) {
-              props.setIncident({
-                ...props.incident,
-                presta_id: data.presta,
-                presta_nom: element.presta_nom,
-              })
-            }
-          })
+        .then(response => {
+          if (response.deconnect) {
+            props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'login'
+            })
+          } else {
+            lPresta.forEach(element => {
+              if (element.presta_id === parseInt(data.presta)) {
+                props.setIncident({
+                  ...props.incident,
+                  presta_id: data.presta,
+                  presta_nom: element.presta_nom,
+                })
+              }
+            })
+          }
         })
     }
   }
+  
   function IsAttributionPossible(newPresta) {
     let okAttribution = true
     // empêcher ré-affectation vide ou au même prestataire

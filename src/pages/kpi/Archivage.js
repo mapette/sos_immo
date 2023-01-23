@@ -24,6 +24,12 @@ function Pilotage(props) {
           });
         }
       })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
   }, [, lInc])
 
   function SoumettreArchiveIncident(event) {
@@ -31,10 +37,17 @@ function Pilotage(props) {
     fetch('http://localhost:3001/inc/arc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {   // liste des éléments archivés
-        response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });
-        inc_liste.archivage(inc_arch.liste) // maj liste à l'écran
-        setLInc(inc_liste.liste)
-        inc_clos()
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });
+          inc_liste.archivage(inc_arch.liste) // maj liste à l'écran
+          setLInc(inc_liste.liste)
+          inc_clos()
+        }
       })
   }
 

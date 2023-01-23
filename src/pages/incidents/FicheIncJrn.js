@@ -38,15 +38,23 @@ function FicheIncJrn(props) {
         data.jrn_imm = document.getElementById("infoImm").checked
       }
       let url
-      if(props.varGlob.profilEcran == "usager"){url = 'http://localhost:3001/jrn/update_user'}
-      else {url = 'http://localhost:3001/jrn/update_techno'}
+      if (props.varGlob.profilEcran == "usager") { url = 'http://localhost:3001/jrn/update_user' }
+      else { url = 'http://localhost:3001/jrn/update_techno' }
       fetch(url, lib.optionsPost(data))
-        .then(response => response.json())  
+        .then(response => response.json())
         .then(response => {
-          document.getElementById("comm").value = ''
-          data.jrn_id = response
-          data.jrn_date = new Date()
-          setJournal(journal.concat([data]))
+          if (response.deconnect) {
+            props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'login'
+            })
+          }
+          else {
+            document.getElementById("comm").value = ''
+            data.jrn_id = response
+            data.jrn_date = new Date()
+            setJournal(journal.concat([data]))
+          }
         })
     }
   }

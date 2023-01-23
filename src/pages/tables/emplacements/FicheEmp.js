@@ -12,12 +12,17 @@ function FicheEmp(props) {
 
   useEffect(() => {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
-       .then(response => response.json())
-       .then(response => {
-        if (response.length !== 0) {
+      .then(response => response.json())
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else if (response.length !== 0) {
           setTempList(tempList = response)
         }
-        })
+      })
   }, [])
 
   useEffect(() => {
@@ -41,23 +46,37 @@ function FicheEmp(props) {
     data.emp_id = props.varGlob.focus.emp_id
     data.emp_temp = parseInt(data.emp_temp)
     fetch('http://localhost:3001/emp/update', lib.optionsPost(data))
-      .then(() => {
-        props.setMode('neutre')
-        props.setVarGlob({
-          ...props.varGlob,
-          focus: ''
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          props.setMode('neutre')
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: ''
+          })
+        }
       })
   }
 
   function soumettre_newEmp(data) {
     fetch('http://localhost:3001/emp/creation', lib.optionsPost(data))
-      .then(() => {
-        props.setMode('neutre')
-        props.setVarGlob({
-          ...props.varGlob,
-          focus: ''
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          props.setMode('neutre')
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: ''
+          })
+        }
       })
   }
 

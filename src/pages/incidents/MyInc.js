@@ -20,6 +20,12 @@ function MyInc(props) {
       .then(response => {
         setLInc(response)
       })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
   }, [])
 
   return (

@@ -23,17 +23,30 @@ function Pilotage(props) {
           })
         }
       })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
   }, [, lInc])
 
   function SoumettreClotureIncident(event) {
     event.preventDefault()
     fetch('http://localhost:3001/inc/closing', lib.optionsGet())
       .then(response => response.json())
-      .then(response => {   // liste des incidents clôturés
-        response.forEach(inc => { inc_clos.liste.push(new cl.Incident(inc)) });
-        inc_liste.clotureAutomatique(inc_clos.liste) // maj liste à l'écran
-        setLInc(inc_liste.liste)
-        filterFermesNonClotures(inc_liste)
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {  // liste des incidents clôturés
+          response.forEach(inc => { inc_clos.liste.push(new cl.Incident(inc)) });
+          inc_liste.clotureAutomatique(inc_clos.liste) // maj liste à l'écran
+          setLInc(inc_liste.liste)
+          filterFermesNonClotures(inc_liste)
+        }
       })
   }
 

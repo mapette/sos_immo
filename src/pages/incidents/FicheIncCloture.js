@@ -14,7 +14,14 @@ function FicheIncFin(props) {
     data.inc_id = props.incident.inc_id
     fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsPost(data))
       .then(response => response.json())
-      .then(() => {
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else
         props.setVarGlob({
           ...props.varGlob,
           ecran: 'demandes',
@@ -27,11 +34,19 @@ function FicheIncFin(props) {
     event.preventDefault()
     fetch('http://localhost:3001/inc/closing/' + props.varGlob.focus, lib.optionsGet())
       .then(response => response.json())
-      .then(() => {
-        props.setIncident({
-          ...props.incident,
-          inc_cloture_date: time.initDate(),
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else {
+          props.setIncident({
+            ...props.incident,
+            inc_cloture_date: time.initDate(),
+          })
+        }
       })
   }
 

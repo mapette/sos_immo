@@ -21,18 +21,31 @@ function FicheTemp(props) {
     if (data.temp_nom === '') { data.temp_nom = props.varGlob.focus.temp_nom }
     data.temp_id = props.varGlob.focus.temp_id
     fetch('http://localhost:3001/temp/update', lib.optionsPost(data))
-      .then(() => {
-        props.setMode('neutre')
-        props.setVarGlob({
-          ...props.varGlob,
-          focus: ''
-        })
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else {
+          props.setMode('neutre')
+          props.setVarGlob({
+            ...props.varGlob,
+            focus: ''
+          })
+        }
       })
   }
 
   function soumettre_newTemp(data) {
     fetch('http://localhost:3001/temp/creation', lib.optionsPost(data))
-      .then(() => {
+    .then(response => {
+      if (response.deconnect) {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'login'
+        })
+      } else
         props.setMode('neutre')
         props.setVarGlob({
           ...props.varGlob,

@@ -16,6 +16,12 @@ function GestionTinc(props) {
       .then(response => {
         if (response.length !== 0) { setTincList(tincList = response) }
       })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
+        })
+      })
   }, [, mode, props.varGlob.focus])
   useEffect(() => {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())

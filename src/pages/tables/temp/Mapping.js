@@ -19,6 +19,7 @@ function Mapping(props) {
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setMappList(mappList = response) }
+        else { setMappList(mappList = []) }
       })
     setMappMode('neutre')
     setWarning('')
@@ -38,28 +39,39 @@ function Mapping(props) {
 
   function soumettre_newMapping(data) {
     let isAlreadyMapped = false
-    console.log('data', data)
     mappList.forEach(map => {
       if (map.mapping_tinc === parseInt(data.tinc)) { isAlreadyMapped = true }
     })
-    if (isAlreadyMapped === true) { setWarning('doublon')}
-    else { 
-    data.temp = props.varGlob.focus.temp_id
-    fetch('http://localhost:3001/mapping/creation', lib.optionsPost(data))
-      .then(() => {
-        setMappMode('neutre')
-        setTriggetUpdate(triggerUpdate + 1)
-      })
-  }
+    if (isAlreadyMapped === true) { setWarning('doublon') }
+    else {
+      data.temp = props.varGlob.focus.temp_id
+      fetch('http://localhost:3001/mapping/creation', lib.optionsPost(data))
+        .then(response => {
+          if (response.deconnect) {
+            props.setVarGlob({
+              ...props.varGlob,
+              ecran: 'login'
+            })
+          } else {
+            setMappMode('neutre')
+            setTriggetUpdate(triggerUpdate + 1)
+          }
+        })
+    }
   }
 
   function soumettre_delMapping() {
     fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsGet())
-      .then(() => {
-        setTriggetUpdate(triggerUpdate + 1)
+      .then(response => {
+        if (response.deconnect) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        } else { setTriggetUpdate(triggerUpdate + 1) }
       })
   }
-console.log('mappList',mappList)
+
   return (
     <div className="container mx-auto bordure cadre-15">
       <h3 className="titre gras cadre-15">

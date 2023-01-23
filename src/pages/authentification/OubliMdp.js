@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 //import { useForm } from 'react-hook-form'; PAS UTILISE ICI - il empêche controleMdp() et controleMdp2() 
-import './../tools/App.css';
-import Button from '../tools/Button'
-import SubmitButton from '../tools/SubmitButton'
-import Alerte from '../tools/Alerte'
-import { Collapse } from 'bootstrap';
-const lib = require('../lib/lib_divers')
+import './../../tools/App.css';
+import Button from '../../tools/Button'
+import SubmitButton from '../../tools/SubmitButton'
+import Alerte from '../../tools/Alerte'
+const lib = require('../../lib/lib_divers')
 
 function OubliMdp(props) {
   let [warning, setWarning] = useState('')
