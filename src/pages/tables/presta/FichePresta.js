@@ -25,7 +25,7 @@ function FichePresta(props) {
     if (data.presta_libelle === '') { data.presta_libelle = props.varGlob.focus.presta_libelle }
     fetch('http://localhost:3001/presta/update', lib.optionsPost(data))
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'
@@ -44,7 +44,7 @@ function FichePresta(props) {
   function soumettre_newPresta(data) {
     fetch('http://localhost:3001/presta/creation', lib.optionsPost(data))
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'

@@ -43,7 +43,7 @@ function FicheIncJrn(props) {
       fetch(url, lib.optionsPost(data))
         .then(response => response.json())
         .then(response => {
-          if (response.deconnect) {
+          if (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
               ecran: 'login'

@@ -17,10 +17,18 @@ function Pilotage(props) {
     fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) {
-          response.forEach(element => {
-            inc_liste.liste.push(new cl.Incident(element))
+        if (response.status === 666) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
           })
+        }
+        else {
+          if (response.length !== 0) {
+            response.forEach(element => {
+              inc_liste.liste.push(new cl.Incident(element))
+            })
+          }
         }
       })
       .catch(() => {
@@ -35,18 +43,11 @@ function Pilotage(props) {
     event.preventDefault()
     fetch('http://localhost:3001/inc/closing', lib.optionsGet())
       .then(response => response.json())
-      .then(response => {
-        if (response.deconnect) {
-          props.setVarGlob({
-            ...props.varGlob,
-            ecran: 'login'
-          })
-        } else {  // liste des incidents clôturés
-          response.forEach(inc => { inc_clos.liste.push(new cl.Incident(inc)) });
-          inc_liste.clotureAutomatique(inc_clos.liste) // maj liste à l'écran
-          setLInc(inc_liste.liste)
-          filterFermesNonClotures(inc_liste)
-        }
+      .then(response => {  // liste des incidents clôturés
+        response.forEach(inc => { inc_clos.liste.push(new cl.Incident(inc)) });
+        inc_liste.clotureAutomatique(inc_clos.liste) // maj liste à l'écran
+        setLInc(inc_liste.liste)
+        filterFermesNonClotures(inc_liste)
       })
   }
 

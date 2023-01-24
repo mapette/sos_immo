@@ -13,7 +13,7 @@ function GestionPresta(props) {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if  (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'

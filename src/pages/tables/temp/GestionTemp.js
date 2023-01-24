@@ -18,7 +18,7 @@ function GestionEmp(props) {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'

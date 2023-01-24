@@ -40,7 +40,7 @@ function FicheTemp(props) {
     data.tinc_id = props.varGlob.focus.tinc_id
     fetch('http://localhost:3001/tinc/update', lib.optionsPost(data))
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'
@@ -58,7 +58,7 @@ function FicheTemp(props) {
   function soumettre_newTemp(data) {
     fetch('http://localhost:3001/tinc/create', lib.optionsPost(data))
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
             ecran: 'login'

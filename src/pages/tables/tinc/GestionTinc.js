@@ -14,7 +14,13 @@ function GestionTinc(props) {
     fetch('http://localhost:3001/tinc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) { setTincList(tincList = response) }
+        if (response.status === 666) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else if (response.length !== 0) { setTincList(tincList = response) }
       })
       .catch(() => {
         props.setVarGlob({

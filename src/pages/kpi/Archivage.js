@@ -15,13 +15,22 @@ function Pilotage(props) {
   let [btAction, setBtAction] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())  
+    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.length !== 0) {
-          response.forEach(element => {
-            inc_liste.liste.push(new cl.Incident(element)) 
-          });
+        console.log('response',response.status)
+        if (response.status === 666) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'login'
+          })
+        }
+        else {
+          if (response.length !== 0) {
+            response.forEach(element => {
+              inc_liste.liste.push(new cl.Incident(element))
+            })
+          }
         }
       })
       .catch(() => {
@@ -36,18 +45,11 @@ function Pilotage(props) {
     event.preventDefault()
     fetch('http://localhost:3001/inc/arc', lib.optionsGet())
       .then(response => response.json())
-      .then(response => {   // liste des éléments archivés
-        if (response.deconnect) {
-          props.setVarGlob({
-            ...props.varGlob,
-            ecran: 'login'
-          })
-        } else {
-          response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });
-          inc_liste.archivage(inc_arch.liste) // maj liste à l'écran
-          setLInc(inc_liste.liste)
-          inc_clos()
-        }
+      .then(response => {
+        response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });
+        inc_liste.archivage(inc_arch.liste) // maj liste à l'écran
+        setLInc(inc_liste.liste)
+        inc_clos()
       })
   }
 

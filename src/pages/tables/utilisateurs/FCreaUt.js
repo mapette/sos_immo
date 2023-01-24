@@ -42,7 +42,7 @@ function FCreaUt(props) {
       fetch('http://localhost:3001/user/creation', lib.optionsPost(data))
         .then(response => response.json())
         .then(response => {
-          if (response.deconnect) {
+          if (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
               ecran: 'login'
