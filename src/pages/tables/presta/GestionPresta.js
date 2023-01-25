@@ -13,13 +13,12 @@ function GestionPresta(props) {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        }
-        else if (response.length !== 0) {
+        } else if (response.length !== 0) {
           setPrestaList(prestaList = response)
         }
       })

@@ -18,7 +18,13 @@ function MyInc(props) {
     fetch(url_fetch, lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        setLInc(response)
+        if (response.status === 666) {
+          props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'errExp'
+          })
+        } else
+          setLInc(response)
       })
       .catch(() => {
         props.setVarGlob({

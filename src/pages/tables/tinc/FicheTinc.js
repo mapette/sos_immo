@@ -13,12 +13,12 @@ function FicheTemp(props) {
     fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.deconnect) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        } else if (response.length !== 0) {
+        }else if (response.length !== 0) {
           setPrestaList(prestaList = response)
         }
       })
@@ -40,10 +40,10 @@ function FicheTemp(props) {
     data.tinc_id = props.varGlob.focus.tinc_id
     fetch('http://localhost:3001/tinc/update', lib.optionsPost(data))
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -58,10 +58,10 @@ function FicheTemp(props) {
   function soumettre_newTemp(data) {
     fetch('http://localhost:3001/tinc/create', lib.optionsPost(data))
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else {
           props.setMode('neutre')

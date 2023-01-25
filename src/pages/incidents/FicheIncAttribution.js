@@ -23,10 +23,10 @@ function FicheIncAttribution(props) {
         + props.varGlob.focus + '/' + data.presta, lib.optionsGet())
         .then(response => response.json())
         .then(response => {
-          if (response.deconnect) {
+          if (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'login'
+              ecran: 'errExp'
             })
           } else {
             lPresta.forEach(element => {

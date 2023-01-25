@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
 import SubmitButton from '../../../tools/SubmitButton'
 import Button from '../../../tools/Button'
-import Alerte from '../../../tools/Alerte'
+import Warning from '../../../tools/Warning'
 const lib = require('../../../lib/lib_divers')
 
 function Mapping(props) {
@@ -47,10 +47,10 @@ function Mapping(props) {
       data.temp = props.varGlob.focus.temp_id
       fetch('http://localhost:3001/mapping/creation', lib.optionsPost(data))
         .then(response => {
-          if (response.deconnect) {
+          if  (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'login'
+              ecran: 'errExp'
             })
           } else {
             setMappMode('neutre')
@@ -63,10 +63,10 @@ function Mapping(props) {
   function soumettre_delMapping() {
     fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsGet())
       .then(response => {
-        if (response.deconnect) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else { setTriggetUpdate(triggerUpdate + 1) }
       })
@@ -111,7 +111,7 @@ function Mapping(props) {
           </tbody>
         </table>
         {warning === 'doublon' &&
-          <Alerte
+          <Warning
             msg={`Type d'incident déjà référencé`}
             niveau={'alerteSimple'}
           />

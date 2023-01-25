@@ -1,4 +1,4 @@
-function Alerte(props) {  //alerteRouge, alerteSimple
+function Warning(props) {  //alerteRouge, alerteSimple
 
   return (
     <div className={props.niveau}>  
@@ -9,4 +9,4 @@ function Alerte(props) {  //alerteRouge, alerteSimple
   );
 }
 
-export default Alerte;
+export default Warning;

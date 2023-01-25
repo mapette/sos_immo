@@ -28,10 +28,9 @@ function FichePresta(props) {
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        }
-        else {
+        } else {
           props.setMode('neutre')
           props.setVarGlob({
             ...props.varGlob,
@@ -44,10 +43,10 @@ function FichePresta(props) {
   function soumettre_newPresta(data) {
     fetch('http://localhost:3001/presta/creation', lib.optionsPost(data))
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else {
           props.setMode('neutre')

@@ -8,20 +8,25 @@ const lib = require('../../../lib/lib_divers')
 function GestionEmp(props) {
   let [empList, setEmpList] = useState([])
   let [mode, setMode] = useState('neutre')
-  
+
   useEffect(() => {
     fetch('http://localhost:3001/emp/get_all', lib.optionsGet())
-       .then(response => response.json())
-       .then(response => {
-         if (response.length !== 0) { setEmpList(empList = response) }
-        })
-        .catch(() => {
+      .then(response => response.json())
+      .then(response => {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'err503'
+            ecran: 'errExp'
           })
+        } else if (response.length !== 0) { setEmpList(empList = response) }
+      })
+      .catch(() => {
+        props.setVarGlob({
+          ...props.varGlob,
+          ecran: 'err503'
         })
-  }, [,mode,props.varGlob.focus])
+      })
+  }, [, mode, props.varGlob.focus])
 
   return (
     <div className="">

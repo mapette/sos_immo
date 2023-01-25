@@ -46,7 +46,7 @@ function FicheIncJrn(props) {
           if (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'login'
+              ecran: 'errExp'
             })
           }
           else {

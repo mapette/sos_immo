@@ -18,10 +18,10 @@ function GestionEmp(props) {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else if (response.length !== 0) { setTempList(tempList = response) }
       })

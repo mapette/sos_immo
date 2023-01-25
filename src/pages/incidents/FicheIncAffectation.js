@@ -49,7 +49,7 @@ function FicheIncAffectation(props) {
           if (response.deconnect) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'login'
+              ecran: 'errExp'
             })
           } else {
             props.setIncident({

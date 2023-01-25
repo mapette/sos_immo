@@ -20,10 +20,9 @@ function Pilotage(props) {
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        }
-        else {
+        } else {
           if (response.length !== 0) {
             response.forEach(element => {
               inc_liste.liste.push(new cl.Incident(element))

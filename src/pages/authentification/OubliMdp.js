@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Button from '../../tools/Button'
 import SubmitButton from '../../tools/SubmitButton'
-import Alerte from '../../tools/Alerte'
+import Warning from '../../tools/Warning'
 const lib = require('../../lib/lib_divers')
 
 function OubliMdp(props) {
@@ -91,25 +91,25 @@ function OubliMdp(props) {
                 </div>
               </div>
               {warning === 'mdp' &&
-                <Alerte
+                <Warning
                   msg={'Un mot de passe provisoire sera envoyé à cette adresse.'}
                   niveau={'alerteSimple'}
                 />
               }
               {warning === 'id' &&
-                <Alerte
+                <Warning
                   msg={'Votre identifiant sera envoyé à cette adresse.'}
                   niveau={'alerteSimple'}
                 />
               }
               {warning === 'précision' &&
-                <Alerte
+                <Warning
                   msg={'Veuillez préciser Identifiant ou Mot de passe oublié.'}
                   niveau={'alerteSimple'}
                 />
               }
               {warning === 'erreur' &&
-                <Alerte
+                <Warning
                   msg={'adresse mail erronée'}
                   niveau={'alerteSimple'}
                 />
@@ -127,13 +127,13 @@ function OubliMdp(props) {
         </div >
       }
       {warning === 'ok mdp' &&
-        <Alerte
+        <Warning
           msg={'Un mot de passe provisoire a été envoyé par mail.'}
           niveau={'alerteSimple'}
         />
       }
        {warning === 'ok id' &&
-        <Alerte
+        <Warning
           msg={'L\'identifiant a été envoyé par mail.'}
           niveau={'alerteSimple'}
         />

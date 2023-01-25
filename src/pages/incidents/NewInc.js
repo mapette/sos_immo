@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import './../../tools/App.css';
 import Button from '../../tools/Button'
 import SubmitButton from '../../tools/SubmitButton'
-import Alerte from '../../tools/Alerte'
+import Warning from '../../tools/Warning'
 const lib = require('../../lib/lib_divers')
 
 function NewInc(props) {
@@ -20,13 +20,12 @@ function NewInc(props) {
     fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if  (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        }
-        else         prepaLists(response)
+        } else prepaLists(response)
       })
       .catch(() => {
         props.setVarGlob({
@@ -64,10 +63,10 @@ function NewInc(props) {
     fetch('http://localhost:3001/inc/creation', lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
-        if (response.deconnect) {
+        if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         }
         else {
@@ -173,7 +172,7 @@ function NewInc(props) {
                   <option value=''> </option>
                   {
                     lInc.map(elem =>
-                      elem.emp_id == document.getElementById("empl").value &&
+                      elem.emp_id === document.getElementById("empl").value &&
                       <option
                         value={elem.tinc_id}
                         key={elem.tinc_id}>
@@ -213,7 +212,7 @@ function NewInc(props) {
         </div>
         {
           alertMsg !== '' &&
-          <Alerte
+          <Warning
             msg={alertMsg}
             niveau={'alerteSimple'}
           />

@@ -14,10 +14,10 @@ function FicheEmp(props) {
     fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else if (response.length !== 0) {
           setTempList(tempList = response)
@@ -47,10 +47,10 @@ function FicheEmp(props) {
     data.emp_temp = parseInt(data.emp_temp)
     fetch('http://localhost:3001/emp/update', lib.optionsPost(data))
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -65,12 +65,12 @@ function FicheEmp(props) {
   function soumettre_newEmp(data) {
     fetch('http://localhost:3001/emp/creation', lib.optionsPost(data))
       .then(response => {
-        if (response.status === 666) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        } 
+        }
         else
          {
           props.setMode('neutre')

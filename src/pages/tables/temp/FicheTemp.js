@@ -22,10 +22,10 @@ function FicheTemp(props) {
     data.temp_id = props.varGlob.focus.temp_id
     fetch('http://localhost:3001/temp/update', lib.optionsPost(data))
       .then(response => {
-        if (response.deconnect) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -40,10 +40,10 @@ function FicheTemp(props) {
   function soumettre_newTemp(data) {
     fetch('http://localhost:3001/temp/creation', lib.optionsPost(data))
     .then(response => {
-      if (response.deconnect) {
+      if  (response.status === 666) {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'login'
+          ecran: 'errExp'
         })
       } else
         props.setMode('neutre')

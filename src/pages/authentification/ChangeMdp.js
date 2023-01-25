@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './../../tools/App.css';
 import Button from './../../tools/Button'
 import SubmitButton from './../../tools/SubmitButton'
-import Alerte from './../../tools/Alerte'
+import Warning from './../../tools/Warning'
 const sha1 = require('sha1')
 const lib = require('./../../lib/lib_divers')
 
@@ -87,11 +87,11 @@ function ChangeMdp(props) {
       <p className='cadre-35' />
       {props.varGlob.expMdp &&
         <p>
-          <Alerte
+          <Warning
             msg={'Mot de passe expiré'}
             niveau={'alerteRouge'}
           />
-          <Alerte
+          <Warning
             msg={'Merci de le renouveler'}
             niveau={'alerteSimple'}
           />
@@ -164,7 +164,7 @@ function ChangeMdp(props) {
             </div>
           </form>
           {warning === 'erreur' &&
-            <Alerte
+            <Warning
               msg={'mot de passe erroné'}
               niveau={'alerteSimple'}
             />
@@ -173,7 +173,7 @@ function ChangeMdp(props) {
       }
 
       {warning === 'ok' &&
-        <Alerte
+        <Warning
           msg={'Le mot de passe a été modifié.'}
           niveau={'alerteSimple'}
         />

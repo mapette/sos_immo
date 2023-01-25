@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import SubmitButton from './../../tools/SubmitButton'
-import Alerte from './../../tools/Alerte'
+import Warning from './../../tools/Warning'
 const sha1 = require('sha1')
 const lib = require('./../../lib/lib_divers')
 const lib_time = require('./../../lib/lib_time')
@@ -75,7 +75,7 @@ function Login(props) {
         </div>
         <div className='cadre-15'>
           {warning &&
-            <Alerte
+            <Warning
               msg={'identifiant ou mot de passe erroné'}
               niveau={'alerteSimple'}
             />

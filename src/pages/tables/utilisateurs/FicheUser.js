@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import SubmitButton from '../../../tools/SubmitButton';
-import Alerte from '../../../tools/Alerte'
+import Warning from '../../../tools/Warning'
 const lib = require('../../../lib/lib_divers')
 const time = require('../../../lib/lib_time')
 
@@ -174,7 +174,7 @@ function FicheUser(props) {
         </table>
         <div className='mx-auto container no-gutter'>
           {alertMsg !== '' &&
-            <Alerte
+            <Warning
               msg={alertMsg}
               niveau={'alerteRouge'}
             />

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import './../../../tools/App.css';
 import Button from '../../../tools/Button'
 import SubmitButton from '../../../tools/SubmitButton'
-import Alerte from '../../../tools/Alerte'
+import Warning from '../../../tools/Warning'
 const lib = require('../../../lib/lib_divers')
 
 function FCreaUt(props) {
@@ -16,12 +16,12 @@ function FCreaUt(props) {
     fetch('http://localhost:3001/user/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        if (response.deconnect) {
+        if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
-        } else {
+        }else {
           let idList = [] // var intermédiaire
           let mailList = [] // var intermédiaire
           if (response.length !== 0) {
@@ -42,10 +42,10 @@ function FCreaUt(props) {
       fetch('http://localhost:3001/user/creation', lib.optionsPost(data))
         .then(response => response.json())
         .then(response => {
-          if (response.status === 666) {
+          if  (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'login'
+              ecran: 'errExp'
             })
           } else {
             props.setMode('neutre')
@@ -201,7 +201,7 @@ function FCreaUt(props) {
         <p />
       </form>
       {alertMsg !== '' &&
-        <Alerte
+        <Warning
           msg={alertMsg}
           niveau={'alerteRouge'}
         />

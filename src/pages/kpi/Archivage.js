@@ -3,7 +3,7 @@ import './../../tools/App.css';
 import Button from '../../tools/Button'
 import ListeInc from './ListeInc'
 import SubmitButton from '../../tools/SubmitButton'
-import Alerte from '../../tools/Alerte'
+import Warning from '../../tools/Warning'
 const cl = require('../../lib/lib_cl_incidents')
 const lib = require('../../lib/lib_divers')
 
@@ -22,7 +22,7 @@ function Pilotage(props) {
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            ecran: 'errExp'
           })
         }
         else {
@@ -102,7 +102,7 @@ function Pilotage(props) {
       </div>
 
       {alertMsg !== '' &&
-        <Alerte
+        <Warning
           msg={alertMsg}
           niveau={'alerteRouge'}
         />

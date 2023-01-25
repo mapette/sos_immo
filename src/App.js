@@ -18,6 +18,7 @@ import Pilotage from './pages/kpi/Pilotage'
 import Archivage from './pages/kpi/Archivage'
 import Err503 from './pages/Err503'
 import './tools/App.css';
+import ErrExpiration from './pages/ErrExpiration';
 
 function App() {
 
@@ -125,6 +126,12 @@ function App() {
           }
           {varGlob.ecran === 'err503' &&
             <Err503
+              varGlob={varGlob}
+              setVarGlob={setVarGlob}
+            />
+          }
+          {varGlob.ecran === 'errExp' &&
+            <ErrExpiration
               varGlob={varGlob}
               setVarGlob={setVarGlob}
             />
