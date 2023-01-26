@@ -35,7 +35,7 @@ function MyInc(props) {
   }, [])
 
   return (
-    <div className="">
+    <>
       <h2 className="titre gras cadre-15">
         {lib.determineTitre(props.varGlob.profilEcran)}
       </h2>
@@ -67,7 +67,7 @@ function MyInc(props) {
             )}
           </div>
           {props.varGlob.profilEcran === 'usager' &&
-            <div>
+            <>
               <div className='gras'>Interventions terminées à valider</div>
               <div className="no-padding">
                 {lInc.map(elem => elem.inc_fin_date != null && elem.inc_cloture_date === null &&
@@ -80,7 +80,7 @@ function MyInc(props) {
                   </div>
                 )}
               </div>
-            </div>
+            </>
           }
           {props.varGlob.profilEcran === 'usager' &&
             <div>
@@ -119,7 +119,7 @@ function MyInc(props) {
         couleur={'vert'}
         plein={true}
       />
-    </div>
+    </>
   );
 }
 

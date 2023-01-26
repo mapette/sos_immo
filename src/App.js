@@ -32,114 +32,113 @@ function App() {
     focus: '',        // élement pour lequel on veut le détail (utilisateur, incident, emplacement...)
   })
 
-  {
-    return (
-      <div className="centrer">
-        <Ribbon
-          varGlob={varGlob}
-          setVarGlob={setVarGlob}
-        />
-        <div>
-          {varGlob.ecran === 'login' &&
-            <Login
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'oubliMdp' &&
-            <OubliMdp
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'changemdp' &&
-            <ChangeMdp
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'menu' &&
-            <Menu
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'gestionUtilisateurs' &&
-            <GestionUtilisateurs
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'gestionPresta' &&
-            <GestionPresta
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'gestionEmp' &&
-            <GestionEmp
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }          
-          {varGlob.ecran === 'gestionTemp' &&
-            <GestionTemp
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'gestionTinc' &&
-            <GestionTinc
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'newInc' &&
-            <NewInc
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'demandes' &&
-            <MyInc
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'detailsInc' &&
-            <FicheInc
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'pilot' &&
-            <Pilotage
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'archivage' &&
-            <Archivage
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'err503' &&
-            <Err503
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-          {varGlob.ecran === 'errExp' &&
-            <ErrExpiration
-              varGlob={varGlob}
-              setVarGlob={setVarGlob}
-            />
-          }
-        </div>
-        <br />
-      </div>
-    );
-  }
+  return (
+    <div className="centrer">
+      <Ribbon
+        varGlob={varGlob}
+        setVarGlob={setVarGlob}
+      />
+      <>
+        {varGlob.ecran === 'login' &&
+          <Login
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'oubliMdp' &&
+          <OubliMdp
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'changemdp' &&
+          <ChangeMdp
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'menu' &&
+          <Menu
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'gestionUtilisateurs' &&
+          <GestionUtilisateurs
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'gestionPresta' &&
+          <GestionPresta
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'gestionEmp' &&
+          <GestionEmp
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'gestionTemp' &&
+          <GestionTemp
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'gestionTinc' &&
+          <GestionTinc
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'newInc' &&
+          <NewInc
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'demandes' &&
+          <MyInc
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'detailsInc' &&
+          <FicheInc
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'pilot' &&
+          <Pilotage
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'archivage' &&
+          <Archivage
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'err503' &&
+          <Err503
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+        {varGlob.ecran === 'errExp' &&
+          <ErrExpiration
+            varGlob={varGlob}
+            setVarGlob={setVarGlob}
+          />
+        }
+      </>
+      <br />
+    </div>
+  );
 }
+
 export default App;

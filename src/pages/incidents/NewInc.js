@@ -132,23 +132,18 @@ function NewInc(props) {
               <div className='gauche col-6'>
                 <select type=""
                   id='empl' name='empl' {...register('emp', { required: true })}
-                  onClick={() => {
-                    setEtape(2)
-                  }}
-                  onChange={event => {
-                    setAlertMsg('')
-                  }}
+                  onClick={() => { setEtape(2) }}
+                  onChange={() => { setAlertMsg('') }}
                   className='largeur-200'>
                   <option value='' > </option>
                   {
                     lEmpl.map(elem =>
-                      elem.etage === document.getElementById("etage").value &&
+                      elem.etage == document.getElementById("etage").value &&
                       <option
                         value={elem.id}
                         key={elem.id}>
                         {elem.nom}
                       </option>
-
                     )}
                 </select>
               </div>
@@ -162,23 +157,18 @@ function NewInc(props) {
               <div className='gauche col-6'>
                 <select type=""
                   id='tinc'  {...register('tinc', { required: true })}
-                  onClick={() => {
-                    setEtape(3)
-                  }}
-                  onChange={event => {
-                    setAlertMsg('')
-                  }}
+                  onClick={() => { setEtape(3) }}
+                  onChange={() => { setAlertMsg('') }}
                   className='largeur-200'>
-                  <option value=''> </option>
+           <option value=''> </option>
                   {
                     lInc.map(elem =>
-                      elem.emp_id === document.getElementById("empl").value &&
+                      elem.emp_id == document.getElementById("empl").value &&
                       <option
                         value={elem.tinc_id}
                         key={elem.tinc_id}>
                         {elem.tinc_nom}
                       </option>
-
                     )}
                 </select>
               </div>
@@ -194,9 +184,7 @@ function NewInc(props) {
                   <textarea placeholder='facultatif' type=""
                     id='info' {...register('info',)}
                     rows="5"
-                    onClick={() => {
-                      setEtape(4)
-                    }}
+                    onClick={() => { setEtape(4) }}
                     className='largeur-400' />
                 </div>
               </div>
