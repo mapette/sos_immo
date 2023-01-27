@@ -69,7 +69,7 @@ function FicheUser(props) {
   }
 
   function soumettreReintegration(ut_uuid) {
-    setAlertMsg('Non encore fonctionnelle')
+    setAlertMsg('Non encore fonctionnel')
   }
 
   function contrListBox(hab_profil, ut_presta) {

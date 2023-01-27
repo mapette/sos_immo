@@ -13,7 +13,7 @@ function FicheIncAffectation(props) {
     // pour affectation 'forcée' (suivi des incidents)
     //  => liste des techniciens (profil valideur et admin) // presta_id : presta en charge du type d'incident
     if (props.incident.presta_id != undefined) {
-      if ((props.varGlob.profilEcran === 'techno') | (props.varGlob.profilEcran === 'pilotage')
+      if (props.varGlob.profilEcran === 'techno' | (props.varGlob.profilEcran === 'pilotage')
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'admin')) {
         fetch('http://localhost:3001/user/get_byCatAndPresta/2/' + props.incident.presta_id,
           lib.optionsGet())
@@ -39,29 +39,23 @@ function FicheIncAffectation(props) {
   }, [props.incident])
 
   function soumettreAffectation(data) {
-    data.inc_id =  props.varGlob.focus
+    data.inc_id = props.varGlob.focus
     data.profil = props.varGlob.profil
     data.status = props.status
-    if (IsAffectationPossible(data.techno)) { 
+    if (IsAffectationPossible(data.techno)) {
       fetch(lib.determineURL('affectation', data), lib.optionsGet())
         .then(response => response.json())
-        .then(response => {
-          if (response.deconnect) {
-            props.setVarGlob({
-              ...props.varGlob,
-              ecran: 'errExp'
-            })
-          } else {
-            props.setIncident({
-              ...props.incident,
-              inc_affect_date: time.initDate(),
-              inc_affect_ut: data.ut_id,
-            })
-          }
+        .then(() => {
+          props.setIncident({
+            ...props.incident,
+            inc_affect_date: time.initDate(),
+            inc_affect_ut: data.ut_id,
+          })
         })
       props.setStatus('enCours')
     }
   }
+
   function IsAffectationPossible(techno) {
     let okAffection = false
     //  auto-affectation toujours possible

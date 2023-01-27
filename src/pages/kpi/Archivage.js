@@ -62,7 +62,7 @@ function Pilotage(props) {
 
   function archive() {
     setBtAction('')
-    setAlertMsg('Non encore fonctionnelle')
+    setAlertMsg('Non encore fonctionnel')
   }
 
   return (
