@@ -136,7 +136,7 @@ describe('determineStatus - statusLibelle', () => {      //inc_affect_date, inc_
     test(`should return 'enCours' when inc_affect_date not empty and other dates null or undefined`, () => {
         result_determineStatus = lib.determineStatus(inc_affect_date,undefined,undefined)
         expect(result_determineStatus).toEqual('enCours')
-        expect(lib.statusLibelle(result_determineStatus)).toEqual('Prise en charge')
+        expect(lib.statusLibelle(result_determineStatus)).toEqual('Pris en charge')
     })
     test(`should return 'enCours' when inc_affect_date not empty and other dates null or undefined`, () => {
         result_determineStatus = lib.determineStatus(inc_affect_date,null,undefined)
