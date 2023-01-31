@@ -73,7 +73,7 @@ function Mapping(props) {
   }
 
   return (
-    <div className="container mx-auto bordure cadre-15">
+    <div className="container mx-auto bordure cadre-15 arr-img">
       <h3 className="titre gras cadre-15">
         MAPPING types emplacements/incidents
       </h3>

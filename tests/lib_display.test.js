@@ -23,7 +23,7 @@ describe('boutonDisplay', () => {
         expect(lib_display.boutonDisplay('xxx')).toContain('outline fontsize')
     })
  
-    test(`should not contain menu but particularite when particularite:not undefined`, () => {
+    test(`should not contain menu but specialCss when specialCss:not undefined`, () => {
         expect(lib_display.boutonDisplay('rouge','menu',false,'xxx')).toContain('xxx')
     })
     test(`should contain 'menu' when menu:menu`, () => {

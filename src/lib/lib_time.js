@@ -115,6 +115,7 @@ function tempsRestant(dateSignal, dateFin) {
 }
 
 function isDateExp(dateExp) {
+  console.log('0',new Date(dateExp), ' - 1',new Date())
   if (new Date(dateExp) < new Date()) { return true }
   else { return false }
 }

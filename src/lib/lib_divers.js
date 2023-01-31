@@ -89,7 +89,7 @@ function statusLibelle(status) {
     libelle = 'En attente d\'affectation'
   }
   else if (status === 'enCours') {
-    libelle = 'Prise en charge'
+    libelle = 'Pris en charge'
   }
   else if (status === 'termine') {
     libelle = 'Intervention terminée'
@@ -176,6 +176,7 @@ function determineProfil(respProfil) {
 }
 
 const BT_RETOUR_ACCUEIL = 'Retour au menu'
+const BT_REFRESH = 'Rafraîchir'
 const BT_RETOUR_LISTE = 'Retour à la liste'
 
 module.exports = {
@@ -193,5 +194,6 @@ module.exports = {
   determineStatus,
   BT_RETOUR_ACCUEIL,
   BT_RETOUR_LISTE,
+  BT_REFRESH,
 
 }

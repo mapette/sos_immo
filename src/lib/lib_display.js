@@ -1,6 +1,6 @@
 // boutons
-function boutonDisplay(couleur, menu, plein, particularite) {
-  //console.log('couleur : ', couleur, '- menu : ', menu, ' - plein : ', plein, ' - particularite : ', particularite)
+function boutonDisplay(couleur, menu, plein, specialCss) {
+  //console.log('couleur : ', couleur, '- menu : ', menu, ' - plein : ', plein, ' - specialCss : ', specialCss)
   let totalClass = ''
   if (couleur === undefined) { totalClass = undefined }
   else {
@@ -23,7 +23,7 @@ function boutonDisplay(couleur, menu, plein, particularite) {
     }
 
     let classMenu = menu 
-    if (particularite === undefined) {
+    if (specialCss === undefined) {
       if (menu === undefined) {
         classMenu = " fontsize-12"
       }
@@ -35,7 +35,7 @@ function boutonDisplay(couleur, menu, plein, particularite) {
       }
     }
     else {
-      classMenu = particularite
+      classMenu = specialCss
     }
    
     let outline = '-outline'

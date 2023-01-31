@@ -7,6 +7,7 @@ const display = require('../../lib/lib_display')
 
 function MyInc(props) {
   let [lInc, setLInc] = useState([])
+  let [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
     // liste des incidents selon qui profilEcran et profil du demandeur
@@ -32,7 +33,7 @@ function MyInc(props) {
           ecran: 'err503'
         })
       })
-  }, [])
+  }, [,refresh])
 
   return (
     <>
@@ -110,13 +111,21 @@ function MyInc(props) {
         couleur={'gris'}
         plein={true}
       />
+      {props.varGlob.profilEcran === 'usager' &&
+        <Button
+          txt={'Nouvelle demande'}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            ecran: 'newInc'
+          })}
+          couleur={'vert'}
+          plein={true}
+        />
+      }
       <Button
-        txt={'Nouvelle demande'}
-        actionToDo={() => props.setVarGlob({
-          ...props.varGlob,
-          ecran: 'newInc'
-        })}
-        couleur={'vert'}
+        txt={lib.BT_REFRESH}
+        actionToDo={() => setRefresh(!refresh)}
+        couleur={'bleu'}
         plein={true}
       />
     </>

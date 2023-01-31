@@ -13,7 +13,7 @@ function Button(props) {
       <button
         type="button"
         onClick={props.actionToDo}
-        className={diplay.boutonDisplay(props.couleur, props.menu, props.plein, props.particularite)}
+        className={diplay.boutonDisplay(props.couleur, props.menu, props.plein, props.specialCss)}
       >
         {props.txt[0].toUpperCase() + props.txt.slice(1)}
       </button>

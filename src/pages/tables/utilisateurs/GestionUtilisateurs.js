@@ -110,7 +110,7 @@ function GestionUtilisateurs(props) {
                 couleur={'vert'}
                 plein={true}
                 espaceEntreBt={false}
-                particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
+                specialCss={' bouton-retour fontsize-20 margin-top-15 menu'}
               />
             </div>
             <div className='col-7 cadre-15'>
@@ -194,12 +194,12 @@ function GestionUtilisateurs(props) {
             </div>
             <div className='col-2'>
               <Button
-                txt={'Rafraichir la liste'}
+                txt={'Rafraîchir la liste'}
                 actionToDo={() => tri()}
                 couleur={'vert'}
                 plein={true}
                 espaceEntreBt={false}
-                particularite={' bouton-retour fontsize-20 margin-top-15 menu'}
+                specialCss={' bouton-retour fontsize-20 margin-top-15 menu'}
               />
             </div>
           </div>
