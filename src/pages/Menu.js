@@ -30,34 +30,7 @@ function Menu(props) {
           menu={'menu'}
           plein={true}
         />
-        {props.varGlob.profil === 'admin' &&
-          <Button
-            txt={'Admin'}
-            actionToDo={() => props.setVarGlob({
-              ...props.varGlob,
-              smenu: 'tables',
-            })}
-            couleur={'bleu'}
-            menu={'menu'}
-            plein={true}
-          />
-        }
-        {props.varGlob.profil === 'technicien' && 
-          <span>
-            <Button
-              txt={'Suivi des incidents'}
-              actionToDo={() => props.setVarGlob({
-                ...props.varGlob,
-                profilEcran: 'techno',
-                ecran: 'demandes',
-                smenu: '',
-              })}
-              couleur={'orange'}
-              menu={'menu'}
-              plein={true}
-            />
-          </span>
-        }
+
         {(props.varGlob.profil === 'valideur' || props.varGlob.profil === 'admin') &&
           <span>
             <Button
@@ -74,6 +47,36 @@ function Menu(props) {
             />
           </span>
         }
+        {props.varGlob.profil === 'technicien' &&
+          <span>
+            <Button
+              txt={'Suivi des incidents'}
+              actionToDo={() => props.setVarGlob({
+                ...props.varGlob,
+                profilEcran: 'techno',
+                ecran: 'demandes',
+                smenu: '',
+              })}
+              couleur={'orange'}
+              menu={'menu'}
+              plein={true}
+            />
+          </span>
+        }
+
+        {props.varGlob.profil === 'admin' &&
+          <Button
+            txt={'Admin'}
+            actionToDo={() => props.setVarGlob({
+              ...props.varGlob,
+              smenu: 'tables',
+            })}
+            couleur={'bleu'}
+            menu={'menu'}
+            plein={true}
+          />
+        }
+
         {props.varGlob.profil === 'admin' &&
           <span>
             <Button
@@ -84,15 +87,15 @@ function Menu(props) {
                 smenu: '',
                 profilEcran: 'pilotage',
               })}
-              couleur={'rouge'}
+              couleur={'bleu'}
               menu={'menu'}
               plein={true}
             />
           </span>
         }
       </div >
-      {
-        (props.varGlob.profil === 'admin' && props.varGlob.smenu === 'tables') &&
+
+      {(props.varGlob.profil === 'admin' && props.varGlob.smenu === 'tables') &&
         <div className=''>
           <p />
           <div className='en-ligne'>
@@ -125,7 +128,7 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'gestionEmp'
               })}
-              couleur={'bleu'}
+              couleur={'orange'}
               menu={'smenu'}
               plein={true}
             />
@@ -135,7 +138,7 @@ function Menu(props) {
                 ...props.varGlob,
                 ecran: 'gestionTemp'
               })}
-              couleur={'bleu'}
+              couleur={'orange'}
               menu={'smenu'}
               plein={true}
             />
@@ -146,7 +149,7 @@ function Menu(props) {
                 // ecran: 'gestionTemp',
                 ecran: 'gestionTinc',
               })}
-              couleur={'bleu'}
+              couleur={'orange'}
               menu={'smenu'}
               plein={true}
             />
