@@ -18,7 +18,6 @@ function Pilotage(props) {
     fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
       .then(response => response.json())
       .then(response => {
-        console.log('response',response.status)
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
