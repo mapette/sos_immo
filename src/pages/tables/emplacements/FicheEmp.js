@@ -45,7 +45,7 @@ function FicheEmp(props) {
     if (data.emp_temp === '') { data.emp_temp = props.varGlob.focus.emp_temp }
     data.emp_id = props.varGlob.focus.emp_id
     data.emp_temp = parseInt(data.emp_temp)
-    fetch('http://localhost:3001/emp/update', lib.optionsPost(data))
+    fetch('http://localhost:3001/emp/update', lib.optionsPut(data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

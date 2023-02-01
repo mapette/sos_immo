@@ -46,7 +46,7 @@ function FicheUser(props) {
     if (alertMsg === '') {
       data.ut_uuid = props.varGlob.focus.ut_uuid
       data = contrInput(data)
-      fetch('http://localhost:3001/user/update', lib.optionsPost(data))
+      fetch('http://localhost:3001/user/update', lib.optionsPut(data))
       .then(() => {
           props.setMode('neutre')
           props.setVarGlob({

@@ -38,7 +38,7 @@ function FicheTemp(props) {
     if (data.tinc_nom === '') { data.tinc_nom = props.varGlob.focus.tinc_nom }
     if (data.presta_id === '') { data.presta_id = props.varGlob.focus.tinc_presta }
     data.tinc_id = props.varGlob.focus.tinc_id
-    fetch('http://localhost:3001/tinc/update', lib.optionsPost(data))
+    fetch('http://localhost:3001/tinc/update', lib.optionsPut(data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

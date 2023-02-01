@@ -14,10 +14,24 @@ function optionsPost(data) {
     body: JSON.stringify(data),
   }
 }
-
+function optionsPut(data) {
+  return {
+    method: 'put',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  }
+}
 function optionsGet() {
   return {
     method: 'get',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+  }
+}
+function optionsDelete() {
+  return {
+    method: 'delete',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   }
@@ -183,6 +197,8 @@ module.exports = {
   prepaMail,
   optionsPost,
   optionsGet,
+  optionsDelete,
+  optionsPut,
   findUserStatus,
   findProfil,
   cleanNull,

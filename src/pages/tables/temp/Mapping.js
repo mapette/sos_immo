@@ -61,7 +61,7 @@ function Mapping(props) {
   }
 
   function soumettre_delMapping() {
-    fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsGet())
+    fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsDelete())
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

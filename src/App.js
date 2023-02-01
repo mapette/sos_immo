@@ -17,8 +17,8 @@ import FicheInc from './pages/incidents/FicheInc'
 import Pilotage from './pages/kpi/Pilotage'
 import Archivage from './pages/kpi/Archivage'
 import Err503 from './pages/Err503'
-import './tools/App.css';
 import ErrExpiration from './pages/ErrExpiration';
+import './tools/App.css';
 
 function App() {
 

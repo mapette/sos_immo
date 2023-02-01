@@ -27,7 +27,7 @@ function ChangeMdp(props) {
       mdp: sha1(user + document.getElementById('mdp').value),
       newmdp: sha1(user + document.getElementById('newmdp').value),
     }
-    fetch('http://localhost:3001/change_pw', lib.optionsPost(data))
+    fetch('http://localhost:3001/change_pw', lib.optionsPut(data))
       .then(response => response.json())
       .then(response => {
         if (response.status === true) { 

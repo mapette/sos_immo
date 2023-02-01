@@ -12,7 +12,7 @@ function FicheIncFin(props) {
 
   function SoumettreInsatisfaction(data) { //relaunch
     data.inc_id = props.incident.inc_id
-    fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsPost(data))
+    fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsPut(data))
       .then(response => response.json())
       .then(() => {
         props.setVarGlob({
