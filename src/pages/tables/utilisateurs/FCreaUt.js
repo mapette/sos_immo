@@ -19,7 +19,7 @@ function FCreaUt(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         }else {
           let idList = [] // var intermédiaire
@@ -45,7 +45,7 @@ function FCreaUt(props) {
           if  (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'errExp'
+              screen: 'errExp'
             })
           } else {
             props.setMode('neutre')

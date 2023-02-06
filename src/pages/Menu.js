@@ -11,7 +11,7 @@ function Menu(props) {
           txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'newInc',
+            screen: 'newInc',
             smenu: '',
           })}
           couleur={'vert'}
@@ -22,8 +22,8 @@ function Menu(props) {
           txt={'Mes demandes'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            profilEcran: 'usager',
-            ecran: 'demandes',
+            profilScreen: 'usager',
+            screen: 'demandes',
             smenu: '',
           })}
           couleur={'vert'}
@@ -37,9 +37,9 @@ function Menu(props) {
               txt={'Pilotage'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'pilot',
+                screen: 'pilot',
                 smenu: '',
-                profilEcran: 'pilotage',
+                profilScreen: 'pilotage',
               })}
               couleur={'rouge'}
               menu={'menu'}
@@ -53,8 +53,8 @@ function Menu(props) {
               txt={'Suivi des incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                profilEcran: 'techno',
-                ecran: 'demandes',
+                profilScreen: 'techno',
+                screen: 'demandes',
                 smenu: '',
               })}
               couleur={'orange'}
@@ -83,9 +83,9 @@ function Menu(props) {
               txt={'Archivage'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'archivage',
+                screen: 'archivage',
                 smenu: '',
-                profilEcran: 'pilotage',
+                profilScreen: 'pilotage',
               })}
               couleur={'bleu'}
               menu={'menu'}
@@ -103,7 +103,7 @@ function Menu(props) {
               txt={'Utilisateurs'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'gestionUtilisateurs',
+                screen: 'gestionUtilisateurs',
               })}
               couleur={'orange'}
               menu={'smenu'}
@@ -113,7 +113,7 @@ function Menu(props) {
               txt={'Prestataires'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'gestionPresta'
+                screen: 'gestionPresta'
               })}
               couleur={'orange'}
               menu={'smenu'}
@@ -126,7 +126,7 @@ function Menu(props) {
               txt={'Emplacements'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'gestionEmp'
+                screen: 'gestionEmp'
               })}
               couleur={'orange'}
               menu={'smenu'}
@@ -136,7 +136,7 @@ function Menu(props) {
               txt={'Type d\'emplacement'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'gestionTemp'
+                screen: 'gestionTemp'
               })}
               couleur={'orange'}
               menu={'smenu'}
@@ -146,8 +146,8 @@ function Menu(props) {
               txt={'Types d\'incidents'}
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
-                // ecran: 'gestionTemp',
-                ecran: 'gestionTinc',
+                // screen: 'gestionTemp',
+                screen: 'gestionTinc',
               })}
               couleur={'orange'}
               menu={'smenu'}

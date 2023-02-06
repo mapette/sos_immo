@@ -16,7 +16,7 @@ function FicheTemp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         }else if (response.length !== 0) {
           setPrestaList(prestaList = response)
@@ -43,7 +43,7 @@ function FicheTemp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -61,7 +61,7 @@ function FicheTemp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -117,7 +117,7 @@ function FicheTemp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionTinc'
+                  screen: 'gestionTinc'
                 })
               }}
               couleur={'gris'}
@@ -173,7 +173,7 @@ function FicheTemp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionTinc'
+                  screen: 'gestionTinc'
                 })
               }}
               couleur={'gris'}

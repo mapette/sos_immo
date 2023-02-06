@@ -9,7 +9,7 @@ function FicheIncJrn(props) {
 
   useEffect(() => {
     function infoImmoInclude() {
-      if (props.varGlob.profilEcran !== 'usager') {
+      if (props.varGlob.profilScreen !== 'usager') {
         return true
       }
       else {
@@ -38,7 +38,7 @@ function FicheIncJrn(props) {
         data.jrn_imm = document.getElementById("infoImm").checked
       }
       let url
-      if (props.varGlob.profilEcran == "usager") { url = 'http://localhost:3001/jrn/update_user' }
+      if (props.varGlob.profilScreen == "usager") { url = 'http://localhost:3001/jrn/update_user' }
       else { url = 'http://localhost:3001/jrn/update_techno' }
       fetch(url, lib.optionsPost(data))
         .then(response => response.json())
@@ -46,7 +46,7 @@ function FicheIncJrn(props) {
           if (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'errExp'
+              screen: 'errExp'
             })
           }
           else {
@@ -60,7 +60,7 @@ function FicheIncJrn(props) {
   }
 
   function affBtInfoImm() {
-    if (props.varGlob.profilEcran === 'usager') {
+    if (props.varGlob.profilScreen === 'usager') {
       return 'invisible'
     }
   }
@@ -71,7 +71,7 @@ function FicheIncJrn(props) {
         <thead>
           <th>date</th>
           <th>message</th>
-          {props.varGlob.profilEcran !== 'usager' &&
+          {props.varGlob.profilScreen !== 'usager' &&
             <th>info immo</th>
           }
         </thead>
@@ -80,7 +80,7 @@ function FicheIncJrn(props) {
             <tr key={ligne.jrn_id}>
               <td className='largeur-300'>{time.formatDate(ligne.jrn_date)} à {time.formatHeure(ligne.jrn_date)}</td>
               <td className='largeur-1000 gauche'>{ligne.jrn_msg}</td>
-              {props.varGlob.profilEcran !== 'usager' && ligne.jrn_imm == true &&
+              {props.varGlob.profilScreen !== 'usager' && ligne.jrn_imm == true &&
                <td width='25px'><input type="checkbox" checked /></td>
               }
             </tr>
@@ -101,7 +101,7 @@ function FicheIncJrn(props) {
             />
           </div>
           <div>
-            {props.varGlob.profilEcran !== 'usager' &&
+            {props.varGlob.profilScreen !== 'usager' &&
               <span className={affBtInfoImm()}>
                 <label className="form-check-label petit" for="infoImm">
                   info immo

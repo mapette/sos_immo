@@ -17,7 +17,7 @@ function FicheEmp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else if (response.length !== 0) {
           setTempList(tempList = response)
@@ -50,7 +50,7 @@ function FicheEmp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -68,7 +68,7 @@ function FicheEmp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         }
         else
@@ -129,7 +129,7 @@ function FicheEmp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionEmp'
+                  screen: 'gestionEmp'
                 })
               }}
               couleur={'gris'}
@@ -192,7 +192,7 @@ function FicheEmp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionEmp'
+                  screen: 'gestionEmp'
                 })
               }}
               couleur={'gris'}

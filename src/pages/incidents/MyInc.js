@@ -10,9 +10,9 @@ function MyInc(props) {
   let [refresh, setRefresh] = useState(false)
 
   useEffect(() => {
-    // liste des incidents selon qui profilEcran et profil du demandeur
+    // liste des incidents selon qui profilScreen et profil du demandeur
     let data = {
-      profilEcran: props.varGlob.profilEcran,
+      profilScreen: props.varGlob.profilScreen,
       profil: props.varGlob.profil,
     }
     let url_fetch = lib.determineURL("demande", data)
@@ -22,7 +22,7 @@ function MyInc(props) {
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else
           setLInc(response)
@@ -30,7 +30,7 @@ function MyInc(props) {
       .catch(() => {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'err503'
+          screen: 'err503'
         })
       })
   }, [,refresh])
@@ -38,15 +38,15 @@ function MyInc(props) {
   return (
     <>
       <h2 className="titre gras cadre-15">
-        {lib.determineTitre(props.varGlob.profilEcran)}
+        {lib.determineTitre(props.varGlob.profilScreen)}
       </h2>
       <br />
-      <div className={display.textAlign(props.varGlob.profilEcran)}>
+      <div className={display.textAlign(props.varGlob.profilScreen)}>
         <div className='row no-gutter'>
           <div className='gras'>Incidents attente d'affectation</div>
           <div className="no-padding">
             {lInc.map(elem => elem.inc_affect_date === null &&
-              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+              <div className={display.alignement(props.varGlob.profilScreen)} key={elem.inc_id}>
                 <PostItInc
                   elem={elem}
                   varGlob={props.varGlob}
@@ -58,7 +58,7 @@ function MyInc(props) {
           <div className='gras'>Interventions en cours</div>
           <div className="no-padding">
             {lInc.map(elem => elem.inc_affect_date != null && elem.inc_fin_date === null &&
-              <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+              <div className={display.alignement(props.varGlob.profilScreen)} key={elem.inc_id}>
                 <PostItInc
                   elem={elem}
                   varGlob={props.varGlob}
@@ -67,12 +67,12 @@ function MyInc(props) {
               </div>
             )}
           </div>
-          {props.varGlob.profilEcran === 'usager' &&
+          {props.varGlob.profilScreen === 'usager' &&
             <>
               <div className='gras'>Interventions terminées à valider</div>
               <div className="no-padding">
                 {lInc.map(elem => elem.inc_fin_date != null && elem.inc_cloture_date === null &&
-                  <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                  <div className={display.alignement(props.varGlob.profilScreen)} key={elem.inc_id}>
                     <PostItInc
                       elem={elem}
                       varGlob={props.varGlob}
@@ -83,12 +83,12 @@ function MyInc(props) {
               </div>
             </>
           }
-          {props.varGlob.profilEcran === 'usager' &&
+          {props.varGlob.profilScreen === 'usager' &&
             <div>
               <div className='gras'>Interventions terminées depuis moins de 30 jours</div>
               <div className="no-padding">
                 {lInc.map(elem => elem.inc_cloture_date != null &&
-                  <div className={display.alignement(props.varGlob.profilEcran)} key={elem.inc_id}>
+                  <div className={display.alignement(props.varGlob.profilScreen)} key={elem.inc_id}>
                     <PostItInc
                       elem={elem}
                       varGlob={props.varGlob}
@@ -106,17 +106,17 @@ function MyInc(props) {
         txt={lib.BT_RETOUR_ACCUEIL}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,
-          ecran: 'menu'
+          screen: 'menu'
         })}
         couleur={'gris'}
         plein={true}
       />
-      {props.varGlob.profilEcran === 'usager' &&
+      {props.varGlob.profilScreen === 'usager' &&
         <Button
           txt={'Nouvelle demande'}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'newInc'
+            screen: 'newInc'
           })}
           couleur={'vert'}
           plein={true}

@@ -12,7 +12,7 @@ function ErrExpiration(props) {
         txt={`Retour à l'écran d'authentification`}
         actionToDo={() => props.setVarGlob({
           ...props.varGlob,
-          ecran: 'login',
+          screen: 'login',
         })}
         couleur={'bleu'}
         plein={true}
@@ -23,7 +23,7 @@ function ErrExpiration(props) {
         className='btn '
         onClick={() => props.setVarGlob({
           ...props.varGlob,
-          ecran: 'oubliMdp'
+          screen: 'oubliMdp'
         })}
       >identifiant/mot de passe oublié</button>
     </div>

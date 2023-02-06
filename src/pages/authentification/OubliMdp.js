@@ -144,7 +144,7 @@ function OubliMdp(props) {
           txt={lib.BT_RETOUR_ACCUEIL}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'login'
+            screen: 'login'
           })}
           couleur={'gris'}
           plein={true}

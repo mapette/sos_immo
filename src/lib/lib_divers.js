@@ -118,10 +118,10 @@ function statusLibelle(status) {
 function determineURL(catUrl, data) {
   let url = ''
   if (catUrl === "demande") {
-    if (data.profilEcran === 'usager') {
+    if (data.profilScreen === 'usager') {
       url = 'http://localhost:3001/inc/get_byUser'
     }
-    else if (data.profilEcran === 'techno') {
+    else if (data.profilScreen === 'techno') {
       if (data.profil === 'technicien') {
         url = 'http://localhost:3001/inc/get_byPresta'
       }
@@ -154,37 +154,37 @@ function determineProfil(respProfil) {
   if (respProfil === 0) {
     return {
       profil: 'administrateur',
-      ecran: 'gestionUtilisateurs'
+      screen: 'gestionUtilisateurs'
     }
   }
   else if (respProfil === 1) {
     return {
       profil: 'usager',
-      ecran: 'gestionUtilisateurs'
+      screen: 'gestionUtilisateurs'
     }
   }
   else if (respProfil === 2) {
     return {
       profil: 'technicien',
-      ecran: 'gestionUtilisateurs',
+      screen: 'gestionUtilisateurs',
     }
   }
   else if (respProfil === 3) {
     return {
       profil: 'valideur',
-      ecran: 'gestionUtilisateurs',
+      screen: 'gestionUtilisateurs',
     }
   }
   else if (respProfil === 4) {
     return {
       profil: 'admin',
-      ecran: 'gestionUtilisateurs',
+      screen: 'gestionUtilisateurs',
     }
   }
   else {
     return {
       profil: 'profil plus que surprenant !',
-      ecran: 'gestionUtilisateurs',
+      screen: 'gestionUtilisateurs',
     }
   }
 }

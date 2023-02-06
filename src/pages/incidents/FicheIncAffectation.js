@@ -13,7 +13,7 @@ function FicheIncAffectation(props) {
     // pour affectation 'forcée' (suivi des incidents)
     //  => liste des techniciens (profil valideur et admin) // presta_id : presta en charge du type d'incident
     if (props.incident.presta_id != undefined) {
-      if (props.varGlob.profilEcran === 'techno' | (props.varGlob.profilEcran === 'pilotage')
+      if (props.varGlob.profilScreen === 'techno' | (props.varGlob.profilScreen === 'pilotage')
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'admin')) {
         fetch('http://localhost:3001/user/get_byCatAndPresta/2/' + props.incident.presta_id,
           lib.optionsGet())

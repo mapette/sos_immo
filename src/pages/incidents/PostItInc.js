@@ -11,13 +11,13 @@ function PostItInc(props) {
     props.setVarGlob({
       ...props.varGlob,
       focus: id,
-      ecran: 'detailsInc'
+      screen: 'detailsInc'
     })
   }
   //fichePostItDisplay
-  if (props.varGlob.profilEcran === 'usager') {
+  if (props.varGlob.profilScreen === 'usager') {
     return (
-      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran, status)}>
+      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilScreen, status)}>
         <div>
           incident {props.elem.inc_id}
         </div>
@@ -39,13 +39,13 @@ function PostItInc(props) {
       </button>
     )
   }
-  else if (props.varGlob.profilEcran === 'techno') {
+  else if (props.varGlob.profilScreen === 'techno') {
     let ESPACE = ' '
     let TAQUET = ' | '
     let TIRET = ' - '
     let FLECHE = ' => '
     return (
-      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilEcran, status)}>
+      <button onClick={() => showDetails(props.elem.inc_id)} className={display.postItDisplay(props.varGlob.profilScreen, status)}>
         <div>
           {props.elem.inc_id}
           {TIRET}

@@ -8,7 +8,7 @@ function ListeIncLine(props) {
     props.setVarGlob({
       ...props.varGlob,
       focus: id,
-      ecran: 'detailsInc',
+      screen: 'detailsInc',
       pilotage: true,
     })
   }

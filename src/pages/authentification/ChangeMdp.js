@@ -34,7 +34,7 @@ function ChangeMdp(props) {
           setWarning('ok') 
           props.setVarGlob({
             ...props.varGlob,
-            expMdp: false,
+            isPwExp: false,
           })
         }
         else { setWarning('erreur') }
@@ -85,7 +85,7 @@ function ChangeMdp(props) {
         Modification du mot de passe
       </h2>
       <p className='cadre-35' />
-      {props.varGlob.expMdp &&
+      {props.varGlob.isPwExp &&
         <p>
           <Warning
             msg={'Mot de passe expiré'}
@@ -178,13 +178,13 @@ function ChangeMdp(props) {
           niveau={'alerteSimple'}
         />
       }
-      {!props.varGlob.expMdp &&
+      {!props.varGlob.isPwExp &&
         <div className='cadre-35'>
           <Button
             txt={lib.BT_RETOUR_ACCUEIL}
             actionToDo={() => props.setVarGlob({
               ...props.varGlob,
-              ecran: 'menu'
+              screen: 'menu'
             })}
             couleur={'gris'}
             plein={true}

@@ -18,12 +18,12 @@ function Ribbon(props) {
         SOS IMMO
       </div>
 
-      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
+      {props.varGlob.screen !== 'login' && props.varGlob.screen !== 'oubliMdp' &&
         <div  className='ribbon-nom-profil'>
           <div>
             <div className='gauche color-titre cadre-15'>
               <span>utilisateur : </span>
-              <span>{props.varGlob.nom}</span>
+              <span>{props.varGlob.userName}</span>
             </div>
             <div className='gauche color-id cadre-15'>
               <span>profil : </span>
@@ -33,13 +33,13 @@ function Ribbon(props) {
         </div>
       }
 
-      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
+      {props.varGlob.screen !== 'login' && props.varGlob.screen !== 'oubliMdp' &&
         <div className='ribbon-bt'>
           <button type="image"
             className='cadre-3'
             onClick={() => props.setVarGlob({
               ...props.varGlob,
-              ecran: 'changemdp'
+              screen: 'changemdp'
             })} >
             <img title='changer le mot de passe'
               className='arr-img ribbon-bt-length' src={ic_reset} />
@@ -47,7 +47,7 @@ function Ribbon(props) {
         </div>
       }
 
-      {props.varGlob.ecran !== 'login' && props.varGlob.ecran !== 'oubliMdp' &&
+      {props.varGlob.screen !== 'login' && props.varGlob.screen !== 'oubliMdp' &&
         <div className='ribbon-bt' >
           <button
             type="image"
@@ -57,9 +57,9 @@ function Ribbon(props) {
               fetch('http://localhost:3001/welcome', lib.optionsGet())
               props.setVarGlob({
                 ...props.varGlob,
-                ecran: 'login',
+                screen: 'login',
                 smenu: '',
-                profilEcran: '',
+                profilScreen: '',
                 focus: '',
               })
             }} >

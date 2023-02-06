@@ -17,8 +17,8 @@ function FicheIncFin(props) {
       .then(() => {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'demandes',
-          profilEcran: 'usager',
+          screen: 'demandes',
+          profilScreen: 'usager',
         })
       })
   }
@@ -37,7 +37,7 @@ function FicheIncFin(props) {
 
   return (
     <div>
-      {props.varGlob.profilEcran === 'usager' &&    // normalement inutile - je garde par précausion
+      {props.varGlob.profilScreen === 'usager' &&    // normalement inutile - je garde par précausion
         <div>
           <form id="attribution" className='cadre-15'
             type="POST"
@@ -58,7 +58,7 @@ function FicheIncFin(props) {
           />
         </div>
       }
-      {(props.varGlob.profilEcran === 'usager'
+      {(props.varGlob.profilScreen === 'usager'
         && insatisfaction === true) &&  // normalement inutile - je garde par précausion
         <div>
           <form id="attribution" className='cadre-15'

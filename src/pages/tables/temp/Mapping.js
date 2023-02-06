@@ -50,7 +50,7 @@ function Mapping(props) {
           if  (response.status === 666) {
             props.setVarGlob({
               ...props.varGlob,
-              ecran: 'errExp'
+              screen: 'errExp'
             })
           } else {
             setMappMode('neutre')
@@ -66,7 +66,7 @@ function Mapping(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else { setTriggetUpdate(triggerUpdate + 1) }
       })

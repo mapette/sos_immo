@@ -25,7 +25,7 @@ function FicheTemp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -43,7 +43,7 @@ function FicheTemp(props) {
       if  (response.status === 666) {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'errExp'
+          screen: 'errExp'
         })
       } else
         props.setMode('neutre')
@@ -90,7 +90,7 @@ function FicheTemp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionTemp'
+                  screen: 'gestionTemp'
                 })
               }}
               couleur={'bleu'}
@@ -128,7 +128,7 @@ function FicheTemp(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionTemp'
+                  screen: 'gestionTemp'
                 })
               }}
               couleur={'gris'}

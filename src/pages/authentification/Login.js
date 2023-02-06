@@ -15,12 +15,12 @@ function Login(props) {
       .catch(() => {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'err503'
+          screen: 'err503'
         })
       })
   }, [])
 
-  function controleExpMdp(dateExp) {
+  function controleisPwExp(dateExp) {
     if (lib_time.isDateExp(dateExp)) { return 'changemdp' }
     else { return 'menu' }
   }
@@ -37,10 +37,10 @@ function Login(props) {
         let profil = lib.determineProfil(response.hab_profil)
         props.setVarGlob({
           ...props.varGlob,
-          nom: response.ut_prenom + ' ' + response.ut_nom,
+          userName: response.ut_prenom + ' ' + response.ut_nom,
           profil: profil.profil,
-          expMdp: lib_time.isDateExp(response.ut_mdp_exp),
-          ecran: controleExpMdp(response.ut_mdp_exp)
+          isPwExp: lib_time.isDateExp(response.ut_mdp_exp),
+          screen: controleisPwExp(response.ut_mdp_exp)
         })
    
 
@@ -89,7 +89,7 @@ function Login(props) {
         className='btn btn-link'
         onClick={() => props.setVarGlob({
           ...props.varGlob,
-          ecran: 'oubliMdp'
+          screen: 'oubliMdp'
         })}
       >identifiant/mot de passe oublié</button>
     </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Ribbon from './tools/Ribbon';
 import Login from './pages/authentification/Login'
 import OubliMdp from './pages/authentification/OubliMdp'
@@ -23,12 +22,12 @@ import './tools/App.css';
 function App() {
 
   let [varGlob, setVarGlob] = useState({
-    ecran: 'login',
+    screen: 'login',
     smenu: '',
-    nom: '',
+    userName: '',
     profil: '',
-    profilEcran: '',  // depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
-    expMdp: false,    // true si mdp à renouveler
+    profilScreen: '',  // depuis 'mes demandes' => 'usager', depuis 'suivi inc' => 'techno
+    isPwExp: false,    // true si mdp à renouveler
     focus: '',        // élement pour lequel on veut le détail (utilisateur, incident, emplacement...)
   })
 
@@ -39,97 +38,97 @@ function App() {
         setVarGlob={setVarGlob}
       />
       <>
-        {varGlob.ecran === 'login' &&
+        {varGlob.screen === 'login' &&
           <Login
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'oubliMdp' &&
+        {varGlob.screen === 'oubliMdp' &&
           <OubliMdp
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'changemdp' &&
+        {varGlob.screen === 'changemdp' &&
           <ChangeMdp
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'menu' &&
+        {varGlob.screen === 'menu' &&
           <Menu
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'gestionUtilisateurs' &&
+        {varGlob.screen === 'gestionUtilisateurs' &&
           <GestionUtilisateurs
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'gestionPresta' &&
+        {varGlob.screen === 'gestionPresta' &&
           <GestionPresta
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'gestionEmp' &&
+        {varGlob.screen === 'gestionEmp' &&
           <GestionEmp
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'gestionTemp' &&
+        {varGlob.screen === 'gestionTemp' &&
           <GestionTemp
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'gestionTinc' &&
+        {varGlob.screen === 'gestionTinc' &&
           <GestionTinc
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'newInc' &&
+        {varGlob.screen === 'newInc' &&
           <NewInc
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'demandes' &&
+        {varGlob.screen === 'demandes' &&
           <MyInc
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'detailsInc' &&
+        {varGlob.screen === 'detailsInc' &&
           <FicheInc
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'pilot' &&
+        {varGlob.screen === 'pilot' &&
           <Pilotage
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'archivage' &&
+        {varGlob.screen === 'archivage' &&
           <Archivage
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'err503' &&
+        {varGlob.screen === 'err503' &&
           <Err503
             varGlob={varGlob}
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.ecran === 'errExp' &&
+        {varGlob.screen === 'errExp' &&
           <ErrExpiration
             varGlob={varGlob}
             setVarGlob={setVarGlob}

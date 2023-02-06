@@ -16,14 +16,14 @@ function GestionEmp(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else if (response.length !== 0) { setEmpList(empList = response) }
       })
       .catch(() => {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'err503'
+          screen: 'err503'
         })
       })
   }, [, mode, props.varGlob.focus])
@@ -41,7 +41,7 @@ function GestionEmp(props) {
                 txt={lib.BT_RETOUR_ACCUEIL}
                 actionToDo={() => props.setVarGlob({
                   ...props.varGlob,
-                  ecran: 'menu'
+                  screen: 'menu'
                 })}
                 couleur={'gris'}
                 plein={true}

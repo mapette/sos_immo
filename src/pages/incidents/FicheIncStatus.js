@@ -19,7 +19,7 @@ function FicheIncStatus(props) {
         <h3>{lib.statusLibelle(status)}</h3>
       }
       {status === 'enAttente' &&
-        props.varGlob.profilEcran !== 'usager' &&
+        props.varGlob.profilScreen !== 'usager' &&
         <FicheIncAffectation
           status={status}
           setStatus={setStatus}
@@ -29,7 +29,7 @@ function FicheIncStatus(props) {
         />
       }
       {status === 'enAttente' &&
-        props.varGlob.profilEcran !== 'usager' &&
+        props.varGlob.profilScreen !== 'usager' &&
         props.varGlob.profil !== 'technicien' &&
         <FicheIncAttribution
           status={status}
@@ -47,7 +47,7 @@ function FicheIncStatus(props) {
         </span>
       }
       {status === 'enCours' &&
-        props.varGlob.profilEcran !== 'usager' &&
+        props.varGlob.profilScreen !== 'usager' &&
         <FicheIncFin
           status={status}
           setStatus={setStatus}
@@ -57,7 +57,7 @@ function FicheIncStatus(props) {
         />
       }
       {status === 'enCours' &&
-        props.varGlob.profilEcran !== 'usager' &&
+        props.varGlob.profilScreen !== 'usager' &&
         props.varGlob.profil !== 'technicien' &&
         <span>
           <FicheIncAffectation
@@ -77,10 +77,10 @@ function FicheIncStatus(props) {
         </span>
       }
       {status === 'termine' && <h3>{lib.statusLibelle(status)}</h3>}
-      {status === 'termine' && props.varGlob.profilEcran !== 'usager' &&
+      {status === 'termine' && props.varGlob.profilScreen !== 'usager' &&
         <h3>En attente de validation</h3>}
       {status === 'termine' &&
-        props.varGlob.profilEcran === 'usager' &&
+        props.varGlob.profilScreen === 'usager' &&
         <FicheIncCloture
           status={status}
           setStatus={setStatus}

@@ -44,42 +44,42 @@ describe('findProfil - determineProfil', () => {
         result = lib.findProfil(profil)
         expect(result).toEqual('inactif')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'administrateur', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'administrateur', screen: 'gestionUtilisateurs' })
     })
     test(`should be usager when profil:1`, () => {
         profil = 1
         result = lib.findProfil(profil)
         expect(result).toEqual('usager')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'usager', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'usager', screen: 'gestionUtilisateurs' })
     })
     test(`should be technicien when profil:2`, () => {
         profil = 2
         result = lib.findProfil(profil)
         expect(result).toEqual('technicien')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'technicien', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'technicien', screen: 'gestionUtilisateurs' })
     })
     test(`should be valideur when profil:3`, () => {
         profil = 3
         result = lib.findProfil(profil)
         expect(result).toEqual('valideur')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'valideur', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'valideur', screen: 'gestionUtilisateurs' })
     })
     test(`should be admin when profil:4`, () => {
         profil = 4
         result = lib.findProfil(profil)
         expect(result).toEqual('admin')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'admin', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'admin', screen: 'gestionUtilisateurs' })
     })
     test(`should be actif when profil else`, () => {
         profil = 'xxx'
         result = lib.findProfil(profil)
         expect(result).toEqual('actif')
         result = lib.determineProfil(profil)
-        expect(result).toEqual({ profil: 'profil plus que surprenant !', ecran: 'gestionUtilisateurs' })
+        expect(result).toEqual({ profil: 'profil plus que surprenant !', screen: 'gestionUtilisateurs' })
     })
 })
 
@@ -153,37 +153,37 @@ describe('determineStatus - statusLibelle', () => {      //inc_affect_date, inc_
     })
 })
 
-describe('determineURL', () => {      //catUrl, profil, profilEcran
+describe('determineURL', () => {      //catUrl, profil, profilScreen
     test(`should return correct url`, () => {
         catUrl = 'demande'
-        data = {profilEcran: 'usager', }
+        data = {profilScreen: 'usager', }
         result = lib.determineURL(catUrl,data)
         correctUrl = 'http://localhost:3001/inc/get_byUser'
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url`, () => {
         catUrl = 'demande',
-        data = { profil: 'technicien', profilEcran: 'techno', }
+        data = { profil: 'technicien', profilScreen: 'techno', }
         result = lib.determineURL(catUrl,data)
         correctUrl = 'http://localhost:3001/inc/get_byPresta'
         expect(result).toEqual(correctUrl)
     })
     test(`should return correct url`, () => {
         catUrl = 'demande',
-        data = { profil: 'admin', profilEcran: 'techno', }
+        data = { profil: 'admin', profilScreen: 'techno', }
         result = lib.determineURL(catUrl,data)
         correctUrl = 'http://localhost:3001/inc/get_all'
         expect(result).toEqual(correctUrl)
     })
     test(`should return nothing when demande/profil !=admin !=technicien`, () => {
         catUrl = 'demande',
-        data = { profil: 'xxx', profilEcran: 'techno', }
+        data = { profil: 'xxx', profilScreen: 'techno', }
         result = lib.determineURL(catUrl,data)
         expect(result).toBeEmptyDOMElement 
     })
-    test(`should return nothing when demande/profil ok/profilEcran !=admin !=technicien`, () => {
+    test(`should return nothing when demande/profil ok/profilScreen !=admin !=technicien`, () => {
         catUrl = 'demande',
-        data = { profil: 'admin', profilEcran: 'xxx', }
+        data = { profil: 'admin', profilScreen: 'xxx', }
         result = lib.determineURL(catUrl,data)
         expect(result).toBeEmptyDOMElement 
     })

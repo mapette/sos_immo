@@ -37,7 +37,7 @@ function GestionUtilisateurs(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         }  else if (response.length !== 0) {
           response.forEach(element => {
@@ -48,7 +48,7 @@ function GestionUtilisateurs(props) {
       .catch(() => {
         props.setVarGlob({
           ...props.varGlob,
-          ecran: 'err503'
+          screen: 'err503'
         })
       })
   }, [, lUser])
@@ -211,7 +211,7 @@ function GestionUtilisateurs(props) {
                   txt={lib.BT_RETOUR_ACCUEIL}
                   actionToDo={() => props.setVarGlob({
                     ...props.varGlob,
-                    ecran: 'menu',
+                    screen: 'menu',
                     focus: '',
                   })}
                   couleur={'gris'}

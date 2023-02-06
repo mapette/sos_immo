@@ -58,12 +58,12 @@ function FicheInc(props) {
         setVarGlob={props.setVarGlob}
         incident={incident}
       />
-      {props.varGlob.profilEcran != 'pilotage' &&
+      {props.varGlob.profilScreen != 'pilotage' &&
         <Button
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'demandes',
+            screen: 'demandes',
             focus: '',
           })}
           couleur={'gris'}
@@ -71,12 +71,12 @@ function FicheInc(props) {
         />
       }
 
-      {props.varGlob.profilEcran == 'pilotage' &&
+      {props.varGlob.profilScreen == 'pilotage' &&
         <Button
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            ecran: 'pilot',
+            screen: 'pilot',
             focus: '',
           })}
           couleur={'gris'}

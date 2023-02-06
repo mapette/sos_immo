@@ -28,7 +28,7 @@ function FichePresta(props) {
         if (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -46,7 +46,7 @@ function FichePresta(props) {
         if  (response.status === 666) {
           props.setVarGlob({
             ...props.varGlob,
-            ecran: 'errExp'
+            screen: 'errExp'
           })
         } else {
           props.setMode('neutre')
@@ -92,7 +92,7 @@ function FichePresta(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionPresta'
+                  screen: 'gestionPresta'
                 })
               }}
               couleur={'gris'}
@@ -142,7 +142,7 @@ function FichePresta(props) {
                 props.setVarGlob({
                   ...props.varGlob,
                   focus: '',
-                  ecran: 'gestionPresta'
+                  screen: 'gestionPresta'
                 })
               }}
               couleur={'gris'}
