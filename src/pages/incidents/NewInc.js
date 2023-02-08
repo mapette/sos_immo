@@ -72,7 +72,7 @@ function NewInc(props) {
         else {
           props.setVarGlob({
             ...props.varGlob,
-            screen: 'demandes',
+            screen: 'myReport',
             profilScreen: 'usager',
           })
         }

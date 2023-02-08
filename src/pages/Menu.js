@@ -23,7 +23,7 @@ function Menu(props) {
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
             profilScreen: 'usager',
-            screen: 'demandes',
+            screen: 'myReport',
             smenu: '',
           })}
           couleur={'vert'}
@@ -54,7 +54,7 @@ function Menu(props) {
               actionToDo={() => props.setVarGlob({
                 ...props.varGlob,
                 profilScreen: 'techno',
-                screen: 'demandes',
+                screen: 'myReport',
                 smenu: '',
               })}
               couleur={'orange'}

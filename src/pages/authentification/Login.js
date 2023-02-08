@@ -42,8 +42,6 @@ function Login(props) {
           isPwExp: lib_time.isDateExp(response.ut_mdp_exp),
           screen: controleisPwExp(response.ut_mdp_exp)
         })
-   
-
       })
       .catch(setWarning(true))
 }

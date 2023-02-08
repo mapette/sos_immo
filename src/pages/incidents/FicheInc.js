@@ -63,7 +63,7 @@ function FicheInc(props) {
           txt={lib.BT_RETOUR_LISTE}
           actionToDo={() => props.setVarGlob({
             ...props.varGlob,
-            screen: 'demandes',
+            screen: 'myReport',
             focus: '',
           })}
           couleur={'gris'}

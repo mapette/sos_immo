@@ -21,6 +21,7 @@ function OubliMdp(props) {
     fetch('http://localhost:3001/forgotPw',  lib.optionsPost(data))
       .then(response => response.json())
       .then(response => {
+        console.log('toto', response.result)
         if (response.result === 'erreur') { setWarning('erreur') }
         else { 
           if (type==='id'){setWarning('ok id')}

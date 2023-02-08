@@ -17,7 +17,7 @@ function FicheIncFin(props) {
       .then(() => {
         props.setVarGlob({
           ...props.varGlob,
-          screen: 'demandes',
+          screen: 'myReport',
           profilScreen: 'usager',
         })
       })

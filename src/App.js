@@ -98,7 +98,7 @@ function App() {
             setVarGlob={setVarGlob}
           />
         }
-        {varGlob.screen === 'demandes' &&
+        {varGlob.screen === 'myReport' &&
           <MyInc
             varGlob={varGlob}
             setVarGlob={setVarGlob}
