@@ -18,7 +18,7 @@ describe('optionsPost', () => {
 describe('optionsGet', () => {
     test(`all options for get resquet`, () => {
         expect(lib.optionsGet()).toEqual({
-            method: 'get',
+            method: 'GET',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
         })

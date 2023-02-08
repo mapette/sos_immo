@@ -6,35 +6,14 @@ function prepaMail(mailTo, subject, body) {
 }
 
 //soumission
-function optionsPost(data) {
-  return {
-    method: 'post',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  }
-}
-function optionsPut(data) {
-  return {
-    method: 'put',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  }
-}
-function optionsGet() {
-  return {
-    method: 'get',
+function optionsREST(methodApi, data) {
+  let request = {
+    method: methodApi,
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   }
-}
-function optionsDelete() {
-  return {
-    method: 'delete',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-  }
+  if (data != undefined) { request.body = JSON.stringify(data) }
+  return request
 }
 
 // ListUser 
@@ -195,10 +174,7 @@ const BT_RETOUR_LISTE = 'Retour à la liste'
 
 module.exports = {
   prepaMail,
-  optionsPost,
-  optionsGet,
-  optionsDelete,
-  optionsPut,
+  optionsREST,
   findUserStatus,
   findProfil,
   cleanNull,

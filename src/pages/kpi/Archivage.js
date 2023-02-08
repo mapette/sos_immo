@@ -15,7 +15,7 @@ function Pilotage(props) {
   let [btAction, setBtAction] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/inc/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if (response.status === 666) {
@@ -42,7 +42,7 @@ function Pilotage(props) {
 
   function SoumettreArchiveIncident(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/inc/arc', lib.optionsGet())
+    fetch('http://localhost:3001/inc/arc', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         response.forEach(inc => { inc_arch.liste.push(new cl.Incident(inc)) });

@@ -5,7 +5,7 @@ function ListTemp(props) {
 
   function showDetails(id) {
     if (props.mode !== 'création') {
-      fetch('http://localhost:3001/temp/get_one/' + id, lib.optionsGet())
+      fetch('http://localhost:3001/temp/get_one/' + id, lib.optionsREST('GET',))
       .then(response => response.json())  
       .then(response => {
           props.setVarGlob({

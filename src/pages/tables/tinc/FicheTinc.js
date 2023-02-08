@@ -10,7 +10,7 @@ function FicheTemp(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/presta/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {
@@ -38,7 +38,7 @@ function FicheTemp(props) {
     if (data.tinc_nom === '') { data.tinc_nom = props.varGlob.focus.tinc_nom }
     if (data.presta_id === '') { data.presta_id = props.varGlob.focus.tinc_presta }
     data.tinc_id = props.varGlob.focus.tinc_id
-    fetch('http://localhost:3001/tinc/update', lib.optionsPut(data))
+    fetch('http://localhost:3001/tinc/update', lib.optionsREST('PUT',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({
@@ -56,7 +56,7 @@ function FicheTemp(props) {
   }
 
   function soumettre_newTemp(data) {
-    fetch('http://localhost:3001/tinc/create', lib.optionsPost(data))
+    fetch('http://localhost:3001/tinc/create', lib.optionsREST('POST',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

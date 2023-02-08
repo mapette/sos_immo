@@ -11,7 +11,7 @@ function FicheEmp(props) {
   let [tempList, setTempList] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/temp/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {
@@ -45,7 +45,7 @@ function FicheEmp(props) {
     if (data.emp_temp === '') { data.emp_temp = props.varGlob.focus.emp_temp }
     data.emp_id = props.varGlob.focus.emp_id
     data.emp_temp = parseInt(data.emp_temp)
-    fetch('http://localhost:3001/emp/update', lib.optionsPut(data))
+    fetch('http://localhost:3001/emp/update', lib.optionsREST('PUT',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({
@@ -63,7 +63,7 @@ function FicheEmp(props) {
   }
 
   function soumettre_newEmp(data) {
-    fetch('http://localhost:3001/emp/creation', lib.optionsPost(data))
+    fetch('http://localhost:3001/emp/creation', lib.optionsREST('POST',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

@@ -16,9 +16,8 @@ function FicheIncJrn(props) {
         return false
       }
     }
-    fetch('http://localhost:3001/inc/get_jnr/' + props.varGlob.focus + '/' + infoImmoInclude(),
-      lib.optionsGet())
-      .then(response => response.json()) 
+    fetch('http://localhost:3001/inc/get_jnr/' + props.varGlob.focus + '/' + infoImmoInclude(), lib.optionsREST('GET',))
+      .then(response => response.json())
       .then(response => {
         setJournal(response)
       })
@@ -40,7 +39,7 @@ function FicheIncJrn(props) {
       let url
       if (props.varGlob.profilScreen == "usager") { url = 'http://localhost:3001/jrn/update_user' }
       else { url = 'http://localhost:3001/jrn/update_techno' }
-      fetch(url, lib.optionsPost(data))
+      fetch(url, lib.optionsREST('POST',data))
         .then(response => response.json())
         .then(response => {
           if (response.status === 666) {

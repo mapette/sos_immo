@@ -17,7 +17,7 @@ function NewInc(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsGet())
+    fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if (response.status === 666) {
@@ -60,7 +60,7 @@ function NewInc(props) {
   }
 
   function soumettre_inc(data) {
-    fetch('http://localhost:3001/inc/creation', lib.optionsPost(data))
+    fetch('http://localhost:3001/inc/creation', lib.optionsREST('POST',data))
       .then(response => response.json())
       .then(response => {
         if (response.status === 666) {

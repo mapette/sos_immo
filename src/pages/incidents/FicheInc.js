@@ -30,12 +30,12 @@ function FicheInc(props) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_one/' + props.varGlob.focus, lib.optionsGet())
+    fetch('http://localhost:3001/inc/get_one/' + props.varGlob.focus, lib.optionsREST('GET',))
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         copieElemVersIncident(response)
       })
-  }, [])
+  }, []) 
 
   return (
     <div>

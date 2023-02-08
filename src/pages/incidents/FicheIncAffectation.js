@@ -15,8 +15,7 @@ function FicheIncAffectation(props) {
     if (props.incident.presta_id != undefined) {
       if (props.varGlob.profilScreen === 'techno' | (props.varGlob.profilScreen === 'pilotage')
         & (props.varGlob.profil === 'valideur' | props.varGlob.profil === 'admin')) {
-        fetch('http://localhost:3001/user/get_byCatAndPresta/2/' + props.incident.presta_id,
-          lib.optionsGet())
+        fetch('http://localhost:3001/user/get_byCatAndPresta/2/' + props.incident.presta_id, lib.optionsREST('GET',))
           .then(response => response.json())  // récupère que les données résultat
           .then(response => {
             setLTechno(lTechno = response)
@@ -43,7 +42,7 @@ function FicheIncAffectation(props) {
     data.profil = props.varGlob.profil
     data.status = props.status
     if (IsAffectationPossible(data.techno)) {
-      fetch(lib.determineURL('affectation', data), lib.optionsGet())
+      fetch(lib.determineURL('affectation', data), lib.optionsREST('GET',))
         .then(response => response.json())
         .then(() => {
           props.setIncident({

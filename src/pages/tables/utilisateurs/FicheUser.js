@@ -16,7 +16,7 @@ function FicheUser(props) {
   const { register, handleSubmit, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/user/get_author/' + props.varGlob.focus.ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/user/get_author/' + props.varGlob.focus.ut_uuid, lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         setHabList(habList = response)
@@ -46,7 +46,7 @@ function FicheUser(props) {
     if (alertMsg === '') {
       data.ut_uuid = props.varGlob.focus.ut_uuid
       data = contrInput(data)
-      fetch('http://localhost:3001/user/update', lib.optionsPut(data))
+      fetch('http://localhost:3001/user/update', lib.optionsREST('PUT',data))
       .then(() => {
           props.setMode('neutre')
           props.setVarGlob({
@@ -58,7 +58,7 @@ function FicheUser(props) {
   }
 
   function soumettreResiliation(ut_uuid) {
-    fetch('http://localhost:3001/user/exit/' + ut_uuid, lib.optionsGet())
+    fetch('http://localhost:3001/user/exit/' + ut_uuid, lib.optionsREST('GET',))
       .then(() => {
         props.setMode('neutre')
         props.setVarGlob({

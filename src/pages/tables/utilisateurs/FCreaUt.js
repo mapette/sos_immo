@@ -13,7 +13,7 @@ function FCreaUt(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/user/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/user/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {
@@ -39,7 +39,7 @@ function FCreaUt(props) {
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
     if (alertMsg === '') {
-      fetch('http://localhost:3001/user/creation', lib.optionsPost(data))
+      fetch('http://localhost:3001/user/creation', lib.optionsREST('POST',data))
         .then(response => response.json())
         .then(response => {
           if  (response.status === 666) {

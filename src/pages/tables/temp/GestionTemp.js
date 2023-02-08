@@ -15,7 +15,7 @@ function GestionEmp(props) {
   useEffect(() => {
     // récupérer tous les temp/tinc pour ne pas avoir à relancer la requête à chaque 
     //    maj de mapping
-    fetch('http://localhost:3001/temp/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/temp/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {
@@ -31,7 +31,7 @@ function GestionEmp(props) {
           screen: 'err503'
         })
       })
-    fetch('http://localhost:3001/tinc/get_all', lib.optionsGet())
+    fetch('http://localhost:3001/tinc/get_all', lib.optionsREST('GET',))
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setTincList(tincList = response) }
