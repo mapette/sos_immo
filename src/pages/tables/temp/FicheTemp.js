@@ -38,7 +38,7 @@ function FicheTemp(props) {
   }
 
   function soumettre_newTemp(data) {
-    fetch('http://localhost:3001/temp/creation', lib.optionsREST('POST',data))
+    fetch('http://localhost:3001/temp/creation', lib.optionsREST('post',data))
     .then(response => {
       if  (response.status === 666) {
         props.setVarGlob({

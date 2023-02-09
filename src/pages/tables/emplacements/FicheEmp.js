@@ -63,7 +63,7 @@ function FicheEmp(props) {
   }
 
   function soumettre_newEmp(data) {
-    fetch('http://localhost:3001/emp/creation', lib.optionsREST('POST',data))
+    fetch('http://localhost:3001/emp/creation', lib.optionsREST('post',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

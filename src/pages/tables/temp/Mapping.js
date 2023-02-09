@@ -45,7 +45,7 @@ function Mapping(props) {
     if (isAlreadyMapped === true) { setWarning('doublon') }
     else {
       data.temp = props.varGlob.focus.temp_id
-      fetch('http://localhost:3001/mapping/creation', lib.optionsREST('POST',data))
+      fetch('http://localhost:3001/mapping/creation', lib.optionsREST('post',data))
         .then(response => {
           if  (response.status === 666) {
             props.setVarGlob({

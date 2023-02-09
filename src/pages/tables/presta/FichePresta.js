@@ -41,7 +41,7 @@ function FichePresta(props) {
   }
 
   function soumettre_newPresta(data) {
-    fetch('http://localhost:3001/presta/creation', lib.optionsREST('POST',data))
+    fetch('http://localhost:3001/presta/creation', lib.optionsREST('post',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

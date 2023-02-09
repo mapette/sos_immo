@@ -31,7 +31,7 @@ function Login(props) {
       ut_id: document.getElementById('id').value,
       ut_mdp: sha1(document.getElementById('id').value + document.getElementById('mdp').value),
     }
-    fetch('http://localhost:3001/login', lib.optionsREST('POST',data))
+    fetch('http://localhost:3001/login', lib.optionsREST('post',data))
       .then(response => response.json())
       .then(response => {
         let profil = lib.determineProfil(response.hab_profil)

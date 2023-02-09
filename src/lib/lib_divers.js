@@ -12,7 +12,10 @@ function optionsREST(methodApi, data) {
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
   }
-  if (data != undefined) { request.body = JSON.stringify(data) }
+  if (data != undefined
+    & data != null
+    & typeof (data) != 'number'
+    & typeof (data) != 'string') { request.body = JSON.stringify(data) }
   return request
 }
 

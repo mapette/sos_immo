@@ -39,7 +39,7 @@ function FCreaUt(props) {
   function soumettre_newUser(data) {
     data.ut_presta = lib.cleanNull(data.ut_presta)
     if (alertMsg === '') {
-      fetch('http://localhost:3001/user/creation', lib.optionsREST('POST',data))
+      fetch('http://localhost:3001/user/creation', lib.optionsREST('post',data))
         .then(response => response.json())
         .then(response => {
           if  (response.status === 666) {

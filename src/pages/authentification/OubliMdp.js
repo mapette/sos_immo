@@ -18,7 +18,7 @@ function OubliMdp(props) {
         type: type,
         mail: document.getElementById('mail').value,
       }
-    fetch('http://localhost:3001/forgotPw',  lib.optionsREST('POST',data))
+    fetch('http://localhost:3001/forgotPw',  lib.optionsREST('post',data))
       .then(response => response.json())
       .then(response => {
         if (response.result === 'erreur') { setWarning('erreur') }

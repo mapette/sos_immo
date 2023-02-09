@@ -1,29 +1,53 @@
 const lib = require('../src/lib/lib_divers.js')
 
-describe('optionsPost', () => {
-    test(`all options for post resquet and data's form`, () => {
+describe('optionsREST', () => {
+    test(`option for any request without data's form (get/delete)`, () => {
+        expect(lib.optionsREST('any',)).toEqual({
+            method: 'any',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        })
+    })
+    test(`option for any request with data's form (post/put)`, () => {
         data = {
             nom:'joffre',
             prenom:'sophie',
         }
-        expect(lib.optionsPost(data)).toEqual({
-            method: 'post',
+        expect(lib.optionsREST('any',data)).toEqual({
+            method: 'any',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
         })
     })
-})
-
-describe('optionsGet', () => {
-    test(`all options for get resquet`, () => {
-        expect(lib.optionsGet()).toEqual({
-            method: 'GET',
+    test(`option for any request with incorrect data'`, () => {
+        data = 'string'
+        expect(lib.optionsREST('any',data)).toEqual({
+            method: 'any',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        data = 42
+        expect(lib.optionsREST('any',data)).toEqual({
+            method: 'any',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        data = undefined
+        expect(lib.optionsREST('any',data)).toEqual({
+            method: 'any',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+        })
+        data = null
+        expect(lib.optionsREST('any',data)).toEqual({
+            method: 'any',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
         })
     })
 })
+
 
 describe('findUserStatus', () => {
     test(`should be inactif when date_exp correct`, () => {
@@ -34,7 +58,7 @@ describe('findUserStatus', () => {
         expect(lib.findUserStatus(null)).toEqual('actif')
     })
     test(`should be inactif else`, () => {
-        expect(lib.findUserStatus('coucou')).toEqual('inactif')
+        expect(lib.findUserStatus('toto')).toEqual('inactif')
     })
 })
 

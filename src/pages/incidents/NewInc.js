@@ -91,7 +91,7 @@ function NewInc(props) {
         NOUVELLE DEMANDE
       </h2>
       <form id="form_ut"
-        type="POST"
+        type="post"
         encType="application/x-www-form-urlencoded"
         onSubmit={handleSubmit(soumettre_inc)}
         className='fontsize-12'
