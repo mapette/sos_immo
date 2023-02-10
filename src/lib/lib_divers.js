@@ -189,6 +189,5 @@ module.exports = {
   determineStatus,
   BT_RETOUR_ACCUEIL,
   BT_RETOUR_LISTE,
-  BT_REFRESH,
-
+  BT_REFRESH, 
 }

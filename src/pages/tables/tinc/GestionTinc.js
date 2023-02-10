@@ -11,7 +11,7 @@ function GestionTinc(props) {
   let [mode, setMode] = useState('neutre')
 
   useEffect(() => {
-    fetch('http://localhost:3001/tinc/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/tinc/get_all', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {
@@ -29,7 +29,7 @@ function GestionTinc(props) {
       })
   }, [, mode, props.varGlob.focus])
   useEffect(() => {
-    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setPrestaList(prestaList = response) }

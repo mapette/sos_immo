@@ -5,7 +5,7 @@ const lib = require('./../../../lib/lib_divers')
 function ListUser(props) {
 
   function showDetails(id) {
-    fetch('http://localhost:3001/user/get_one/' + id, lib.optionsREST('GET',))
+    fetch('http://localhost:3001/user/get_one/' + id, lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         props.setVarGlob({

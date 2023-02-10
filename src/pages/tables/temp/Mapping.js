@@ -15,7 +15,7 @@ function Mapping(props) {
   let [warning, setWarning] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:3001/mapping/get_by_temp/' + props.varGlob.focus.temp_id, lib.optionsREST('GET',))
+    fetch('http://localhost:3001/mapping/get_by_temp/' + props.varGlob.focus.temp_id, lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) { setMappList(mappList = response) }
@@ -28,7 +28,7 @@ function Mapping(props) {
   function showDetails(id) {
     setWarning('')
     if (props.mode !== 'création') {
-      fetch('http://localhost:3001/mapping/get_one/' + id, lib.optionsREST('GET',))
+      fetch('http://localhost:3001/mapping/get_one/' + id, lib.optionsREST('get',))
         .then(response => response.json())
         .then(response => {
           setMappMode('sélectionMapping')
@@ -61,7 +61,7 @@ function Mapping(props) {
   }
 
   function soumettre_delMapping() {
-    fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsREST('DELETE'))
+    fetch('http://localhost:3001/mapping/delete/' + mappFocus.mapping_id, lib.optionsREST('delete',))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

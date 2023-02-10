@@ -12,7 +12,7 @@ function FicheIncFin(props) {
 
   function SoumettreInsatisfaction(data) { //relaunch
     data.inc_id = props.incident.inc_id
-    fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsREST('PUT',data))
+    fetch('http://localhost:3001/inc/closingAndRelaunch', lib.optionsREST('put',data))
       .then(response => response.json())
       .then(() => {
         props.setVarGlob({
@@ -25,7 +25,7 @@ function FicheIncFin(props) {
 
   function SoumettreClotureIncident(event) {
     event.preventDefault()
-    fetch('http://localhost:3001/inc/closing/' + props.varGlob.focus, lib.optionsREST('GET',))
+    fetch('http://localhost:3001/inc/closing/' + props.varGlob.focus, lib.optionsREST('get',))
       .then(response => response.json())
       .then(() => {
         props.setIncident({

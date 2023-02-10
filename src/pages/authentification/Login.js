@@ -9,7 +9,7 @@ function Login(props) {
   let [warning, setWarning] = useState(false)
 
   useEffect(() => {
-    fetch('http://localhost:3001/welcome', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/welcome', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => document.getElementById('id').value = response.id)
       .catch(() => {

@@ -10,6 +10,7 @@ function FicheInc(props) {
   let [incident, setIncident] = useState({
     inc_id: props.varGlob.focus,
   })
+  let [refresh, setRefresh] = useState(false)
 
   function copieElemVersIncident(response_inc) {
     setIncident({
@@ -30,12 +31,12 @@ function FicheInc(props) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_one/' + props.varGlob.focus, lib.optionsREST('GET',))
+    fetch('http://localhost:3001/inc/get_one/' + props.varGlob.focus, lib.optionsREST('get',))
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         copieElemVersIncident(response)
       })
-  }, []) 
+  }, [,refresh]) 
 
   return (
     <div>
@@ -59,16 +60,24 @@ function FicheInc(props) {
         incident={incident}
       />
       {props.varGlob.profilScreen != 'pilotage' &&
-        <Button
-          txt={lib.BT_RETOUR_LISTE}
-          actionToDo={() => props.setVarGlob({
-            ...props.varGlob,
-            screen: 'myReport',
-            focus: '',
-          })}
-          couleur={'gris'}
-          plein={true}
-        />
+        <div>
+          <Button
+            txt={lib.BT_RETOUR_LISTE}
+            actionToDo={() => props.setVarGlob({
+              ...props.varGlob,
+              screen: 'myReport',
+              focus: '',
+            })}
+            couleur={'gris'}
+            plein={true}
+          />
+          <Button
+            txt={lib.BT_REFRESH}
+            actionToDo={() => setRefresh(!refresh)}
+            couleur={'bleu'}
+            plein={true}
+          />
+        </div>
       }
 
       {props.varGlob.profilScreen == 'pilotage' &&

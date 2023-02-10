@@ -10,7 +10,7 @@ function FicheIncAttribution(props) {
 
   useEffect(() => {
     //  => liste des presta (profil admin)
-    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('get',))
       .then(response => response.json())  // récupère que les données résultat
       .then(response => {
         setLPresta(response)
@@ -20,7 +20,7 @@ function FicheIncAttribution(props) {
   function soumettreAttribution(data) {
     if (IsAttributionPossible(data.presta)) {
       fetch('http://localhost:3001/inc/attrib/'
-        + props.varGlob.focus + '/' + data.presta, lib.optionsREST('GET',))
+        + props.varGlob.focus + '/' + data.presta, lib.optionsREST('get',))
         .then(response => response.json())
         .then(response => {
           if (response.status === 666) {

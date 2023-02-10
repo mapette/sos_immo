@@ -14,7 +14,7 @@ function ChangeMdp(props) {
   let [user, setUser] = useState(''); // besoin du user pour hasher le mdp avant post
 
   useEffect(() => {
-    fetch('http://localhost:3001/user/get_session', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/user/get_session', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         setUser(response.id)  // besoin du user pour hasher le mdp avant post
@@ -27,7 +27,7 @@ function ChangeMdp(props) {
       mdp: sha1(user + document.getElementById('mdp').value),
       newmdp: sha1(user + document.getElementById('newmdp').value),
     }
-    fetch('http://localhost:3001/change_pw', lib.optionsREST('PUT',data))
+    fetch('http://localhost:3001/change_pw', lib.optionsREST('put',data))
       .then(response => response.json())
       .then(response => {
         if (response.status === true) { 

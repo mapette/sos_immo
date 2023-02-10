@@ -10,7 +10,7 @@ function GestionEmp(props) {
   let [mode, setMode] = useState('neutre')
 
   useEffect(() => {
-    fetch('http://localhost:3001/emp/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/emp/get_all', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {

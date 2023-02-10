@@ -53,8 +53,8 @@ function Ribbon(props) {
             type="image"
             className='cadre-3 '
             onClick={() => {
-              fetch('http://localhost:3001/logout', lib.optionsREST('GET',))
-              fetch('http://localhost:3001/welcome', lib.optionsREST('GET',))
+              fetch('http://localhost:3001/logout', lib.optionsREST('get',))
+              fetch('http://localhost:3001/welcome', lib.optionsREST('get',))
               props.setVarGlob({
                 ...props.varGlob,
                 screen: 'login',

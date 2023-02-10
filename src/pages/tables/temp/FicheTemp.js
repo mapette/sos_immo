@@ -20,7 +20,7 @@ function FicheTemp(props) {
   function soumettre_updateTemp(data) {
     if (data.temp_nom === '') { data.temp_nom = props.varGlob.focus.temp_nom }
     data.temp_id = props.varGlob.focus.temp_id
-    fetch('http://localhost:3001/temp/update', lib.optionsREST('PUT',data))
+    fetch('http://localhost:3001/temp/update', lib.optionsREST('put',data))
       .then(response => {
         if  (response.status === 666) {
           props.setVarGlob({

@@ -6,7 +6,7 @@ const time = require('../../lib/lib_time')
 function FicheIncFin(props) {
    function SoumettreFinIntervention(event) {
     event.preventDefault()
-      fetch('http://localhost:3001/inc/end/' + props.varGlob.focus , lib.optionsREST('GET',))
+      fetch('http://localhost:3001/inc/end/' + props.varGlob.focus , lib.optionsREST('get',))
         .then(response => response.json())
         .then(response => {
           props.setIncident({

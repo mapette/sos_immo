@@ -23,7 +23,7 @@ function GestionUtilisateurs(props) {
   let [prestaList, setPrestaList] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/presta/get_all', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if (response.length !== 0) setPrestaList(prestaList = response)
@@ -31,7 +31,7 @@ function GestionUtilisateurs(props) {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:3001/user/get_all', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/user/get_all', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if  (response.status === 666) {

@@ -16,7 +16,7 @@ function MyInc(props) {
       profil: props.varGlob.profil,
     }
     let url_fetch = lib.determineURL("demande", data)
-    fetch(url_fetch, lib.optionsREST('GET',))
+    fetch(url_fetch, lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if (response.status === 666) {

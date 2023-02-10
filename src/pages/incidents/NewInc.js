@@ -17,7 +17,7 @@ function NewInc(props) {
   const { register, handleSubmit, formState: { errors }, } = useForm()
 
   useEffect(() => {
-    fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsREST('GET',))
+    fetch('http://localhost:3001/inc/get_allEmpAndTinc', lib.optionsREST('get',))
       .then(response => response.json())
       .then(response => {
         if (response.status === 666) {
