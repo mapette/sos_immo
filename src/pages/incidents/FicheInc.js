@@ -36,8 +36,8 @@ function FicheInc(props) {
       .then(response => {
         copieElemVersIncident(response)
       })
-  }, [,refresh]) 
-
+  }, [, refresh])
+console.log(incident.inc_fin_date)
   return (
     <div>
       <h2 className="titre gras cadre-15">
@@ -60,26 +60,25 @@ function FicheInc(props) {
         incident={incident}
       />
       {props.varGlob.profilScreen != 'pilotage' &&
-        <div>
-          <Button
-            txt={lib.BT_RETOUR_LISTE}
-            actionToDo={() => props.setVarGlob({
-              ...props.varGlob,
-              screen: 'myReport',
-              focus: '',
-            })}
-            couleur={'gris'}
-            plein={true}
-          />
-          <Button
-            txt={lib.BT_REFRESH}
-            actionToDo={() => setRefresh(!refresh)}
-            couleur={'bleu'}
-            plein={true}
-          />
-        </div>
+        <Button
+          txt={lib.BT_RETOUR_LISTE}
+          actionToDo={() => props.setVarGlob({
+            ...props.varGlob,
+            screen: 'myReport',
+            focus: '',
+          })}
+          couleur={'gris'}
+          plein={true}
+        />
       }
-
+      {props.varGlob.profilScreen == 'usager' && incident.inc_fin_date == null &&
+        <Button
+          txt={lib.BT_REFRESH}
+          actionToDo={() => setRefresh(!refresh)}
+          couleur={'bleu'}
+          plein={true}
+        />
+      }
       {props.varGlob.profilScreen == 'pilotage' &&
         <Button
           txt={lib.BT_RETOUR_LISTE}
